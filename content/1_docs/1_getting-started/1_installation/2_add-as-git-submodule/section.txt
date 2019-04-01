@@ -9,5 +9,5 @@ Abstract:
 Text:
 
 ```bash
-git submodule add git@github.com:wagnerwagner/kirby-merx.git site/plugins/merx
+git submodule add git@github.com:wagnerwagner/merx.git site/plugins/merx
 ```

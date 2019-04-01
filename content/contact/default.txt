@@ -14,7 +14,7 @@ Do not hesitate to contact us if you have any questions.
 If you have tips or general questions that others might benefit from, please use the **(link: https://forum.getkirby.com text: Kirby Forum)**
 
 Found a bug? Please file an issue.
-**(link: https://github.com/Wagnerwagner/kirby-merx/issues text: Github)**
+**(link: https://github.com/wagnerwagner/merx/issues text: Github)**
 
 
 ## Legal Information / Imprint
