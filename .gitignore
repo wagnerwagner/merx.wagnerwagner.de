@@ -1,7 +1,7 @@
 node_modules
 
 /develop
-/content/orders/*
+/content/orders/**/order.txt
 /public/media
 /public/assets/fonts/*
 /site/cache
