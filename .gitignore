@@ -1,0 +1,11 @@
+node_modules
+
+/develop
+/content/orders/*
+/public/media
+/public/assets/fonts/*
+/site/cache
+/site/sessions
+/site/accounts
+/site/config/secrets
+/site/plugins/site/.license-base

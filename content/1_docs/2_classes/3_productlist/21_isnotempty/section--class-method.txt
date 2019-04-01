@@ -1,0 +1,25 @@
+Title: $productList->isNotEmpty()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: isNotEmpty
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

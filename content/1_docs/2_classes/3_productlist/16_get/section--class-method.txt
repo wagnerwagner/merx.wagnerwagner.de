@@ -1,0 +1,25 @@
+Title: $productList->get()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: get
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

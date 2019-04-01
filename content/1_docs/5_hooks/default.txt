@@ -1,0 +1,13 @@
+Title: Hooks
+
+----
+
+Shortdescription: See what hooks can do for you.
+
+----
+
+Text: Hooks can be useful if you want to [send confirmation emails](cookbooks/sending-emails) or log certain events.
+
+----
+
+Redirect: false

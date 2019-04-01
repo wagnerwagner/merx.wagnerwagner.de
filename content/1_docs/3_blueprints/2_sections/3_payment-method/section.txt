@@ -1,0 +1,13 @@
+Title: payment-method
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```yaml
+(fileContents: plugins/merx/blueprints/sections/payment-method.yml)
+```

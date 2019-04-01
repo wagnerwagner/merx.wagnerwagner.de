@@ -1,0 +1,2 @@
+<?php
+go($page->url());

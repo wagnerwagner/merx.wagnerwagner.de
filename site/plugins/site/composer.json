@@ -1,0 +1,11 @@
+{
+  "name": "wagnerwagner/site",
+  "autoload": {
+    "psr-4": {
+      "Wagnerwagner\\Site\\": "src/"
+    }
+  },
+  "require": {
+    "phpdocumentor/reflection-docblock": "^4.3"
+  }
+}

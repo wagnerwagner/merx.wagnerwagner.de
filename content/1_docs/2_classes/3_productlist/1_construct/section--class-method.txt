@@ -1,0 +1,39 @@
+Title: ProductList::__construct()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: __construct
+
+----
+
+Dim: false
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:
+
+### Example
+
+```php
+$productList = new ProductList([
+  [
+    'id' => 'new-shoes',
+    'amount' => 3,
+  ],
+  [
+    'id' => 'blue-socks'
+  ],
+]);
+```

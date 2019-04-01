@@ -1,0 +1,27 @@
+Title: Payment Methods
+
+----
+
+Shortdescription: How to use build in payment methods and create own gateways.
+
+----
+
+Text:
+
+Merx comes with 4 payment gateways build in.
+
+
+Payment Method | Provider | Keyword
+| ---- | ---- | ---- |
+PayPal Payments | (link: https://developer.paypal.com/docs/api/payments/v2/ text: PayPal) | `paypal`
+Credit Card | (link: https://stripe.com/payments/payment-methods-guide#cards text: Stripe) | `credit-card`
+SEPA Direct Debit | (link: https://stripe.com/payments/payment-methods-guide#sepa-direct-debit text: Stripe) | `sepa-debit`
+SOFORT | (link: https://stripe.com/payments/payment-methods-guide#sofort text: Stripe) | `sofort`
+
+If you want to use another payment provider read the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways) cookbook to learn how to create your own custom payment gateway.
+
+(github: /src/gateways.php)
+
+----
+
+Redirect: false

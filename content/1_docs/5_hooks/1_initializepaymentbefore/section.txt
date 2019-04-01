@@ -1,0 +1,21 @@
+Title: initializePayment:before
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+(filename: site/config.php)
+
+```php
+return [
+  'hooks' => [
+    'ww.merx.initializePayment:before' => function ($data, $cart) {
+      // your code goes here
+    },
+  ],
+];
+```

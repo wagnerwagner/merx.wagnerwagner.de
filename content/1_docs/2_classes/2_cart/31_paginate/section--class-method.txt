@@ -1,0 +1,25 @@
+Title: $cart->paginate()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: paginate
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

@@ -1,0 +1,25 @@
+Title: $cart->map()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: map
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

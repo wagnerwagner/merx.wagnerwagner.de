@@ -1,0 +1,30 @@
+Title: Conditional Errors
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+Sometimes you need something like if field *A* is set, check field *B*. This can’t be solved with the blueprint validation.
+
+To get conditional field errors, extend the `errors` method of the OrderPage class with the help of the `addFieldError` method.
+
+(filename: site/models/order.php)
+
+```php
+class OrderPage extends OrderPageAbstract {
+  public function errors(): array
+  {
+    $errors = parent::errors();
+    if (!$this->useInvoiceAddressAsShippingAddress()->toBool()) {
+      $rule = ['minLength' => 3, 'maxLength' => 255];
+      $shippingAddressGivenNameError = Merx::getFieldError($this->shippingAddressGivenName(), $rule);
+      $errors = array_merge($errors, $shippingAddressGivenNameError);
+    }
+    return $errors;
+  }
+}
+```

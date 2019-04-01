@@ -1,0 +1,21 @@
+Title: $cart->getTax()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: getTax
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

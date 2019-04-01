@@ -1,0 +1,21 @@
+Title: $orderPage->formattedSum()
+
+----
+
+Classname: OrderPage
+
+----
+
+Methodname: formattedSum
+
+----
+
+Abstract: 
+
+----
+
+Summary: 
+
+----
+
+Text: 

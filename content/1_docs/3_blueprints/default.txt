@@ -1,0 +1,13 @@
+Title: Blueprints
+
+----
+
+Shortdescription: 
+
+----
+
+Text: 
+
+----
+
+Redirect: true

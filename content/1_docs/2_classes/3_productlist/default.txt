@@ -1,0 +1,34 @@
+Title: ProductList
+
+----
+
+Shortdescription: 
+
+----
+
+Text: 
+
+The `ProductList` class extends the (link: https://github.com/getkirby/kirby/blob/master/src/Toolkit/Collection.php text: `Kirby\Toolkit\Collection`).
+
+What’s special about it is that you can pass just the `id` of a product page and the price and tax are calculated for you. See the (link: cookbooks/wishlist text: Wishlist cookbook) to learn more.
+
+Collection of product items.
+
+```php
+$item = $productList->first();
+$item['id']; // nice-shoes
+$item['title']; // Nice Shoes
+$item['price']; // 99.99
+$item['tax']; // 15.964789915966
+$item['quantity']; // 2
+$item['sum']; // 199.98
+$item['sumTax']; // 31.9295798319
+```
+
+----
+
+Redirect: false
+
+----
+
+Contentbuilder: 

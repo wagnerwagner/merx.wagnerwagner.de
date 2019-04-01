@@ -1,0 +1,21 @@
+Title: $productList->append()
+
+----
+
+ClassName: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: append
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

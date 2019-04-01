@@ -1,0 +1,31 @@
+Title: gateways
+
+----
+
+Abstract: Custom payment gateways.
+
+----
+
+Text: 
+
+```php
+return [
+  'ww.merx.gateways' => [
+    'my-payment-provider' => [
+      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage
+      {
+        return $virtualOrderPage;
+      },
+      'completePayment' => function(OrderPage $virtualOrderPage): OrderPage
+      {
+        return $virtualOrderPage;
+      },
+    ],
+  ],
+];
+```
+
+More information in the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways Cookbook)
+
+### Type
+`array`

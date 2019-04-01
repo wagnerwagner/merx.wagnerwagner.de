@@ -1,0 +1,27 @@
+Title: $orderPage->invoiceNumber()
+
+----
+
+Classname: OrderPage
+
+----
+
+Methodname: invoiceNumber
+
+----
+
+Abstract: 5 character long string based on the sorting number.
+
+----
+
+Summary: 
+
+----
+
+Text: 
+
+### Example
+
+```php
+$orderPage->invoiceNumber(); // 00003
+```

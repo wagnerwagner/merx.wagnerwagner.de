@@ -1,0 +1,25 @@
+Title: $cart->toJson()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: toJson
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

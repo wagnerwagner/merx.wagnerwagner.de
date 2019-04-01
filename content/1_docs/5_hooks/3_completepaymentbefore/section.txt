@@ -1,0 +1,21 @@
+Title: completePayment:before
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+(filename: site/config.php)
+
+```php
+return [
+  'hooks' => [
+    'ww.merx.completePayment:before' => function ($virtualOrderPage, $gateway, $data) {
+      // your code goes here
+    },
+  ],
+];
+```

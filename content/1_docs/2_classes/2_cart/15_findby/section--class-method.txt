@@ -1,0 +1,25 @@
+Title: $cart->findBy()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: findBy
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

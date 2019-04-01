@@ -1,0 +1,18 @@
+Title: paypal.live.clientID
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.paypal.live.clientID' => 'xxx…',
+];
+```
+
+### Type
+`string`

@@ -1,0 +1,31 @@
+Title: SEPA Direct Debit
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+SEPA Direct Debit works very similar to Credit Card. Create a (link: https://stripe.com/docs/stripe-js/elements/iban text: Stripe IBAN Element) to get a `stripeToken`.
+
+### Initialize Payment
+
+```php
+$redirect = $merx->initializePayment([
+  'paymentMethod' => 'sepa-debit',
+  'stripeToken' => 'tok_XXXXXXXXXXXXXXXXXXXXXXXX',
+]);
+go($redirect); // /success
+```
+
+### Complete Payment
+
+You don’t have to provide any additional information for the `completePayment` method.
+
+(filename: site/templates/success.php)
+
+```php
+$merx->completePayment():
+```

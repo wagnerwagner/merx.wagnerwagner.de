@@ -1,0 +1,25 @@
+Title: $cart->remove()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: remove
+
+----
+
+Dim: false
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

@@ -1,0 +1,44 @@
+Title: Translations
+
+----
+
+Shortdescription: How to translate error messages.
+
+----
+
+Text: 
+
+Merx comes with English and German error messages. If you want to translate or overwrite these messages you can do so by setting the translations keys in your languages file.
+
+Keys are prefixed with `error.merx.`.
+
+Key | English
+--- | ---
+`initializePayment` | The payment could not be initialized.
+`noPaymentMethod` | No payment method provided.
+`fieldsvalidation` | Field validation failed.
+`emptycart` | Cart is empty.
+`completePayment` | The payment could not be completed.
+`paymentCanceled` | You canceled the payment.
+`cart.add` | Item "{id}" could not be added to cart.
+`cart.update` | Cart items could not be updated.
+`order.changeNum` | Sorting number of a complete order cannot be changed.
+`order.changeStatus` | Status of a complete order cannot be changed.
+
+(filename: site/languages/de.php)
+
+```php
+return [
+  'code' => 'de',
+  'direction' => 'ltr',
+  'locale' => 'de_DE',
+  'name' => 'Schwäbisch',
+  'translations' => [
+    'error.merx.emptycart' => 'Du hasch gar koine Produkte im Körble.',
+  ]
+];
+```
+
+----
+
+Redirect: false

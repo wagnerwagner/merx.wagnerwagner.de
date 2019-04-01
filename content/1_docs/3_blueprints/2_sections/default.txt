@@ -1,0 +1,9 @@
+Title: Sections
+
+----
+
+Text: Merx provides the most basic sections. You can overwrite them with your own sections and/or use them in your own blueprints.
+
+----
+
+Abstract:

@@ -1,0 +1,21 @@
+Title: $cart->getSum()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: getSum
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

@@ -1,0 +1,18 @@
+Title: stripe.live.publishable_key
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
+];
+```
+
+### Type
+`string`

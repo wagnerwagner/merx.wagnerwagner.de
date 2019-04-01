@@ -1,0 +1,9 @@
+Title: Buy
+
+----
+
+Abstract: 
+
+Here’s the deal.
+
+You can test as long as you want – on your local or your online dev server. But, to make real payments you need to buy a license. Since this is a Kirby plugin you also need a (link: https://getkirby.com text: Kirby License).

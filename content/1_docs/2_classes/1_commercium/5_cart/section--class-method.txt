@@ -1,0 +1,31 @@
+Title: $merx->cart()
+
+----
+
+ClassName: Wagnerwagner\Merx\Merx
+
+----
+
+Methodname: cart
+
+----
+
+Abstract: Returns visitors cart.
+
+----
+
+Summary:
+
+```php
+$merx->cart(): Cart
+```
+
+----
+
+Text:
+
+### Example
+```php
+$cart = $merx->cart();
+echo $cart->getSum(); // 49.95
+```

@@ -1,0 +1,18 @@
+Title: paypal.sandbox.clientID
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.paypal.sandbox.clientID' => 'xxx…',
+];
+```
+
+### Type
+`string`

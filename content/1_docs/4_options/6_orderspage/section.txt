@@ -1,0 +1,21 @@
+Title: ordersPage
+
+----
+
+Abstract: The parent page of all order pages.
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.ordersPage' => 'all-the-orders',
+];
+```
+
+### Type
+`string`
+
+### Default
+`orders`

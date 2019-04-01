@@ -1,0 +1,21 @@
+Title: Validate Checkout
+
+----
+
+Shortdescription: How to make sure you get all the data you need.
+
+----
+
+Text: 
+
+To make sure you get all the data you need from your customers, Merx uses Kirby’s page validation. You can define the required fields and set `validate` options for each field you want to validate. See (link: https://getkirby.com/docs/reference/system/validators text: Kirby’s documentation) for all available validators.
+
+You don’t have to check if the customers cart is valid.
+
+----
+
+Redirect: false
+
+----
+
+Contentbuilder: 

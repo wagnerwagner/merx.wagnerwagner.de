@@ -1,0 +1,13 @@
+Title: Set Up
+
+----
+
+Shortdescription: Set up your PayPal/Stripe keys.
+
+----
+
+Text: If you downloaded the Plainkit you can start right away. Add your own products and style and you're ready to become a millionaire.
+
+----
+
+Redirect: false

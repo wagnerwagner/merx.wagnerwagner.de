@@ -1,0 +1,17 @@
+Title: Installation
+
+----
+
+Shortdescription: How to install the Merx plugin.
+
+----
+
+Text: There are a few options to install the Merx plugin.
+
+----
+
+Redirect: false
+
+----
+
+Contentbuilder:

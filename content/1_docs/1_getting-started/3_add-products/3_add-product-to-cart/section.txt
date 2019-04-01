@@ -1,0 +1,20 @@
+Title: Add product to cart
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+Just add an `array` with a valid product page `id`.
+
+```php
+$cart = merx()->cart();
+$cart->add([
+  'id' => 'nice-shoes',
+]);
+$cart->getSum(); // 99.99
+$cart->getTax(); // 15.964789916
+```

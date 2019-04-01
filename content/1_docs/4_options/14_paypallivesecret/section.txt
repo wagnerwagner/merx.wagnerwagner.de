@@ -1,0 +1,18 @@
+Title: paypal.live.secret
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.paypal.live.secret' => 'xxx…',
+];
+```
+
+### Type
+`string`

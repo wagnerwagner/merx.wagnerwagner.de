@@ -1,0 +1,18 @@
+title: Site
+
+sections:
+  mainnav:
+    type: pages
+    status: listed
+  pages:
+    type: pages
+    status: unlisted
+  meta:
+    type: fields
+    fields:
+      metaTitle:
+        type: text
+      metaDescription:
+        type: text
+      legalLinks:
+        type: pages

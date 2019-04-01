@@ -1,0 +1,21 @@
+Title: $cart->getFormattedItems()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: getFormattedItems
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

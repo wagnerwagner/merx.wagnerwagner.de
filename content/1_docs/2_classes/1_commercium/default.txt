@@ -1,0 +1,23 @@
+Title: Merx
+
+----
+
+Shortdescription: 
+
+----
+
+Text: This class is the heart and the soul of the plugin.
+
+----
+
+Redirect: false
+
+----
+
+Contentbuilder: 
+
+-
+  text: ""
+  style: ""
+  _key: text
+  _uid: text_1547563846955_185

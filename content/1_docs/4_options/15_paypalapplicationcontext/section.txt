@@ -1,0 +1,34 @@
+Title: paypal.applicationContext
+
+----
+
+Abstract: Merges (link: https://developer.paypal.com/docs/api/orders/v2/#definition-application_context text: applicationContext) on (link: http://merx.wagnerwagner.local/docs/classes/merx/initializepayment text: initializePayment).
+
+----
+
+Text: 
+
+```php
+return [
+  'ww.merx.paypal.applicationContext' => [
+    'brand_name' => 'Beautiful Clothes Shop',
+  ],
+];
+```
+
+### Type
+`array`
+
+### Default applicationContext
+
+If this option is not set the following is set as the application context.
+
+```php
+$applicationContext = [
+  'cancel_url' => url(option('ww.merx.successPage')),
+  'return_url' => url(option('ww.merx.successPage')),
+  'user_action' => 'PAY_NOW',
+  'shipping_preference' => 'NO_SHIPPING',
+  'brand_name' => (string)site()->title(),
+];
+```

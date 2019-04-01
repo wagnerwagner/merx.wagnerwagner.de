@@ -1,0 +1,25 @@
+Title: $cart->slice()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: slice
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

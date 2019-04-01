@@ -1,0 +1,13 @@
+Title: product
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```yaml
+(fileContents: plugins/merx/blueprints/pages/product.yml)
+```

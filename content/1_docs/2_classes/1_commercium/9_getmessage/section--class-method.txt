@@ -1,0 +1,25 @@
+Title: Merx::getMessage()
+
+----
+
+Classname: Wagnerwagner\Merx\Merx
+
+----
+
+Methodname: getMessage
+
+----
+
+Dim: false
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

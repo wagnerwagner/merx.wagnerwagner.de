@@ -1,0 +1,28 @@
+headline: Content
+type: fields
+fields:
+  contentBuilder:
+    label: Inhalt
+    type: builder
+    fieldsets:
+      text:
+        label: Text
+        fields:
+          text:
+            type: textarea
+          style:
+            type: select
+            options:
+              - big
+      code:
+        label: Code
+        fields:
+          code:
+            type: textarea
+            buttons: false
+          language:
+            type: select
+            options:
+              - php
+              - javascript
+              - yaml

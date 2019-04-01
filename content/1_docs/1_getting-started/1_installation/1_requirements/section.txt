@@ -1,0 +1,9 @@
+Title: Requirements
+
+----
+
+Abstract: 
+
+----
+
+Text: Merx does not have any special requirements. If Kirby 3 is running fine, Merx also will be fine.

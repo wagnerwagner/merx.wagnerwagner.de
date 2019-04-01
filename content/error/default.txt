@@ -1,0 +1,13 @@
+Title: 404 Page not found
+
+----
+
+Shortdescription: 
+
+----
+
+Text: The page could not be found.
+
+----
+
+Redirect: false

@@ -1,0 +1,18 @@
+Title: Add product
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+```php
+$productList->add([
+  'id' => 'nice-shoes',
+  'added' => date('c'),
+]);
+```
+
+Make sure `id` is a valid product page id.

@@ -1,0 +1,39 @@
+Title: Custom Order Blueprint
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+You can copy the default (link: docs/blueprints/pages/order text: order blueprint) or start from scratch. Add your own fields and add the validation options you like.
+
+### Example
+
+Let’s assume you need a *given name* which has to have at least two characters but at the most three words.
+
+(filename: site/blueprints/pages/order.yml)
+
+```yaml
+title: Order
+
+fields:
+  givenName:
+    type: text
+    required: true
+    validate:
+      minLength: 2
+      maxWords: 3
+```
+
+```php
+$merx->initializePayment([
+  'givenName' => 'Elizabeth Alexandra Mary',
+]); // ok
+
+$merx->initializePayment([
+  'givenName' => 'Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester',
+]); // not ok (throws Exception)
+```

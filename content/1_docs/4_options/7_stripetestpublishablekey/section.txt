@@ -1,0 +1,18 @@
+Title: stripe.test.publishable_key
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
+];
+```
+
+### Type
+`string`

@@ -1,0 +1,23 @@
+Title: currency
+
+----
+
+Abstract: Currency string.
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.currency' => 'GBP',
+];
+```
+
+Used for Stripe Source and PayPal Payment.
+
+### Type
+`string`
+
+### Default
+`EUR`

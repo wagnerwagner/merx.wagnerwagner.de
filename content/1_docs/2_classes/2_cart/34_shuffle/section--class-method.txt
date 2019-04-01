@@ -1,0 +1,25 @@
+Title: $cart->shuffle()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: shuffle
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

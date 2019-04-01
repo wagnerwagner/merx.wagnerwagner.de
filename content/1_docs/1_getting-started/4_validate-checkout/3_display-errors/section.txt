@@ -1,0 +1,32 @@
+Title: Display Errors
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+The `initializePayment` method throws an error if the validation fails.
+
+```php
+try {
+  $redirect = merx()->initializePayment($data);
+} catch (Kirby\Exception\Exception $ex) {
+  // do something with $ex.
+}
+```
+
+`$ex->getDetails()` for example will get you something like this.
+
+```json
+"name": {
+  "label": "Name",
+  "message": {
+    "required": "Please enter something"
+  }
+}
+```
+
+See the documentation of (link: docs/classes/merx/initializepayment text: `initializePayment`) for all possible Exceptions.

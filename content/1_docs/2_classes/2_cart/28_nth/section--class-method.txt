@@ -1,0 +1,25 @@
+Title: $cart->nth()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: nth
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

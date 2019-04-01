@@ -1,0 +1,18 @@
+Title: stripe.test.secret_key
+
+----
+
+Abstract: stripe.test.secret_key
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.stripe.test.publishable_key' => 'sk_test_xxx…',
+];
+```
+
+### Type
+`string`

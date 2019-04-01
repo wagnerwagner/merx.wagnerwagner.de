@@ -1,0 +1,5 @@
+Title: Pages
+
+----
+
+Text: Merx provides the most basic blueprints. You can overwrite them with your own blueprints.

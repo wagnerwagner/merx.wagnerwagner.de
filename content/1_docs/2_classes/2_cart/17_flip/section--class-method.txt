@@ -1,0 +1,25 @@
+Title: $cart->flip()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: flip
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

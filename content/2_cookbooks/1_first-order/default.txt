@@ -1,0 +1,13 @@
+Title: First Order
+
+----
+
+Shortdescription: Create an order in three simple steps.
+
+----
+
+Text: The payment process consists of two steps: `initializePayment` with validation and `completePayment`. Before we can order something, we have to put something into the cart.
+
+----
+
+Redirect: false

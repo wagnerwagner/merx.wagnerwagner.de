@@ -1,0 +1,37 @@
+Title: Contact
+
+----
+
+Shortdescription:
+
+----
+
+Text:
+
+Do not hesitate to contact us if you have any questions.
+**(email: merx@wagnerwagner.de)**
+
+If you have tips or general questions that others might benefit from, please use the **(link: https://forum.getkirby.com text: Kirby Forum)**
+
+Found a bug? Please file an issue.
+**(link: https://github.com/Wagnerwagner/kirby-merx/issues text: Github)**
+
+
+## Legal Information / Imprint
+
+Wagnerwagner GmbH
+Burkhardt+Weber-Straße 59
+72760 Reutlingen
+Germany
+
+(email: mail@​wagnerwagner.​de)
+
+HRB Stuttgart 354262
+Steuer­nummer: 78092 / 68991
+USt-ID-Nr.: DE231029364
+
+Responsible for all content is Peter Wagner
+
+----
+
+Redirect: false

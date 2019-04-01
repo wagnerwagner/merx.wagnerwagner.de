@@ -1,0 +1,28 @@
+Title: Merx – A toolset to create online shops with Kirby
+
+----
+
+Herocopy: Merx is a plugin to create online shops with Kirby 3.
+
+----
+
+Features: 
+
+- 
+  headline: Flexibility
+  text: 'This plugin of­fers you a handy set of (link: docs/classes/merx text: tools) to cre­ate your very own on­line shop. Start entirely from scratch or integrate a store into your ex­ist­ing Kirby web­site.'
+- 
+  headline: Simplicity
+  text: "Merx is designed to be as sim­ple as pos­si­ble. If you know Kirby, you'll be able to build a simple shop in no time and ex­tend it as your busi­ness grows."
+- 
+  headline: Power of Kirby
+  text: "Merx relies on Kirby and its powerful tools. Because it's developed with Kirby in mind, you can continue to update your system regularly without a hassle."
+- 
+  headline: Freedom of Choice
+  text: "With Merx, you aren't limited to a specific payment provider or platform. Host your online store wherever you want and keep control of everything."
+- 
+  headline: Non-opinionated
+  text: "Since Merx is just a toolset, it doesn't dictate the fron­tend out­put. Use any frame­work you want or write your very own HTML/​​CSS/​​Javascript."
+- 
+  headline: Infinite Payment Options
+  text: 'Merx (link: docs/getting-started/payment-methods text: sup­ports) Stripe (Credit Card, SEPA Di­rect Debit, SO­FORT) and Pay­pal out of the box. For every­thing else there are (link: cookbooks/custom-payment-gateways text: cus­tom pay­ment gate­ways).'

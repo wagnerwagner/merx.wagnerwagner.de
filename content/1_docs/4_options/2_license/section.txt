@@ -1,0 +1,21 @@
+Title: license
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.license' => 'SKWW-XXXXXXXX-XXXXXXXX',
+];
+```
+
+You need a valid license to make real purchases.
+
+### Type
+
+`string`

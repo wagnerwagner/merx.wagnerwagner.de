@@ -1,0 +1,18 @@
+Title: paypal.sandbox.secret
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.paypal.sandbox.secret' => 'xxx…',
+];
+```
+
+### Type
+`string`

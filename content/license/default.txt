@@ -1,0 +1,103 @@
+Title: License
+
+----
+
+Shortdescription:
+
+----
+
+Text:
+
+## About this Agreement
+While Merx's source code is publicly available, Merx is **not free**. To use Merx on a public server, you need to purchase a (link: buy text: license).
+
+This End User License Agreement (the **"Agreement"**) is fundamental to the relationship between you and us. Therefore we recommend to read this Agreement carefully before you download, install or use Merx.
+
+Merx is a plugin for Kirby CMS. Please also note (link: https://getkirby.com/license text: Kirby’s End User License Agreement).
+
+If you do not agree to this Agreement, please do not download, install or use Merx. Installation or use of Merx signifies that you have read, understood, and agreed to be bound by this Agreement.
+
+This Agreement was last revised on March 27, 2019.
+
+## Definitions
+Terms that will be used throughout the Agreement:
+
+- When we refer to **"You"**, we mean the licensee. Before purchasing Merx, that's the individual or company that has downloaded and/or installed Merx on a Development Machine. The licensee of a Public Site is the individual or company that has purchased the Merx license. If you work on a client project and have purchased the Merx license for your client, you (and *not* the client) are the licensee.
+- When we refer to **"We"**/**"Us"**/**"Our"**, we mean the Wagnerwagner GmbH. You can find our company and contact information on our (link: contact text: contact page).
+- A **"Website"** is a single Kirby project that is defined by its domain name and root directory (e.g. `https://sub.example.com` or `https://example.com/example/`). Each (sub)domain and root directory is a separate Website, even if the projects are related in any way. If the same Kirby *multi-language installation* spans multiple domains, these domains count as the same Website.
+- A **"Development Machine"** is a computer that is used to work on a Website (like a desktop PC, notebook or tablet). It can also be a server that is only accessible by a restricted number of users (like in an intranet or when protecting a staging website with a password that only a restricted number of users know).
+- A **"Public Site"** is a Website that is installed on a computer/server that does *not* qualify as Development Machine and is *not* an Extension Demo.
+- An **"Update"** is defined as a Merx release which adds smaller new features, minor functionality enhancements or bug fixes. This class of release is identified by the change of the revision to the right of the first decimal point, e.g. 1.1 to 1.2 or 1.X.1 to 1.X.2.
+- An **"Upgrade"** is a major Merx release which incorporates major new features or enhancements that increase the core functionality of Merx to a larger extent. This class of release is identified by the change of the revision to the left of the first decimal point, e.g. 1.X to 2.0. Whether a release is an Update or Upgrade is at Our sole discretion.
+- The **"Source Code"** is defined as the contents of all files that are provided with Merx and that make Merx work. This includes (but is not limited to) all PHP, JavaScript, HTML and CSS files as well as all related image and other media files.
+
+Every time you see one of these capitalized terms in the following text, it has the meaning that has been explained above.
+
+## Usage for a Public Site
+Installing Merx on or using it for a Public Site requires a (link: buy text: paid license).
+
+As Merx is software and software is intangible, we don't sell it as such. Instead, this Agreement grants a license for each purchase to install and use a single instance of Merx on a **specific Website**. Additional Merx licenses must be purchased in order to install and use Merx on **additional Websites**.
+
+The license is **non-exclusive** (meaning that You are not the only one who We will issue a license) and **generally non-transferable** (meaning that the one who purchases the license is the licensee).
+
+If you need to **transfer** your Merx license to another individual or company, please get in touch directly at (email: support@getkirby.com).
+
+A license is valid for all Updates of the same major Merx release. We reserve the right to charge an **upgrade fee for Upgrade releases**.
+
+## Free licenses
+
+We believe that it should be possible to test and evaluate software before having to purchase a license. Also, we understand that a web project first needs to be built in a protected environment before it can be published.
+
+Therefore, installing and using Merx on a Development Machine is **free** for as long as You need.
+
+## Restrictions
+
+### Legal Restrictions
+You may only use Merx in a manner that complies with any and all **applicable laws** in the jurisdictions in which You use Kirby. Please respect all applicable restrictions concerning **privacy and intellectual property rights**.
+
+### Making Copies
+You may make **copies of Merx** in any machine readable form solely for **back-up purposes**, provided that You reproduce Merx in its original form and with all proprietary notices on the back-up copy.
+
+You may *not* reproduce Merx or its Source Code, in whole or in part, for **any other purpose**.
+
+### Modification of the Source Code
+You may **alter, modify or extend the Source Code** for Your own use. You may also **commission a third party** to perform those modifications for You.
+
+However You may *not*:
+- **alter or circumvent the licensing features**, including (but not limited to) the license validation and payment prompts or
+- **resell, redistribute or transfer** the modified or derivative version.
+
+Please note that We **can't provide technical support** for modified or derivative versions of the Source Code.
+
+### Your Relationship to Third Parties
+You are *not* allowed to **sell, assign, license, disclose, distribute, or otherwise transfer or make available** Merx or its Source Code, in whole or in part, in any form to any third parties.
+
+### Other Restrictions
+You may also *not*:
+- **extract parts of the Source Code** for use in other programs or projects or
+- **remove or alter any proprietary notices** on Merx.
+
+We also reserve the right to determine whether **Your use of Merx qualifies** under this Agreement.
+
+## Technical Support
+Technical support is **provided as described on Our website** at [merx.wagnerwagner.de](https://merx.wagnerwagner.de). **No representations or guarantees** are made regarding the response time in which support questions are answered, however We will do Our best to respond quickly.
+
+We reserve the right to **limit technical support for free licenses**.
+
+## No Warranty
+MERX IS OFFERED ON AN **"AS-IS" BASIS** AND **NO WARRANTY**, EITHER EXPRESSED OR IMPLIED, IS GIVEN. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. YOU ASSUME ALL RISK ASSOCIATED WITH THE QUALITY, PERFORMANCE, INSTALLATION AND USE OF MERX INCLUDING, BUT NOT LIMITED TO, THE RISKS OF PROGRAM ERRORS, DAMAGE TO EQUIPMENT, LOSS OF DATA OR SOFTWARE PROGRAMS, OR UNAVAILABILITY OR INTERRUPTION OF OPERATIONS. **YOU ARE SOLELY RESPONSIBLE** FOR DETERMINING THE APPROPRIATENESS OF USE OF MERX AND ASSUME ALL RISKS ASSOCIATED WITH ITS USE.
+
+## Term, Termination and Modification
+You may use Merx under this Agreement until either party terminates this Agreement as described in this paragraph. Either party may **terminate the Agreement** at any time, upon written notice to the other party. Upon termination, all **licenses granted to You will terminate**, and You will **immediately uninstall and cease all use** of Merx. The sections entitled "No Warranty", "Indemnification" and "Limitation of Liability" will **survive any termination** of this Agreement.
+
+We may **modify Merx and this Agreement** with notice to You either via email or by publishing content on the Merx website at [merx.wagnerwagner.de](https://merx.wagnerwagner.de), including but not limited to changing the functionality or appearance of Merx. Any such modification will **become binding on You** unless You terminate this Agreement.
+
+## Indemnification
+By accepting the Agreement, you **agree to indemnify and otherwise hold harmless** Us as well as Our officers, employers, agents, subsidiaries, affiliates and other partners from any direct, indirect, incidental, special, consequential or exemplary damages arising out of, relating to, or resulting from your use of Merx or any other matter relating to Merx. This paragraph also applies to you if you are not the licensee (e.g. if you use Merx while someone else is the licensee).
+
+## Limitation of Liability
+YOU EXPRESSLY UNDERSTAND AND AGREE THAT **WE SHALL NOT BE LIABLE** FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES). SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF THE LIMITATION OR EXCLUSION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES. ACCORDINGLY, **SOME OF THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU**. **IN NO EVENT WILL OUR TOTAL CUMULATIVE DAMAGES EXCEED** THE FEES YOU PAID TO US UNDER THIS AGREEMENT IN THE MOST RECENT TWELVE-MONTH PERIOD. THIS PARAGRAPH ALSO APPLIES TO YOU IF YOU ARE NOT THE LICENSEE (E.G. IF YOU USE MERX WHILE SOMEONE ELSE IS THE LICENSEE).
+
+----
+
+Redirect: false

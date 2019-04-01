@@ -1,0 +1,25 @@
+Title: $cart->groupBy()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: groupBy
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

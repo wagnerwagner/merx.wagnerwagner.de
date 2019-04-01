@@ -1,0 +1,37 @@
+title: Order
+
+status:
+  draft: Error
+  unlisted: Incomplete
+  listed: Complete
+
+options:
+  changeSlug: false
+  changeTemplate: false
+  changeTitle: false
+  delete: false
+
+tabs:
+  overview:
+    columns:
+      - width: 1/1
+        sections:
+          order:
+            extends: sections/order
+          fields:
+            type: fields
+            fields:
+              name:
+                type: text
+              email:
+                type: email
+                required: true
+              street:
+                type: text
+                required: true
+              city:
+                type: text
+                required: true
+  payment:
+    sections:
+      payment-method: sections/payment-method

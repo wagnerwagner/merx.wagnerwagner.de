@@ -1,0 +1,21 @@
+Title: $cart->delete()
+
+----
+
+ClassName: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: delete
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

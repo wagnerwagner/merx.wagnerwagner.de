@@ -1,0 +1,21 @@
+Title: completePayment:after
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+(filename: site/config.php)
+
+```php
+return [
+  'hooks' => [
+    'ww.merx.completePayment:after' => function ($orderPage) {
+      // your code goes here
+    },
+  ],
+];
+```

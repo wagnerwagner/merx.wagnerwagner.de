@@ -1,0 +1,25 @@
+Title: $cart->offset()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: offset
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

@@ -1,0 +1,32 @@
+Title: Cart
+
+----
+
+Shortdescription: 
+
+----
+
+Text: 
+
+`Cart` is an extension of (link: ./productlist text: `ProductList`).
+
+Collection of product items.
+
+```php
+$item = cart()->first();
+$item['id']; // nice-shoes
+$item['title']; // Nice Shoes
+$item['price']; // 99.99
+$item['tax']; // 15.964789915966
+$item['quantity']; // 2
+$item['sum']; // 199.98
+$item['sumTax']; // 31.9295798319
+```
+
+----
+
+Redirect: false
+
+----
+
+Contentbuilder: 

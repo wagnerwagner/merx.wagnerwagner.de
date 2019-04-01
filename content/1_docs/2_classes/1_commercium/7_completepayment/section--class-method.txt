@@ -1,0 +1,30 @@
+Title: $merx->completePayment()
+
+----
+
+Classname: Wagnerwagner\Merx\Merx
+
+----
+
+Methodname: completePayment
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:
+
+### Exceptions
+This method could throw `Kirby\Exception\Exception` you should handle.
+
+Key | httpCode | Description
+--- | ----         |  ---
+*checkout.paymentMethod* | `500` | Payment method’s completePayment key has to be a function.
+*completePayment* | `500` |
+*paymentCanceled* | `400` | User canceled the payment.

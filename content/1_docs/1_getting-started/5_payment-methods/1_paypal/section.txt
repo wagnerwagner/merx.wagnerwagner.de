@@ -1,0 +1,30 @@
+Title: PayPal
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+### Initialize Payment
+
+```php
+$redirect = $merx->initializePayment([
+  'payment-method' => 'paypal',
+]);
+go($redirect); // https://www.paypal.com/cgi-bin/webscr…
+```
+
+### Complete Payment
+
+
+(filename: site/templates/success.php)
+
+```php
+$merx->completePayment([
+  'paymentId' => 'PAYID-XXXXXXXXXXXXXXXXXXXXXXXX',
+  'PayerID' => 'XXXXXXXXXXXXX'
+]);
+```

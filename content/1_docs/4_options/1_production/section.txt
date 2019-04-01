@@ -1,0 +1,27 @@
+Title: production
+
+----
+
+Abstract: Enables/disables production.
+
+----
+
+Text:
+
+(filename: site/config/config.php)
+
+```php
+return [
+  'ww.merx.production' => true,
+];
+```
+
+If set to `true` `paypal.live…` and `stripe.live…` keys are used.
+
+If set to `false` `paypal.sandbox…` and `stripe.test` keys are used.
+
+### Type
+`boolean`
+
+### Default
+`false`

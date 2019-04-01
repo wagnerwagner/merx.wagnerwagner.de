@@ -1,0 +1,25 @@
+Title: $cart->isEven()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: isEven
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

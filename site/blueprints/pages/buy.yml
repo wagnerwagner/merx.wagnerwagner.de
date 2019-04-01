@@ -1,0 +1,10 @@
+title: Buy
+
+columns:
+  - width: 2/3
+    sections:
+      fields:
+        type: fields
+        fields:
+          abstract:
+            type: textarea

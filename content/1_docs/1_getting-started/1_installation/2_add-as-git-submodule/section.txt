@@ -1,0 +1,13 @@
+Title: Add as git submodule
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```bash
+git submodule add git@github.com:wagnerwagner/kirby-merx.git site/plugins/merx
+```

@@ -1,0 +1,17 @@
+Title: Order Page Model
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+If you installed Merx with (link: docs/getting-started/installation/add-as-git-submodule text: git submodule) or composer you have to create your own Order Page Model. Just create `site/models/order.php` and extend the (link: docs/classes/orderpage text: `OrderPageAbstract`). Afterwards you are ready to use the Order Page Model for the (link: docs/getting-started/validate-checkout text: checkout validation)
+
+(filename: site/models/order.php)
+
+```php
+class OrderPage extends OrderPageAbstract {};
+```

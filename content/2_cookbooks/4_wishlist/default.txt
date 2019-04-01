@@ -1,0 +1,13 @@
+Title: Wishlist
+
+----
+
+Shortdescription: How you can use productList to create a wishlist.
+
+----
+
+Text: Using (link: docs/classes/productlist text: `productList`) to create a wishlist.
+
+----
+
+Redirect: false

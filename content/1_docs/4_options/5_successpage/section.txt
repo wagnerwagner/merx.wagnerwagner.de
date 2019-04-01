@@ -1,0 +1,35 @@
+Title: successPage
+
+----
+
+Abstract: The page to be redirected after (link: docs/classes/merx/initializepayment text: `initializePayment`)
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.successPage' => 'complete-order',
+];
+```
+
+Used as the `cancel_url` and `return_url` for PayPal Payment.
+
+Used as the `return_url` for Stripe Transaction.
+
+### Type
+`string`
+
+### Default
+`success`
+
+----
+
+Contentbuilder:
+
+-
+  text: '## successPage'
+  style: ""
+  _key: text
+  _uid: text_1547566393746_547

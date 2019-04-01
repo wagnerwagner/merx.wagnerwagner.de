@@ -1,0 +1,29 @@
+title: Section (Class Method)
+columns:
+  - width: 2/3
+    sections:
+      text:
+        type: fields
+        fields:
+          className:
+            type: text
+            width: 1/2
+          methodName:
+            type: text
+            width: 1/2
+          dim:
+            type: toggle
+            help: less important method
+          abstract:
+            type: textarea
+          summary:
+            type: textarea
+            help: before return type, parameters
+          text:
+            type: textarea
+            help: examples
+      # content: sections/contentBuilder
+  - width: 1/3
+    sections:
+      files:
+       type: files

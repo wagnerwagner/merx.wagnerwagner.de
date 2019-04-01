@@ -1,0 +1,14 @@
+title: Home
+
+fields:
+  heroCopy:
+    type: textarea
+    buttons: false
+  features:
+    type: structure
+    fields:
+      headline:
+        type: text
+      text:
+        type: textarea
+        buttons: false

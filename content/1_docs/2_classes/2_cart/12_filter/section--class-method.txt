@@ -1,0 +1,25 @@
+Title: $cart->filter()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: filter
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

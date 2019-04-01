@@ -1,0 +1,13 @@
+Title: Add Products
+
+----
+
+Shortdescription: How to set up products and add them to the cart.
+
+----
+
+Text: A *product* is just a Kirby page with the product template.
+
+----
+
+Redirect: false

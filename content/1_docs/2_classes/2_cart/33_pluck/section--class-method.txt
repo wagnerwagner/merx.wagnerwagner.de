@@ -1,0 +1,25 @@
+Title: $cart->pluck()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: pluck
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

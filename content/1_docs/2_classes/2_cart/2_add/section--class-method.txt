@@ -1,0 +1,21 @@
+Title: $cart->add()
+
+----
+
+ClassName: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: add
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

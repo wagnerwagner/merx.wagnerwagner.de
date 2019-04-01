@@ -1,0 +1,25 @@
+Title: $cart->limit()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: limit
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

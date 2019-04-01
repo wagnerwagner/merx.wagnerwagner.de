@@ -1,0 +1,6 @@
+headline: Sections
+type: pages
+info: "{{page.abstract}}"
+templates:
+  - section
+  - section--class-method

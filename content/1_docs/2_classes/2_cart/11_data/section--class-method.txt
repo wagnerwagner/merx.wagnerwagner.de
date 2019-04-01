@@ -1,0 +1,25 @@
+Title: $cart->data()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: data
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

@@ -1,0 +1,13 @@
+Title: orders
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+```yaml
+(fileContents: plugins/merx/blueprints/sections/orders.yml)
+```

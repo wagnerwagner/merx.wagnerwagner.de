@@ -1,0 +1,25 @@
+Title: $productList->remove()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: remove
+
+----
+
+Dim: false
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

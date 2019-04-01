@@ -1,0 +1,25 @@
+Title: $cart->isEmpty()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: isEmpty
+
+----
+
+Dim: true
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

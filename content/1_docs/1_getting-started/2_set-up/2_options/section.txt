@@ -1,0 +1,28 @@
+Title: Options
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+If you want to use Stripe and/or PayPal you need to set the respective keys. Read the (link: https://stripe.com/docs/keys text: Stripe) and (link: https://developer.paypal.com/docs/api/overview/#make-your-first-call text: PayPal) documentation on how to get the keys.
+
+(filename: site/config.php)
+
+```php
+return [
+  'ww.merx.stripe.live.publishable_key' => 'pk_test_xxx…',
+  'ww.merx.stripe.live.publishable_key' => 'sk_test_xxx…',
+  'ww.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
+  'ww.merx.stripe.live.publishable_key' => 'sk_live_xxx…',
+  'ww.merx.paypal.sandbox.clientID' => 'xxx…',
+  'ww.merx.paypal.sandbox.secret' => 'xxx…',
+  'ww.merx.paypal.sandbox.experienceProfileID' => 'XP-XX…',
+  'ww.merx.paypal.live.clientID' => 'xxx…',
+  'ww.merx.paypal.live.secret' => 'xxx…',
+  'ww.merx.paypal.live.experienceProfileID' => 'XP-XX…',
+];
+```

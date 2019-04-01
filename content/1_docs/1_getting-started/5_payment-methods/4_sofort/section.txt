@@ -1,0 +1,33 @@
+Title: SOFORT
+
+----
+
+Abstract:
+
+----
+
+Text:
+
+### Initialize Payment
+
+```php
+$redirect = $merx->initializePayment([
+  'paymentMethod' => 'sofort',
+]);
+go($redirect); // https://www.sofort.com/payment/…
+```
+
+You are redirected to *klarna.com* where the customer has to accept the payment.
+
+### Complete Payment
+
+The redirect url has several get parameters. Use the `source` parameter for the `completePayment` method.
+
+(filename: site/templates/success.php)
+
+```php
+$source = get('source'); // src_XXXXXXXXXXXXXXXXXXXXXXXX
+$merx->completePayment([
+  'source' => $source,
+]):
+```

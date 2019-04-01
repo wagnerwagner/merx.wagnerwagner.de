@@ -1,0 +1,21 @@
+Title: $productList->getFormattedItems()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: getFormattedItems
+
+----
+
+Abstract:
+
+----
+
+Summary:
+
+----
+
+Text:

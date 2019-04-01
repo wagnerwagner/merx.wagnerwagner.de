@@ -1,0 +1,21 @@
+Title: currencySymbol
+
+----
+
+Abstract: The Symbol of the desired currency.
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.currencySymbol' => '£',
+];
+```
+
+### Type
+`string`
+
+### Default
+`€`
