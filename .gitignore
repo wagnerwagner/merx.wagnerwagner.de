@@ -8,3 +8,4 @@ node_modules
 /site/accounts
 /site/config/secrets
 /site/plugins/site/.license-base
+/site/config/.license
