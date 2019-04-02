@@ -1,3 +1,7 @@
+<If "req('Host') == 'merx.wagnerwagner.de'">
+  AddType application/x-httpd-php72 .php
+</If>
+
 # Kirby .htaccess
 
 # rewrite rules
