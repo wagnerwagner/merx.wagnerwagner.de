@@ -1,0 +1,16 @@
+a {
+  color: inherit;
+}
+
+
+input {
+  font: inherit;
+
+  &[type="search"] {
+    -webkit-appearance: textfield;
+  }
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+}

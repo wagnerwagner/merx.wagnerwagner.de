@@ -1,0 +1,27 @@
+%result-list {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    border-bottom: rem(1) solid $color--lightgray;
+  }
+
+  small {
+    display: block;
+    margin-top: rem(5);
+    margin-bottom: rem(5);
+    font-size: rem($font-size--small);
+    color: $color--gray;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+
+    &:focus,
+    body:not(.is-touch) &:hover {
+      background-color: $color--lightgray-bg;
+    }
+  }
+}

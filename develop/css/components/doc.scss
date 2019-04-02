@@ -1,0 +1,29 @@
+.doc {
+  max-width: rem(672);
+  flex-basis: rem(672);
+  flex-grow: 0;
+  flex-shrink: 1;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1 {
+    font-size: rem($font-size--h3);
+    font-weight: 400;
+  }
+
+  h2 {
+    margin: 0;
+    margin-top: rem(100);
+    margin-bottom: rem($padding);
+    font-size: rem($font-size--h4);
+    line-height: $line-height--heading;
+    font-weight: 400;
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    h1,
+    h2 {
+      hyphens: auto;
+    }
+  }
+}

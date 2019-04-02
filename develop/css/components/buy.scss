@@ -1,0 +1,45 @@
+.buy {
+  @extend %center;
+  box-sizing: border-box;
+  max-width: rem($max-width + 48 * 2);
+  padding-top: rem(60);
+  flex-basis: 100%;
+
+  @media (max-width: em(1024 - 1)) {
+    padding-left: rem($padding);
+    padding-right: rem($padding);
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    padding-left: rem($padding-small);
+    padding-right: rem($padding-small);
+  }
+}
+
+
+.buy__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+
+  @media (min-width: em(1024)) {
+    justify-content: space-between;
+  }
+}
+
+
+.buy__abstract {
+  max-width: rem(528);
+  font-size: rem($font-size--big);
+
+  p {
+    margin-top: 0;
+    margin-bottom: rem(10);
+  }
+
+  @media (min-width: em(528)) {
+    margin-left: rem(48);
+    margin-right: rem(48);
+  }
+}

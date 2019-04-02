@@ -1,0 +1,18 @@
+$color--white: #ffffff;
+
+// Wagnerwagner
+$color--green: #00763b;
+$color--black: #101111;
+$color--black-loading: transparentize($color--black, 0.2);
+$color--darkgray: #5a5a5a;
+$color--gray: #737373; // used for less important text and background of loading images e.g. news-thumb or work-thumb
+$color--lightgray: #dbdbdb;
+$color--lightgray-bg-2: hsla(0, 0%, 0%, 0.09);
+$color--lightgray-bg: #fafafa;
+
+// Sonstiges
+$color--red: #cc2936; // für Fehler-Meldungen
+
+
+$shadow-hairline: 0 0 rem(1) hsla(0, 0%, 0%, 0.1);
+$shadow-hover-light: $shadow-hairline, 0 0 rem(16) hsla(0, 0%, 0%, 0.05), 0 0 rem(96) hsla(0, 0%, 0%, 0.05); // used for thumbs

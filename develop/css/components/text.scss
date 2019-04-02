@@ -1,0 +1,44 @@
+.text {
+  max-width: 100%;
+  &--big {
+    margin-bottom: rem($padding);
+    font-size: rem($font-size--big);
+  }
+
+  table {
+    @extend %table;
+    margin-bottom: 1em;
+  }
+
+  pre {
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: rem($padding);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    color: $color--white;
+    background-color: $color--black;
+
+    > code {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+
+  code {
+    padding: rem(2) rem(4);
+    background-color: $color--lightgray-bg-2;
+    // font-weight: 600;
+  }
+
+  h3 {
+    margin-top: rem(50);
+    margin-bottom: rem(20);
+    font-size: rem($font-size--huge);
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    hyphens: auto;
+  }
+}

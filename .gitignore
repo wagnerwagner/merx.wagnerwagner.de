@@ -1,6 +1,5 @@
 node_modules
 
-/develop
 /content/orders/**/order.txt
 /public/media
 /public/assets/fonts/*

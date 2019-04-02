@@ -1,0 +1,15 @@
+%button-search {
+  position: relative;
+  width: rem(48);
+  height: rem(40);
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0;
+  background-image: url('../images/icon-search.svg');
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+}

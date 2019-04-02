@@ -1,0 +1,59 @@
+.footer {
+  position: relative;
+  flex-basis: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: rem(100);
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+  background-color: $color--white;
+  border-top: 1px solid $color--lightgray;
+  padding-left: rem($padding);
+  padding-right: rem($padding);
+  font-size: rem($font-size--small);
+
+  .center {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: rem(10);
+    font-size: inherit;
+    font-weight: 400;
+    color: $color--gray;
+  }
+}
+
+
+.footer__info {
+  margin-right: rem(40);
+}
+
+
+.footer__nav {
+  margin-top: rem(20);
+
+  ul {
+    display: flex;
+    margin: 0;
+    margin-left: rem(-8);
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    padding: rem(4) rem(8);
+    text-decoration: none;
+    color: $color--gray;
+
+    &:focus,
+    body:not(.is-touch) &:hover {
+      text-decoration: underline;
+    }
+  }
+}

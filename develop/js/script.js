@@ -1,0 +1,12 @@
+// import '@babel/polyfill/';
+import 'airbnb-browser-shims/browser-only';
+import 'prismjs';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-json';
+import './components/buy';
+import './components/search';
+import './components/toc';

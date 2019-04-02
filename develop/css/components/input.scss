@@ -1,0 +1,9 @@
+%input {
+  font: inherit;
+  box-sizing: border-box;
+  padding: rem(5) rem($padding * 0.5);
+  border-radius: 0;
+  border: rem(1) solid $color--lightgray;
+  background-color: $color--white;
+  appearance: none;
+}

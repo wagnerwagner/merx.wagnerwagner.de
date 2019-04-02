@@ -1,0 +1,34 @@
+%button {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  font-size: rem($font-size--standard);
+  font-family: inherit;
+  color: $color--white;
+  background-color: $color--black;
+  border: 0;
+  border-radius: rem(1);
+  margin: 0;
+  height: rem(42);
+  padding: rem(10) rem(16);
+  font-weight: 700;
+  appearance: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    @extend %loading-indicator;
+  }
+}
+
+
+.button {
+  @extend %button;
+
+  &::after {
+    content: none;
+  }
+}

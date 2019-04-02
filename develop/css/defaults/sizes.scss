@@ -1,0 +1,10 @@
+$max-width: 1008;
+$height--header: 60;
+$padding: 24;
+$padding-small: 16;
+
+// (max-width: em($bp-xxx - 1))
+// (min-width: em($bp-xxx))
+$bp-fixed-nav: 800;
+$bp-offscreen-nav: 960;
+$bp-small-padding: 368;

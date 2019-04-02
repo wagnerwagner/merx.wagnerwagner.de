@@ -1,0 +1,39 @@
+%table {
+  border-spacing: 0;
+  min-width: 25%;
+
+  th,
+  td {
+    padding: 0;
+    padding-bottom: rem(8);
+    padding-top: rem(12);
+    vertical-align: baseline;
+
+    &:not(:last-child) {
+      padding-right: rem($padding)
+    }
+  }
+
+  th {
+    text-align: left;
+  }
+
+  thead {
+    color: $color--gray;
+    font-size: rem($font-size--small);
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing;
+    tr > * {
+      border-bottom: rem(1) solid $color--lightgray;
+    }
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    th,
+    td {
+      &:not(:last-child) {
+        padding-right: rem($padding-small)
+      }
+    }
+  }
+}

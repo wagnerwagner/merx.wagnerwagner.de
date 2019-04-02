@@ -1,0 +1,15 @@
+h3.filename {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: rem(8) rem($padding);
+  border-bottom: rem(1) solid $color--gray;
+  font-size: rem($font-size--standard);
+  font-weight: 400;
+  letter-spacing: $letter-spacing;
+  color: $color--lightgray;
+  background-color: $color--black;
+
+  & + pre {
+    margin-top: 0;
+  }
+}
