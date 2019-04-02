@@ -1,0 +1,63 @@
+.toc {
+  display: flex;
+  margin-top: rem(40);
+
+  > div {
+    position: relative;
+    box-sizing: border-box;
+    flex-basis: rem(504);
+    padding: rem($padding);
+    border: rem(1) solid $color--lightgray;
+    background-color: $color--lightgray-bg;
+  }
+
+  .button-toggle {
+    margin-top: rem(10);
+    margin-bottom: rem(10);
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: rem(10);
+    font-size: 1em;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: inline-block;
+    padding-top: rem(4);
+    padding-bottom: rem(4);
+    text-decoration: none;
+
+    &.is-dim {
+      display: none;
+      color: $color--darkgray;
+    }
+
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.is-advanced {
+    a {
+      &.is-dim {
+        display: block;
+      }
+    }
+  }
+
+  @media (min-width: em(400)) {
+    .button-toggle {
+      position: absolute;
+      right: rem(32);
+      top: rem(26);
+    }
+  }
+}

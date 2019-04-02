@@ -1,0 +1,10 @@
+.link-secondary {
+  font-size: rem($font-size--small);
+  text-decoration: none;
+  color: $color--gray;
+
+  &:focus,
+  body.is-not-touch &:hover {
+    text-decoration: underline;
+  }
+}

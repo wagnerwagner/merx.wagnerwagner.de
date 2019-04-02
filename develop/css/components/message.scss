@@ -1,0 +1,27 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.message {
+  color: $color--red;
+  padding-top: rem(12);
+  padding-bottom: rem(12);
+  font-weight: 700;
+  border-bottom: rem(1) solid $color--lightgray;
+  background-color: $color--lightgray-bg;
+  animation-name: fadeIn;
+  animation-duration: $transition-duration * 2;
+
+  > div {
+    max-width: rem($max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: rem($padding);
+    padding-right: rem($padding);
+  }
+}

@@ -1,0 +1,125 @@
+.cart {
+  display: flex;
+  max-width: rem(384);
+  margin-top: rem(60);
+  padding-bottom: rem(30);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: rem($font-size--standard);
+  border: rem(1) solid $color--lightgray;
+  background-color: $color--lightgray-bg;
+
+  @media (min-width: em(1024)) {
+    position: sticky;
+    top: rem($height--header + 40);
+    margin-top: 0;
+    margin-left: rem(48);
+    flex-basis: rem(328);
+    flex-grow: 1;
+  }
+
+  @media (min-width: em(1120)) {
+    margin-right: rem(48);
+  }
+}
+
+
+.cart__name {
+  flex-basis: 100%;
+  flex-grow: 1;
+  margin-bottom: rem(25);
+  padding: rem(10) rem($padding);
+  text-align: center;
+  font-weight: 700;
+  color: $color--white;
+  background-color: $color--black;
+}
+
+
+.cart__quantity {
+  display: flex;
+  margin-left: rem(48 - 8);
+  align-self: baseline;
+
+  > button,
+  > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(32);
+    height: rem(32);
+    appearance: none;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    font: inherit;
+    background-color: transparent;
+  }
+
+  button {
+    font-weight: 700;
+    cursor: pointer;
+
+    &:active {
+      color: $color--gray;
+    }
+
+    &[data-action="decrease"] {
+      order: -1;
+    }
+  }
+
+  span {
+    text-align: center;
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    margin-left: rem($padding - 8);
+  }
+}
+
+
+.cart__sum {
+  margin-bottom: rem(15);
+  margin-left: rem(48);
+  margin-right: rem(48);
+  align-self: baseline;
+  font-size: rem($font-size--huge);
+  text-align: right;
+
+  @media (max-width: em($bp-small-padding - 1)) {
+   margin-left: rem($padding);
+   margin-right: rem($padding);
+  }
+}
+
+.cart__total,
+.cart__tax {
+  margin-left: rem(48);
+  margin-right: rem(48);
+  text-align: right;
+
+  @media (max-width: em($bp-small-padding - 1)) {
+   margin-left: rem($padding);
+   margin-right: rem($padding);
+  }
+}
+
+
+.cart__tax {
+  flex-basis: 100%;
+  padding-bottom: rem(15);
+  font-size: rem($font-size--small);
+  color: $color--gray;
+  border-bottom: rem(1) solid $color--gray;
+}
+
+
+.cart__total {
+  flex-basis: 100%;
+  padding-top: rem(15);
+  font-weight: 700;
+  // font-size: rem($font-size--huge);
+}

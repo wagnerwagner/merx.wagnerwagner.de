@@ -1,0 +1,27 @@
+.features {
+  @extend %center;
+  display: flex;
+  max-width: rem($max-width + 24 * 2);
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+
+.features__item {
+  max-width: rem(304);
+  flex-basis: rem(256);
+  flex-grow: 1;
+  margin-top: rem(60);
+  padding-left: rem(24);
+  padding-right: rem(24);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: rem(20);
+    font-size: rem($font-size--h5);
+  }
+
+  p {
+    margin: 0;
+  }
+}

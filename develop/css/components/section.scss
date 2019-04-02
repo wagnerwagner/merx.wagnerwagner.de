@@ -1,0 +1,8 @@
+.section {
+  margin-top: rem(20);
+  padding-top: rem($height--header + 20);
+
+  > h2 {
+    margin-top: 0;
+  }
+}

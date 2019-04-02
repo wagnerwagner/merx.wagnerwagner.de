@@ -1,0 +1,41 @@
+.subnav {
+  position: sticky;
+  top: rem($height--header);
+  flex-basis: rem(240);
+  padding-right: rem($padding);
+  padding-top: rem(60);
+  font-weight: 500;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li > ul {
+      padding-left: rem($padding);
+    }
+  }
+
+  a {
+    display: block;
+    padding-top: rem(4);
+    padding-bottom: rem(4);
+    text-decoration: none;
+    color: $color--darkgray;
+
+    &.is-active {
+      color: $color--black;
+      text-decoration: underline;
+    }
+
+    &:focus,
+    &:hover {
+      // color: $color--black;
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: em(960)) {
+    display: none;
+  }
+}

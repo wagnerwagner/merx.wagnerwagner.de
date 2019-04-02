@@ -1,0 +1,100 @@
+.overview {
+  @extend %center;
+  box-sizing: border-box;
+  max-width: rem($max-width + $padding * 3);
+  margin-top: rem(30);
+  margin-bottom: auto;
+  padding-left: rem($padding * 0.5);
+  padding-right: rem($padding * 0.5);
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    padding-left: rem($padding-small * 0.5);
+    padding-right: rem($padding-small * 0.5);
+  }
+}
+
+.overview__nav {
+  display: flex;
+  flex-wrap: wrap;
+
+  h2 {
+    flex-basis: 100%;
+    margin-left: rem($padding * 0.5 + $padding);
+    margin-right: rem($padding * 0.5 + $padding);
+    font-size: rem($font-size--h5);
+  }
+
+  hr {
+    flex-basis: 100%;
+    margin-top: rem(30);
+    margin-bottom: rem(30);
+    margin-left: rem($padding);
+    margin-right: rem($padding);
+    border: 0;
+    height: rem(1);
+    background-color: $color--lightgray;
+  }
+
+  a {
+    display: block;
+    box-sizing: border-box;
+    margin: rem($padding * 0.5);
+    flex-basis: calc(33.3333% - #{rem($padding)});
+    padding: rem($padding);
+    background-color: $color--white;
+    box-shadow: $shadow-hairline;
+    text-decoration: none;
+    transition-duration: $transition-duration;
+    transition-property: box-shadow;
+
+    &.is-small {
+      flex-basis: calc(25% - #{rem($padding)});
+    }
+
+    p {
+      margin-bottom: 0;
+      font-size: rem($font-size--small)
+    }
+
+    &:focus,
+    &:hover {
+      box-shadow: $shadow-hover-light;
+    }
+  }
+
+  @media (max-width: em($bp-fixed-nav - 1)) {
+    a {
+      flex-basis: calc(50% - #{rem($padding)});
+
+      &.is-small {
+        flex-basis: calc(33.3333% - #{rem($padding)});
+      }
+    }
+  }
+
+  @media (max-width: em(480 - 1)) {
+    a {
+      flex-basis: 100%;
+
+      &.is-small {
+        flex-basis: calc(50% - #{rem($padding)});
+      }
+   }
+  }
+
+  @media (max-width: em($bp-small-padding - 1)) {
+    h2 {
+      margin-left: rem($padding-small * 0.5);
+      margin-right: rem($padding-small * 0.5);
+    }
+
+    a {
+      margin: rem($padding-small * 0.5);
+      flex-basis: 100%;
+
+      &.is-small {
+        flex-basis: calc(50% - #{rem($padding-small)});
+      }
+   }
+  }
+}

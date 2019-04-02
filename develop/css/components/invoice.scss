@@ -1,0 +1,89 @@
+.invoice {
+  @extend %center;
+  max-width: rem($max-width - 48 * 4);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-bottom: auto;
+  padding: rem(50) rem(48);
+  background-color: $color--white;
+  box-shadow: $shadow-hairline;
+
+  h1,
+  h2 {
+    margin-top: 0;
+    margin-bottom: rem(10);
+    line-height: $line-height--heading;
+  }
+
+  h1 {
+    font-size: rem($font-size--h2);
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: rem($font-size--h5);
+  }
+
+  table {
+    @extend %table;
+    min-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    td,
+    th {
+      padding-left: rem($padding * 0.5);
+      padding-right: rem($padding * 0.5);
+
+    }
+
+    thead,
+    tbody {
+      td,
+      th {
+        &:not(:first-child) {
+          text-align: right;
+        }
+
+        &:nth-child(2) {
+          text-align: center;
+        }
+      }
+    }
+
+    tfoot {
+      th,
+      td {
+        text-align: right;
+        padding-top: rem(2);
+        padding-bottom: rem(2);
+      }
+
+      tr:first-child > * {
+        padding-top: rem(12);
+        border-top: rem(1) solid $color--lightgray;
+      }
+    }
+  }
+}
+
+
+.invoice__header {
+  flex-basis: rem(48 * 5);
+}
+
+
+.invoice__address {
+  order: -1;
+  margin-right: rem(48);
+  flex-basis: rem(48 * 7);
+}
+
+
+.invoice__purchase {
+  flex-basis: 100%;
+  margin-top: rem(40);
+}
