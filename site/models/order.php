@@ -16,4 +16,17 @@ class OrderPage extends OrderPageAbstract
     return $errors;
   }
 
+  public function paymentMethodName(): string
+  {
+    $paymentMethodKey = (string)$this->paymentMethod();
+    $paymentMethods = [];
+    $paymentMethods['credit-card'] = 'Credit Card';
+    $paymentMethods['paypal'] = 'PayPal';
+    $paymentMethods['sepa-debit'] = 'SEPA Direct Debit';
+    $paymentMethods['sofort'] = 'Klarna';
+    if (key_exists($paymentMethodKey, $paymentMethods)) {
+      return $paymentMethods[$paymentMethodKey];
+    }
+    return $paymentMethodKey;
+  }
 };

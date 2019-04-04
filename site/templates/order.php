@@ -34,7 +34,7 @@
     </div>
     <div class="invoice__purchase">
       <h2>Purchase</h2>
-      <p>You bought <?= $amount === 1 ? '<strong>one</strong> Merx License' : '<strong>' . $amount . '</strong> Merx Licenses' ?>. You chosed <?= $page->paymentMethod() ?> as your payment method.</p>
+      <p>You bought <?= $amount === 1 ? '<strong>one</strong> Merx License' : '<strong>' . $amount . '</strong> Merx Licenses' ?>. You have chosen <strong><?= $page->paymentMethodName() ?></strong> as payment method.</p>
       <table>
         <thead>
           <tr>
@@ -70,13 +70,22 @@
         </tfoot>
       </table>
     </div>
-    <div class="">
+    <div>
       <h2><?= count($licenses) === 1 ? 'License Key' : 'License Keys' ?></h2>
       <p>
       <?php foreach ($licenses as $item) :?>
         <code><?= $item ?></code><br>
       <?php endforeach; ?>
       </p>
+    </div>
+    <div class="invoice__seller">
+      <p>
+        Wagnerwagner GmbH<br>
+        Burkhardt+Weber-Straße 59<br>
+        72760 Reutlingen<br>
+        Germany
+      </p>
+      <a href="mailto:merx@wagnerwagner.de">merx@wagnerwagner.de</a>
     </div>
   </main>
   <?php snippet('footer') ?>

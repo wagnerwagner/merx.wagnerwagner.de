@@ -24,6 +24,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     height: 100%;
+    min-height: rem(60);
   }
 
   @media (min-width: em($bp-fixed-nav)) {
@@ -45,5 +46,9 @@
         padding-right: rem($padding-small * 0.5);
       }
     }
+  }
+
+  @media print {
+    display: none;
   }
 }

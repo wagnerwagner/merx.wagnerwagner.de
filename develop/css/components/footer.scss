@@ -26,6 +26,14 @@
     font-weight: 400;
     color: $color--gray;
   }
+
+  @media print {
+    margin-top: rem(50);
+
+    h2 {
+      color: $color--darkgray;
+    }
+  }
 }
 
 
@@ -55,5 +63,9 @@
     body:not(.is-touch) &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media print {
+    display: none;
   }
 }

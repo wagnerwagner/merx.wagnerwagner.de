@@ -68,22 +68,50 @@
       }
     }
   }
+
+  @media print {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    background-color: transparent;
+  }
 }
 
 
 .invoice__header {
   flex-basis: rem(48 * 5);
+  margin-bottom: rem(40);
 }
 
 
 .invoice__address {
-  order: -1;
   margin-right: rem(48);
   flex-basis: rem(48 * 7);
+
+  @media (min-width: em(720)) {
+    order: -1;
+  }
 }
 
 
 .invoice__purchase {
   flex-basis: 100%;
   margin-top: rem(40);
+}
+
+
+.invoice__seller {
+  flex-basis: 100%;
+  margin-top: rem(100);
+  font-size: rem($font-size--small);
+  color: $color--darkgray;
+
+  p {
+    margin-top: 0;
+    margin-bottom: rem(5);
+  }
+
+  @media print {
+    margin-top: rem(50);
+  }
 }

@@ -1,3 +1,7 @@
 .l-invoice {
   background-color: $color--lightgray-bg;
+
+  @media print {
+    background-color: transparent;
+  }
 }

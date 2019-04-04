@@ -6,21 +6,22 @@ Thank’s for your purchase.
 
 
 Billing Address:
-<?= $page->company()->isNotEmpty() ? $page->company()->html() : '' ?>
+<?= $page->company()->isNotEmpty() ? $page->company()->html() : null ?>
 
-<?= $page->name()->isNotEmpty() ? $page->name()->html() : '' ?>
+<?= $page->name()->isNotEmpty() ? $page->name()->html() : null ?>
 
-<?= $page->street()->isNotEmpty() ? $page->street()->html() : '' ?>
+<?= $page->street()->isNotEmpty() ? $page->street()->html() : null ?>
 
-<?= $page->postal_code()->isNotEmpty() ? $page->postal_code()->html() : '' ?> <?= $page->city()->isNotEmpty() ? $page->city()->html() : '' ?>
+<?= $page->postal_code()->isNotEmpty() ? $page->postal_code()->html() : null ?> <?= $page->city()->isNotEmpty() ? $page->city()->html() : null ?>
 
-<?= $page->state()->isNotEmpty() ? $page->state()->html() : '' ?>
+<?= $page->state()->isNotEmpty() ? $page->state()->html() : null ?>
 
 <?= option('wagnerwagner.site.countryList')[(string)$page->country()] ?>
 
 
 
-Payment Method: <?= $page->paymentMethodName() ?>
+Payment Method:
+<?= $page->paymentMethodName() ?>
 
 
 
@@ -48,3 +49,7 @@ Sum <?= formatPrice($cart->getSum()) ?>
 
 
 <?= $page->url() ?>
+
+
+
+Wagnerwagner GmbH, Burkhardt+Weber-Straße 59, 72760 Reutlingen, Germany
