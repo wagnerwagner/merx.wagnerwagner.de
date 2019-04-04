@@ -2,15 +2,15 @@ Title: license
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Text:
+Text: 
 
 ```php
 return [
-  'ww.merx.license' => 'SKWW-XXXXXXXX-XXXXXXXX',
+  'ww.merx.license' => 'MERX-XXXXXXXX-XXXXXXXX',
 ];
 ```
 
