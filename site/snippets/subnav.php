@@ -1,3 +1,4 @@
+<?php if ($pages->findOpen()->hasListedChildren()): ?>
 <nav class="subnav">
   <ul>
   <?php foreach($pages->findOpen()->children()->listed() as $item): ?>
@@ -14,3 +15,4 @@
   <?php endforeach; ?>
   </ul>
 </nav>
+<?php endif; ?>
