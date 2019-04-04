@@ -69,19 +69,19 @@ use Wagnerwagner\Merx\Merx;
         </label>
         <h3>Payment Method</h3>
         <div class="form-checkout__payment-method">
-          <label>
+          <label class="has-radio">
             <input type="radio" name="paymentMethod" required value="credit-card">
             <div>Credit Card</div>
           </label>
-          <label>
+          <label class="has-radio">
             <input type="radio" name="paymentMethod" required value="paypal" data-submit-text="continue to PayPal">
             <div>PayPal</div>
           </label>
-          <label>
+          <label class="has-radio">
             <input type="radio" name="paymentMethod" required value="sepa-debit">
             <div>SEPA Direct Debit</div>
           </label>
-          <label>
+          <label class="has-radio">
             <input type="radio" name="paymentMethod" required value="sofort" data-submit-text="continue to Klarna">
             <div>Klarna</div>
           </label>
@@ -100,6 +100,11 @@ use Wagnerwagner\Merx\Merx;
             <small><?= $site->ibanInfo() ?></small>
           </label>
         </div>
+
+        <label class="has-radio" data-name="legal">
+          <input type="checkbox" name="legal" required>
+          <div>I agree the <a href="<?= page('privacy')->url() ?>" target="_blank">Privacy Policy</a>.</div>
+        </label>
 
         <div class="form-checkout__submit">
           <button type="submit">buy</button>

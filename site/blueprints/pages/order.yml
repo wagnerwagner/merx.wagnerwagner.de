@@ -32,6 +32,9 @@ tabs:
               city:
                 type: text
                 required: true
+              legal:
+                type: toggle
+                required: true
   payment:
     sections:
       payment-method: sections/payment-method

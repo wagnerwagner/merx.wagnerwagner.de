@@ -9,7 +9,7 @@ if ($page->redirect()->isTrue()) {
   <div class="center">
     <?php snippet('subnav'); ?>
     <main class="doc" aria-label="<?= $page->title() ?>">
-      <h1><?= $page->title() ?></h1>
+      <h1><?= $page->headline()->isNotEmpty() ? $page->headline() : $page->title() ?></h1>
       <div class="text">
         <?= $page->text()->kt() ?>
       </div>

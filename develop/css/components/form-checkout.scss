@@ -32,6 +32,16 @@
     &[hidden] {
       display: none;
     }
+
+    &.has-radio {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .error {
+        flex-basis: 100%;
+      }
+    }
   }
 
   .StripeElement,
@@ -45,7 +55,7 @@
   .StripeElement,
   .select-wrapper,
   input {
-    margin-top: rem(10);
+    margin-top: rem(4);
     width: 100%;
   }
 
@@ -68,16 +78,29 @@
   }
 
   input {
+    &[type="checkbox"],
     &[type="radio"] {
       height: rem(24);
       width: rem(24);
+      margin-right: rem($padding * 0.5);
       padding: 0;
-      border-radius: rem(24 * 0.5);
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    &[type="checkbox"] {
+      &:checked {
+        background-image: url(../images/checkmark.svg);
+        background-position: center;
+      }
+    }
+
+    &[type="radio"] {
+      margin-left: rem(-2);
+      border-radius: rem(24 * 0.5);
 
       &:checked {
-        background-image: radial-gradient($color--black, $color--black 40%, $color--white 41%, $color--white);
+        background-image: radial-gradient($color--black 35%, $color--white 35%);
         background-position: center;
       }
     }
@@ -136,39 +159,29 @@
 
 .form-checkout__payment-method {
   margin-top: rem(15);
-  margin-bottom: rem(15);
+  margin-bottom: rem(-10);
   display: flex;
   flex-wrap: wrap;
   flex-basis: 100%;
+  justify-content: stretch;
 
   label {
+    box-sizing: border-box;
     flex-basis: auto;
-    display: flex;
-    align-items: center;
-    flex-basis: 100%;
-    margin-top: rem(5);
-
-    input {
-      margin-left: rem(-2);
-      margin-right: rem($padding * 0.5);
-    }
-  }
-
-  @media (min-width: em(624)) {
-    label {
-      flex-basis: 50%;
-    }
-  }
-
-  @media (min-width: em(688)) {
-    label {
-      flex-basis: 33.33%;
-    }
+    flex-grow: 1;
+    margin-top: 0;
+    margin-bottom: rem(10);
+    padding-right: rem(24);
   }
 }
 
 
 .form-checkout__payment-fields {
-  margin-bottom: rem(15);
+  margin-bottom: rem(5);
   flex-basis: 100%;
+}
+
+
+.form-checkout__submit {
+  margin-top: rem(30);
 }

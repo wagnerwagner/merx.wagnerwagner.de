@@ -6,6 +6,9 @@ columns:
       fields:
         type: fields
         fields:
+          headline:
+            type: text
+            help: Default headline is “title”.
           shortDescription:
             type: textarea
             buttons: false
