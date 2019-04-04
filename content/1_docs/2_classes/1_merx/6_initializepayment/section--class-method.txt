@@ -1,0 +1,91 @@
+Title: $merx->initializePayment()
+
+----
+
+Classname: Wagnerwagner\Merx\Merx
+
+----
+
+Methodname: initializePayment
+
+----
+
+Dim: false
+
+----
+
+Abstract: 
+
+----
+
+Summary: 
+
+----
+
+Text: 
+
+### Example
+
+```php
+try {
+  $merx = merx();
+  $data = [
+    'paymentMethod' => 'paypal',
+    'name' => 'Dagobert Duck',
+    'email' => 'dagobert@entenhausen.de',
+  ];
+  $url = $merx->initializePayment($data); // https://www.paypal.com/cgi-bin/webscr…
+  go($url);
+} catch (Exception $ex) {
+  // handle Exception
+}
+```
+
+### Exceptions
+
+If the (link: docs/getting-started/validate-checkout text: validation) fails or something went wrong a `Kirby\Exception\Exception` is thrown. You should take care of this.
+
+Key | httpCode | Description
+---  | ----           |  ----
+*checkout.emptycart* | `500` | Cart contains zero items.
+*merx.noPaymentMethod* | `400` | `$data` has no `paymentMethod` key.
+*checkout.fieldsvalidation* | `400` | OrderPage validation fails. Read more about the (link: docs/getting-started/validate-checkout text: checkout validation).
+*merx.initializePayment* | `500` | Basic error with initialize payment. Use `$ex->getDetails()` and `$ex->getData()` for further information.
+
+----
+
+Contentbuilder: 
+
+-
+  text: '## $merx->initializePayment()'
+  style: ""
+  _key: text
+  _uid: text_1547563649179_122
+-
+  text: Initializes the payment progress.
+  style: big
+  _key: text
+  _uid: text_1547563659563_200
+-
+  code: '$merx->initializePayment(array $data): string'
+  language: php
+  _key: code
+  _uid: code_1547563666054_277
+-
+  text: |
+    ### Parameters
+
+    Name | Type | Default | Description
+    ----- | --- | ---- | ----
+    `$data` | array | | Content for the Order page. The array must contain a `paymentMethod` key.
+  style: ""
+  _key: text
+  _uid: text_1547564259153_432
+-
+  text: |
+    ### Return
+
+    Returns a redirect string. By default it’s a relative url you have defined with the (link: docs/options/successPage text: *successPage* option). If you use PayPal as the payment method the PayPal url will be returned.
+  style: ""
+  _key: text
+  _uid: text_1547565894412_640
