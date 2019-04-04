@@ -2,11 +2,11 @@ Title: License
 
 ----
 
-Shortdescription:
+Shortdescription: 
 
 ----
 
-Text:
+Text: 
 
 ## About this Agreement
 While Merx's source code is publicly available, Merx is **not free**. To use Merx on a public server, you need to purchase a (link: buy text: license).
@@ -17,7 +17,7 @@ Merx is a plugin for Kirby CMS. Please also note (link: https://getkirby.com/lic
 
 If you do not agree to this Agreement, please do not download, install or use Merx. Installation or use of Merx signifies that you have read, understood, and agreed to be bound by this Agreement.
 
-This Agreement was last revised on March 27, 2019.
+This Agreement was last revised on April 2, 2019.
 
 ## Definitions
 Terms that will be used throughout the Agreement:
@@ -40,7 +40,7 @@ As Merx is software and software is intangible, we don't sell it as such. Instea
 
 The license is **non-exclusive** (meaning that You are not the only one who We will issue a license) and **generally non-transferable** (meaning that the one who purchases the license is the licensee).
 
-If you need to **transfer** your Merx license to another individual or company, please get in touch directly at (email: support@getkirby.com).
+If you need to **transfer** your Merx license to another individual or company, please get in touch directly at (email: merx@wagnerwagner.de).
 
 A license is valid for all Updates of the same major Merx release. We reserve the right to charge an **upgrade fee for Upgrade releases**.
 
@@ -53,7 +53,7 @@ Therefore, installing and using Merx on a Development Machine is **free** for as
 ## Restrictions
 
 ### Legal Restrictions
-You may only use Merx in a manner that complies with any and all **applicable laws** in the jurisdictions in which You use Kirby. Please respect all applicable restrictions concerning **privacy and intellectual property rights**.
+You may only use Merx in a manner that complies with any and all **applicable laws** in the jurisdictions in which You use Merx. Please respect all applicable restrictions concerning **privacy and intellectual property rights**.
 
 ### Making Copies
 You may make **copies of Merx** in any machine readable form solely for **back-up purposes**, provided that You reproduce Merx in its original form and with all proprietary notices on the back-up copy.
