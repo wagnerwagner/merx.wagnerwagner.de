@@ -2,12 +2,12 @@ Title: Add as git submodule
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Text:
+Text: 
 
 ```bash
-git submodule add git@github.com:wagnerwagner/merx.git site/plugins/merx
+git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx
 ```
