@@ -1,4 +1,6 @@
 node_modules
+.ssh
+.bash_history
 
 /content/orders/**/order.txt
 /public/media
