@@ -131,6 +131,15 @@ Kirby::plugin('wagnerwagner/site', [
   ],
   'routes' => [
     [
+      'pattern' => 'sitemap.xml',
+      'action' => function () {
+        return new Page([
+          'slug' => 'sitemap',
+          'template' => 'sitemap',
+        ]);
+      },
+    ],
+    [
       'method' => 'post',
       'pattern' => 'merx-api/buy',
       'action' => function() {
