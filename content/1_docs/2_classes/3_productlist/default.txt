@@ -2,6 +2,10 @@ Title: ProductList
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: 
 
 ----
@@ -10,7 +14,7 @@ Text:
 
 The `ProductList` class extends the (link: https://github.com/getkirby/kirby/blob/master/src/Toolkit/Collection.php text: `Kirby\Toolkit\Collection`).
 
-What’s special about it is that you can pass just the `id` of a product page and the price and tax are calculated for you. See the (link: cookbooks/wishlist text: Wishlist cookbook) to learn more.
+What is special about that, is that you can pass just the `id` of a product page and the price and tax are automatically calculated for you. See the (link: cookbooks/wishlist text: Wishlist cookbook) to learn more.
 
 Collection of product items.
 
