@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* global Stripe */
 const element = document.querySelector('.buy');
 let paymentMethod = null;
@@ -55,7 +56,7 @@ function removeErrors() {
   });
 }
 
-function updateCart(quantity = 1) {
+function updateCart(quantity = 1, cartQuantityNumberElement) {
   const postData = new FormData();
   postData.append('quantity', quantity);
   fetch('merx-api/update-cart', {
@@ -66,9 +67,8 @@ function updateCart(quantity = 1) {
     if (response.status !== 500) {
       return response.json();
     }
-    console.error(response);
   }).then((data) => {
-    console.log(data);
+    cartQuantityNumberElement.textContent = data.quantity;
     element.querySelector('.cart__sum').textContent = data.sumNet;
     element.querySelector('.cart__tax').textContent = data.sumTax;
     element.querySelector('.cart__total').textContent = data.sum;
@@ -149,12 +149,10 @@ function submit(formElement) {
     unsetLoading();
     if (data.status === 201) {
       window.location = data.redirect;
+    } else if (data.code === 'error.merx.fieldsvalidation') {
+      showFieldErrors(data.details);
     } else {
-      if (data.code === 'error.merx.fieldsvalidation') {
-        showFieldErrors(data.details);
-      } else {
-        showGlobalError(data.message);
-      }
+      showGlobalError(data.message);
     }
   });
 }
@@ -218,15 +216,13 @@ if (element) {
   cartQuantityDecreaseElement.addEventListener('click', () => {
     const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10) - 1;
     if (newQuantity >= 1) {
-      cartQuantityNumberElement.textContent = newQuantity;
-      updateCart(newQuantity);
+      updateCart(newQuantity, cartQuantityNumberElement);
     }
   });
   cartQuantityIncreaseElement.addEventListener('click', () => {
     const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10) + 1;
     if (newQuantity <= 10) {
-      cartQuantityNumberElement.textContent = newQuantity;
-      updateCart(newQuantity);
+      updateCart(newQuantity, cartQuantityNumberElement);
     }
   });
 

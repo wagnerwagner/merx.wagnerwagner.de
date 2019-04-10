@@ -14,7 +14,7 @@ Dim: false
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -22,7 +22,7 @@ Summary: There is a `cart()` shortcut.
 
 ----
 
-Text:
+Text: 
 
 ### `$data` keys
 
@@ -42,7 +42,7 @@ key | type | description
 $cart = cart([
   [
     'id' => 'new-shoes',
-    'amount' => 3,
+    'quantity' => 3,
   ],
   [
     'id' => 'new-socks'

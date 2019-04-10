@@ -14,7 +14,7 @@ return function ($page) {
   $cart = $page->cart();
   return [
     'cart' => $cart,
-    'amount' => (int)$cart->findBy('id', 'merx-license')['quantity'],
+    'quantity' => (int)$cart->findBy('id', 'merx-license')['quantity'],
     'licenses' => explode(', ', $page->licenses()),
     'paymentMethod' => getPaymentMethod((string)$page->paymentMethod()),
   ];

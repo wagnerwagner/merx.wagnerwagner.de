@@ -168,6 +168,7 @@ Kirby::plugin('wagnerwagner/site', [
         ]);
         $data = $cart->first();
         return [
+          'quantity' => $data['quantity'],
           'sumNet' => formatPrice($data['sum'] - $data['sumTax']),
           'sumTax' => '+ Vat (19%) ' . formatPrice($data['sumTax']),
           'sum' => formatPrice($data['sum'], 'before'),

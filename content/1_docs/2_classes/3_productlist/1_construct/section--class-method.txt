@@ -14,15 +14,15 @@ Dim: false
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
 
 ### Example
 
@@ -30,7 +30,7 @@ Text:
 $productList = new ProductList([
   [
     'id' => 'new-shoes',
-    'amount' => 3,
+    'quantity' => 3,
   ],
   [
     'id' => 'blue-socks'

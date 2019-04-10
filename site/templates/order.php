@@ -34,12 +34,12 @@
     </div>
     <div class="invoice__purchase">
       <h2>Purchase</h2>
-      <p>You bought <?= $amount === 1 ? '<strong>one</strong> Merx License' : '<strong>' . $amount . '</strong> Merx Licenses' ?>. You have chosen <strong><?= $page->paymentMethodName() ?></strong> as payment method.</p>
+      <p>You bought <?= $quantity === 1 ? '<strong>one</strong> Merx License' : '<strong>' . $quantity . '</strong> Merx Licenses' ?>. You have chosen <strong><?= $page->paymentMethodName() ?></strong> as payment method.</p>
       <table>
         <thead>
           <tr>
             <th>Product</th>
-            <th>Amount</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Sum</th>
           </tr>
