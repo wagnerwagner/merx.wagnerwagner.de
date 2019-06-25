@@ -1,0 +1,17 @@
+Title: iDEAL Payment Gateway
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: 
+
+----
+
+Text: There are two ways to handle iDEAL payments. It’s up to you if you want to use Stripe Elements or not.
+
+----
+
+Redirect: false

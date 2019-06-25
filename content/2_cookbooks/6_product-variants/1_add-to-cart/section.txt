@@ -1,0 +1,32 @@
+Title: Add to cart
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+Simply add the desired variations to the customer’s (link: docs/classes/cart text: cart). That’s it.
+
+```php
+$cart->add([
+  'id' => 'nice-shoes',
+  'color' => 'red',
+  'size' => 38,
+]);
+```
+
+You can even set a custom price within the add method:
+
+```php
+$cart->add([
+  'id' => 'nice-shoes',
+  'color' => 'gold',
+  'size' => 41.5,
+  'price' => 249.99,
+]);
+```
+
+Tax is calculated automatically based on the tax value (link: docs/getting-started/add-products/content text: defined in the product page).

@@ -1,0 +1,21 @@
+Title: cart Hook
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+(filename: site/config/config.php)
+
+```php
+return [
+  'hooks' => [
+    'ww.merx.cart' => function ($cart) {
+      // manipulate cart here
+    }
+  ],
+];
+```

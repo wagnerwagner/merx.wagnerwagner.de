@@ -1,0 +1,22 @@
+Title: Stock Management
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: Learn how to manage inventory.
+
+----
+
+Text: 
+
+Let’s assume your granny knitted 10 pairs of knitted socks. So you can’t sell 11 pairs. Learn how to manage your inventory.
+
+You can find the source code of a full working example on Github:
+(link: https://github.com/wagnerwagner/merx-examples/tree/stock-management text: Source Code)
+
+----
+
+Redirect: false

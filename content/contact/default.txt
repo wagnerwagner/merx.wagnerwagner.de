@@ -2,16 +2,20 @@ Title: Contact
 
 ----
 
-Shortdescription:
+Headline: 
 
 ----
 
-Text:
+Shortdescription: 
+
+----
+
+Text: 
 
 Do not hesitate to contact us if you have any questions.
 **(email: merx@wagnerwagner.de)**
 
-If you have tips or general questions that others might benefit from, please use the **(link: https://forum.getkirby.com text: Kirby Forum)**
+If you have tips or general questions that others might benefit from, please use the **(link: https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735 text: Kirby Forum)**
 
 Found a bug? Please file an issue.
 **(link: https://github.com/wagnerwagner/merx/issues text: Github)**

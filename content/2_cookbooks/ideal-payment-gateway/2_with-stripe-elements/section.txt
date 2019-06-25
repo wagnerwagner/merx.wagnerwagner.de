@@ -1,0 +1,64 @@
+Title: With Stripe Elements
+
+----
+
+Abstract: 
+
+----
+
+Text: 
+
+(filename: site/content/config.php)
+
+```php
+use Wagnerwagner\Merx\Payment;
+
+return [
+  'ww.merx.gateways' => [
+    'ideal' => [
+      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage
+      {
+        \Stripe\Stripe::setApiKey(option('ww.merx.stripe.test.secret_key'));
+        // get source object
+        $source = \Stripe\Source::retrieve((string)$virtualOrderPage->source());
+        
+        // set redirect url
+        $virtualOrderPage->content()->update([
+          'redirect' => $source->redirect->url,
+        ]);
+        return $virtualOrderPage;
+      },
+      'completePayment' => function(OrderPage $virtualOrderPage, array $data): OrderPage
+      {
+        // check if user canceled payment
+        if (isset($data['source']) && Payment::getStatusOfSource($data['source']) === 'failed') {
+          throw new Exception([
+            'key' => 'merx.paymentCanceled',
+            'httpCode' => 400,
+          ]);
+        }
+        // charge payment
+        $sourceString = $data['source'] ?? $virtualOrderPage->source()->toString();
+        $stripeCharge = Payment::createStripeCharge($virtualOrderPage->cart()->getSum(), $sourceString);
+        $virtualOrderPage->content()->update([
+          'paymentDetails' => (array)$stripeCharge,
+          'paymentComplete' => true,
+          'payedDate' => date('c'),
+        ]);
+        return $virtualOrderPage;
+      },
+    ],
+  ],
+];
+```
+
+```php
+$data = [
+  'paymentMethod' => 'ideal',
+  'source' => 'src_XXXXXXXXXXXXXXXXXXXXXXXX',
+  … // other data, like name, email etc.
+];
+$redirect = merx()->initializePayment($data);
+```
+
+Use (link: https://stripe.com/docs/sources/ideal text: Stripe Elements) to get the source string. Pass this `source` into the (link: docs/classes/merx/initializepayment text: initializePayment) method.

@@ -1,0 +1,17 @@
+Title: Product Variants
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: Learn how to sell variations of your products.
+
+----
+
+Text: If you want to sell shoes you probably want to sell the shoes in a specific size. This cookbook shows you how to sell variations of your products.
+
+----
+
+Redirect: false
