@@ -2,13 +2,13 @@ Title: With Stripe Elements
 
 ----
 
-Abstract: 
+Abstract:
 
 ----
 
-Text: 
+Text:
 
-(filename: site/content/config.php)
+(filename: site/config/config.php)
 
 ```php
 use Wagnerwagner\Merx\Payment;
@@ -21,7 +21,7 @@ return [
         \Stripe\Stripe::setApiKey(option('ww.merx.stripe.test.secret_key'));
         // get source object
         $source = \Stripe\Source::retrieve((string)$virtualOrderPage->source());
-        
+
         // set redirect url
         $virtualOrderPage->content()->update([
           'redirect' => $source->redirect->url,

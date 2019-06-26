@@ -1,0 +1,40 @@
+Title: Create Products
+
+----
+
+Abstract: Shipping Costs or Discounts are handled as own products. It’s up to you how you will output and style these things on the frontend.
+
+----
+
+Text:
+
+(filename: content/shipping/product.txt)
+
+```
+Title: Shippping
+
+\----
+
+Price: 7.99
+
+\----
+
+Tax: 7
+
+```
+
+(filename: content/discount/product.txt)
+
+```
+Title: Discount
+
+\----
+
+Price: -10
+
+\----
+
+Tax: 0
+```
+
+You probably noted that the price of *Discount* is negative. This is possible since Merx&nbsp;1.1. Merx will still check if the whole cart has a negative sum, if so an exception is thrown.

@@ -6,7 +6,7 @@ Herocopy: Merx is a plugin to create online shops with Kirby 3.
 
 ----
 
-Features: 
+Features:
 
 - 
   headline: Flexibility
@@ -26,3 +26,9 @@ Features:
 - 
   headline: Infinite Payment Options
   text: 'Merx (link: docs/getting-started/payment-methods text: sup­ports) Stripe (Credit Card, SEPA Di­rect Debit, SO­FORT) and Pay­pal out of the box. For every­thing else there are (link: cookbooks/custom-payment-gateways text: cus­tom pay­ment gate­ways).'
+
+----
+
+Heroimage:
+
+- kirby-merx-panel.jpg

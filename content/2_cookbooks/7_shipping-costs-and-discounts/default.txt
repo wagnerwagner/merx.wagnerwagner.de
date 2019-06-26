@@ -1,0 +1,22 @@
+Title: Shipping Costs and Discounts
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: How to use a hook to manipulate the cart.
+
+----
+
+Text:
+
+With Merx 1.1 there is a new hook called [`ww.merx.cart`](/docs/hooks/cart) which gives you the capability to manipulate the cart. You can add new products (e.g. *Shipping*). You could even change the price of products in the cart with [$cart->updateItem()](docs/classes/cart/updateitem).
+
+Find the source code of a full working example on Github:
+[Source Code](https://github.com/wagnerwagner/merx-examples/tree/shipping-costs)
+
+----
+
+Redirect: false

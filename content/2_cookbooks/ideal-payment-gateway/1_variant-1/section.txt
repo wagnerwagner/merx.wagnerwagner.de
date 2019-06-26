@@ -2,13 +2,13 @@ Title: Without Stripe Elements
 
 ----
 
-Abstract: 
+Abstract:
 
 ----
 
-Text: 
+Text:
 
-(filename: site/content/config.php)
+(filename: site/config/config.php)
 
 ```php
 use Wagnerwagner\Merx\Payment;

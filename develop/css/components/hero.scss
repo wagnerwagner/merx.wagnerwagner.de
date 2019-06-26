@@ -1,26 +1,37 @@
 .hero {
   padding-top: rem(100);
-  padding-bottom: rem(80);
-  padding-left: rem(24);
-  padding-right: rem(24);
+  // padding-bottom: rem(80);
   color: $color--white;
   background-color: $color--black;
 
   .link-secondary {
     padding-left: rem(4);
   }
+
+}
+
+.hero__container {
+  max-width: rem($max-width + 24 * 2);
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: em($bp-fixed-nav)) {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 
 .hero__copy,
 .hero__buttons {
-  max-width: rem($max-width);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 
 .hero__copy {
+  padding-left: rem(24);
+  padding-right: rem(24);
+  flex-basis: rem(432 - 24 * 2);
+
   h1 {
     margin-top: 0;
     margin-bottom: rem(40);
@@ -44,5 +55,33 @@
   .button {
     color: $color--black;
     background-color: $color--white;
+  }
+}
+
+
+.hero__image {
+  margin-top: rem(30);
+  flex-basis: 0;
+  flex-grow: 1;
+  align-self: flex-end;
+
+  img {
+    box-sizing: border-box;
+    max-width: 100%;
+    vertical-align: middle;
+    box-shadow: 0 0 rem(0) rem(1) transparentize($color: $color--white, $amount: 0.8);
+    // border-top: rem(0.5) solid $color--lightgray;
+  }
+
+  @media (min-width: em($bp-fixed-nav)) {
+    margin-top: rem(5);
+    padding-bottom: 0;
+  }
+
+  @media (min-width: rem($max-width + 24 * 2)) {
+  }
+
+  @media (min-width: rem($max-width + 24 * 2 * 4)) {
+    margin-right: rem(24 * -4)
   }
 }

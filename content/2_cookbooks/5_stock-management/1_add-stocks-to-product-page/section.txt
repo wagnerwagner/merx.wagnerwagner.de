@@ -2,20 +2,20 @@ Title: Add stock field to product page
 
 ----
 
-Abstract: 
+Abstract:
 
 ----
 
-Text: 
+Text:
 
 (filename: content/knitted-socks/product.txt)
 
 ```txt
- Title: Knitted socks
- ----
- Price: 14.99
- ----
- Tax: 19
- ----
- Stock: 10
+Title: Knitted socks
+\----
+Price: 14.99
+\----
+Tax: 19
+\----
+Stock: 10
 ```

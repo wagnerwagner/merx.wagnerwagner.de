@@ -1,0 +1,5 @@
+fields:
+  alt:
+    type: text
+  caption:
+    type: text

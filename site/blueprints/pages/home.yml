@@ -12,3 +12,5 @@ fields:
       text:
         type: textarea
         buttons: false
+  heroImage:
+    type: files

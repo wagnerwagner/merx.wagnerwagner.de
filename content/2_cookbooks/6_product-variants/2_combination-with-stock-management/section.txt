@@ -2,60 +2,60 @@ Title: Combination with stock management
 
 ----
 
-Abstract: 
+Abstract:
 
 ----
 
-Text: 
+Text:
 
 If you want to combine product variations with (link: ./stock-management text: stock management) things are getting more complicated. We recommend to think of product variations as own products.
 
 (filename: content/nice-shoes/variant-red-41/product.txt)
 
 ```
- Title: Nice shoes
- ----
- Price: 99.99
- ----
- Tax: 19
- ----
- Color: red
- ----
- Size: 41
- ----
- Stock: 10
+Title: Nice shoes
+\----
+Price: 99.99
+\----
+Tax: 19
+\----
+Color: red
+\----
+Size: 41
+\----
+Stock: 10
 ```
 
 (filename: content/nice-shoes/variant-red-40/product.txt)
 
 ```
- Title: Nice shoes
- ----
- Price: 99.99
- ----
- Tax: 19
- ----
- Color: red
- ----
- Size: 40
- ----
- Stock: 8
+Title: Nice shoes
+\----
+Price: 99.99
+\----
+Tax: 19
+\----
+Color: red
+\----
+Size: 40
+\----
+Stock: 8
 ```
 
 (filename: content/nice-shoes/variant-gold-40/product.txt)
 
 ```
- Title: Nice shoes
- ----
- Price: 249.99
- ----
- Tax: 19
- ----
- Color: gold
- ----
- Size: 41
- ----
- Stock: 1
+Title: Nice shoes
+\----
+Price: 249.99
+\----
+Tax: 19
+\----
+Color: gold
+\----
+Size: 41
+\----
+Stock: 1
 ```
 
 ### Add variant to cart

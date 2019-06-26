@@ -2,7 +2,7 @@ Title: Custom Payment Gateways
 
 ----
 
-Headline: 
+Headline:
 
 ----
 
@@ -10,7 +10,7 @@ Shortdescription: Learn how to configure your own payment gateway.
 
 ----
 
-Text: 
+Text:
 
 Use the gateway option to add your own payment gateway.
 
@@ -18,7 +18,7 @@ Use the gateway option to add your own payment gateway.
 
 In `initializePayment` you can set a redirect url. The user will be redirected to this url. If you don’t set `redirect` the user will be sent to (link: docs/options/successpage text: successPage).
 
-(filename: site/content/config.php)
+(filename: site/config/config.php)
 
 ```php
 return [

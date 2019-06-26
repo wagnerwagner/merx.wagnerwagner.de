@@ -1,0 +1,26 @@
+Title: cart
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+*Since Merx 1.1*
+
+The cart hook is executed on [Cart::_construct()](docs/classes/cart#construct).
+You can find an example in the [*Shipping Costs and Discounts*](/cookbooks/shipping-costs-and-discounts) cookbook.
+
+(filename: site/config/config.php)
+
+```php
+return [
+  'hooks' => [
+    'ww.merx.cart' => function ($cart) {
+      // manipulate cart here
+    }
+  ],
+];
+```
