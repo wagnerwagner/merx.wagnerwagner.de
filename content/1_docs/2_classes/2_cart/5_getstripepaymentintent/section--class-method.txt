@@ -1,4 +1,4 @@
-Title: $cart->getStripePaymentIntentClientSecret()
+Title: $cart->getStripePaymentIntent()
 
 ----
 
@@ -6,7 +6,7 @@ Classname: Wagnerwagner\Merx\Cart
 
 ----
 
-Methodname: getStripePaymentIntentClientSecret
+Methodname: getStripePaymentIntent
 
 ----
 

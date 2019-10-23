@@ -192,7 +192,7 @@ if (element) {
     event.preventDefault();
     removeErrors();
     if (formElement.checkValidity()) {
-      if (paymentMethod === 'credit-card-intent') {
+      if (paymentMethod === 'credit-card-sca') {
         const clientSecret = await getClientSecret();
         const { error } = await stripe.handleCardPayment(
           clientSecret, stripe.card, {

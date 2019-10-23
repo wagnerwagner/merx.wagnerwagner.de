@@ -70,7 +70,7 @@ use Wagnerwagner\Merx\Merx;
         <h3>Payment Method</h3>
         <div class="form-checkout__payment-method">
           <label class="has-radio">
-            <input type="radio" name="paymentMethod" required value="credit-card-intent">
+            <input type="radio" name="paymentMethod" required value="credit-card-sca">
             <div>Credit Card</div>
           </label>
           <label class="has-radio">
@@ -89,7 +89,7 @@ use Wagnerwagner\Merx\Merx;
         <div class="form-checkout__payment-fields">
           <input type="hidden" name="stripePublishableKey" value="<?= option('ww.merx.production') === true ? option('ww.merx.stripe.live.publishable_key') : option('ww.merx.stripe.test.publishable_key') ?>">
 
-          <label class="is-required" hidden data-payment-method="credit-card-intent">
+          <label class="is-required" hidden data-payment-method="credit-card-sca">
             <strong>Credit Card</strong>
             <div id="stripe-card"></div>
           </label>

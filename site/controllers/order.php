@@ -1,7 +1,7 @@
 <?php
 function getPaymentMethod($key) {
   $paymentMethods = [];
-  $paymentMethods['credit-card-intent'] = 'Credit Card';
+  $paymentMethods['credit-card-sca'] = 'Credit Card';
   $paymentMethods['credit-card'] = 'Credit Card';
   $paymentMethods['paypal'] = 'PayPal';
   $paymentMethods['sepa-debit'] = 'SEPA Direct Debit';

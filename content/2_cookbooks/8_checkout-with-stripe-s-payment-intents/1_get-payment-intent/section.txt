@@ -1,0 +1,18 @@
+Title: Get Payment Intent
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+Use [`$cart->getStripePaymentIntent()`](docs/classes/cart/getstripepaymentintent) to get the client_secret and save the Payment Intent ID in a user session.
+
+```php
+<?php
+$paymentIntent = $cart->getStripePaymentIntent();
+$clientSecret = $paymentIntent->client_secret;
+$kirby->session()->set('paymentIntentId', $paymentIntent->id);
+```

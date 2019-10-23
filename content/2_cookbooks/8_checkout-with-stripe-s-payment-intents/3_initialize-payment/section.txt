@@ -1,0 +1,27 @@
+Title: Initialize Payment
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+Use the Payment Intent ID saved in the user’s session and merge it with other user data.
+
+```php
+<?php
+$data = [
+  'paymentMethod' => 'credit-card-sca',
+  'email' => 'chuck@example.com',
+  'name' => 'Chuck Norris',
+  …
+];
+$paymentIntentId = $kirby->session()->get('paymentIntentId');
+$data = array_merge($data, [
+  'stripePaymentIntentId' => $paymentIntentId,
+]);
+$redirect = merx()->initializePayment($data);
+…
+```

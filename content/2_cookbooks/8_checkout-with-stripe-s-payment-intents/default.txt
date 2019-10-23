@@ -1,0 +1,17 @@
+Title: Checkout with Stripe’s Payment Intents
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: How to create a SCA-compliant checkout experience
+
+----
+
+Text: Since Merx 1.2 there is a new *payment method* called [`credit-card-sca`](/docs/getting-started/payment-methods/credit-card-sca) and a new `Cart` method called [`getStripePaymentIntent()`](/docs/classes/cart/getstripepaymentintent) which help you to create a SCA-compliant checkout experience.
+
+----
+
+Redirect: false
