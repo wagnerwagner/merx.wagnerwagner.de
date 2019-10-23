@@ -68,10 +68,18 @@ function updateCart(quantity = 1, cartQuantityNumberElement) {
       return response.json();
     }
   }).then((data) => {
+    // eslint-disable-next-line prefer-destructuring
     cartQuantityNumberElement.textContent = data.quantity;
     element.querySelector('.cart__sum').textContent = data.sumNet;
     element.querySelector('.cart__tax').textContent = data.sumTax;
     element.querySelector('.cart__total').textContent = data.sum;
+  });
+}
+
+function getClientSecret() {
+  return fetch('merx-api/get-client-secret').then(response => response.json()).then(data => data.clientSecret).catch((exception) => {
+    console.error(exception);
+    showGlobalError('Fatal Error: Could not get client secret.');
   });
 }
 
@@ -98,6 +106,14 @@ function setStripeToken(token, formElement) {
   hiddenInput.setAttribute('type', 'hidden');
   hiddenInput.setAttribute('name', 'stripeToken');
   hiddenInput.setAttribute('value', token.id);
+  formElement.appendChild(hiddenInput);
+}
+
+function setStripePaymentIntentId(paymentIntent, formElement) {
+  const hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripePaymentIntentId');
+  hiddenInput.setAttribute('value', paymentIntent.id);
   formElement.appendChild(hiddenInput);
 }
 
@@ -180,36 +196,54 @@ if (element) {
   });
 
 
-  formElement.addEventListener('submit', (event) => {
+  formElement.addEventListener('submit', async (event) => {
     event.preventDefault();
     removeErrors();
-    if (paymentMethod === 'credit-card') {
-      stripe.createToken(stripe.card).then((result) => {
-        if (result.error) {
-          const errorElement = getErrorElement(result.error.message);
+    if (formElement.checkValidity()) {
+      if (paymentMethod === 'credit-card-intent') {
+        const clientSecret = await getClientSecret();
+        const { paymentIntent, error } = await stripe.handleCardPayment(
+          clientSecret, stripe.card, {
+            payment_method_data: {
+              billing_details: {
+                email: formElement.email.value,
+                name: formElement.name.value,
+                address: {
+                  line1: formElement.street.value,
+                  city: formElement.city.value,
+                  country: formElement.country.value,
+                },
+              },
+            },
+          },
+        );
+        if (error) {
+          const errorElement = getErrorElement(error.message);
           stripe.cardElement.parentElement.appendChild(errorElement);
         } else {
-          setStripeToken(result.token, formElement);
+          setStripePaymentIntentId(paymentIntent, formElement);
           submit(formElement);
         }
-      });
-    } else if (paymentMethod === 'sepa-debit') {
-      const sourceData = {
-        type: 'sepa_debit',
-        currency: 'eur',
-      };
+      } else if (paymentMethod === 'sepa-debit') {
+        const sourceData = {
+          type: 'sepa_debit',
+          currency: 'eur',
+        };
 
-      stripe.createSource(stripe.sepaDebit, sourceData).then((result) => {
-        if (result.error) {
-          const errorElement = getErrorElement(result.error.message);
-          stripe.sepaDebitElement.parentElement.appendChild(errorElement);
-        } else {
-          setStripeToken(result.source, formElement);
-          submit(formElement);
-        }
-      });
+        stripe.createSource(stripe.sepaDebit, sourceData).then((result) => {
+          if (result.error) {
+            const errorElement = getErrorElement(result.error.message);
+            stripe.sepaDebitElement.parentElement.appendChild(errorElement);
+          } else {
+            setStripeToken(result.source, formElement);
+            submit(formElement);
+          }
+        });
+      } else {
+        submit(formElement);
+      }
     } else {
-      submit(formElement);
+      showGlobalError('Checkout form is not valid.');
     }
   });
 
@@ -226,5 +260,5 @@ if (element) {
     }
   });
 
-  updateCart();
+  updateCart(1, cartQuantityNumberElement);
 }

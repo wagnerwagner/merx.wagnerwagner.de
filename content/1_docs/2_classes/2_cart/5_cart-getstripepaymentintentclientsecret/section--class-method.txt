@@ -1,0 +1,25 @@
+Title: $cart->getStripePaymentIntentClientSecret()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: getStripePaymentIntentClientSecret
+
+----
+
+Dim: false
+
+----
+
+Abstract: 
+
+----
+
+Summary: 
+
+----
+
+Text: 

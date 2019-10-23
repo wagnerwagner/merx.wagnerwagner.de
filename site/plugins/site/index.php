@@ -185,6 +185,16 @@ Kirby::plugin('wagnerwagner/site', [
       }
     ],
     [
+      'pattern' => 'merx-api/get-client-secret',
+      'action' => function() {
+        $merx = merx();
+        $cart = $merx->cart();
+        return [
+          'clientSecret' => $cart->getStripePaymentIntentClientSecret(),
+        ];
+      }
+    ],
+    [
       'method' => 'get',
       'pattern' => 'search-api',
       'action' => function() {
