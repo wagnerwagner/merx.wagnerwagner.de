@@ -109,14 +109,6 @@ function setStripeToken(token, formElement) {
   formElement.appendChild(hiddenInput);
 }
 
-function setStripePaymentIntentId(paymentIntent, formElement) {
-  const hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripePaymentIntentId');
-  hiddenInput.setAttribute('value', paymentIntent.id);
-  formElement.appendChild(hiddenInput);
-}
-
 function initStripe() {
   const stripePublishableKey = element.querySelector('input[name="stripePublishableKey"]').value;
   const stripe = Stripe(stripePublishableKey);
@@ -202,7 +194,7 @@ if (element) {
     if (formElement.checkValidity()) {
       if (paymentMethod === 'credit-card-intent') {
         const clientSecret = await getClientSecret();
-        const { paymentIntent, error } = await stripe.handleCardPayment(
+        const { error } = await stripe.handleCardPayment(
           clientSecret, stripe.card, {
             payment_method_data: {
               billing_details: {
@@ -221,7 +213,6 @@ if (element) {
           const errorElement = getErrorElement(error.message);
           stripe.cardElement.parentElement.appendChild(errorElement);
         } else {
-          setStripePaymentIntentId(paymentIntent, formElement);
           submit(formElement);
         }
       } else if (paymentMethod === 'sepa-debit') {

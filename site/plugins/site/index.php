@@ -145,6 +145,10 @@ Kirby::plugin('wagnerwagner/site', [
       'action' => function() {
         $data = $_POST;
         try {
+          $paymentIntentId = kirby()->session()->get('ww.site.paymentIntentId');
+          $data = array_merge($data, [
+            'stripePaymentIntentId' => $paymentIntentId,
+          ]);
           $redirect = merx()->initializePayment($data);
           return [
             'status' => 201,
@@ -189,8 +193,10 @@ Kirby::plugin('wagnerwagner/site', [
       'action' => function() {
         $merx = merx();
         $cart = $merx->cart();
+        $paymentIntent = $cart->getStripePaymentIntent();
+        kirby()->session()->set('ww.site.paymentIntentId', $paymentIntent->id);
         return [
-          'clientSecret' => $cart->getStripePaymentIntentClientSecret(),
+          'clientSecret' => $paymentIntent->client_secret,
         ];
       }
     ],
