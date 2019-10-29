@@ -2,13 +2,13 @@ Title: Complete Payment
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
 Text:
 
-Depending on the payment method you are redirected directly to the success page or after the customer completed the payment on the payment provider’s external webpage (e.g. PayPal).
+Depending on the payment method the customer is redirected directly or after the customer completed the payment on the payment provider’s external webpage (e.g. PayPal) to the success page.
 
 (filename: site/templates/success.php)
 
