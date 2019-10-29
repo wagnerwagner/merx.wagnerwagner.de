@@ -145,7 +145,7 @@ Kirby::plugin('wagnerwagner/site', [
       'action' => function() {
         $data = $_POST;
         try {
-          $paymentIntentId = kirby()->session()->get('ww.site.paymentIntentId');
+          $paymentIntentId = kirby()->session()->get('ww.site.paymentIntentId', '');
           $data = array_merge($data, [
             'stripePaymentIntentId' => $paymentIntentId,
           ]);
