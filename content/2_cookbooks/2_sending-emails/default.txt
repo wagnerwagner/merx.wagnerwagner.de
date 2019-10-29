@@ -2,6 +2,10 @@ Title: Sending Emails
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: How to use hooks to send confirmation emails.
 
 ----
@@ -24,7 +28,7 @@ sendConfirmationMail($orderPage) {
 
 return [
   'hooks' => [
-    'ww.merx.completePayment:after' => function ($orderPage, $data, $gateway) {
+    'ww.merx.completePayment:after' => function ($orderPage) {
       sendConfirmationMail($orderPage);
     },
   ],

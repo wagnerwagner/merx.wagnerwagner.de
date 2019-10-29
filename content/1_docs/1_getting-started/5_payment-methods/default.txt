@@ -2,7 +2,7 @@ Title: Payment Methods
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -12,7 +12,7 @@ Shortdescription: How to use build in payment methods and create own gateways.
 
 Text:
 
-Merx comes with 4 payment gateways built in.
+Merx comes with five payment gateways built in.
 
 
 Payment Method | Provider | Keyword

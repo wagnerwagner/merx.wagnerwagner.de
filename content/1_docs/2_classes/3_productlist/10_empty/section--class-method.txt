@@ -1,0 +1,25 @@
+Title: $productList->empty()
+
+----
+
+Classname: Wagnerwagner\Merx\ProductList
+
+----
+
+Methodname: empty
+
+----
+
+Dim: true
+
+----
+
+Abstract: 
+
+----
+
+Summary: 
+
+----
+
+Text: 
