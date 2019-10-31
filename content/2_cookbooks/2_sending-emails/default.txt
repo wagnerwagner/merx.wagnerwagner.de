@@ -18,7 +18,7 @@ You may want to send a confirmation mail to your customer. You can use [hooks](h
 
 ```php
 sendConfirmationMail($orderPage) {
-  $kirby->email([
+  kirby()->email([
     'from' => 'info@my-shop.com',
     'to' => (string)$orderPage->email(),
     'subject' => 'Thank’s for your order!',
