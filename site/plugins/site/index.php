@@ -193,9 +193,9 @@ Kirby::plugin('wagnerwagner/site', [
           'quantity' => $data['quantity'],
           'sumNet' => formatPrice($data['sum'] - $data['sumTax']),
           'sumTax' => '+ Vat (19%) ' . formatPrice($data['sumTax']),
+          'sumTaxRaw' => $data['sumTax'],
           'sum' => formatPrice($data['sum']),
           'country' => $country,
-          'cart' => $cart,
         ];
       }
     ],

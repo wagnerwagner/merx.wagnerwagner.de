@@ -77,7 +77,7 @@ function updateCart(quantity = 1, cartQuantityNumberElement, countrySelectElemet
     element.querySelector('.cart__sum').textContent = data.sumNet;
     element.querySelector('.cart__tax').textContent = data.sumTax;
     element.querySelector('.cart__total').textContent = data.sum;
-    element.querySelector('.cart__tax').hidden = (data.sumTax === 0);
+    element.querySelector('.cart__tax').hidden = (parseFloat(data.sumTaxRaw) === 0);
     cartElement.classList.remove('is-loading');
   }).catch((reason) => {
     cartElement.classList.remove('is-loading');

@@ -152,7 +152,6 @@
   padding-bottom: rem(15);
   font-size: rem($font-size--small);
   color: $color--gray;
-  border-bottom: rem(1) solid $color--gray;
 }
 
 
@@ -160,5 +159,5 @@
   flex-basis: 100%;
   padding-top: rem(15);
   font-weight: 700;
-  // font-size: rem($font-size--huge);
+  border-top: rem(1) solid $color--gray;
 }
