@@ -206,3 +206,4 @@ $countryList = [
   // 'ZW' => 'Zimbabwe', // sanctioned country according to https://paddle.com/support/countries-supported/
   'ZM' => 'Zambia',
 ];
+asort($countryList);

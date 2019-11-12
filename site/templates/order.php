@@ -55,6 +55,7 @@
           <?php endforeach; ?>
         </tbody>
         <tfoot>
+          <?php if ($cart->getTax() !== 0.0): ?>
           <tr>
             <th colspan="3">Gross</th>
             <td><?= formatPrice($cart->getSum() - $cart->getTax()) ?></td>
@@ -63,6 +64,7 @@
             <th colspan="3">+ Vat (19%)</th>
             <td><?= formatPrice($cart->getTax()) ?></td>
           </tr>
+          <?php endif; ?>
           <tr>
             <th colspan="3">Sum</th>
             <td><?= formatPrice($cart->getSum()) ?></td>

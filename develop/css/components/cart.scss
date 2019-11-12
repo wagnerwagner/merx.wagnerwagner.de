@@ -10,6 +10,24 @@
   border: rem(1) solid $color--lightgray;
   background-color: $color--lightgray-bg;
 
+  .error {
+    padding: rem(10) rem($padding);
+    color: $color--red;
+  }
+
+  &::after {
+    content: '';
+    @extend %loading-indicator;
+  }
+
+  &.is-loading {
+    &::after {
+      opacity: 1;
+      border-top-color: $color--black-loading;
+      transition-delay: $transition-duration;
+    }
+  }
+
   @media (min-width: em(1024)) {
     position: sticky;
     top: rem($height--header + 40);
@@ -41,6 +59,8 @@
   display: flex;
   margin-left: rem(48 - 8);
   align-self: baseline;
+  transition-property: opacity;
+  transition-duration: $transition-duration;
 
   > button,
   > span {
@@ -75,6 +95,11 @@
     text-align: center;
   }
 
+  .cart.is-loading & {
+    opacity: 0.5;
+    transition-delay: $transition-duration;
+  }
+
   @media (max-width: em($bp-small-padding - 1)) {
     margin-left: rem($padding - 8);
   }
@@ -88,6 +113,13 @@
   align-self: baseline;
   font-size: rem($font-size--huge);
   text-align: right;
+  transition-property: opacity;
+  transition-duration: $transition-duration;
+
+  .cart.is-loading & {
+    opacity: 0.5;
+    transition-delay: $transition-duration;
+  }
 
   @media (max-width: em($bp-small-padding - 1)) {
    margin-left: rem($padding);
@@ -100,6 +132,13 @@
   margin-left: rem(48);
   margin-right: rem(48);
   text-align: right;
+  transition-property: opacity;
+  transition-duration: $transition-duration;
+
+  .cart.is-loading & {
+    opacity: 0.5;
+    transition-delay: $transition-duration;
+  }
 
   @media (max-width: em($bp-small-padding - 1)) {
    margin-left: rem($padding);

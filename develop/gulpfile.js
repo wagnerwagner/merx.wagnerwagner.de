@@ -60,7 +60,7 @@ gulp.task('sass-dev', () => {
       this.emit('end'); // Recover from errors
     }))
     .pipe(autoprefixer({
-      browsers: 'Safari 12',
+      browserslist: 'last 2 Safari versions',
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(`${publicFolder}${assetsFolder}css`))

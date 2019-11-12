@@ -171,20 +171,31 @@ Kirby::plugin('wagnerwagner/site', [
         setlocale(LC_ALL, 'en_US');
         $product = page('merx-license');
         $quantity = (int)$_POST['quantity'];
+        $country = (string)$_POST['country'];
         if ($quantity > 10) {
           throw Exception('Quantity can’t be more than 10.');
         }
         $cart = merx()->cart();
-        $cart->updateItem([
+        $newCartData = [
           'id' => $product->id(),
           'quantity' => $quantity,
-        ]);
+        ];
+        if ($country !== 'DE') {
+          $newCartData['price'] = $product->getNet();
+          $newCartData['tax'] = 0;
+        } else {
+          $newCartData['price'] = $product->price()->toFloat();
+          $newCartData['tax'] = calculateTax($product->price()->toFloat(), $product->tax()->toFloat());
+        }
+        $cart->updateItem($newCartData);
         $data = $cart->first();
         return [
           'quantity' => $data['quantity'],
           'sumNet' => formatPrice($data['sum'] - $data['sumTax']),
           'sumTax' => '+ Vat (19%) ' . formatPrice($data['sumTax']),
-          'sum' => formatPrice($data['sum'], 'before'),
+          'sum' => formatPrice($data['sum']),
+          'country' => $country,
+          'cart' => $cart,
         ];
       }
     ],

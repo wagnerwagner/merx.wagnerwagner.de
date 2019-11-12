@@ -2,7 +2,7 @@ Title: $merx->cart()
 
 ----
 
-ClassName: Wagnerwagner\Merx\Merx
+Classname: Wagnerwagner\Merx\Merx
 
 ----
 
@@ -10,15 +10,15 @@ Methodname: cart
 
 ----
 
+Dim: false
+
+----
+
 Abstract: Returns visitors cart.
 
 ----
 
-Summary:
-
-```php
-$merx->cart(): Cart
-```
+Summary: 
 
 ----
 

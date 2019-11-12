@@ -6,13 +6,13 @@
       <?= $page->text()->kt() ?>
     </div>
     <nav class="overview__nav">
-      <?php foreach($page->children()->visible() as $item): ?>
+      <?php foreach($page->children()->listed() as $item): ?>
         <?php if ($item->uid() === 'options'): ?>
           <hr>
         <?php endif; ?>
         <?php if ($item->hasListedChildren()): ?>
           <h2><?= $item->title() ?></h2>
-          <?php foreach($item->children()->visible() as $item): ?>
+          <?php foreach($item->children()->listed() as $item): ?>
             <a <?= $item->shortDescription()->isEmpty() ? 'class="is-small"' : '' ?> href="<?= $item->url() ?>">
               <strong><?= $item->title() ?></strong>
               <?php if ($item->shortDescription()->isNotEmpty()): ?>

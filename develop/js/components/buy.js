@@ -56,9 +56,13 @@ function removeErrors() {
   });
 }
 
-function updateCart(quantity = 1, cartQuantityNumberElement) {
+function updateCart(quantity = 1, cartQuantityNumberElement, countrySelectElemet) {
+  const cartElement = element.querySelector('.cart');
   const postData = new FormData();
+  removeErrors();
+  cartElement.classList.add('is-loading');
   postData.append('quantity', quantity);
+  postData.append('country', countrySelectElemet.value);
   fetch('merx-api/update-cart', {
     method: 'POST',
     credentials: 'same-origin',
@@ -73,6 +77,13 @@ function updateCart(quantity = 1, cartQuantityNumberElement) {
     element.querySelector('.cart__sum').textContent = data.sumNet;
     element.querySelector('.cart__tax').textContent = data.sumTax;
     element.querySelector('.cart__total').textContent = data.sum;
+    element.querySelector('.cart__tax').hidden = (data.sumTax === 0);
+    cartElement.classList.remove('is-loading');
+  }).catch((reason) => {
+    cartElement.classList.remove('is-loading');
+    console.error(reason);
+    const errorElement = getErrorElement(reason.message);
+    cartElement.appendChild(errorElement);
   });
 }
 
@@ -162,6 +173,11 @@ function submit(formElement) {
     } else {
       showGlobalError(data.message);
     }
+  }).catch((reason) => {
+    unsetLoading();
+    console.error(reason);
+    const errorElement = getErrorElement(reason.message);
+    formElement.querySelector('.form-checkout').appendChild(errorElement);
   });
 }
 
@@ -177,6 +193,7 @@ if (element) {
   const paymentMethodElements = element.querySelectorAll('label[data-payment-method]');
   const radioPaymentMethodElements = element.querySelectorAll('input[name="paymentMethod"]');
   const buttonTextDefault = submitElement.textContent;
+  const countrySelectElemet = formElement.country;
 
   [...radioPaymentMethodElements].forEach((radioPaymentMethodElement) => {
     radioPaymentMethodElement.addEventListener('change', () => {
@@ -241,15 +258,19 @@ if (element) {
   cartQuantityDecreaseElement.addEventListener('click', () => {
     const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10) - 1;
     if (newQuantity >= 1) {
-      updateCart(newQuantity, cartQuantityNumberElement);
+      updateCart(newQuantity, cartQuantityNumberElement, countrySelectElemet);
     }
   });
   cartQuantityIncreaseElement.addEventListener('click', () => {
     const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10) + 1;
     if (newQuantity <= 10) {
-      updateCart(newQuantity, cartQuantityNumberElement);
+      updateCart(newQuantity, cartQuantityNumberElement, countrySelectElemet);
     }
   });
+  countrySelectElemet.addEventListener('change', () => {
+    const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10);
+    updateCart(newQuantity, cartQuantityNumberElement, countrySelectElemet);
+  })
 
-  updateCart(1, cartQuantityNumberElement);
+  updateCart(1, cartQuantityNumberElement, countrySelectElemet);
 }

@@ -30,7 +30,7 @@ use Wagnerwagner\Merx\Merx;
         <label data-name="email">
           <div>Email Address</div>
           <input type="email" name="email" placeholder="contact@nicenewshoes.com" autocomplete="email" required>
-          <small>We will send you license key to this email address.</small>
+          <small>We will send your license key to this email address.</small>
         </label>
         <h3>Billing Address</h3>
         <label data-name="company">

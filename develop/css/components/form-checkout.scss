@@ -126,6 +126,7 @@
   }
 
   &.is-loading {
+    pointer-events: none;
     button {
       color: transparent;
       &::after {
@@ -184,4 +185,8 @@
 
 .form-checkout__submit {
   margin-top: rem(30);
+
+  & + .error {
+    margin-top: rem(15);
+  }
 }
