@@ -12,6 +12,10 @@
               <a class="link-secondary" href="https://github.com/wagnerwagner/babyreport.de">Source Code</a>
             </div>
             <div>
+              <a class="button" href="http://plainkit-merx.wagnerwagner.de">Plainkit&ensp;→</a>
+              <a class="link-secondary" href="https://github.com/wagnerwagner/merx-examples">Source Code</a>
+            </div>
+            <div>
               <a class="button" href="https://github.com/wagnerwagner/merx/releases/latest">Download&ensp;↓</a>
               <div class="text-secondary">
                 <a class="link-secondary" href="https://github.com/wagnerwagner/merx">Source Code</a>
