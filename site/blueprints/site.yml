@@ -4,6 +4,8 @@ sections:
   mainnav:
     type: pages
     status: listed
+  orders:
+    extends: sections/orders
   pages:
     type: pages
     status: unlisted
