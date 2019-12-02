@@ -1,0 +1,17 @@
+Title: Plainkit
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: Explain http://plainkit-merx.wagnerwagner.de
+
+----
+
+Text: 
+
+----
+
+Redirect: false
