@@ -10,15 +10,23 @@ Methodname: completePayment
 
 ----
 
-Abstract:
+Dim: false
 
 ----
 
-Summary:
+Abstract: 
+
+----
+
+Summary: 
 
 ----
 
 Text:
+
+### Additional Information
+
+The required `$data` depends on your `paymentMethod`. See [Payment Methods](docs/getting-started/payment-methods) for more information.
 
 ### Exceptions
 This method could throw `Kirby\Exception\Exception` you should handle.
