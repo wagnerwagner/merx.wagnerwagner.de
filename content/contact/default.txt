@@ -10,7 +10,7 @@ Shortdescription:
 
 ----
 
-Text: 
+Text:
 
 Do not hesitate to contact us if you have any questions.
 **(email: merx@wagnerwagner.de)**
@@ -31,8 +31,8 @@ Germany
 (email: mail@​wagnerwagner.​de)
 
 HRB Stuttgart 354262
-Steuer­nummer: 78092 / 68991
-USt-ID-Nr.: DE231029364
+Tax number: 78092 / 68991
+VAT identification number: DE231029364
 
 Responsible for all content is Peter Wagner
 
