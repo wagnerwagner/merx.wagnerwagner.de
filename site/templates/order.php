@@ -89,7 +89,7 @@
       </p>
       <p>
         Tax number: 78092 / 68991<br>
-        VAT identification number: 78092 / 68991
+        VAT identification number: DE231029364
       </p>
       <p>
         <a href="mailto:merx@wagnerwagner.de">merx@wagnerwagner.de</a>
