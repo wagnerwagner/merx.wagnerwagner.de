@@ -87,7 +87,13 @@
         72760 Reutlingen<br>
         Germany
       </p>
-      <a href="mailto:merx@wagnerwagner.de">merx@wagnerwagner.de</a>
+      <p>
+        Tax number: 78092 / 68991<br>
+        VAT identification number: 78092 / 68991
+      </p>
+      <p>
+        <a href="mailto:merx@wagnerwagner.de">merx@wagnerwagner.de</a>
+      </p>
     </div>
   </main>
   <?php snippet('footer') ?>
