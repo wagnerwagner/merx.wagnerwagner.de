@@ -2,11 +2,15 @@ Title: Hooks
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: See what hooks can do for you.
 
 ----
 
-Text: Hooks can be useful if you want to [send confirmation emails](cookbooks/sending-emails) or log certain events.
+Text: Hooks can be useful if you want to [send confirmation emails](/cookbooks/sending-emails), generate PDFs or log certain events.
 
 ----
 

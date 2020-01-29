@@ -2,7 +2,7 @@ Title: Options
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -20,9 +20,7 @@ return [
   'ww.merx.stripe.live.publishable_key' => 'sk_live_xxx…',
   'ww.merx.paypal.sandbox.clientID' => 'xxx…',
   'ww.merx.paypal.sandbox.secret' => 'xxx…',
-  'ww.merx.paypal.sandbox.experienceProfileID' => 'XP-XX…',
   'ww.merx.paypal.live.clientID' => 'xxx…',
   'ww.merx.paypal.live.secret' => 'xxx…',
-  'ww.merx.paypal.live.experienceProfileID' => 'XP-XX…',
 ];
 ```
