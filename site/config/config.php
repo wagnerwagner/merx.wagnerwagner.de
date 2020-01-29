@@ -19,9 +19,6 @@ return [
   'timestampedAsset' => true,
   'merxPluginDirectory' => '/site/plugins/merx',
   'merx-email' => 'merx@wagnerwagner.de',
-  'ww.merx.gateways' => [
-    'wire-transfer' => [],
-  ],
   'ww.merx.production' => true,
   'ww.merx.license' => $merxLicense,
   'ww.merx.stripe.test.publishable_key' => $stripeTestPublishableKey,
