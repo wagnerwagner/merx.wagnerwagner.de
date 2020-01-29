@@ -1,0 +1,20 @@
+Title: currencyPositionPrecedes
+
+----
+
+Abstract: Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.
+
+----
+
+Text:
+
+Overwrites `p_cs_precedes` of [`localeconv`](https://www.php.net/manual/en/function.localeconv.php)
+
+```php
+return [
+  'ww.merx.currencyPositionPrecedes' => true,
+];
+```
+
+### Type
+`bool`

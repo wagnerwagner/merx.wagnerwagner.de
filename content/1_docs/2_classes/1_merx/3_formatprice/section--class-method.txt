@@ -14,11 +14,15 @@ Dim: false
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary: There is a `formatPrice` shortcut.
+Summary:
+
+There is a `formatPrice` shortcut.
+
+You can set global options for [`currencyPositionPrecedes`](/docs/options/currencypositionprecedes) and [`currencySeperateBySpace`](/docs/options/currencyseperatebyspace) in your config file to overwrite the `localeconv` information. The method arguments overwrite the global options.
 
 ----
 
@@ -31,6 +35,9 @@ echo formatPrice(9.41); // € 9.41
 
 // if language is set to German
 echo formatPrice(1029.41); // 1.029,41 €
+
+// using additional arguments
+echo formatPrice(49.95, true, true); // € 49.95
 ```
 
 ----
