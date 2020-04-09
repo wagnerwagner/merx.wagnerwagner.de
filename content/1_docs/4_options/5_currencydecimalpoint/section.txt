@@ -1,0 +1,20 @@
+Title: currencyDecimalPoint
+
+----
+
+Abstract: Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.
+
+----
+
+Text:
+
+Overwrites `decimal_point` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)
+
+```php
+return [
+  'ww.merx.currencyDecimalPoint' => ',', // e.g. 1234,56 €
+];
+```
+
+### Type
+`string`
