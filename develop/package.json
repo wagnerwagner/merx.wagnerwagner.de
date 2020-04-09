@@ -11,29 +11,29 @@
   "author": "tobias.wolf@wagnerwagner.de",
   "repository": "https://192.168.0.11/wagnerwagner/develop-blueprint",
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/preset-env": "^7.5.4",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.7",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.20.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-imagemin": "^5.0.3",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "imagemin-mozjpeg": "^8.0.0",
-    "node-notifier": "^5.4.0",
+    "node-notifier": "^5.4.3",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.35.3",
+    "webpack": "^4.42.1",
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "@babel/polyfill": "^7.8.7",
     "acorn": "^6.4.1",
-    "airbnb-browser-shims": "^3.2.1",
-    "awesomplete": "^1.1.4",
-    "prismjs": "^1.16.0"
+    "airbnb-browser-shims": "^3.3.0",
+    "awesomplete": "^1.1.5",
+    "prismjs": "^1.20.0"
   }
 }
