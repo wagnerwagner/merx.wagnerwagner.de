@@ -6,9 +6,9 @@ Abstract:
 
 ----
 
-Text: 
+Text:
 
-A product page must have a (net) price. Everything else is optional. The tax is a percentage float.
+A product page must have a price (including tax). Everything else is optional. The tax is a percentage float.
 
 (filename: content/nice-shoes/product.txt)
 

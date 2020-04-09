@@ -1,0 +1,17 @@
+Title: Installation via Composer
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+If you prefer composer you can add Merx with this command from your websites root. This will install Merx and it’s dependencies at `site/plugins/merx`.
+
+```bash
+composer require wagnerwagner/merx
+```
+
+Read more about Composer and Kirby on [getkirby.com](https://getkirby.com/docs/cookbook/setup/composer)

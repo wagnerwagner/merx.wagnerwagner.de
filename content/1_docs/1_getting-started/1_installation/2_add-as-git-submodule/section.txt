@@ -1,4 +1,4 @@
-Title: Add as git submodule
+Title: Installation as Git submodule
 
 ----
 
@@ -6,8 +6,12 @@ Abstract:
 
 ----
 
-Text: 
+Text:
+
+Run the following command on your website’s root and Merx and it’s dependencies is installed at `site/plugins/merx`.
 
 ```bash
 git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx
 ```
+
+Read more about Kirby and Git on [getkirby.com](https://getkirby.com/docs/cookbook/setup/git)

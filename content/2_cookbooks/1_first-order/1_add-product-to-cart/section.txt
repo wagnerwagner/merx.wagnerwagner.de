@@ -2,7 +2,7 @@ Title: Add product to cart
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -13,7 +13,7 @@ $merx = merx();
 $merx->cart()->add(['id' => 'nice-shoes']);
 ```
 
-The `id` has to be a valid page.
+The `id` has to be a valid page. The page must have a price field.
 
 On another page you should show the customer’s cart.
 

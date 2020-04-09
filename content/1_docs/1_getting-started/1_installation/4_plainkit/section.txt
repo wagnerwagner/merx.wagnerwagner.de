@@ -1,0 +1,9 @@
+Title: Plainkit
+
+----
+
+Abstract: 
+
+----
+
+Text: If you want you can start with the [Plainkit](https://github.com/wagnerwagner/merx-examples/tree/plainkit). This is a full working shop but with no styles and no fancy JavaScript. If you want to use PayPal with the Plainkit you have to set up (link: /docs/getting-started/set-up text: your PayPal keys).

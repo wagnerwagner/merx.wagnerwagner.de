@@ -2,13 +2,13 @@ Title: Add product to cart
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
 Text:
 
-Just add an `array` with a valid product page `id`.
+Add an `array` with a valid product page `id`. The page must have a price field.
 
 ```php
 $cart = merx()->cart();
