@@ -10,6 +10,10 @@ Methodname: invoiceNumber
 
 ----
 
+Dim: false
+
+----
+
 Abstract: 5 character long string based on the sorting number.
 
 ----
@@ -18,10 +22,14 @@ Summary:
 
 ----
 
-Text: 
+Text:
 
 ### Example
 
 ```php
 $orderPage->invoiceNumber(); // 00003
 ```
+
+### Custom Invoice Numbers 
+
+Learn how to generate custom invoice numbers with the [Custom Invoice Numbers cookbook](/cookbooks/custom-invoice-numbers).

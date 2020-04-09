@@ -1,0 +1,19 @@
+Title: Return Invoice Number
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+To return the invoice number you should use the custom `$orderPage->invoiceNumber()` method.
+
+(filename: site/templates/order.php)
+
+```php 
+<?php
+echo 'Invoice Number: ';
+echo $page->invoiceNumber();
+```

@@ -2,11 +2,15 @@ Title: Add Products
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: How to set up products and add them to the cart.
 
 ----
 
-Text: A *product* is just a Kirby page with the product template.
+Text: A *product* is a Kirby page with a product template.
 
 ----
 

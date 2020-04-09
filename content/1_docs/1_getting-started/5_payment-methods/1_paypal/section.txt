@@ -2,7 +2,7 @@ Title: PayPal
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -12,7 +12,7 @@ Text:
 
 ```php
 $redirect = $merx->initializePayment([
-  'payment-method' => 'paypal',
+  'paymentMethod' => 'paypal',
 ]);
 go($redirect); // https://www.paypal.com/cgi-bin/webscr…
 ```

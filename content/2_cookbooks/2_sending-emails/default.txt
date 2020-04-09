@@ -17,7 +17,7 @@ You may want to send a confirmation mail to your customer. You can use [hooks](h
 (filename: site/config.php)
 
 ```php
-sendConfirmationMail($orderPage) {
+function sendConfirmationMail($orderPage) {
   kirby()->email([
     'from' => 'info@my-shop.com',
     'to' => (string)$orderPage->email(),

@@ -1,0 +1,26 @@
+Title: Override invoiceNumber()
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+You can override the default [`invoiceNumber()`](/docs/classes/orderpage/invoicenumber) method to return *for example* a content field. In this example the content of invoiceNumber field is returned.
+
+(filename: site/models/order.php)
+
+``` php
+<?php
+class OrderPage extends OrderPageAbstract
+{
+  public function invoiceNumber(): string
+  {
+    return $this->content()->invoiceNumber()->toString();
+  }
+}
+```
+
+Be careful, the `invoiceNumber()` method has to return a `string`.
