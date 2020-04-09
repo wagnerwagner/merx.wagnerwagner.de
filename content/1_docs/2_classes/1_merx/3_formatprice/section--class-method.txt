@@ -14,7 +14,7 @@ Dim: false
 
 ----
 
-Abstract: 
+Abstract:
 
 ----
 
@@ -22,7 +22,7 @@ Summary:
 
 There is a `formatPrice` shortcut.
 
-You can set global options for [`currencyPositionPrecedes`](/docs/options/currencypositionprecedes) and [`currencySeperateBySpace`](/docs/options/currencyseperatebyspace) in your config file to overwrite the `localeconv` information. The method arguments overwrite the global options.
+You can set global options for [`currencyPositionPrecedes`](/docs/options/currencypositionprecedes) and [`currencySeparateBySpace`](/docs/options/currencyseparatebyspace) in your config file to overwrite the `localeconv` information. The method arguments overwrite the global options.
 
 ----
 

@@ -1,4 +1,4 @@
-Title: currencySeperateBySpace
+Title: currencySeparateBySpace
 
 ----
 
@@ -12,7 +12,7 @@ Overwrites `p_sep_by_space` of [`localeconv`](https://www.php.net/manual/en/func
 
 ```php
 return [
-  'ww.merx.currencySeperateBySpace' => true,
+  'ww.merx.currencySeparateBySpace' => true,
 ];
 ```
 
