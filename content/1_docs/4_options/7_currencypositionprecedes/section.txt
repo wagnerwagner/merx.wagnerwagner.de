@@ -8,11 +8,11 @@ Abstract: Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method
 
 Text:
 
-Overwrites `p_cs_precedes` of [`localeconv`](https://www.php.net/manual/en/function.localeconv.php)
+Overwrites `p_cs_precedes` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)
 
 ```php
 return [
-  'ww.merx.currencyPositionPrecedes' => true,
+  'ww.merx.currencyPositionPrecedes' => true, // e.g. €123.45
 ];
 ```
 

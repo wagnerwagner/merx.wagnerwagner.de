@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "acorn": "^6.2.0",
+    "acorn": "^6.4.1",
     "airbnb-browser-shims": "^3.2.1",
     "awesomplete": "^1.1.4",
     "prismjs": "^1.16.0"

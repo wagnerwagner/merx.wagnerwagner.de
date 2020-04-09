@@ -1,0 +1,20 @@
+Title: currencySeparateBySpace
+
+----
+
+Abstract: Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.
+
+----
+
+Text:
+
+Overwrites `p_sep_by_space` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)
+
+```php
+return [
+  'ww.merx.currencySeparateBySpace' => true, // e.g. € 123.45
+];
+```
+
+### Type
+`bool`

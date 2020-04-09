@@ -1,0 +1,65 @@
+Title: $productList->getTaxRates()
+
+----
+
+Classname: Wagnerwagner\Merx\Cart
+
+----
+
+Methodname: getTaxRates
+
+----
+
+Dim: false
+
+----
+
+Abstract: 
+
+----
+
+Summary: 
+
+----
+
+Text:
+
+### Example
+
+```php
+use Wagnerwagner\Merx\ProductList;
+
+$productList = new ProductList([
+  [
+    'id' => 'apple',
+    'quantity' => 6,
+    'price' => 0.99,
+    'taxRate' => 7, // in percent
+  ],
+  [
+    'id' => 't-shirt',
+    'quantity' => 2,
+    'price' => 49.99,
+    'taxRate' => 19, // in percent
+  ]
+]);
+
+dump($productList->getTaxRates());
+```
+
+#### Returns
+```php
+Array
+(
+  [0] => Array
+    (
+      [taxRate] => 7
+      [sum] => 0.38859813084112
+    )
+  [1] => Array
+    (
+      [taxRate] => 19
+      [sum] => 15.963193277311
+    )
+)
+```
