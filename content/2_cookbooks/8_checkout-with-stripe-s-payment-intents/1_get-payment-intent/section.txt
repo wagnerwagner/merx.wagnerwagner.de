@@ -8,7 +8,7 @@ Abstract:
 
 Text:
 
-Use [`$cart->getStripePaymentIntent()`](docs/classes/cart/getstripepaymentintent) to get the client_secret and save the Payment Intent ID in a user session.
+Use [`$cart->getStripePaymentIntent()`](/docs/classes/cart/getstripepaymentintent) to get the client_secret and save the Payment Intent ID in a user session.
 
 ```php
 <?php

@@ -1,0 +1,30 @@
+Title: cart.fields
+
+----
+
+Abstract: Store page fields in the cart item.
+
+----
+
+Text:
+
+*Since 1.3.1*
+
+```php
+return [
+  'ww.merx.cart.fields' => ['sku', 'color'],
+];
+```
+
+If additional fields of your product page (e.g. a *sku* field) should be stored in the item of the `ProductList` or `Cart`, you can use this option.
+
+By default following values are stored in a (link: /docs/classes/productlist text: `ProductList`)’s or (link: /docs/classes/cart text: `Cart`)’s item and are taken from the product page (if a valid id provided):
+`id`, `title`, `quantity`, `price`, `taxRate`, `sum`, `sumTax`
+
+### Type
+`array`
+
+### Default
+`[]`
+
+(github: /src/productList.php line: 103 text: Source Code)
