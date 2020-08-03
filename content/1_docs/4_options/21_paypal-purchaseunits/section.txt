@@ -19,7 +19,7 @@ return [
 ];
 ```
 
-The array returned by this function is used as [`purchase_units`](https://developer.paypal.com/docs/api/orders/v2/#orders-create-request-body) object of the PayPal’s *Create order* request. You can use the [`payPalPurchaseUnits`](/docs/classes/cart/paypalpurchaseunits) method of the `Cart` class to get a formatted array of all the items in the cart.
+The array returned by this function is used as [`purchase_units`](https://developer.paypal.com/docs/api/orders/v2/#orders-create-request-body) object of the PayPal’s *Create order* request. You can use the [`payPalPurchaseUnits`](/docs/classes/cart/paypalpurchaseunits) method of the `Cart` class to get a formatted array of all items in the cart.
 
 If you do not set this option, only the total amount of the shopping cart will be transferred to PayPal.
 
