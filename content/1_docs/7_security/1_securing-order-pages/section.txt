@@ -1,0 +1,35 @@
+Title: Securing Order Pages
+
+----
+
+Abstract: Order pages may contain sensitive personal data from your customers. Make sure to secure these personal information.
+
+----
+
+Text:
+
+### Basic
+
+- Do not show personal information when it is not necessary..
+- Make sure order page links don’t appear in a sitemap or similar list of pages.
+- Add a robots meta tag to prevent search engines to crawl order pages. 
+`<meta name="robots" content="noindex, follow">`
+- Add a `robots.txt` to disallow order pages. (Your `/orders/` path can be different depending on your [ordersPage option](/docs/options#orderspage))
+```
+User-agent: *
+Disallow: /orders/
+```
+
+### Advanced
+
+- Prevent the use of `$orderPage->siblings()` or similar.
+- If you use a page search: Make sure order pages are not searchable.
+- If you use git: Make sure order pages are not included in your (public) git repository.
+
+### Further considerations
+
+- Only show the order page with a valid hash as [suggested by @bruno](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/128).
+- Create a log entry each time a OrderPage is rendered. You could overwrite the `OrderPage::render()` method.
+- Add a method to detect/prevent brute force attacks.
+- Only send one time, hashed order page links, which are only valid for a short period of time. (self destroying link)
+- ”Deactivate“/“Unplublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).

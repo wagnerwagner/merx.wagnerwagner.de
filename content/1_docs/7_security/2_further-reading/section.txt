@@ -1,0 +1,9 @@
+Title: Further Reading
+
+----
+
+Abstract: 
+
+----
+
+Text: - [Kirby Security Advices](https://getkirby.com/docs/guide/security)

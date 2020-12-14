@@ -1,0 +1,17 @@
+Title: Security
+
+----
+
+Headline: 
+
+----
+
+Shortdescription: This is a working draft for security advices on using Merx.
+
+----
+
+Text: This is a working draft for security advices when using Merx.
+
+----
+
+Redirect: false
