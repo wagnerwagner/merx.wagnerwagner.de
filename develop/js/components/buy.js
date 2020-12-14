@@ -236,6 +236,10 @@ if (element) {
         const sourceData = {
           type: 'sepa_debit',
           currency: 'eur',
+          owner: {
+            name: formElement.name.value,
+            email: formElement.email.value,
+          },
         };
 
         stripe.createSource(stripe.sepaDebit, sourceData).then((result) => {
