@@ -10,7 +10,7 @@ Text:
 
 ```php
 return [
-  'ww.merx.stripe.test.publishable_key' => 'sk_test_xxx…',
+  'ww.merx.stripe.test.secret_key' => 'sk_test_xxx…',
 ];
 ```
 

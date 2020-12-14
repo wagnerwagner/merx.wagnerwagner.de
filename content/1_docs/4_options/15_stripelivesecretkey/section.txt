@@ -2,7 +2,7 @@ Title: stripe.live.secret_key
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -10,7 +10,7 @@ Text:
 
 ```php
 return [
-  'ww.merx.stripe.live.publishable_key' => 'sk_live_xxx…',
+  'ww.merx.stripe.live.secret_key' => 'sk_live_xxx…',
 ];
 ```
 
