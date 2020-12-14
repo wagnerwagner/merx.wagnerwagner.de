@@ -1,0 +1,13 @@
+{
+  "name": "merx-wagnerwagner-de",
+  "description": "Website of Merx by Wagnerwagner",
+  "license": "proprietary",
+  "author": "tobias.wolf@wagnerwagner.de",
+  "repository": "https://github.com/wagnerwagner/merx",
+  "scripts": {
+    "install": "cd develop; npm install",
+    "update": "cd develop; npm update; npm audit fix",
+    "develop" : "cd develop; gulp",
+    "build" : "npm run update; cd develop; gulp build"
+  }
+}

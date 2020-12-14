@@ -12,3 +12,4 @@ node_modules
 /site/config/secrets
 /site/plugins/site/.license-base
 /site/config/.license
+/.nova
