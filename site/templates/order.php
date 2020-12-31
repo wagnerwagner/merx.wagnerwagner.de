@@ -61,7 +61,7 @@
             <td><?= formatPrice($cart->getSum() - $cart->getTax()) ?></td>
           </tr>
           <tr>
-            <th colspan="3">+ Vat (16%)</th>
+            <th colspan="3">+ Vat</th>
             <td><?= formatPrice($cart->getTax()) ?></td>
           </tr>
           <?php endif; ?>

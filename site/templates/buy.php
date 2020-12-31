@@ -22,7 +22,7 @@ use Wagnerwagner\Merx\Merx;
           <button type="button" data-action="increase" aria-label="increase quantity">+</button>
         </div>
         <div class="cart__sum"><?= formatPrice($cart->getSum() - $cart->getTax()) ?></div>
-        <div class="cart__tax">+ Vat (16%) <?= formatPrice($cart->getTax()) ?></div>
+        <div class="cart__tax">+ Vat (19%) <?= formatPrice($cart->getTax()) ?></div>
         <div class="cart__total"><?= formatPrice($cart->getSum()) ?></div>
       </div>
       <div class="form-checkout">

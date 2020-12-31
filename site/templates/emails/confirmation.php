@@ -33,7 +33,7 @@ Purchase
 
 Gross: <?= formatPrice($cart->getSum() - $cart->getTax()) ?>
 
-+ Vat (16%): <?= formatPrice($cart->getTax()) ?>
++ Vat (19%): <?= formatPrice($cart->getTax()) ?>
 
 Sum <?= formatPrice($cart->getSum()) ?>
 
