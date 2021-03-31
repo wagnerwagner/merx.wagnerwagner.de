@@ -25,7 +25,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
     "imagemin-mozjpeg": "^8.0.0",
-    "node-notifier": "^5.4.3",
+    "node-notifier": "^8.0.1",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.44.2",
     "webpack-stream": "^5.2.1"
@@ -35,6 +35,6 @@
     "acorn": "^6.4.2",
     "airbnb-browser-shims": "^3.3.0",
     "awesomplete": "^1.1.5",
-    "prismjs": "^1.22.0"
+    "prismjs": "^1.23.0"
   }
 }
