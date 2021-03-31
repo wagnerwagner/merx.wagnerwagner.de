@@ -2,7 +2,7 @@ Title: $cart->add()
 
 ----
 
-ClassName: Wagnerwagner\Merx\Cart
+Classname: Wagnerwagner\Merx\Cart
 
 ----
 
@@ -10,12 +10,25 @@ Methodname: add
 
 ----
 
-Abstract:
+Dim: false
 
 ----
 
-Summary:
+Abstract: 
+
+----
+
+Summary: 
 
 ----
 
 Text:
+
+### Example
+
+```php
+$cart->add([
+  'id' => 'new-shoes',
+  'quantity' => 3,
+]);
+```

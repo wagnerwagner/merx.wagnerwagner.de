@@ -27,4 +27,4 @@ By default following values are stored in a (link: /docs/classes/productlist tex
 ### Default
 `[]`
 
-(github: /src/productList.php line: 103 text: Source Code)
+(github: /src/ProductList.php line: 103 text: Source Code)

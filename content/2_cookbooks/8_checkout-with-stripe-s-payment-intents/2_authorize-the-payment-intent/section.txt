@@ -1,4 +1,4 @@
-Title: Authorize the Payment Intent
+Title: 2. Authorize the Payment Intent
 
 ----
 
@@ -6,4 +6,4 @@ Abstract:
 
 ----
 
-Text: Authorize the Payment Intent by following step 2 to 4 of (link: https://stripe.com/docs/payments/payment-intents/web text: Stripe’s Payment Intent guide).
+Text: Authorize the Payment Intent by following step 2 to 4 of (link: https://stripe.com/docs/payments/accept-a-payment?integration=elements text: Accept a payment (Custom payment flow) guide).

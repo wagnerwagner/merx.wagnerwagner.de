@@ -6,7 +6,7 @@ Abstract:
 
 ----
 
-Text: 
+Text:
 
 Merx comes with a (link: docs/blueprints/pages/product text: default product blueprint). You can extend or overwrite the blueprint with your own fields.
 
@@ -22,5 +22,5 @@ fields:
     min: 100
   description:
     label: Description
-    type: description
+    type: textarea
 ```

@@ -1,4 +1,4 @@
-Title: Initialize Payment
+Title: 3. Initialize Payment
 
 ----
 
@@ -18,9 +18,9 @@ $data = [
   'name' => 'Chuck Norris',
   …
 ];
-$paymentIntentId = $kirby->session()->get('paymentIntentId');
+$stripePaymentIntentId = $kirby->session()->get('stripePaymentIntentId');
 $data = array_merge($data, [
-  'stripePaymentIntentId' => $paymentIntentId,
+  'stripePaymentIntentId' => $stripePaymentIntentId,
 ]);
 $redirect = merx()->initializePayment($data);
 …

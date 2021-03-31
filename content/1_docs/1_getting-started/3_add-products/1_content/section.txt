@@ -13,11 +13,11 @@ A product page must have a price (including tax). Everything else is optional. T
 (filename: content/nice-shoes/product.txt)
 
 ```txt
- Title: Nice shoes
- ----
- Price: 99.99
- ----
- Tax: 19
- ----
- Description: Lorem Ipsum
+Title: Nice shoes
+\----
+Price: 99.99
+\----
+Tax: 19
+\----
+Description: Lorem Ipsum
 ```
