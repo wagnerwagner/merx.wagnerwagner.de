@@ -56,3 +56,5 @@ RewriteRule ^(.*) index.php [L]
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
+
+Header add Content-Security-Policy "default-src 'self' *.googletagmanager.com *.google-analytics.com *.stripe.com 'unsafe-inline';"
