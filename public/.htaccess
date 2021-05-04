@@ -58,3 +58,4 @@ RewriteRule ^(.*) index.php [L]
 </IfModule>
 
 Header add Content-Security-Policy "default-src 'self' *.googletagmanager.com *.google-analytics.com *.stripe.com 'unsafe-inline';"
+Header unset X-Powered-By
