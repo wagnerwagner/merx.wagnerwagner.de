@@ -7,7 +7,8 @@
   "scripts": {
     "install": "cd develop; npm install",
     "update": "cd develop; npm update; npm audit fix",
-    "develop" : "cd develop; gulp",
-    "build" : "npm run update; cd develop; gulp build"
+    "develop": "cd develop; gulp",
+    "build": "npm run update; cd develop; gulp build",
+    "connect": "ssh ssh-427627-merx@merx.wagnerwagner.de"
   }
 }
