@@ -1,13 +1,16 @@
 .mainnav {
+  display: flex;
   margin-left: auto;
   font-size: rem($font-size--standard);
-  font-family: $font-family--century-schoolbok;
+  font-family: $font-family--system-font;
+  color: $color--white;
 
   ul {
     display: flex;
     list-style: none;
     height: 100%;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
     padding: 0;
     align-items: stretch;
     justify-content: center;
@@ -18,13 +21,12 @@
     align-items: center;
     box-sizing: border-box;
     height: 100%;
-    margin-right: rem(16);
-    margin-left: rem(16);
+    margin-right: rem(8);
+    margin-left: rem(8);
     padding-top: rem(4);
     padding-left: rem(4);
     padding-right: rem(4);
     text-decoration: none;
-    color: $color--white;
     border-top: rem(8) solid transparent;
     border-bottom: rem(4) solid transparent;
 
@@ -48,13 +50,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
-    a {
-      // margin-right: rem(8);
-      // margin-left: rem(8);
-      padding-left: 0;
-      padding-right: 0;
-    }
   }
 
   @media (max-width: em($bp-small-padding - 1)) {
@@ -67,3 +62,36 @@
     }
   }
 }
+
+
+.mainnav .mainnav__steps {
+  margin-left: rem(12);
+  margin-right: rem(10);
+  font-weight: 600;
+  li:not(:last-of-type) {
+    position: relative;
+    &::after {
+      content: "\203A";
+      position: absolute;
+      top: rem(20);
+      right: rem(-4);
+    }
+  }
+
+  @media (max-width: em($bp-fixed-nav - 1)) {
+    position: absolute;
+    top: rem(2);
+    right: rem(60);
+    height: rem(42);
+
+    li:not(:last-of-type) {
+      &::after {
+        top: rem(11);
+      }
+    }
+  }
+  @media (max-width: em($bp-small-padding)) {
+    right: rem(48);
+  }
+}
+

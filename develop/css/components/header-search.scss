@@ -2,6 +2,7 @@ $_input-width: 288 - 32;
 
 .header-search {
   position: relative;
+  margin-left: rem(8);
   padding-top: rem(10);
   min-width: rem(40);
   display: flex;

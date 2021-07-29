@@ -8,7 +8,7 @@ body {
   color: $color--black;
   font-size: rem($font-size--standard);
   line-height: $line-height--standard;
-  font-family: $font-family--century-schoolbok;
+  font-family: $font-family--system-font;
   // background-color: $color--lightgray-bg;
   -webkit-font-smoothing: antialiased;
   justify-content: center;
@@ -33,6 +33,7 @@ body {
     width: 100%;
     padding-left: rem(16);
     padding-right: rem(16);
+    margin-bottom: auto;
   }
 
   @media (min-width: em($bp-offscreen-nav)) {

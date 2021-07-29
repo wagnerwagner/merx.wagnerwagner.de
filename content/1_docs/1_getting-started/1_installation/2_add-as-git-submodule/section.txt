@@ -8,7 +8,7 @@ Abstract:
 
 Text:
 
-Run the following command on your website’s root and Merx and it’s dependencies is installed at `site/plugins/merx`.
+Run the following command on your website’s root and Merx and it’s dependencies are installed at `site/plugins/merx`.
 
 ```bash
 git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx

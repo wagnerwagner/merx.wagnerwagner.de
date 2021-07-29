@@ -1,0 +1,30 @@
+Title: sMAIL
+
+----
+
+Link: https://www.smailgmbh.de
+
+----
+
+Byname: Wagnerwagner
+
+----
+
+Byurl: https://www.wagnerwagner.de
+
+----
+
+Screenshot:
+
+- smailgmbh.de.jpg
+
+----
+
+Special:
+
+- **Generation of “Porto Codes“**
+Kirby generates unique codes which can be written on letters and function as post stamps.
+- **Shop evaluation**
+Monthly overview in the panel. CSV/Excel files for the accounting system.
+- ** Differentiated email notification system**
+Emails are sent to different addresses based on cart items.

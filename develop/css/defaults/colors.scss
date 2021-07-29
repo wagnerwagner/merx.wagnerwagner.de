@@ -6,6 +6,7 @@ $color--black: #101111;
 $color--black-loading: transparentize($color--black, 0.2);
 $color--darkgray: #5a5a5a;
 $color--gray: #737373; // used for less important text and background of loading images e.g. news-thumb or work-thumb
+$color--lightgray-2: hsl(0, 0%, 75%); // darker
 $color--lightgray: #dbdbdb;
 $color--lightgray-bg-2: hsla(0, 0%, 0%, 0.09);
 $color--lightgray-bg: #fafafa;

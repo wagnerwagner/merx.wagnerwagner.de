@@ -1,0 +1,28 @@
+Title: Try
+
+----
+
+Headline: Try Merx
+
+----
+
+Shortdescription: 
+
+----
+
+Text:
+
+We recommend to give Merx Plainkit a try. 
+It shows you the very basic functions of Merx.
+**(link: http://plainkit-merx.wagnerwagner.de text: plainkit-merx.wagnerwagner.de)**
+
+You can view and download the source code of the Plainkit on GitHub.
+**(link: https://github.com/wagnerwagner/merx-examples text: github.com/wagnerwagner/merx-examples)**
+
+## Further Information
+- (link: /docs/getting-started/installation text: Installing Merx)
+- (link: /contact text: Getting Help)
+
+----
+
+Redirect: false
