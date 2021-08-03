@@ -13,15 +13,24 @@ Shortdescription:
 Text:
 
 We recommend to give Merx Plainkit a try. 
-It shows you the very basic functions of Merx.
-**(link: http://plainkit-merx.wagnerwagner.de text: plainkit-merx.wagnerwagner.de)**
+It’s a very basic but complete online shop.
 
-You can view and download the source code of the Plainkit on GitHub.
-**(link: https://github.com/wagnerwagner/merx-examples text: github.com/wagnerwagner/merx-examples)**
+(link: https://github.com/wagnerwagner/merx-examples text: Plainkit (GitHub) → class: button)
+<small>(link: http://plainkit-merx.wagnerwagner.de text: plainkit-merx.wagnerwagner.de)</small>
+
+ (link: https://github.com/wagnerwagner/merx text: Merx (GitHub) → class: button)
+<small>(link: /docs/getting-started/installation text: How to install Merx)</small>
 
 ## Further Information
 - (link: /docs/getting-started/installation text: Installing Merx)
+- (link: /cookbooks text: Cookbooks)
 - (link: /contact text: Getting Help)
+
+
+### More Source Code
+
+(link: https://github.com/wagnerwagner/merx.wagnerwagner.de text: merx.wagnerwagner.de (GitHub))
+(link: https://github.com/wagnerwagner/babyreport.de text: babyreport.de (GitHub))
 
 ----
 

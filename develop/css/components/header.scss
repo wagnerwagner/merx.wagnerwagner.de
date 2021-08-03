@@ -28,6 +28,11 @@
     min-height: rem(60);
   }
 
+  @media (max-width: em($bp-offscreen-nav - 1)) {
+    padding-left: rem($padding - 16);
+    padding-right: rem($padding - 16);
+  }
+
   @media (min-width: em($bp-fixed-nav)) {
     position: fixed;
     left: 0;
@@ -38,13 +43,13 @@
   }
 
   @media (max-width: em($bp-small-padding - 1)) {
-    padding-left: rem($padding-small * 0.5);
-    padding-right: rem($padding-small * 0.5);
+    padding-left: 0;
+    padding-right: 0;
 
     h1 {
       a {
-        padding-left: rem($padding-small * 0.5);
-        padding-right: rem($padding-small * 0.5);
+        padding-left: rem($padding-small);
+        padding-right: rem($padding-small);
       }
     }
   }

@@ -2,7 +2,7 @@ Title: Showcase
 
 ----
 
-Headline: Online shops made with Kirby, Merx and ♥
+Headline: Online shops made with Kirby, Merx and&nbsp;♥
 
 ----
 

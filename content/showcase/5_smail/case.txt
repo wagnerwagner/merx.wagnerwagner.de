@@ -26,5 +26,5 @@ Special:
 Kirby generates unique codes which can be written on letters and function as post stamps.
 - **Shop evaluation**
 Monthly overview in the panel. CSV/Excel files for the accounting system.
-- ** Differentiated email notification system**
-Emails are sent to different addresses based on cart items.
+- **Differentiated email notification system**
+Emails are sent to different departments based on cart items.

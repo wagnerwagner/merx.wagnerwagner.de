@@ -23,5 +23,5 @@ Screenshot:
 Special:
 
 - **Shop evaluation**
-Monthly overview and evaluation for each product in the panel. CSV/Excel files for accounting.
+Monthly overview and evaluation for each product in the panel. Downloadable CSV (Excel) files for accounting.
 - **Stock management**
