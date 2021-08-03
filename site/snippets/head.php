@@ -10,7 +10,7 @@
       <meta name="robots" content="noindex, follow">
     <?php else: ?>
       <meta name="description" content="<?= $site->metaDescription() ?>">
-      <meta name="og:description" content="<?= $site->metaDescription() ?>">
+      <meta property="og:description" content="<?= $site->metaDescription() ?>">
       <meta property="og:image" content="<?= $site->openGraphImage()->toFile()->crop(1200, 630)->url() ?>">
       <meta property="og:site_name" content="<?= $site->title() ?>">
       <meta property="og:url" content="<?= $page->url() ?>">
