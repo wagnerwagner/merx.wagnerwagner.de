@@ -38,6 +38,24 @@
         </div>
       <?php endforeach;?>
     </div>
+    <?php $casesPage = page('showcase'); ?>
+    <?php if ($casesPage): ?>
+      <aside class="home-showcase">
+        <h2>
+          <a href="<?= $casesPage->url() ?>">
+            <?= $casesPage->headline() ?>
+          </a>
+        </h2>
+        <ul>
+          <?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
+            <?php snippet('case-list-item', compact('item')) ?>
+          <?php endforeach; ?>
+        </ul>
+        <div>
+          <a href="<?= $casesPage->url() ?>">Show more examples →</a>
+        </div>
+      </aside>
+    <?php endif; ?>
   </main>
   <?php snippet('footer') ?>
 </body>

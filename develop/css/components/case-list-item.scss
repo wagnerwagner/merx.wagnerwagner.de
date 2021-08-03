@@ -1,0 +1,36 @@
+.case-list-item {
+  display: block;
+
+  a {
+    text-decoration: none;
+  }
+
+  figure {
+    margin: 0;
+    margin-bottom: rem(10);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  small {
+    display: block;
+    font-family: $font-family--system-mono;
+    font-size: rem($font-size--code);
+    color: $color--lightgray-2;
+    transition-property: color;
+    transition-duration: $transition-duration;
+    hyphens: auto;
+  }
+
+
+  a:focus,
+  a:hover {
+    small {
+      color: $color--white;
+    }
+  }
+}

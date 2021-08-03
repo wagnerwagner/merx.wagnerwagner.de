@@ -20,6 +20,10 @@
     color: $color--gray;
   }
 
+  .home + & {
+    margin-top: 0;
+  }
+
   @media print {
     margin-top: rem(50);
 
