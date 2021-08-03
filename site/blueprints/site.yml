@@ -16,5 +16,9 @@ sections:
         type: text
       metaDescription:
         type: text
+      openGraphImage:
+        type: files
+        multiple: false
+        required: true
       legalLinks:
         type: pages

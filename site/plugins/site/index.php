@@ -83,8 +83,6 @@ Kirby::plugin('wagnerwagner/site', [
     {
       if ($this->isHomePage()) {
         return $this->title();
-      } else if ((string)$this->intendedTemplate() === 'order') {
-        return 'Invoice ' . $this->invoiceNumber() . ' – ' . $this->site()->title();
       }
       return $this->title() . ' – ' . $this->site()->title();
     }

@@ -30,4 +30,9 @@ class OrderPage extends OrderPageAbstract
     }
     return $paymentMethodKey;
   }
+
+  public function title(): Kirby\Cms\Field
+    {
+      return new Field($this, 'title', 'Invoice ' . $this->invoiceNumber());
+    }
 };
