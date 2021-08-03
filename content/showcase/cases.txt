@@ -1,0 +1,12 @@
+Title: Showcase
+
+----
+
+Headline: Online shops made with Kirby, Merx and&nbsp;♥
+
+----
+
+Footertext:
+
+## Do you miss your web shop?
+Please send a mail to (email: merx@wagnerwagner.de) with a link to the shop you’ve built with Merx. We’d love to hear what’s special about your shop.

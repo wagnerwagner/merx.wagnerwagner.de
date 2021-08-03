@@ -58,6 +58,10 @@
     }
   }
 
+  .button {
+    display: inline-flex;
+  }
+
   @media (max-width: em($bp-small-padding - 1)) {
     hyphens: auto;
 

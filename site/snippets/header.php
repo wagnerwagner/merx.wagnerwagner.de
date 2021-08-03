@@ -13,6 +13,17 @@
         </li>
       <?php endforeach; ?>
       </ul>
+      <ul class="mainnav__steps">
+        <li>
+          <a href="<?= url('try') ?>" class="<?= $page->id() === 'try' ? 'is-active' : '' ?>">Try</a>
+        </li>
+        <li>
+          <a href="<?= url('showcase') ?>" title="Showcase">♥</a>
+        </li>
+        <li>
+          <a href="<?= url('buy') ?>" class="<?= $page->id() === 'buy' ? 'is-active' : '' ?>">Buy</a>
+        </li>
+      </ul>
     </nav>
     <form class="header-search" action="<?= url('search') ?>">
       <input type="search" name="q" required minlength="3" autocomplete="off">

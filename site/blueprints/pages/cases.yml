@@ -1,0 +1,11 @@
+sections:
+  fields:
+    type: fields
+    fields:
+      headline:
+        type: text
+      footerText:
+        type: textarea
+  children:
+    type: pages
+    templates: case

@@ -1,0 +1,27 @@
+Title: The Knitwit Stable
+
+----
+
+Link: https://theknitwitstable.nl/en/webshop
+
+----
+
+Byname: Bart van de Biezen
+
+----
+
+Byurl: https://bartvandebiezen.com/en
+
+----
+
+Screenshot:
+
+- theknitwitstable.nl.jpg
+
+----
+
+Special:
+
+- **Custom iDeal integration**
+- **Bilingual**
+- **No JavaScript**

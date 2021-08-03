@@ -8,7 +8,7 @@ Abstract:
 
 Text:
 
-If you prefer composer you can add Merx with this command from your websites root. This will install Merx and it’s dependencies at `site/plugins/merx`.
+If you prefer composer you can add Merx with this command from your website’s root. This will install Merx and it’s dependencies at `site/plugins/merx`.
 
 ```bash
 composer require wagnerwagner/merx

@@ -32,6 +32,14 @@ tabs:
               city:
                 type: text
                 required: true
+              country:
+                type: select
+                options: query
+                query:
+                  fetch: kirby.option('wagnerwagner.site.countryList')
+                  text: "{{ arrayItem.value }}"
+                  value: "{{ arrayItem.key }}"
+                required: true
               legal:
                 type: toggle
                 required: true
