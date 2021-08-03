@@ -6,11 +6,17 @@ Metatitle: Merx – An E-Commerce Plugin for Kirby CMS
 
 ----
 
-Metadescription: 
+Metadescription: Merx is a plugin to create online shops with Kirby 3.
 
 ----
 
-Legallinks: 
+Opengraphimage:
+
+- opengraph.jpg
+
+----
+
+Legallinks:
 
 - privacy
 - license
