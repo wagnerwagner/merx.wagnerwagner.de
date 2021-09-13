@@ -1,5 +1,5 @@
 .hero {
-  padding-top: rem(100);
+  padding-top: rem(60);
   // padding-bottom: rem(80);
   color: $color--white;
   background-color: $color--black;
@@ -8,6 +8,9 @@
     padding-left: rem(4);
   }
 
+  @media (min-width: em($bp-fixed-nav)) {
+    padding-top: rem(100);
+  }
 }
 
 .hero__container {
@@ -48,13 +51,19 @@
   flex-wrap: wrap;
 
   > div {
-    margin-right: rem(32);
+    margin-right: rem(16);
     margin-bottom: rem(15);
   }
 
   .button {
     color: $color--black;
     background-color: $color--white;
+  }
+
+  @media (min-width: em($bp-fixed-nav)) {
+    > div {
+      margin-right: rem(32);
+    }
   }
 }
 
