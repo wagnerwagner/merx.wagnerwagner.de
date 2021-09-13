@@ -62,3 +62,11 @@ Header add Strict-Transport-Security "max-age=31536000"
 Header add X-Frame-Options "allow-from https://js.stripe.com/"
 Header add X-Content-Type-Options "nosniff"
 Header always unset X-Powered-By
+
+ExpiresActive On
+
+ExpiresByType application/javascript "access plus 12 months"
+ExpiresByType text/css "access plus 12 months"
+ExpiresByType image/png "access plus 12 months"
+ExpiresByType image/svg+xml "access plus 12 months"
+ExpiresByType image/jpeg "access plus 12 months"
