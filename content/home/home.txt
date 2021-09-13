@@ -10,7 +10,7 @@ Features:
 
 - 
   headline: Flexibility
-  text: 'This plugin of­fers you a handy set of (link: docs/classes/merx text: tools) to cre­ate your very own on­line shop. Start entirely from scratch or integrate a store into your ex­ist­ing Kirby web­site.'
+  text: 'This plugin of­fers you a handy set of (link: docs/classes/merx text: tools) to cre­ate your very own e-com&shy;merce solution. Start entirely from scratch or integrate a store into your ex­ist­ing Kirby web­site.'
 - 
   headline: Simplicity
   text: "Merx is designed to be as sim­ple as pos­si­ble. If you know Kirby, you'll be able to build a simple shop in no time and ex­tend it as your busi­ness grows."
