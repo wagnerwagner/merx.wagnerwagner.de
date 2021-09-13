@@ -2,7 +2,7 @@
   <div class="center">
     <h1>
       <a href="<?= $site->url() ?>">
-        <img src="<?= url('assets/images/logo.svg') ?>" alt="<?= $site->title() ?>">
+        <img src="<?= url('assets/images/logo.svg') ?>" width="64" height="19" alt="<?= $site->title() ?>">
       </a>
     </h1>
     <nav class="mainnav">
@@ -26,8 +26,8 @@
       </ul>
     </nav>
     <form class="header-search" action="<?= url('search') ?>">
-      <input type="search" name="q" required minlength="3" autocomplete="off">
-      <button type="submit" tabindex="-1"></button>
+      <input type="search" name="q" required minlength="3" autocomplete="off" aria-label="Search">
+      <button type="submit" tabindex="-1" title="Toggle Search"></button>
     </form>
   </div>
 </header>
