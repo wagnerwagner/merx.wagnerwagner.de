@@ -9,13 +9,10 @@ $stripeLiveSecretKey = file_get_contents('secrets/.stripeLiveSecretKey', FILE_US
 $paypalLiveClientID = file_get_contents('secrets/.paypalLiveClientID', FILE_USE_INCLUDE_PATH);
 $paypalLiveSecret = file_get_contents('secrets/.paypalLiveSecret', FILE_USE_INCLUDE_PATH);
 
-$googleAnalticsTrackingId = file_get_contents('secrets/.googleAnalticsTrackingId', FILE_USE_INCLUDE_PATH);
-
 $merxLicense = file_get_contents('secrets/.merxLicense', FILE_USE_INCLUDE_PATH);
 
 return [
   'github-repository' => 'https://github.com/wagnerwagner/merx',
-  'googleAnaltics.trackingId' => $googleAnalticsTrackingId,
   'timestampedAsset' => true,
   'merxPluginDirectory' => '/site/plugins/merx',
   'merx-email' => 'merx@wagnerwagner.de',
