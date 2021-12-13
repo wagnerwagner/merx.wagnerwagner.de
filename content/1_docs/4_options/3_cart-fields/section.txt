@@ -19,7 +19,7 @@ return [
 If additional fields of your product page (e.g. a *sku* field) should be stored in the item of the `ProductList` or `Cart`, you can use this option.
 
 By default following values are stored in a (link: /docs/classes/productlist text: `ProductList`)’s or (link: /docs/classes/cart text: `Cart`)’s item and are taken from the product page (if a valid id provided):
-`id`, `title`, `quantity`, `price`, `taxRate`, `sum`, `sumTax`
+`id`, `title`, `price`, `taxRate`, `template`, `uid`
 
 ### Type
 `array`
@@ -27,4 +27,4 @@ By default following values are stored in a (link: /docs/classes/productlist tex
 ### Default
 `[]`
 
-(github: /src/ProductList.php line: 103 text: Source Code)
+(github: /src/ProductList.php line: 110 text: Source Code)
