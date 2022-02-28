@@ -274,7 +274,7 @@ if (element) {
   countrySelectElemet.addEventListener('change', () => {
     const newQuantity = parseInt(cartQuantityNumberElement.textContent, 10);
     updateCart(newQuantity, cartQuantityNumberElement, countrySelectElemet);
-  })
+  });
 
   updateCart(1, cartQuantityNumberElement, countrySelectElemet);
 }
