@@ -12,4 +12,5 @@ node_modules
 /site/config/secrets
 /site/plugins/site/.license-base
 /site/config/.license
+/site/config/config.merx.wagnerwagner.de.php
 /.nova
