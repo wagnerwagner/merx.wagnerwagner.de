@@ -6,15 +6,15 @@ Thank’s for your purchase.
 
 
 Billing Address:
-<?= $page->company()->isNotEmpty() ? $page->company()->html() : null ?>
+<?= $page->company()->isNotEmpty() ? $page->company()->toString() : null ?>
 
-<?= $page->name()->isNotEmpty() ? $page->name()->html() : null ?>
+<?= $page->name()->isNotEmpty() ? $page->name()->toString() : null ?>
 
-<?= $page->street()->isNotEmpty() ? $page->street()->html() : null ?>
+<?= $page->street()->isNotEmpty() ? $page->street()->toString() : null ?>
 
-<?= $page->postal_code()->isNotEmpty() ? $page->postal_code()->html() : null ?> <?= $page->city()->isNotEmpty() ? $page->city()->html() : null ?>
+<?= $page->postal_code()->isNotEmpty() ? $page->postal_code()->toString() : null ?> <?= $page->city()->isNotEmpty() ? $page->city()->toString() : null ?>
 
-<?= $page->state()->isNotEmpty() ? $page->state()->html() : null ?>
+<?= $page->state()->isNotEmpty() ? $page->state()->toString() : null ?>
 
 <?= option('wagnerwagner.site.countryList')[(string)$page->country()] ?>
 
