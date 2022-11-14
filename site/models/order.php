@@ -1,4 +1,7 @@
 <?php
+
+use Kirby\Cms\Field;
+
 class OrderPage extends OrderPageAbstract
 {
   public function errors(): array
@@ -31,7 +34,7 @@ class OrderPage extends OrderPageAbstract
     return $paymentMethodKey;
   }
 
-  public function title(): Kirby\Cms\Field
+  public function title(): Field
     {
       return new Field($this, 'title', 'Invoice ' . $this->invoiceNumber());
     }
