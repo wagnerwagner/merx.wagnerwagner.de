@@ -6,7 +6,7 @@ Shortdescription:
 
 ----
 
-Text: 
+Text:
 
 *Unfortunately, our data protection regulations are currently only available in German. We are working on a translation.*
 
@@ -174,3 +174,7 @@ peter.wagner@wagnerwagner.de
 ----
 
 Redirect: false
+
+----
+
+Uuid: qv48TZQ71iRCn89W

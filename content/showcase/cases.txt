@@ -10,3 +10,7 @@ Footertext:
 
 ## Is your shop missing from this list?
 Please send a mail to (email: merx@wagnerwagner.de) with a link to the shop you’ve built with Merx. We’d love to hear what’s special about your shop.
+
+----
+
+Uuid: Pxf3zGQZu8d4eOn6

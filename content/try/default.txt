@@ -35,3 +35,7 @@ It’s a very basic but complete online shop.
 ----
 
 Redirect: false
+
+----
+
+Uuid: EXfKKjyUTQNmnKhe

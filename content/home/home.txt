@@ -29,6 +29,8 @@ Features:
 
 ----
 
-Heroimage:
+Heroimage: - kirby-merx-panel.jpg
 
-- kirby-merx-panel.jpg
+----
+
+Uuid: EcZQQCsBeAOb7Q5y
