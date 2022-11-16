@@ -2,11 +2,15 @@ Title: $orderPage->formattedSum()
 
 ----
 
-Classname: OrderPage
+Classname: OrderPageAbstract
 
 ----
 
 Methodname: formattedSum
+
+----
+
+Dim: false
 
 ----
 

@@ -2,7 +2,7 @@ Title: $orderPage->invoiceNumber()
 
 ----
 
-Classname: OrderPage
+Classname: OrderPageAbstract
 
 ----
 

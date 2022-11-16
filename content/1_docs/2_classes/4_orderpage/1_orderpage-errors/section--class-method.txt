@@ -2,7 +2,7 @@ Title: $orderPage->errors()
 
 ----
 
-Classname: OrderPage
+Classname: OrderPageAbstract
 
 ----
 

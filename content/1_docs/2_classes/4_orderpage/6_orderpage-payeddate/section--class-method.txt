@@ -2,7 +2,7 @@ Title: $orderPage->payedDate()
 
 ----
 
-Classname: OrderPage
+Classname: OrderPageAbstract
 
 ----
 

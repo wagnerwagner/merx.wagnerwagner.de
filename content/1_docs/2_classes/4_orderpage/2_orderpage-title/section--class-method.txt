@@ -2,7 +2,7 @@ Title: $orderPage->title()
 
 ----
 
-Classname: OrderPage
+Classname: OrderPageAbstract
 
 ----
 
