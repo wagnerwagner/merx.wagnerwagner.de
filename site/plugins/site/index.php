@@ -54,7 +54,7 @@ Kirby::plugin('wagnerwagner/site', [
       'attr' => [
         'line',
         'text',
-        'repository',
+        'url',
       ],
       'html' => function($tag) {
         $url = option('github-repository');
