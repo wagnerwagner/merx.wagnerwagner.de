@@ -1,273 +1,241 @@
-[
-    {
-        "name": "phpdocumentor/reflection-common",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-            "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
-            "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.6"
-        },
-        "time": "2017-09-11T18:02:19+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpDocumentor\\Reflection\\": [
-                    "src"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jaap van Otterdijk",
-                "email": "opensource@ijaap.nl"
-            }
-        ],
-        "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
-        "homepage": "http://www.phpdoc.org",
-        "keywords": [
-            "FQSEN",
-            "phpDocumentor",
-            "phpdoc",
-            "reflection",
-            "static analysis"
-        ]
-    },
-    {
-        "name": "phpdocumentor/reflection-docblock",
-        "version": "4.3.0",
-        "version_normalized": "4.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-            "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
-            "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.0",
-            "phpdocumentor/reflection-common": "^1.0.0",
-            "phpdocumentor/type-resolver": "^0.4.0",
-            "webmozart/assert": "^1.0"
-        },
-        "require-dev": {
-            "doctrine/instantiator": "~1.0.5",
-            "mockery/mockery": "^1.0",
-            "phpunit/phpunit": "^6.4"
-        },
-        "time": "2017-11-30T07:14:17+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpDocumentor\\Reflection\\": [
-                    "src/"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mike van Riel",
-                "email": "me@mikevanriel.com"
-            }
-        ],
-        "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock."
-    },
-    {
-        "name": "phpdocumentor/type-resolver",
-        "version": "0.4.0",
-        "version_normalized": "0.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpDocumentor/TypeResolver.git",
-            "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9c977708995954784726e25d0cd1dddf4e65b0f7",
-            "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.5 || ^7.0",
-            "phpdocumentor/reflection-common": "^1.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "^0.9.4",
-            "phpunit/phpunit": "^5.2||^4.8.24"
-        },
-        "time": "2017-07-14T14:27:02+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpDocumentor\\Reflection\\": [
-                    "src/"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Mike van Riel",
-                "email": "me@mikevanriel.com"
-            }
-        ]
-    },
-    {
-        "name": "symfony/polyfill-ctype",
-        "version": "v1.10.0",
-        "version_normalized": "1.10.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-ctype.git",
-            "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
-            "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-ctype": "For best performance"
-        },
-        "time": "2018-08-06T14:22:27+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.9-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Ctype\\": ""
+{
+    "packages": [
+        {
+            "name": "phpdocumentor/reflection-common",
+            "version": "2.2.0",
+            "version_normalized": "2.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
             },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "shasum": ""
             },
-            {
-                "name": "Gert de Pagter",
-                "email": "backendtea@gmail.com"
-            }
-        ],
-        "description": "Symfony polyfill for ctype functions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "ctype",
-            "polyfill",
-            "portable"
-        ]
-    },
-    {
-        "name": "webmozart/assert",
-        "version": "1.4.0",
-        "version_normalized": "1.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/webmozart/assert.git",
-            "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "time": "2020-06-27T09:03:43+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "phpDocumentor\\Reflection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jaap van Otterdijk",
+                    "email": "opensource@ijaap.nl"
+                }
+            ],
+            "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
+            "homepage": "http://www.phpdoc.org",
+            "keywords": [
+                "FQSEN",
+                "phpDocumentor",
+                "phpdoc",
+                "reflection",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
+            },
+            "install-path": "../phpdocumentor/reflection-common"
         },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
-            "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
-            "shasum": ""
+        {
+            "name": "phpdocumentor/reflection-docblock",
+            "version": "5.3.0",
+            "version_normalized": "5.3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/622548b623e81ca6d78b721c5e029f4ce664f170",
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170",
+                "shasum": ""
+            },
+            "require": {
+                "ext-filter": "*",
+                "php": "^7.2 || ^8.0",
+                "phpdocumentor/reflection-common": "^2.2",
+                "phpdocumentor/type-resolver": "^1.3",
+                "webmozart/assert": "^1.9.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.3.2",
+                "psalm/phar": "^4.8"
+            },
+            "time": "2021-10-19T17:43:47+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "phpDocumentor\\Reflection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "me@mikevanriel.com"
+                },
+                {
+                    "name": "Jaap van Otterdijk",
+                    "email": "account@ijaap.nl"
+                }
+            ],
+            "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.3.0"
+            },
+            "install-path": "../phpdocumentor/reflection-docblock"
         },
-        "require": {
-            "php": "^5.3.3 || ^7.0",
-            "symfony/polyfill-ctype": "^1.8"
+        {
+            "name": "phpdocumentor/type-resolver",
+            "version": "1.6.2",
+            "version_normalized": "1.6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/TypeResolver.git",
+                "reference": "48f445a408c131e38cab1c235aa6d2bb7a0bb20d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/48f445a408c131e38cab1c235aa6d2bb7a0bb20d",
+                "reference": "48f445a408c131e38cab1c235aa6d2bb7a0bb20d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "phpdocumentor/reflection-common": "^2.0"
+            },
+            "require-dev": {
+                "ext-tokenizer": "*",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpunit/phpunit": "^9.5",
+                "rector/rector": "^0.13.9",
+                "vimeo/psalm": "^4.25"
+            },
+            "time": "2022-10-14T12:47:21+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "phpDocumentor\\Reflection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "me@mikevanriel.com"
+                }
+            ],
+            "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.2"
+            },
+            "install-path": "../phpdocumentor/type-resolver"
         },
-        "require-dev": {
-            "phpunit/phpunit": "^4.6",
-            "sebastian/version": "^1.0.1"
-        },
-        "time": "2018-12-25T11:19:39+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Webmozart\\Assert\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bernhard Schussek",
-                "email": "bschussek@gmail.com"
-            }
-        ],
-        "description": "Assertions to validate method input/output with nice error messages.",
-        "keywords": [
-            "assert",
-            "check",
-            "validate"
-        ]
-    }
-]
+        {
+            "name": "webmozart/assert",
+            "version": "1.11.0",
+            "version_normalized": "1.11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozarts/assert.git",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "php": "^7.2 || ^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan": "<0.12.20",
+                "vimeo/psalm": "<4.6.1 || 4.6.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.13"
+            },
+            "time": "2022-06-03T18:03:27+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "support": {
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.11.0"
+            },
+            "install-path": "../webmozart/assert"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
