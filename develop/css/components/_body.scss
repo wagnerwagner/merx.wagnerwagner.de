@@ -1,3 +1,5 @@
+@use "sass:math";
+
 body {
   display: flex;
   flex-direction: column;
@@ -20,7 +22,7 @@ body {
 
   code {
     font-family: $font-family--system-mono;
-    font-size: $font-size--code / $font-size--standard * 1em;
+    font-size: math.div($font-size--code, $font-size--standard) * 1em;
 
     a {
       text-decoration: none;

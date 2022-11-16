@@ -1,4 +1,6 @@
+@use "sass:math";
+
 @function em($px) {
   // @return $px + px; // for development
-  @return $px / 16 + em;
+  @return math.div($px, 16) + em;
 }

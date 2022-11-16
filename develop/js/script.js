@@ -1,5 +1,3 @@
-// import '@babel/polyfill/';
-import 'airbnb-browser-shims/browser-only';
 import 'prismjs';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-markup-templating';
