@@ -6,7 +6,7 @@ Shortdescription: How to translate error messages.
 
 ----
 
-Text: 
+Text:
 
 Merx comes with English and German error messages. If you want to translate or overwrite these messages you can do so by setting the translations keys in your languages file.
 
@@ -42,3 +42,7 @@ return [
 ----
 
 Redirect: false
+
+----
+
+Uuid: PxaQaxA6U8TUm5Go

@@ -6,7 +6,7 @@ Shortdescription:
 
 ----
 
-Text: 
+Text:
 
 The `OrderPageAbstract` class extends the Kirby’s (link: https://getkirby.com/docs/reference/objects/page text: Page) class.
 
@@ -15,3 +15,7 @@ You have to (link: docs/getting-started/set-up/order-page-model text: create you
 ----
 
 Redirect: false
+
+----
+
+Uuid: cXMzanPWSFMXrzKq

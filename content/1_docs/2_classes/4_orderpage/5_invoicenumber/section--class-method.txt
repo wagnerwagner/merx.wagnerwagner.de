@@ -33,3 +33,7 @@ $orderPage->invoiceNumber(); // 00003
 ### Custom Invoice Numbers 
 
 Learn how to generate custom invoice numbers with the [Custom Invoice Numbers cookbook](/cookbooks/custom-invoice-numbers).
+
+----
+
+Uuid: ncdl9xwUwfQsFAZG

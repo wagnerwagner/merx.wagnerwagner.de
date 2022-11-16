@@ -1,0 +1,57 @@
+Title: $orderPage->errors()
+
+----
+
+Classname: OrderPage
+
+----
+
+Methodname: errors
+
+----
+
+Dim: false
+
+----
+
+Abstract: Returns validation errors.
+
+----
+
+Summary: Since Merx 1.7
+
+----
+
+Text:
+
+### Example Response
+```php
+$errors = $orderPage->errors();
+echo json_encode($errors);
+```
+
+```json
+{
+  "name": {
+    "label": "Name",
+    "message": {
+      "required": "Please enter something",
+      "minlength": "Please enter a longer value. (min. 3 characters)"
+    }
+  },
+  "streetaddress": {
+    "label": "Street",
+    "message": {
+      "required": "Please enter something",
+      "minlength": "Please enter a longer value. (min. 3 characters)"
+    }
+  }
+}
+```
+
+### Further Reading
+[Getting Started / Validate Checkout](/docs/getting-started/validate-checkout)
+
+----
+
+Uuid: 7CBae23DTkUANmV1
