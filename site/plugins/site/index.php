@@ -61,7 +61,7 @@ Kirby::plugin('wagnerwagner/site', [
         if ($tag->url) {
           $url = $tag->url;
         }
-        $url .= '/blob/master' . $tag->value;
+        $url .= '/blob/main' . $tag->value;
         $text = 'Source Code';
         if ($tag->line) {
           $url .= '#L' . $tag->line;
