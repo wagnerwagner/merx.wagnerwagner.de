@@ -9,7 +9,7 @@
           <input type="search" autofocus name="q" value="<?= esc(get('q', '')) ?>" required minlength="3" autocomplete="off">
           <button type="submit"></button>
         </form>
-        <?php if ($results->count() > 0): ?>
+        <?php if (get('q') !== null): ?>
           <small><?= $results->count() === 1 ? $results->count() . ' result' : $results->count() . ' results' ?></small>
         <?php endif; ?>
       </div>
