@@ -37,4 +37,8 @@ Price: -10
 Tax: 0
 ```
 
-You probably noted that the price of *Discount* is negative. This is possible since Merx&nbsp;1.1. Merx will still check if the whole cart has a negative sum, if so an exception is thrown.
+You probably noted that the price of *Discount* is negative. This is possible since Merx&nbsp;1.1. Merx will still check if the whole cart has a negative sum, if so an exception will be thrown.
+
+----
+
+Uuid: XEnjufr0u3OqOfMF

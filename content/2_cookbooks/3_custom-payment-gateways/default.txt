@@ -2,7 +2,7 @@ Title: Custom Payment Gateways
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -38,7 +38,7 @@ return [
       {
         $virtualOrderPage->content()->update([
           'paymentComplete' => true,
-          'payedDate' => date('c'),
+          'paidDate' => date('c'),
         ]);
         return $virtualOrderPage;
       }
@@ -52,3 +52,7 @@ Be careful. Since `$virtualOrderPage` is just virtual and not yet written to the
 ----
 
 Redirect: false
+
+----
+
+Uuid: vmFzeUlLSQ4Lt2Sm

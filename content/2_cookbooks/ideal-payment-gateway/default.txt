@@ -15,3 +15,7 @@ Text: There are two ways to handle iDEAL payments. It’s up to you if you want 
 ----
 
 Redirect: false
+
+----
+
+Uuid: cNhpetPEaL8MZzpy

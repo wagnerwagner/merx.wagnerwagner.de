@@ -3,3 +3,7 @@ Title: Logging
 ----
 
 Text: Use hooks.
+
+----
+
+Uuid: lTEBYYVQ5u7hpfAf

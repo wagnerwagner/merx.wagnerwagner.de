@@ -2,7 +2,7 @@ Title: Without Stripe Elements
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -43,7 +43,7 @@ return [
         $virtualOrderPage->content()->update([
           'paymentDetails' => (array)$stripeCharge,
           'paymentComplete' => true,
-          'payedDate' => date('c'),
+          'paidDate' => date('c'),
         ]);
         return $virtualOrderPage;
       },

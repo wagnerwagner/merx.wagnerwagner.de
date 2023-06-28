@@ -15,3 +15,7 @@ Text: The payment process consists of two steps: `initializePayment` with valida
 ----
 
 Redirect: false
+
+----
+
+Uuid: 8Wez288f2ERs1TEC

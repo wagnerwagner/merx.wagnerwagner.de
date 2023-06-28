@@ -10,7 +10,7 @@ Text:
 
 If you want to use Stripe and/or PayPal you need to set the respective keys. Read the (link: https://stripe.com/docs/keys text: Stripe) and (link: https://developer.paypal.com/docs/api/overview/#make-your-first-call text: PayPal) documentation on how to get the keys.
 
-(filename: site/config.php)
+(filename: site/config/config.php)
 
 ```php
 return [
@@ -24,3 +24,7 @@ return [
   'ww.merx.paypal.live.secret' => 'xxx…',
 ];
 ```
+
+----
+
+Uuid: ipaZLBcAHNQiG2cf

@@ -15,3 +15,7 @@ If you installed Merx with (link: docs/getting-started/installation/add-as-git-s
 ```php
 class OrderPage extends OrderPageAbstract {};
 ```
+
+----
+
+Uuid: p4UIOpRdXNo3xCe5

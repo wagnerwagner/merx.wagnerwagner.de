@@ -22,7 +22,7 @@ function sendConfirmationMail($orderPage) {
     'from' => 'info@my-shop.com',
     'to' => (string)$orderPage->email(),
     'subject' => 'Thank’s for your order!',
-    'body'=> 'Dear ' . $orderPage->name() . ', you payed ' . formatPrice($orderPage->cart()->getSum()),
+    'body'=> 'Dear ' . $orderPage->name() . ', you have paid ' . formatPrice($orderPage->cart()->getSum()),
   ]);
 }
 
@@ -38,3 +38,7 @@ return [
 ----
 
 Redirect: false
+
+----
+
+Uuid: m7F0DWSAifAejAmq
