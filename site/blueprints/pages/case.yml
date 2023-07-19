@@ -9,7 +9,6 @@ columns:
         fields:
           link:
             type: url
-            required: true
           byName:
             label: By (Agency/Webdesigner)
             type: text

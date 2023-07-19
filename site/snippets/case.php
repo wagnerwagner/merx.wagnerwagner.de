@@ -1,10 +1,17 @@
+<?php
+$link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
+?>
 <section id="<?= $item->uid() ?>">
   <div>
     <header>
       <h2>
-        <a href="<?= $item->link() ?>" rel="noopener">
-          <?= $item->title() ?>
-        </a>
+        <?php if ($link): ?>
+          <a href="<?= $item->link() ?>" rel="noopener">
+        <?php endif ?>
+        <?= $item->title() ?>
+        <?php if ($link): ?>
+          </a>
+        <?php endif ?>
       </h2>
       <?php if ($item->byName()->isNotEmpty()): ?>
         <small>
@@ -23,13 +30,22 @@
       <h3>What’s special</h3>
       <?= $item->special()->kt() ?>
     <?php endif; ?>
+    <?php if ($link === null): ?>
+      <em>Website is no longer available online.</em>
+    <?php endif ?>
   </div>
   <?php if ($screenshot = $item->screenshot()->toFile()): ?>
-    <a href="<?= $item->link() ?>" rel="noopener">
+    <?php if ($link): ?>
+      <a href="<?= $item->link() ?>" rel="noopener">
+    <?php else: ?>
+      <div class="-figure">
+    <?php endif ?>
       <figure>
-        <figcaption>
-          <?= Url::short(Url::stripPath($item->link()->toString())) ?>
-        </figcaption>
+        <?php if ($link): ?>
+          <figcaption>
+            <?= Url::short(Url::stripPath($item->link()->toString())) ?>
+          </figcaption>
+        <?php endif ?>
 
         <img
           src="<?= $screenshot->thumb([
@@ -52,6 +68,10 @@
           alt="Screenshot of “<?= $item->title() ?>”"
         >
       </figure>
-    </a>
+    <?php if ($link): ?>
+      </a>
+    <?php else: ?>
+      </div>
+    <?php endif ?>
   <?php endif; ?>
 </section>

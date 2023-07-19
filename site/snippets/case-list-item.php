@@ -1,5 +1,5 @@
 <?php
-$link = $item->link();
+$link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 $width = 336;
 $height = $width * 0.7 * 1.5;
 if ($page->isHomePage()) {
@@ -10,7 +10,11 @@ if ($page->isHomePage()) {
 ?>
 <li class="case-list-item">
   <?php if ($screenshot = $item->screenshot()->toFile()): ?>
-    <a href="<?= $link ?>" rel="noopener">
+    <?php if ($link): ?>
+      <a href="<?= $link ?>" rel="noopener">
+    <?php else: ?>
+      <div>
+    <?php endif ?>
       <figure>
         <img
           src="<?= $screenshot->thumb([
@@ -30,11 +34,15 @@ if ($page->isHomePage()) {
         >
       </figure>
       <strong><?= $item->title() ?></strong>
-      <?php if (!$page->isHomePage()): ?>
+      <?php if ($link): ?>
         <small>
           <?= Url::short(Url::stripPath($item->link()->toString())) ?>
         </small>
       <?php endif; ?>
-    </a>
+    <?php if ($link): ?>
+      </a>
+    <?php else: ?>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 </li>

@@ -14,9 +14,7 @@ Byurl:
 
 ----
 
-Screenshot:
-
-- dietz.ee.jpg
+Screenshot: - dietz.ee.jpg
 
 ----
 
@@ -25,3 +23,7 @@ Special:
 - **Additional options for each cart item**
 User can select from three different frame options for each print.
 - **Shipping cost based on country**
+
+----
+
+Uuid: viJjSNTba1v00zIr

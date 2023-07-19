@@ -62,6 +62,12 @@
     }
   }
 
+  // Website is no longer available online.
+  > div > em {
+    display: block;
+    margin-top: 20px;
+  }
+
   h3 {
     margin-top: rem(40);
     margin-bottom: rem(10);
@@ -134,6 +140,12 @@
     }
   }
 
+  > div.-figure {
+    figure {
+      padding-top: calc(70%);
+    }
+  }
+
   img {
     position: absolute;
     top: 0;
@@ -146,11 +158,13 @@
     transition-property: transform;
   }
 
+  > div.-figure,
   > a {
     display: block;
     width: 100%;
   }
 
+  > div.-figure:hover,
   > a:focus,
   > a:hover {
     img {
@@ -175,6 +189,7 @@
 
     &:nth-of-type(odd) {
       grid-template-columns: 640fr 296fr;
+      > div.-figure,
       > a {
         order: -1;
       }

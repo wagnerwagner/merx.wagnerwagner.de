@@ -7,7 +7,6 @@
   "scripts": {
     "install": "cd develop; npm install",
     "update": "cd develop; npm update; npm audit fix",
-    "develop": "cd develop; gulp",
-    "build": "npm run update; cd develop; gulp build"
+    "build": "npm run update; cd develop; npm run build"
   }
 }

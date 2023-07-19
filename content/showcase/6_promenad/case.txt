@@ -14,9 +14,7 @@ Byurl: https://felixniklas.de
 
 ----
 
-Screenshot:
-
-- promenad.ch.jpg
+Screenshot: - promenad.ch.jpg
 
 ----
 
@@ -25,3 +23,7 @@ Special:
 - **Sale prices**
 - **Product variants**
 - **Coupon system**
+
+----
+
+Uuid: xwBSOKzAjkspSCzd

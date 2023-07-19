@@ -2,10 +2,6 @@ Title: GWW Desinfektionsmittel
 
 ----
 
-Link: https://www.desinfektionsmittel-gww.de
-
-----
-
 Byname: Wagnerwagner
 
 ----
@@ -14,9 +10,7 @@ Byurl: https://www.wagnerwagner.de
 
 ----
 
-Screenshot:
-
-- desinfektionsmittel-gww.de.jpg
+Screenshot: - desinfektionsmittel-gww.de.jpg
 
 ----
 
@@ -26,3 +20,7 @@ Special:
 A cron jobs generates a XML file for each order with all relevant information for the internal ERP (Enterprise resource planning).
 - **Shipping cost based on weight of products**
 - **Coupon code system**
+
+----
+
+Uuid: QuNeblmiYi5AzmcH
