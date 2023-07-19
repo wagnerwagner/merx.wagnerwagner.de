@@ -26,4 +26,4 @@ User can select from three different frame options for each print.
 
 ----
 
-Uuid: viJjSNTba1v00zIr
+Uuid: 2CJXmqExGoNTAT2H

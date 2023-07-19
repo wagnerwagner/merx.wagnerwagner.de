@@ -6,13 +6,17 @@ Abstract:
 
 ----
 
-Text: 
+Text:
 
 ```php
-$productList->add([
+$productList->append([
   'id' => 'nice-shoes',
   'added' => date('c'),
 ]);
 ```
 
 Make sure `id` is a valid product page id.
+
+----
+
+Uuid: x9zcfIvQCE9JeJ3T

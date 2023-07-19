@@ -2,7 +2,7 @@ Title: Create new list
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -13,3 +13,7 @@ use Wagnerwagner\Merx;
 
 $productList = new ProductList();
 ```
+
+----
+
+Uuid: KWl4HcYHYqFwAwL9

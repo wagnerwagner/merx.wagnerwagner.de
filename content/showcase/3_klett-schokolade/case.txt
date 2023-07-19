@@ -26,4 +26,4 @@ Monthly overview and evaluation for each product in the panel. Downloadable CSV 
 
 ----
 
-Uuid: UeYAFt7ez7FkmoZw
+Uuid: kqaSkCHsjUr3qX89
