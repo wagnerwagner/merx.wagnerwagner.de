@@ -14,9 +14,7 @@ Byurl: https://www.wagnerwagner.de
 
 ----
 
-Screenshot:
-
-- smailgmbh.de.jpg
+Screenshot: - smailgmbh.de.jpg
 
 ----
 
@@ -28,3 +26,7 @@ Kirby generates unique codes which can be written on letters and function as pos
 Monthly overview in the panel. CSV/Excel files for the accounting system.
 - **Differentiated email notification system**
 Emails are sent to different departments based on cart items.
+
+----
+
+Uuid: 44OgvkOsAzwhtfUP

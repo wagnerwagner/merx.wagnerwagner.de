@@ -14,9 +14,7 @@ Byurl: https://eyekon.ch
 
 ----
 
-Screenshot:
-
-- wedobike.ch.jpg
+Screenshot: - wedobike.ch.jpg
 
 ----
 
@@ -24,3 +22,7 @@ Special:
 
 - **Different options for a product**
 User can select size and color of each bike
+
+----
+
+Uuid: dpn4r2lYrsLJXua0

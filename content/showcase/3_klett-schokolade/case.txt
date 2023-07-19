@@ -14,9 +14,7 @@ Byurl: https://www.wagnerwagner.de
 
 ----
 
-Screenshot:
-
-- klett-schoko.de.jpg
+Screenshot: - klett-schoko.de.jpg
 
 ----
 
@@ -25,3 +23,7 @@ Special:
 - **Shop evaluation**
 Monthly overview and evaluation for each product in the panel. Downloadable CSV (Excel) files for accounting.
 - **Stock management**
+
+----
+
+Uuid: kqaSkCHsjUr3qX89

@@ -14,9 +14,7 @@ Byurl: https://bartvandebiezen.com/en
 
 ----
 
-Screenshot:
-
-- theknitwitstable.nl.jpg
+Screenshot: - theknitwitstable.nl.jpg
 
 ----
 
@@ -25,3 +23,7 @@ Special:
 - **Custom iDeal integration**
 - **Bilingual**
 - **No JavaScript**
+
+----
+
+Uuid: Aj7oz3gWNvSoO3Vh
