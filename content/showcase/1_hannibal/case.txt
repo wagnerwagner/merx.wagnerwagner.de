@@ -1,0 +1,34 @@
+Title: Hannibal.
+
+----
+
+Link: https://hannibal-collection.com
+
+----
+
+Byname: Sigi
+
+----
+
+Byurl: https://sigi.design
+
+----
+
+Screenshot: - file://QFybNDwhDJr8E7OG
+
+----
+
+Special:
+
+- **Voucher system**
+with expiration date, choice between fixed and percentage amount, exclusion of categories and connection with newsletter registration
+- **Automatic calculation**
+of gross prices and shipping costs based on shipping country
+- **Inventory management** 
+with connection to the merchandise management system
+- **Refunds via Paypal and Stripe** 
+via the panel with automatic sending of emails as info.
+
+----
+
+Uuid: aOcFWbW9hBop4kgO
