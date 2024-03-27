@@ -36,3 +36,7 @@ Key | httpCode | Description
 *checkout.paymentMethod* | `500` | Payment method’s completePayment key has to be a function.
 *completePayment* | `500` |
 *paymentCanceled* | `400` | User canceled the payment.
+
+----
+
+Uuid: LJ2bmNxvaoDqdX1K

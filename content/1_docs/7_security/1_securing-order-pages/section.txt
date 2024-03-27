@@ -10,7 +10,7 @@ Text:
 
 ### Basic
 
-- Do not show personal information when it is not necessary..
+- Do not show personal information when it is not necessary.
 - Make sure order page links don’t appear in a sitemap or similar list of pages.
 - Add a robots meta tag to prevent search engines to crawl order pages. 
 `<meta name="robots" content="noindex, follow">`
@@ -33,3 +33,7 @@ Disallow: /orders/
 - Add a method to detect/prevent brute force attacks.
 - Only send one time, hashed order page links, which are only valid for a short period of time. (self destroying link)
 - ”Deactivate“/“Unplublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).
+
+----
+
+Uuid: wC1kvPpXM2JaobGV

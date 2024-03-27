@@ -2,7 +2,7 @@ Title: Merx – A toolset to create online shops with Kirby
 
 ----
 
-Herocopy: Merx is a plugin to create online shops with Kirby 3.
+Herocopy: Merx is a plugin to create online shops with Kirby.
 
 ----
 
@@ -29,7 +29,7 @@ Features:
 
 ----
 
-Heroimage: - kirby-merx-panel.jpg
+Heroimage: - file://W6bguniihfGyMfGv
 
 ----
 

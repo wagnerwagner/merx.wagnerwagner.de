@@ -22,7 +22,7 @@ Summary:
 
 ----
 
-Text: 
+Text:
 
 ### Example
 
@@ -54,7 +54,7 @@ Key | httpCode | Description
 
 ----
 
-Contentbuilder: 
+Contentbuilder:
 
 -
   text: '## $merx->initializePayment()'
@@ -89,3 +89,7 @@ Contentbuilder:
   style: ""
   _key: text
   _uid: text_1547565894412_640
+
+----
+
+Uuid: IcKg5ggZRjjlLHbI

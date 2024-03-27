@@ -25,3 +25,7 @@ Text:
 ```php
 echo formatIBAN('DE89370400440532013000'); // DE89 3704 0044 0532 0130 00
 ```
+
+----
+
+Uuid: EmJBWwTr2nqj8EZr

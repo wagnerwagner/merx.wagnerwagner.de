@@ -22,7 +22,7 @@ Summary:
 
 ----
 
-Text: Since Merx 1.7, the date when the payment of an order is completed is no longer stored in the `payedDate` field. Instead, it is stored in the `paidDate` field. This method which returns the `payedDate` field (for orders before Merx 1.7) or the `paidDate` field.
+Text: Since Merx 1.7, the date when the payment of an order is completed is no longer stored in the `payedDate` field. Instead, it is stored in the `paidDate` field. This method returns the `payedDate` field (for orders before Merx 1.7) or the `paidDate` field.
 
 ----
 

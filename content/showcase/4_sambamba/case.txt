@@ -1,0 +1,33 @@
+Title: Sambamba
+
+----
+
+Link: https://sambamba.net/en
+
+----
+
+Byname: Hippe Agentur
+
+----
+
+Byurl: https://hippe-agentur.de/de
+
+----
+
+Screenshot: - file://blWwe1r6qFk80SM5
+
+----
+
+Special:
+
+- **Voucher system** with expiration date, fixed and percentage amount, differentiation between shipping destinations
+- **Calculation of shipping costs** based on country
+- **Generated PDF invoice** sent via email
+- **Facebook Conversion API** integration
+- **Shipping platform integration** 
+Immediate shipping after purchase, tracking ID stored in order
+- **Shop statistics** for admin user
+
+----
+
+Uuid: xDW94pkkXt9oUqqO

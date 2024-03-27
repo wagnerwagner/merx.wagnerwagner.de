@@ -14,12 +14,16 @@ Abstract: Creates Cart and merges default Gateways with custom gateways.
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
 
 ----
 
 Classmethod: __construct
+
+----
+
+Uuid: Kl38zsZdVedvYrUO
