@@ -1,3 +1,4 @@
+
 <?php snippet('head') ?>
 <body>
   <?php snippet('header') ?>
@@ -8,21 +9,23 @@
           <h1><?= $page->heroCopy() ?></h1>
           <div class="hero__buttons">
             <div>
-              <a class="button" href="https://starterkit.merx.wagnerwagner.de">Starterkit&ensp;→</a>
+              <a class="button" href="https://starterkit.merx.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</a>
               <a class="link-secondary" href="https://github.com/wagnerwagner/merx-starterkit" rel="noopener">Source Code</a>
             </div>
             <div>
               <a class="button" href="https://github.com/wagnerwagner/merx/releases/latest" rel="noopener">Download&ensp;↓</a>
               <div class="text-secondary">
-                <a class="link-secondary" href="https://github.com/wagnerwagner/merx">Source Code</a>
+                <a class="link-secondary" href="https://github.com/wagnerwagner/merx" rel="noopener">Source Code</a>
               </div>
             </div>
           </div>
         </div>
         <?php if ($heroImage = $page->heroImage()->toFile()): ?>
         <div class="hero__image">
-          <img src="<?= $heroImage->crop(704, 704 * 0.58, 'top')->url() ?>" srcset="<?= $heroImage->crop(704 * 2, 704 * 2 * 0.58, 'top')->url() ?> 2x" alt="<?= $heroImage->alt() ?>">
-        </div>
+          <a href="https://starterkit.merx.wagnerwagner.de" rel="noopener">
+            <img src="<?= $heroImage->crop(704, 704 * 0.58, 'top')->url() ?>" srcset="<?= $heroImage->crop(704 * 2, 704 * 2 * 0.58, 'top')->url() ?> 2x" alt="<?= $heroImage->alt() ?>">
+          </a>
+          </div>
         <?php endif; ?>
       </div>
     </div>
