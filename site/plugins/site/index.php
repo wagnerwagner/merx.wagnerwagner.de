@@ -43,7 +43,7 @@ Kirby::plugin('wagnerwagner/site', [
     'fileContents' => [
       'html' => function($tag) {
         try {
-          return file_get_contents(kirby()->root('site') . DS . $tag->value);
+          return file_get_contents(kirby()->root('site') . '/' . $tag->value);
         } catch (Exception $ex) {
           return 'No such file or directory. (' . $tag->value . ')';
           // return $ex->getMessage();
