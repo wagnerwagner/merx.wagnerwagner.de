@@ -1,0 +1,25 @@
+Title: stripe.webhook_signing_secret
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+```php
+return [
+  'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+];
+```
+
+To update payment details for payment methods with delayed payment notifications (e.g. (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit)) you need to use (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks). This option is used to set the Stripe’s Webhook Signing Key
+
+### Type
+
+`string`
+
+----
+
+Uuid: JghZEsvncQm7IEoz

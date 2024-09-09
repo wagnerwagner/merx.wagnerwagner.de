@@ -72,3 +72,7 @@ $redirect = merx()->initializePayment($data);
 ```
 
 When you provide a `bank` parameter the user will be directed to his/her bank website where he/she can enter the credentials.
+
+----
+
+Uuid: xBvfH4LstkLx8D8k

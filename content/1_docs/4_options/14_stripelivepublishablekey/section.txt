@@ -2,7 +2,7 @@ Title: stripe.live.publishable_key
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -16,3 +16,7 @@ return [
 
 ### Type
 `string`
+
+----
+
+Uuid: 0qE9CI3D3BPx9vMZ

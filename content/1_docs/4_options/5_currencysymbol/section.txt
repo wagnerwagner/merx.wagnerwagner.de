@@ -19,3 +19,7 @@ return [
 
 ### Default
 `€`
+
+----
+
+Uuid: 70zWzZBzmOI5g8cJ

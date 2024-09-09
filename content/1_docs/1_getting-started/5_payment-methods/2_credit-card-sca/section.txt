@@ -1,4 +1,4 @@
-Title: Credit Card with Payment Intents
+Title: Credit Card
 
 ----
 
@@ -8,14 +8,7 @@ Abstract:
 
 Text:
 
-*Since Merx 1.2*
-
-With Stripe’s Credit Card integration, your customers can pay without leaving the website. You have to provide the ID of an authorized Payment Intent.
-
-Read the cookbook (link: cookbooks/checkout-with-stripe-s-payment-intents text: Checkout with Stripe’s Payment Intents) to learn more.
-
-
-**This payment method supports Strong Customer Authentication (SCA).**
+For historical reasons this payment method is called `credit-card-sca` instead of `credit-card`. SCA stands for Strong customer authentication.
 
 ### Initialize Payment
 
@@ -36,3 +29,7 @@ You don’t have to provide any additional information for the `completePayment`
 ```php
 $merx->completePayment():
 ```
+
+----
+
+Uuid: FjxvIWwokjVwZ4ED

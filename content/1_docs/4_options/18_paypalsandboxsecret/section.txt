@@ -2,7 +2,7 @@ Title: paypal.sandbox.secret
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -16,3 +16,7 @@ return [
 
 ### Type
 `string`
+
+----
+
+Uuid: 5juuTC0gty52VOfQ

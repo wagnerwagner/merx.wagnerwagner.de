@@ -1,0 +1,2624 @@
+[1mdiff --git a/content/1_docs/1_getting-started/1_installation/default.txt b/content/1_docs/1_getting-started/1_installation/default.txt[m
+[1mindex 6819e20..96648c0 100644[m
+[1m--- a/content/1_docs/1_getting-started/1_installation/default.txt[m
+[1m+++ b/content/1_docs/1_getting-started/1_installation/default.txt[m
+[36m@@ -14,4 +14,8 @@[m [mRedirect: false[m
+ [m
+ ----[m
+ [m
+[31m-Contentbuilder:[m
+[32m+[m[32mContentbuilder:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: fohieSnSDVdiFsv0[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/2_set-up/default.txt b/content/1_docs/1_getting-started/2_set-up/default.txt[m
+[1mindex 3e1b54f..f0e457d 100644[m
+[1m--- a/content/1_docs/1_getting-started/2_set-up/default.txt[m
+[1m+++ b/content/1_docs/1_getting-started/2_set-up/default.txt[m
+[36m@@ -14,4 +14,8 @@[m [mText:[m
+ [m
+ ----[m
+ [m
+[31m-Redirect: false[m
+\ No newline at end of file[m
+[32m+[m[32mRedirect: false[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: vbc1nuuQ764W9ghf[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/3_add-products/default.txt b/content/1_docs/1_getting-started/3_add-products/default.txt[m
+[1mindex 29dfda1..2819789 100644[m
+[1m--- a/content/1_docs/1_getting-started/3_add-products/default.txt[m
+[1m+++ b/content/1_docs/1_getting-started/3_add-products/default.txt[m
+[36m@@ -14,4 +14,8 @@[m [mText: A *product* is a Kirby page with a product template.[m
+ [m
+ ----[m
+ [m
+[31m-Redirect: false[m
+\ No newline at end of file[m
+[32m+[m[32mRedirect: false[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: NMmvW5UCp5H422vI[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/4_validate-checkout/default.txt b/content/1_docs/1_getting-started/4_validate-checkout/default.txt[m
+[1mindex c1cd9a0..80c51f1 100644[m
+[1m--- a/content/1_docs/1_getting-started/4_validate-checkout/default.txt[m
+[1m+++ b/content/1_docs/1_getting-started/4_validate-checkout/default.txt[m
+[36m@@ -6,7 +6,7 @@[m [mShortdescription: How to make sure you get all the data you need.[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+[32m+[m[32mText:[m
+ [m
+ To make sure you get all the data you need from your customers, Merx uses Kirby’s page validation. You can define the required fields and set `validate` options for each field you want to validate. See (link: https://getkirby.com/docs/reference/system/validators text: Kirby’s documentation) for all available validators.[m
+ [m
+[36m@@ -18,4 +18,8 @@[m [mRedirect: false[m
+ [m
+ ----[m
+ [m
+[31m-Contentbuilder: [m
+\ No newline at end of file[m
+[32m+[m[32mContentbuilder:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: VDT8ILcWQPzF8BsC[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/1_paypal/section.txt b/content/1_docs/1_getting-started/5_payment-methods/1_paypal/section.txt[m
+[1mindex e00587a..025b4c1 100644[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/1_paypal/section.txt[m
+[1m+++ b/content/1_docs/1_getting-started/5_payment-methods/1_paypal/section.txt[m
+[36m@@ -23,8 +23,13 @@[m [mgo($redirect); // https://www.paypal.com/cgi-bin/webscr…[m
+ (filename: site/templates/success.php)[m
+ [m
+ ```php[m
+[32m+[m[32m$payerID = get('PayerID');[m
+[32m+[m
+ $merx->completePayment([[m
+[31m-  'paymentId' => 'PAYID-XXXXXXXXXXXXXXXXXXXXXXXX',[m
+[31m-  'PayerID' => 'XXXXXXXXXXXXX'[m
+[32m+[m[32m  'PayerID' => $payerID,[m
+ ]);[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: JauaB7vmDfUmxbCg[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/2_credit-card-sca/section.txt b/content/1_docs/1_getting-started/5_payment-methods/2_credit-card-sca/section.txt[m
+[1mindex d6fe4c7..9bd38f8 100644[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/2_credit-card-sca/section.txt[m
+[1m+++ b/content/1_docs/1_getting-started/5_payment-methods/2_credit-card-sca/section.txt[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-Title: Credit Card with Payment Intents[m
+[32m+[m[32mTitle: Credit Card[m
+ [m
+ ----[m
+ [m
+[36m@@ -8,14 +8,7 @@[m [mAbstract:[m
+ [m
+ Text:[m
+ [m
+[31m-*Since Merx 1.2*[m
+[31m-[m
+[31m-With Stripe’s Credit Card integration, your customers can pay without leaving the website. You have to provide the ID of an authorized Payment Intent.[m
+[31m-[m
+[31m-Read the cookbook (link: cookbooks/checkout-with-stripe-s-payment-intents text: Checkout with Stripe’s Payment Intents) to learn more.[m
+[31m-[m
+[31m-[m
+[31m-**This payment method supports Strong Customer Authentication (SCA).**[m
+[32m+[m[32mFor historical reasons this payment method is called `credit-card-sca` instead of `credit-card`. SCA stands for Strong customer authentication.[m
+ [m
+ ### Initialize Payment[m
+ [m
+[36m@@ -35,4 +28,8 @@[m [mYou don’t have to provide any additional information for the `completePayment`[m
+ [m
+ ```php[m
+ $merx->completePayment():[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: FjxvIWwokjVwZ4ED[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/3_credit-card/section.txt b/content/1_docs/1_getting-started/5_payment-methods/3_credit-card/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex ba1dc0d..0000000[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/3_credit-card/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,33 +0,0 @@[m
+[31m-Title: Credit Card[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-**This payment method shouldn’t be used. It requires an older Stripe API and doesn’t support [Strong Customer Authentication (SCA)](https://stripe.com/de/guides/strong-customer-authentication) which is required in the European Union. You should use [`credit-card-sca`](#credit-card-sca) instead.**[m
+[31m-[m
+[31m-With Stripe’s Credit Card integration, your customers can pay without leaving the website. You need to integrate Stripe’s (link: https://stripe.com/docs/stripe-js/elements/quickstart text: Card Element) to get a stripeToken which you have to provide for `initializePayment`.[m
+[31m-[m
+[31m-### Initialize Payment[m
+[31m-[m
+[31m-```php[m
+[31m-$redirect = $merx->initializePayment([[m
+[31m-  'paymentMethod' => 'credit-card',[m
+[31m-  'stripeToken' => 'tok_XXXXXXXXXXXXXXXXXXXXXXXX'[m
+[31m-]);[m
+[31m-go($redirect); // /success[m
+[31m-```[m
+[31m-[m
+[31m-### Complete Payment[m
+[31m-[m
+[31m-You don’t have to provide any additional information for the `completePayment` method.[m
+[31m-[m
+[31m-(filename: site/templates/success.php)[m
+[31m-[m
+[31m-```php[m
+[31m-$merx->completePayment():[m
+[31m-```[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/4_sepa-direct-debit/section.txt b/content/1_docs/1_getting-started/5_payment-methods/4_sepa-direct-debit/section.txt[m
+[1mindex c87aa3b..5c055cd 100644[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/4_sepa-direct-debit/section.txt[m
+[1m+++ b/content/1_docs/1_getting-started/5_payment-methods/4_sepa-direct-debit/section.txt[m
+[36m@@ -2,20 +2,18 @@[m [mTitle: SEPA Direct Debit[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+ Text:[m
+ [m
+[31m-SEPA Direct Debit works very similar to Credit Card. Create a (link: https://stripe.com/docs/stripe-js/elements/iban text: Stripe IBAN Element) to get a `stripeToken`.[m
+[31m-[m
+ ### Initialize Payment[m
+ [m
+ ```php[m
+ $redirect = $merx->initializePayment([[m
+   'paymentMethod' => 'sepa-debit',[m
+[31m-  'stripeToken' => 'tok_XXXXXXXXXXXXXXXXXXXXXXXX',[m
+[32m+[m[32m  'stripePaymentIntentId' => 'pi_XXXXXXXXXXXXXXXXXXXXXXXX',[m
+ ]);[m
+ go($redirect); // /success[m
+ ```[m
+[36m@@ -29,3 +27,9 @@[m [mYou don’t have to provide any additional information for the `completePayment`[m
+ ```php[m
+ $merx->completePayment():[m
+ ```[m
+[32m+[m
+[32m+[m[32mSEPA Direct Debit payments are not marked as `paymentComplete` immediately, because this payment method has a (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). You can use (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks) to mark SEPA Direct Debit payments as completed.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: xbvSI4L8EqAkHM6T[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/5_sofort/section.txt b/content/1_docs/1_getting-started/5_payment-methods/5_sofort/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 5e5c314..0000000[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/5_sofort/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,33 +0,0 @@[m
+[31m-Title: SOFORT[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract:[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-### Initialize Payment[m
+[31m-[m
+[31m-```php[m
+[31m-$redirect = $merx->initializePayment([[m
+[31m-  'paymentMethod' => 'sofort',[m
+[31m-]);[m
+[31m-go($redirect); // https://www.sofort.com/payment/…[m
+[31m-```[m
+[31m-[m
+[31m-You are redirected to *klarna.com* where the customer has to accept the payment.[m
+[31m-[m
+[31m-### Complete Payment[m
+[31m-[m
+[31m-The redirect url has several get parameters. Use the `source` parameter for the `completePayment` method.[m
+[31m-[m
+[31m-(filename: site/templates/success.php)[m
+[31m-[m
+[31m-```php[m
+[31m-$source = get('source'); // src_XXXXXXXXXXXXXXXXXXXXXXXX[m
+[31m-$merx->completePayment([[m
+[31m-  'source' => $source,[m
+[31m-]):[m
+[31m-```[m
+[1mdiff --git a/content/1_docs/1_getting-started/5_payment-methods/default.txt b/content/1_docs/1_getting-started/5_payment-methods/default.txt[m
+[1mindex 0ef79cb..dd2e610 100644[m
+[1m--- a/content/1_docs/1_getting-started/5_payment-methods/default.txt[m
+[1m+++ b/content/1_docs/1_getting-started/5_payment-methods/default.txt[m
+[36m@@ -18,10 +18,10 @@[m [mMerx comes with five payment gateways built in.[m
+ Payment Method | Provider | Keyword[m
+ | ---- | ---- | ---- |[m
+ PayPal Payments | (link: https://developer.paypal.com/docs/api/payments/v2/ text: PayPal) | `paypal`[m
+[31m-Credit Card<br><small>with Payment Intents</small> | (link: https://stripe.com/docs/payments/payment-intents/web text: Stripe) | `credit-card-sca`[m
+[31m-Credit Card | (link: https://stripe.com/payments/payment-methods-guide#cards text: Stripe) | `credit-card`[m
+[31m-SEPA Direct Debit | (link: https://stripe.com/payments/payment-methods-guide#sepa-direct-debit text: Stripe) | `sepa-debit`[m
+[31m-SOFORT | (link: https://stripe.com/payments/payment-methods-guide#sofort text: Stripe) | `sofort`[m
+[32m+[m[32mCredit Card | (link: https://stripe.com/de/payments/payment-methods text: Stripe) | `credit-card-sca`[m
+[32m+[m[32miDEAL | (link: https://stripe.com/de/payment-method/ideal text: Stripe) | `ideal`[m
+[32m+[m[32mSEPA Direct Debit | (link: https://stripe.com/de/payments/sepa-direct-debit text: Stripe) | `sepa-debit`[m
+[32m+[m[32mKlarna | (link: https://stripe.com/de/payments/klarna text: Stripe) | `klarna`[m
+ [m
+ If you want to use another payment provider read the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways) cookbook to learn how to create your own custom payment gateway.[m
+ [m
+[36m@@ -29,4 +29,8 @@[m [mIf you want to use another payment provider read the (link: cookbooks/custom-pay[m
+ [m
+ ----[m
+ [m
+[31m-Redirect: false[m
+\ No newline at end of file[m
+[32m+[m[32mRedirect: false[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: GZeQ8osDBaIn62VC[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/10_getsum/section--class-method.txt b/content/1_docs/2_classes/2_cart/10_getsum/section--class-method.txt[m
+[1mindex 6180303..3c23e3b 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/10_getsum/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/10_getsum/section--class-method.txt[m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: getSum[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: jS3p6KDmj0XReKHB[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/11_getformatteditems/section--class-method.txt b/content/1_docs/2_classes/2_cart/11_getformatteditems/section--class-method.txt[m
+[1mindex b74c48c..b48772e 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/11_getformatteditems/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/11_getformatteditems/section--class-method.txt[m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: getFormattedItems[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 8VzrglNyMeULQWAD[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/12_paypalpurchaseunits/section--class-method.txt b/content/1_docs/2_classes/2_cart/12_paypalpurchaseunits/section--class-method.txt[m
+[1mindex 9b0827c..d837107 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/12_paypalpurchaseunits/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/12_paypalpurchaseunits/section--class-method.txt[m
+[36m@@ -90,4 +90,8 @@[m [mArray[m
+         )[m
+     )[m
+ )[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: L60XdlnOwST9cSq7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/13_chunk/section--class-method.txt b/content/1_docs/2_classes/2_cart/13_chunk/section--class-method.txt[m
+[1mindex 94ae4b0..a24832d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/13_chunk/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/13_chunk/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: J4QivZoZ4U9s5lLk[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/14_count/section--class-method.txt b/content/1_docs/2_classes/2_cart/14_count/section--class-method.txt[m
+[1mindex 64dcf77..01f8a82 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/14_count/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/14_count/section--class-method.txt[m
+[36m@@ -22,4 +22,8 @@[m [mSummary:[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+\ No newline at end of file[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: pqoWYzdQnApUPjjx[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/15_data/section--class-method.txt b/content/1_docs/2_classes/2_cart/15_data/section--class-method.txt[m
+[1mindex 1fe5949..7e5d24d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/15_data/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/15_data/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 0sNOw6AvdL7xCnmi[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/16_empty/section--class-method.txt b/content/1_docs/2_classes/2_cart/16_empty/section--class-method.txt[m
+[1mindex 9d9727a..f66d277 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/16_empty/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/16_empty/section--class-method.txt[m
+[36m@@ -22,4 +22,8 @@[m [mSummary:[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+\ No newline at end of file[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: p2SQdjBOfqUoLDOW[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/17_filter/section--class-method.txt b/content/1_docs/2_classes/2_cart/17_filter/section--class-method.txt[m
+[1mindex 4383b32..a6b35dc 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/17_filter/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/17_filter/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 4CPbmqPmFUkW5dV7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/18_filterby/section--class-method.txt b/content/1_docs/2_classes/2_cart/18_filterby/section--class-method.txt[m
+[1mindex 38fb299..d40101d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/18_filterby/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/18_filterby/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: y3rvJZooegUj8nWL[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/19_find/section--class-method.txt b/content/1_docs/2_classes/2_cart/19_find/section--class-method.txt[m
+[1mindex 4b2478a..f8fc2cf 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/19_find/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/19_find/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: Qm4sAD29oxiIeh8F[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/1_construct/section--class-method.txt b/content/1_docs/2_classes/2_cart/1_construct/section--class-method.txt[m
+[1mindex 82a43ea..1de0814 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/1_construct/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/1_construct/section--class-method.txt[m
+[36m@@ -22,7 +22,7 @@[m [mSummary: There is a `cart()` shortcut.[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+[32m+[m[32mText:[m
+ [m
+ ### `$data` keys[m
+ [m
+[36m@@ -48,4 +48,8 @@[m [m$cart = cart([[m
+     'id' => 'new-socks'[m
+   ],[m
+ ]);[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: xNFag4DTkRVlk8hy[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/20_findby/section--class-method.txt b/content/1_docs/2_classes/2_cart/20_findby/section--class-method.txt[m
+[1mindex 56b9267..743547e 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/20_findby/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/20_findby/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: nv095FS4hcB0X689[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/21_findbykey/section--class-method.txt b/content/1_docs/2_classes/2_cart/21_findbykey/section--class-method.txt[m
+[1mindex ea97f06..b877a86 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/21_findbykey/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/21_findbykey/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: kSzugezIi82b8HqL[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/22_flip/section--class-method.txt b/content/1_docs/2_classes/2_cart/22_flip/section--class-method.txt[m
+[1mindex 4449387..5e21997 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/22_flip/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/22_flip/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: u4BjpjKXkynKnz3p[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/23_get/section--class-method.txt b/content/1_docs/2_classes/2_cart/23_get/section--class-method.txt[m
+[1mindex 9c77ad7..9a18ecf 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/23_get/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/23_get/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 41rFqJghn8IMjUY7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/24_group/section--class-method.txt b/content/1_docs/2_classes/2_cart/24_group/section--class-method.txt[m
+[1mindex c605391..8046d45 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/24_group/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/24_group/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: thwFQcrU3rXCSs9l[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/25_groupby/section--class-method.txt b/content/1_docs/2_classes/2_cart/25_groupby/section--class-method.txt[m
+[1mindex 8d7a497..1e16730 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/25_groupby/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/25_groupby/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 5dCvgZ9VzG9ewIO8[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/26_isempty/section--class-method.txt b/content/1_docs/2_classes/2_cart/26_isempty/section--class-method.txt[m
+[1mindex 9c9c6c9..c7eb145 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/26_isempty/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/26_isempty/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: quvUdbXpz2royl8V[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/27_iseven/section--class-method.txt b/content/1_docs/2_classes/2_cart/27_iseven/section--class-method.txt[m
+[1mindex 7f7be0b..06f7bc8 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/27_iseven/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/27_iseven/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: zjmSWNKaEzrlEK6H[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/28_isnotempty/section--class-method.txt b/content/1_docs/2_classes/2_cart/28_isnotempty/section--class-method.txt[m
+[1mindex f0e827e..e5b967a 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/28_isnotempty/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/28_isnotempty/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: SQU6HCvANuvNvYyB[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/29_isodd/section--class-method.txt b/content/1_docs/2_classes/2_cart/29_isodd/section--class-method.txt[m
+[1mindex 844873f..034b8cb 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/29_isodd/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/29_isodd/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: tEBe1pNFwugkvyKZ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/2_add/section--class-method.txt b/content/1_docs/2_classes/2_cart/2_add/section--class-method.txt[m
+[1mindex 58e200c..985da74 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/2_add/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/2_add/section--class-method.txt[m
+[36m@@ -31,4 +31,8 @@[m [m$cart->add([[m
+   'id' => 'new-shoes',[m
+   'quantity' => 3,[m
+ ]);[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 1tZ6RIC586HlxvRH[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/30_last/section--class-method.txt b/content/1_docs/2_classes/2_cart/30_last/section--class-method.txt[m
+[1mindex c7d1673..5c783a5 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/30_last/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/30_last/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: Z9DzKmBU8RXNaZ8x[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/31_limit/section--class-method.txt b/content/1_docs/2_classes/2_cart/31_limit/section--class-method.txt[m
+[1mindex 415f02e..842dd9d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/31_limit/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/31_limit/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: Wmalm7DWxRSWfAJa[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/32_map/section--class-method.txt b/content/1_docs/2_classes/2_cart/32_map/section--class-method.txt[m
+[1mindex 3653ac5..90d487d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/32_map/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/32_map/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: QACR7FZbbgqbVOgT[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/33_nth/section--class-method.txt b/content/1_docs/2_classes/2_cart/33_nth/section--class-method.txt[m
+[1mindex bf470dc..741c62d 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/33_nth/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/33_nth/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: ho40JQtkVzMAPfJU[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/34_not/section--class-method.txt b/content/1_docs/2_classes/2_cart/34_not/section--class-method.txt[m
+[1mindex dfed592..d13b9d3 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/34_not/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/34_not/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: wzfK001jwxXDjjDP[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/35_offset/section--class-method.txt b/content/1_docs/2_classes/2_cart/35_offset/section--class-method.txt[m
+[1mindex 2f7dcd5..9e4a125 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/35_offset/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/35_offset/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: w7JjiNpt2GumQ8en[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/36_paginate/section--class-method.txt b/content/1_docs/2_classes/2_cart/36_paginate/section--class-method.txt[m
+[1mindex 04dc862..6dd0aeb 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/36_paginate/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/36_paginate/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: KFR31GMK9I62F7sV[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/37_pagination/section--class-method.txt b/content/1_docs/2_classes/2_cart/37_pagination/section--class-method.txt[m
+[1mindex 2622a6b..10db06e 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/37_pagination/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/37_pagination/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 1uJ6ncPWgYAv4Mer[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/38_pluck/section--class-method.txt b/content/1_docs/2_classes/2_cart/38_pluck/section--class-method.txt[m
+[1mindex 95650c9..96ac263 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/38_pluck/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/38_pluck/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: UnASW1Eloi81HttU[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/39_shuffle/section--class-method.txt b/content/1_docs/2_classes/2_cart/39_shuffle/section--class-method.txt[m
+[1mindex 01df9e7..e713aa4 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/39_shuffle/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/39_shuffle/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: BSomxdXiTfXHBsTw[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/3_update/section--class-method.txt b/content/1_docs/2_classes/2_cart/3_update/section--class-method.txt[m
+[1mindex 2a2f76a..8b0524c 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/3_update/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/3_update/section--class-method.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: $cart->update()[m
+ [m
+ ----[m
+ [m
+[31m-ClassName: Wagnerwagner\Merx\Cart[m
+[32m+[m[32mClassname: Wagnerwagner\Merx\Cart[m
+ [m
+ ----[m
+ [m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: update[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: nOXY36yC1nb23GbF[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/40_slice/section--class-method.txt b/content/1_docs/2_classes/2_cart/40_slice/section--class-method.txt[m
+[1mindex 9b8ff89..07fde50 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/40_slice/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/40_slice/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: ltbMGlrsvZ6GUiWN[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/41_toarray/section--class-method.txt b/content/1_docs/2_classes/2_cart/41_toarray/section--class-method.txt[m
+[1mindex 4eefb70..45076d0 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/41_toarray/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/41_toarray/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 1oajmpAGPNx66rTn[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/42_tojson/section--class-method.txt b/content/1_docs/2_classes/2_cart/42_tojson/section--class-method.txt[m
+[1mindex 8834a17..3f3ddd6 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/42_tojson/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/42_tojson/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: uZlQeH1OgaZotmPp[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/43_without/section--class-method.txt b/content/1_docs/2_classes/2_cart/43_without/section--class-method.txt[m
+[1mindex 4f96b6e..9fa9747 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/43_without/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/43_without/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: true[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: IlcKzI5ox86Knqb0[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/4_updateitem/section--class-method.txt b/content/1_docs/2_classes/2_cart/4_updateitem/section--class-method.txt[m
+[1mindex 83f889e..fdb18b5 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/4_updateitem/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/4_updateitem/section--class-method.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: $cart->updateItem()[m
+ [m
+ ----[m
+ [m
+[31m-ClassName: Wagnerwagner\Merx\Cart[m
+[32m+[m[32mClassname: Wagnerwagner\Merx\Cart[m
+ [m
+ ----[m
+ [m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: updateItem[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 19vuP1ptwsmN6xdo[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/5_getstripepaymentintent/section--class-method.txt b/content/1_docs/2_classes/2_cart/5_getstripepaymentintent/section--class-method.txt[m
+[1mindex 7e6a389..0f80b0a 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/5_getstripepaymentintent/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/5_getstripepaymentintent/section--class-method.txt[m
+[36m@@ -22,4 +22,8 @@[m [mSummary:[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+\ No newline at end of file[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: hAyN7KZ42ZUsOIjo[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/6_delete/section--class-method.txt b/content/1_docs/2_classes/2_cart/6_delete/section--class-method.txt[m
+[1mindex be0f0fc..9a33a40 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/6_delete/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/6_delete/section--class-method.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: $cart->delete()[m
+ [m
+ ----[m
+ [m
+[31m-ClassName: Wagnerwagner\Merx\Cart[m
+[32m+[m[32mClassname: Wagnerwagner\Merx\Cart[m
+ [m
+ ----[m
+ [m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: delete[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: QhiJKcfETW4RjEpO[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/7_remove/section--class-method.txt b/content/1_docs/2_classes/2_cart/7_remove/section--class-method.txt[m
+[1mindex d058854..34a8e42 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/7_remove/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/7_remove/section--class-method.txt[m
+[36m@@ -14,12 +14,16 @@[m [mDim: false[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: anAAoRS2AjeAsLpV[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/8_gettax/section--class-method.txt b/content/1_docs/2_classes/2_cart/8_gettax/section--class-method.txt[m
+[1mindex dab8f1c..1855e68 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/8_gettax/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/8_gettax/section--class-method.txt[m
+[36m@@ -10,12 +10,16 @@[m [mMethodname: getTax[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Summary:[m
+[32m+[m[32mSummary:[m[41m [m
+ [m
+ ----[m
+ [m
+[31m-Text:[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: E73j8w0r4ZFDKuaT[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/2_cart/9_gettaxrates/section--class-method.txt b/content/1_docs/2_classes/2_cart/9_gettaxrates/section--class-method.txt[m
+[1mindex cd99e16..24f6333 100644[m
+[1m--- a/content/1_docs/2_classes/2_cart/9_gettaxrates/section--class-method.txt[m
+[1m+++ b/content/1_docs/2_classes/2_cart/9_gettaxrates/section--class-method.txt[m
+[36m@@ -60,4 +60,8 @@[m [mArray[m
+       [sum] => 15.963193277311[m
+     )[m
+ )[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 25YwwBtOoVRUawMR[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/4_orderpage/6_orderpage-payeddate/section--class-method.txt b/content/1_docs/2_classes/4_orderpage/6_orderpage-payeddate/section--class-method.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 45514c4..0000000[m
+[1m--- a/content/1_docs/2_classes/4_orderpage/6_orderpage-payeddate/section--class-method.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,29 +0,0 @@[m
+[31m-Title: $orderPage->payedDate()[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Classname: OrderPageAbstract[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Methodname: payedDate[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Dim: false[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Summary: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text: Since Merx 1.7, the date when the payment of an order is completed is no longer stored in the `payedDate` field. Instead, it is stored in the `paidDate` field. This method returns the `payedDate` field (for orders before Merx 1.7) or the `paidDate` field.[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: Ve34DWTyX55QRKem[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/2_classes/4_orderpage/default.txt b/content/1_docs/2_classes/4_orderpage/default.txt[m
+[1mindex cb5ca5f..124fc95 100644[m
+[1m--- a/content/1_docs/2_classes/4_orderpage/default.txt[m
+[1m+++ b/content/1_docs/2_classes/4_orderpage/default.txt[m
+[36m@@ -2,6 +2,10 @@[m [mTitle: OrderPage[m
+ [m
+ ----[m
+ [m
+[32m+[m[32mHeadline:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+ Shortdescription: [m
+ [m
+ ----[m
+[1mdiff --git a/content/1_docs/3_blueprints/1_pages/default.txt b/content/1_docs/3_blueprints/1_pages/default.txt[m
+[1mindex 59f7b78..3544c70 100644[m
+[1m--- a/content/1_docs/3_blueprints/1_pages/default.txt[m
+[1m+++ b/content/1_docs/3_blueprints/1_pages/default.txt[m
+[36m@@ -3,3 +3,7 @@[m [mTitle: Pages[m
+ ----[m
+ [m
+ Text: Merx provides the most basic blueprints. You can overwrite them with your own blueprints.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: Qq5zpyuBPW8x6GPe[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/3_blueprints/2_sections/default.txt b/content/1_docs/3_blueprints/2_sections/default.txt[m
+[1mindex e777f5e..dc9d073 100644[m
+[1m--- a/content/1_docs/3_blueprints/2_sections/default.txt[m
+[1m+++ b/content/1_docs/3_blueprints/2_sections/default.txt[m
+[36m@@ -6,4 +6,8 @@[m [mText: Merx provides the most basic sections. You can overwrite them with your ow[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: nDe5NmVkXmjdVbHa[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/10_successpage/section.txt b/content/1_docs/4_options/10_successpage/section.txt[m
+[1mindex 1d004f8..d17c9bb 100644[m
+[1m--- a/content/1_docs/4_options/10_successpage/section.txt[m
+[1m+++ b/content/1_docs/4_options/10_successpage/section.txt[m
+[36m@@ -33,3 +33,7 @@[m [mContentbuilder:[m
+   style: ""[m
+   _key: text[m
+   _uid: text_1547566393746_547[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: dIiRqWaeHFvsOnCY[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/11_orderspage/section.txt b/content/1_docs/4_options/11_orderspage/section.txt[m
+[1mindex 1e04bfe..85ae65f 100644[m
+[1m--- a/content/1_docs/4_options/11_orderspage/section.txt[m
+[1m+++ b/content/1_docs/4_options/11_orderspage/section.txt[m
+[36m@@ -19,3 +19,7 @@[m [mreturn [[m
+ [m
+ ### Default[m
+ `orders`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: aUkFDNHjO1NfDr7w[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/12_stripetestpublishablekey/section.txt b/content/1_docs/4_options/12_stripetestpublishablekey/section.txt[m
+[1mindex 6751a86..57dd20f 100644[m
+[1m--- a/content/1_docs/4_options/12_stripetestpublishablekey/section.txt[m
+[1m+++ b/content/1_docs/4_options/12_stripetestpublishablekey/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: stripe.test.publishable_key[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -16,3 +16,7 @@[m [mreturn [[m
+ [m
+ ### Type[m
+ `string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: BbGm4aRAsqIe1IU2[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/13_stripetestsecretkey/section.txt b/content/1_docs/4_options/13_stripetestsecretkey/section.txt[m
+[1mindex ff7e5d6..ff363ba 100644[m
+[1m--- a/content/1_docs/4_options/13_stripetestsecretkey/section.txt[m
+[1m+++ b/content/1_docs/4_options/13_stripetestsecretkey/section.txt[m
+[36m@@ -15,4 +15,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`string`[m
+\ No newline at end of file[m
+[32m+[m[32m`string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: FjaitO5OeqyiIVXL[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/14_stripelivepublishablekey/section.txt b/content/1_docs/4_options/14_stripelivepublishablekey/section.txt[m
+[1mindex bf8efd7..0f99a1a 100644[m
+[1m--- a/content/1_docs/4_options/14_stripelivepublishablekey/section.txt[m
+[1m+++ b/content/1_docs/4_options/14_stripelivepublishablekey/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: stripe.live.publishable_key[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -16,3 +16,7 @@[m [mreturn [[m
+ [m
+ ### Type[m
+ `string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 0qE9CI3D3BPx9vMZ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/15_stripelivesecretkey/section.txt b/content/1_docs/4_options/15_stripelivesecretkey/section.txt[m
+[1mindex 206876b..e3b7413 100644[m
+[1m--- a/content/1_docs/4_options/15_stripelivesecretkey/section.txt[m
+[1m+++ b/content/1_docs/4_options/15_stripelivesecretkey/section.txt[m
+[36m@@ -15,4 +15,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`string`[m
+\ No newline at end of file[m
+[32m+[m[32m`string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: GoDL4ItalNYs7sHD[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/16_paypalsandboxclientid/section.txt b/content/1_docs/4_options/16_paypalsandboxclientid/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 717bf30..0000000[m
+[1m--- a/content/1_docs/4_options/16_paypalsandboxclientid/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-Title: paypal.sandbox.clientID[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract:[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.sandbox.clientID' => 'xxx…',[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-### Type[m
+[31m-`string`[m
+[1mdiff --git a/content/1_docs/4_options/17_paypalsandboxsecret/section.txt b/content/1_docs/4_options/17_paypalsandboxsecret/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 8e1733a..0000000[m
+[1m--- a/content/1_docs/4_options/17_paypalsandboxsecret/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-Title: paypal.sandbox.secret[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract:[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.sandbox.secret' => 'xxx…',[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-### Type[m
+[31m-`string`[m
+[1mdiff --git a/content/1_docs/4_options/18_paypalliveclientid/section.txt b/content/1_docs/4_options/18_paypalliveclientid/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 741c976..0000000[m
+[1m--- a/content/1_docs/4_options/18_paypalliveclientid/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-Title: paypal.live.clientID[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract:[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.live.clientID' => 'xxx…',[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-### Type[m
+[31m-`string`[m
+[1mdiff --git a/content/1_docs/4_options/19_paypallivesecret/section.txt b/content/1_docs/4_options/19_paypallivesecret/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 6d1567e..0000000[m
+[1m--- a/content/1_docs/4_options/19_paypallivesecret/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-Title: paypal.live.secret[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract:[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.live.secret' => 'xxx…',[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-### Type[m
+[31m-`string`[m
+[1mdiff --git a/content/1_docs/4_options/1_production/section.txt b/content/1_docs/4_options/1_production/section.txt[m
+[1mindex 676b1eb..6129d06 100644[m
+[1m--- a/content/1_docs/4_options/1_production/section.txt[m
+[1m+++ b/content/1_docs/4_options/1_production/section.txt[m
+[36m@@ -25,4 +25,8 @@[m [mYou need a valid Merx license to use the plugin in production mode.[m
+ `boolean`[m
+ [m
+ ### Default[m
+[31m-`false`[m
+\ No newline at end of file[m
+[32m+[m[32m`false`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: HIRJ83MZEdtLchGZ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/20_paypalapplicationcontext/section.txt b/content/1_docs/4_options/20_paypalapplicationcontext/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex ab52bd5..0000000[m
+[1m--- a/content/1_docs/4_options/20_paypalapplicationcontext/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,34 +0,0 @@[m
+[31m-Title: paypal.applicationContext[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract: Merges (link: https://developer.paypal.com/docs/api/orders/v2/#definition-application_context text: applicationContext) on (link: http://merx.wagnerwagner.local/docs/classes/merx/initializepayment text: initializePayment).[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text: [m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.applicationContext' => [[m
+[31m-    'brand_name' => 'Beautiful Clothes Shop',[m
+[31m-  ],[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-### Type[m
+[31m-`array`[m
+[31m-[m
+[31m-### Default applicationContext[m
+[31m-[m
+[31m-If this option is not set the following is set as the application context.[m
+[31m-[m
+[31m-```php[m
+[31m-$applicationContext = [[m
+[31m-  'cancel_url' => url(option('ww.merx.successPage')),[m
+[31m-  'return_url' => url(option('ww.merx.successPage')),[m
+[31m-  'user_action' => 'PAY_NOW',[m
+[31m-  'shipping_preference' => 'NO_SHIPPING',[m
+[31m-  'brand_name' => (string)site()->title(),[m
+[31m-];[m
+[31m-```[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png b/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png[m
+[1mdeleted file mode 100644[m
+[1mindex 89cbe68..0000000[m
+Binary files a/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png and /dev/null differ
+[1mdiff --git a/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png.txt b/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 857d3d3..0000000[m
+[1m--- a/content/1_docs/4_options/21_paypal-purchaseunits/paypal-purchaseunits.png.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,9 +0,0 @@[m
+[31m-Alt: Screenshot of PayPal Purchase Website: List of cart items a total sum of 105.93 EUR[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Caption: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Sort: 1[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/21_paypal-purchaseunits/section.txt b/content/1_docs/4_options/21_paypal-purchaseunits/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex cabc7ab..0000000[m
+[1m--- a/content/1_docs/4_options/21_paypal-purchaseunits/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,50 +0,0 @@[m
+[31m-Title: paypal.purchaseUnits[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract: Provide PayPal with additional information[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text:[m
+[31m-[m
+[31m-(filename: site/config/config.php)[m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.paypal.purchaseUnits' => function() {[m
+[31m-    $cart = cart();[m
+[31m-    return $cart->payPalPurchaseUnits();[m
+[31m-  },[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-The array returned by this function is used as [`purchase_units`](https://developer.paypal.com/docs/api/orders/v2/#orders-create-request-body) object of the PayPal’s *Create order* request. You can use the [`payPalPurchaseUnits`](/docs/classes/cart/paypalpurchaseunits) method of the `Cart` class to get a formatted array of all items in the cart.[m
+[31m-[m
+[31m-If you do not set this option, only the total amount of the shopping cart will be transferred to PayPal.[m
+[31m-[m
+[31m-### Type[m
+[31m-`function`[m
+[31m-[m
+[31m-### Screenshot[m
+[31m-[m
+[31m-If you have the following cart, the PayPal Checkout screen will look like this.[m
+[31m-[m
+[31m-```php[m
+[31m-$cart = cart([[m
+[31m-  [[m
+[31m-    'id' => 'apple',[m
+[31m-    'title' => 'Apple',[m
+[31m-    'quantity' => 6,[m
+[31m-    'price' => 0.99,[m
+[31m-  ],[m
+[31m-  [[m
+[31m-    'id' => 't-shirt',[m
+[31m-    'title' => 'T-Shirt',[m
+[31m-    'quantity' => 2,[m
+[31m-    'price' => 49.99,[m
+[31m-  ][m
+[31m-]);[m
+[31m-```[m
+[31m-[m
+[31m-(image: paypal-purchaseunits.png)[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/22_gateways/section.txt b/content/1_docs/4_options/22_gateways/section.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 256f000..0000000[m
+[1m--- a/content/1_docs/4_options/22_gateways/section.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,31 +0,0 @@[m
+[31m-Title: gateways[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Abstract: Custom payment gateways.[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Text: [m
+[31m-[m
+[31m-```php[m
+[31m-return [[m
+[31m-  'ww.merx.gateways' => [[m
+[31m-    'my-payment-provider' => [[m
+[31m-      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage[m
+[31m-      {[m
+[31m-        return $virtualOrderPage;[m
+[31m-      },[m
+[31m-      'completePayment' => function(OrderPage $virtualOrderPage): OrderPage[m
+[31m-      {[m
+[31m-        return $virtualOrderPage;[m
+[31m-      },[m
+[31m-    ],[m
+[31m-  ],[m
+[31m-];[m
+[31m-```[m
+[31m-[m
+[31m-More information in the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways Cookbook)[m
+[31m-[m
+[31m-### Type[m
+[31m-`array`[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/2_license/section.txt b/content/1_docs/4_options/2_license/section.txt[m
+[1mindex fca76ae..8f53b75 100644[m
+[1m--- a/content/1_docs/4_options/2_license/section.txt[m
+[1m+++ b/content/1_docs/4_options/2_license/section.txt[m
+[36m@@ -6,7 +6,7 @@[m [mAbstract:[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+[32m+[m[32mText:[m
+ [m
+ ```php[m
+ return [[m
+[36m@@ -18,4 +18,8 @@[m [mYou need a valid license to make real purchases.[m
+ [m
+ ### Type[m
+ [m
+[31m-`string`[m
+\ No newline at end of file[m
+[32m+[m[32m`string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: iRoB0DomhJOjNcUR[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/3_cart-fields/section.txt b/content/1_docs/4_options/3_cart-fields/section.txt[m
+[1mindex 5c6cab3..5b7593e 100644[m
+[1m--- a/content/1_docs/4_options/3_cart-fields/section.txt[m
+[1m+++ b/content/1_docs/4_options/3_cart-fields/section.txt[m
+[36m@@ -27,4 +27,8 @@[m [mBy default following values are stored in a (link: /docs/classes/productlist tex[m
+ ### Default[m
+ `[]`[m
+ [m
+[31m-(github: /src/ProductList.php line: 110 text: Source Code)[m
+\ No newline at end of file[m
+[32m+[m[32m(github: /src/ProductList.php line: 110 text: Source Code)[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: OizU5vtLJ2z9uJga[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/4_currency/section.txt b/content/1_docs/4_options/4_currency/section.txt[m
+[1mindex 28a6f3f..a207594 100644[m
+[1m--- a/content/1_docs/4_options/4_currency/section.txt[m
+[1m+++ b/content/1_docs/4_options/4_currency/section.txt[m
+[36m@@ -21,3 +21,7 @@[m [mUsed for Stripe Source and PayPal Payment.[m
+ [m
+ ### Default[m
+ `EUR`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: xnsNFAM9b6pGPUur[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/5_currencysymbol/section.txt b/content/1_docs/4_options/5_currencysymbol/section.txt[m
+[1mindex 3973546..364fb82 100644[m
+[1m--- a/content/1_docs/4_options/5_currencysymbol/section.txt[m
+[1m+++ b/content/1_docs/4_options/5_currencysymbol/section.txt[m
+[36m@@ -19,3 +19,7 @@[m [mreturn [[m
+ [m
+ ### Default[m
+ `€`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: 70zWzZBzmOI5g8cJ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/6_currencydecimalpoint/section.txt b/content/1_docs/4_options/6_currencydecimalpoint/section.txt[m
+[1mindex ed2d278..b99b24d 100644[m
+[1m--- a/content/1_docs/4_options/6_currencydecimalpoint/section.txt[m
+[1m+++ b/content/1_docs/4_options/6_currencydecimalpoint/section.txt[m
+[36m@@ -17,4 +17,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`string`[m
+\ No newline at end of file[m
+[32m+[m[32m`string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: pLUDkkUCHg339lN7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/7_currencythousandsseparator/section.txt b/content/1_docs/4_options/7_currencythousandsseparator/section.txt[m
+[1mindex 94e05ef..80e3d79 100644[m
+[1m--- a/content/1_docs/4_options/7_currencythousandsseparator/section.txt[m
+[1m+++ b/content/1_docs/4_options/7_currencythousandsseparator/section.txt[m
+[36m@@ -17,4 +17,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`string`[m
+\ No newline at end of file[m
+[32m+[m[32m`string`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: e9BCj4C4WtpvBcTe[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/8_currencypositionprecedes/section.txt b/content/1_docs/4_options/8_currencypositionprecedes/section.txt[m
+[1mindex 25445d6..8b9af83 100644[m
+[1m--- a/content/1_docs/4_options/8_currencypositionprecedes/section.txt[m
+[1m+++ b/content/1_docs/4_options/8_currencypositionprecedes/section.txt[m
+[36m@@ -17,4 +17,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`bool`[m
+\ No newline at end of file[m
+[32m+[m[32m`bool`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: pRcwccUReetqm4GZ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/9_currencyseparatebyspace/section.txt b/content/1_docs/4_options/9_currencyseparatebyspace/section.txt[m
+[1mindex 8e40159..c743a1a 100644[m
+[1m--- a/content/1_docs/4_options/9_currencyseparatebyspace/section.txt[m
+[1m+++ b/content/1_docs/4_options/9_currencyseparatebyspace/section.txt[m
+[36m@@ -17,4 +17,8 @@[m [mreturn [[m
+ ```[m
+ [m
+ ### Type[m
+[31m-`bool`[m
+\ No newline at end of file[m
+[32m+[m[32m`bool`[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: TpGMMdeVSfRLWR9L[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/4_options/email/default.txt b/content/1_docs/4_options/email/default.txt[m
+[1mindex f2ee4d4..51a50aa 100644[m
+[1m--- a/content/1_docs/4_options/email/default.txt[m
+[1m+++ b/content/1_docs/4_options/email/default.txt[m
+[36m@@ -2,4 +2,8 @@[m [mTitle: email[m
+ [m
+ ----[m
+ [m
+[31m-Text: [m
+\ No newline at end of file[m
+[32m+[m[32mText:[m[41m [m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: KDlzmuCZjrK9YCcy[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/5_hooks/1_initializepaymentbefore/section.txt b/content/1_docs/5_hooks/1_initializepaymentbefore/section.txt[m
+[1mindex e3c844c..7adf6ee 100644[m
+[1m--- a/content/1_docs/5_hooks/1_initializepaymentbefore/section.txt[m
+[1m+++ b/content/1_docs/5_hooks/1_initializepaymentbefore/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: initializePayment:before[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -19,3 +19,7 @@[m [mreturn [[m
+   ],[m
+ ];[m
+ ```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: Vz8hhqCtwdr5D3x0[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/5_hooks/2_initializepaymentafter/section.txt b/content/1_docs/5_hooks/2_initializepaymentafter/section.txt[m
+[1mindex bdfa2b6..c93c244 100644[m
+[1m--- a/content/1_docs/5_hooks/2_initializepaymentafter/section.txt[m
+[1m+++ b/content/1_docs/5_hooks/2_initializepaymentafter/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: initializePayment:after[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -21,3 +21,7 @@[m [mreturn [[m
+ ```[m
+ [m
+ Be careful! Updating `$virtualOrderPage` does not have any effect.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: xqhkMWytIwkzwB20[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/5_hooks/3_completepaymentbefore/section.txt b/content/1_docs/5_hooks/3_completepaymentbefore/section.txt[m
+[1mindex ba96bcc..bde18f3 100644[m
+[1m--- a/content/1_docs/5_hooks/3_completepaymentbefore/section.txt[m
+[1m+++ b/content/1_docs/5_hooks/3_completepaymentbefore/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: completePayment:before[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -19,3 +19,7 @@[m [mreturn [[m
+   ],[m
+ ];[m
+ ```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: kvNuoZVNfpQPpUBh[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/5_hooks/4_completepaymentafter/section.txt b/content/1_docs/5_hooks/4_completepaymentafter/section.txt[m
+[1mindex 9acb61b..0470830 100644[m
+[1m--- a/content/1_docs/5_hooks/4_completepaymentafter/section.txt[m
+[1m+++ b/content/1_docs/5_hooks/4_completepaymentafter/section.txt[m
+[36m@@ -2,7 +2,7 @@[m [mTitle: completePayment:after[m
+ [m
+ ----[m
+ [m
+[31m-Abstract:[m
+[32m+[m[32mAbstract:[m[41m [m
+ [m
+ ----[m
+ [m
+[36m@@ -19,3 +19,7 @@[m [mreturn [[m
+   ],[m
+ ];[m
+ ```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: C9nksbflplmygnsB[m
+\ No newline at end of file[m
+[1mdiff --git a/content/1_docs/5_hooks/5_cart/section.txt b/content/1_docs/5_hooks/5_cart/section.txt[m
+[1mindex d1fd66a..86bd611 100644[m
+[1m--- a/content/1_docs/5_hooks/5_cart/section.txt[m
+[1m+++ b/content/1_docs/5_hooks/5_cart/section.txt[m
+[36m@@ -8,7 +8,7 @@[m [mAbstract:[m
+ [m
+ Text:[m
+ [m
+[31m-*Since Merx 1.1*[m
+[32m+[m[32m*Since (link: https://github.com/wagnerwagner/merx/releases/tag/1.1.0 text: Merx 1.1)*[m
+ [m
+ The cart hook is executed on [Cart::_construct()](/docs/classes/cart#construct).[m
+ You can find an example in the [*Shipping Costs and Discounts*](/cookbooks/shipping-costs-and-discounts) cookbook.[m
+[36m@@ -23,4 +23,8 @@[m [mreturn [[m
+     }[m
+   ],[m
+ ];[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: NPQRXCBEg3TYwqRs[m
+\ No newline at end of file[m
+[1mdiff --git a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/1_get-payment-intent/section.txt b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/1_get-payment-intent/section.txt[m
+[1mindex 7a44de5..47530c4 100644[m
+[1m--- a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/1_get-payment-intent/section.txt[m
+[1m+++ b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/1_get-payment-intent/section.txt[m
+[36m@@ -18,4 +18,8 @@[m [m$kirby->session()->set('stripePaymentIntentId', $paymentIntent->id);[m
+ ```[m
+ [m
+ You need the `$clientSecret` for the Stripe payment flow in step 2.[m
+[31m-`stripePaymentIntentId` is required for `initializePayment()` in step 3.[m
+\ No newline at end of file[m
+[32m+[m[32m`stripePaymentIntentId` is required for `initializePayment()` in step 3.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: nObVrDMrBQrCTjTr[m
+\ No newline at end of file[m
+[1mdiff --git a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/2_authorize-the-payment-intent/section.txt b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/2_authorize-the-payment-intent/section.txt[m
+[1mindex 3058961..ad857a2 100644[m
+[1m--- a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/2_authorize-the-payment-intent/section.txt[m
+[1m+++ b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/2_authorize-the-payment-intent/section.txt[m
+[36m@@ -6,4 +6,8 @@[m [mAbstract:[m
+ [m
+ ----[m
+ [m
+[31m-Text: Authorize the Payment Intent by following step 2 to 4 of (link: https://stripe.com/docs/payments/accept-a-payment?integration=elements text: Accept a payment (Custom payment flow) guide).[m
+\ No newline at end of file[m
+[32m+[m[32mText: Authorize the Payment Intent by following step 2 to 4 of (link: https://docs.stripe.com/payments/accept-a-payment?platform=web&ui=elements#web-create-intent text: Accept a payment (Custom payment flow) guide).[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: DYoB5smqboj9KkvS[m
+\ No newline at end of file[m
+[1mdiff --git a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/3_initialize-payment/section.txt b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/3_initialize-payment/section.txt[m
+[1mindex 61ee442..a162ebd 100644[m
+[1m--- a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/3_initialize-payment/section.txt[m
+[1m+++ b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/3_initialize-payment/section.txt[m
+[36m@@ -24,4 +24,8 @@[m [m$data = array_merge($data, [[m
+ ]);[m
+ $redirect = merx()->initializePayment($data);[m
+ …[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: la7kJ1JQyGaCKDhQ[m
+\ No newline at end of file[m
+[1mdiff --git a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/default.txt b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/default.txt[m
+[1mindex 94952bb..a085919 100644[m
+[1m--- a/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/default.txt[m
+[1m+++ b/content/2_cookbooks/8_checkout-with-stripe-s-payment-intents/default.txt[m
+[36m@@ -10,7 +10,11 @@[m [mShortdescription: How to create a SCA-compliant checkout experience[m
+ [m
+ ----[m
+ [m
+[31m-Text: Since Merx 1.2 there is a new *payment method* called [`credit-card-sca`](/docs/getting-started/payment-methods/credit-card-sca) and a new `Cart` method called [`getStripePaymentIntent()`](/docs/classes/cart/getstripepaymentintent) which help you to create a SCA-compliant checkout experience.[m
+[32m+[m[32mText:[m
+[32m+[m
+[32m+[m[32mFor (link: page://FjxvIWwokjVwZ4ED text: Credit Card) and (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit) payments, you need to use (link: https://docs.stripe.com/payments/payment-element text: Stripe Payment Elements). During the payment flow, you need to create a Payment Intent. You can use the (link: page://hAyN7KZ42ZUsOIjo text: Cart::getStripePaymentIntent()) method to create this Payment Intent.[m
+[32m+[m
+[32m+[m[32mThe (link: https://starterkit.merx.wagnerwagner.de text: Merx Starterkit) includes the complete payment flow for Stripe Elements. Feel free to look at the (link: https://github.com/wagnerwagner/merx-starterkit/ text: source code) of the Starterkit to learn more about the implementation.[m
+ [m
+ ----[m
+ [m
+[1mdiff --git a/content/2_cookbooks/ideal-payment-gateway/1_variant-1/section.txt b/content/2_cookbooks/ideal-payment-gateway/1_variant-1/section.txt[m
+[1mindex 0872ec1..44e7167 100644[m
+[1m--- a/content/2_cookbooks/ideal-payment-gateway/1_variant-1/section.txt[m
+[1m+++ b/content/2_cookbooks/ideal-payment-gateway/1_variant-1/section.txt[m
+[36m@@ -71,4 +71,8 @@[m [m$data = [[m
+ $redirect = merx()->initializePayment($data);[m
+ ```[m
+ [m
+[31m-When you provide a `bank` parameter the user will be directed to his/her bank website where he/she can enter the credentials.[m
+\ No newline at end of file[m
+[32m+[m[32mWhen you provide a `bank` parameter the user will be directed to his/her bank website where he/she can enter the credentials.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: xBvfH4LstkLx8D8k[m
+\ No newline at end of file[m
+[1mdiff --git a/content/2_cookbooks/ideal-payment-gateway/2_with-stripe-elements/section.txt b/content/2_cookbooks/ideal-payment-gateway/2_with-stripe-elements/section.txt[m
+[1mindex 575d25e..385a820 100644[m
+[1m--- a/content/2_cookbooks/ideal-payment-gateway/2_with-stripe-elements/section.txt[m
+[1m+++ b/content/2_cookbooks/ideal-payment-gateway/2_with-stripe-elements/section.txt[m
+[36m@@ -61,4 +61,8 @@[m [m$data = [[m
+ $redirect = merx()->initializePayment($data);[m
+ ```[m
+ [m
+[31m-Use (link: https://stripe.com/docs/sources/ideal text: Stripe Elements) to get the source string. Pass this `source` into the (link: docs/classes/merx/initializepayment text: initializePayment) method.[m
+\ No newline at end of file[m
+[32m+[m[32mUse (link: https://stripe.com/docs/sources/ideal text: Stripe Elements) to get the source string. Pass this `source` into the (link: docs/classes/merx/initializepayment text: initializePayment) method.[m
+[32m+[m
+[32m+[m[32m----[m
+[32m+[m
+[32m+[m[32mUuid: poaMKoiRXYbf3Y94[m
+\ No newline at end of file[m
+[1mdiff --git a/content/home/kirby-merx-panel.jpg b/content/home/kirby-merx-panel.jpg[m
+[1mindex 1d2c61a..cc4437d 100644[m
+Binary files a/content/home/kirby-merx-panel.jpg and b/content/home/kirby-merx-panel.jpg differ
+[1mdiff --git a/content/showcase/10_gww-desinfektionsmittel/case.txt b/content/showcase/10_gww-desinfektionsmittel/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 0eb20f6..0000000[m
+[1m--- a/content/showcase/10_gww-desinfektionsmittel/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,26 +0,0 @@[m
+[31m-Title: GWW Desinfektionsmittel[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Wagnerwagner[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://www.wagnerwagner.de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - desinfektionsmittel-gww.de.jpg[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **SAP integration**[m
+[31m-A cron jobs generates a XML file for each order with all relevant information for the internal ERP (Enterprise resource planning).[m
+[31m-- **Shipping cost based on weight of products**[m
+[31m-- **Coupon code system**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: QuNeblmiYi5AzmcH[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg b/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 42dbc0a..0000000[m
+Binary files a/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg.txt b/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex e4d2c69..0000000[m
+[1m--- a/content/showcase/10_gww-desinfektionsmittel/desinfektionsmittel-gww.de.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Uuid: ksKDvG2zJVtN5WBK[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/1_hannibal/case.txt b/content/showcase/1_hannibal/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 0ff4e23..0000000[m
+[1m--- a/content/showcase/1_hannibal/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,34 +0,0 @@[m
+[31m-Title: Hannibal.[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://hannibal-collection.com[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Sigi[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://sigi.design[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - file://QFybNDwhDJr8E7OG[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Voucher system**[m
+[31m-with expiration date, choice between fixed and percentage amount, exclusion of categories and connection with newsletter registration[m
+[31m-- **Automatic calculation**[m
+[31m-of gross prices and shipping costs based on shipping country[m
+[31m-- **Inventory management** [m
+[31m-with connection to the merchandise management system[m
+[31m-- **Refunds via Paypal and Stripe** [m
+[31m-via the panel with automatic sending of emails as info.[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: aOcFWbW9hBop4kgO[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/1_hannibal/hannibal-collection.jpg b/content/showcase/1_hannibal/hannibal-collection.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 43c02f9..0000000[m
+Binary files a/content/showcase/1_hannibal/hannibal-collection.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/1_hannibal/hannibal-collection.jpg.txt b/content/showcase/1_hannibal/hannibal-collection.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 80b617a..0000000[m
+[1m--- a/content/showcase/1_hannibal/hannibal-collection.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,5 +0,0 @@[m
+[31m-Sort: 1[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: QFybNDwhDJr8E7OG[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/2_organic-oren/case.txt b/content/showcase/2_organic-oren/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex c5c24d2..0000000[m
+[1m--- a/content/showcase/2_organic-oren/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,25 +0,0 @@[m
+[31m-Title: Organic Oren[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://organicoren.com/shop[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - file://iSEB9EIKcBvBflrc[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special: - **Composable products**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: Cw6YKmcPJWzomhHu[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/2_organic-oren/organic-oren.jpg b/content/showcase/2_organic-oren/organic-oren.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 77a6b84..0000000[m
+Binary files a/content/showcase/2_organic-oren/organic-oren.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/2_organic-oren/organic-oren.jpg.txt b/content/showcase/2_organic-oren/organic-oren.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex d973d6f..0000000[m
+[1m--- a/content/showcase/2_organic-oren/organic-oren.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,5 +0,0 @@[m
+[31m-Sort: 1[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: iSEB9EIKcBvBflrc[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/3_entkunstung/case.txt b/content/showcase/3_entkunstung/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 43abb93..0000000[m
+[1m--- a/content/showcase/3_entkunstung/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,32 +0,0 @@[m
+[31m-Title: Entkunstung[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://entkunstung.com/shop[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Bruno[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://moev.biz[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - entkunstung.com.jpg[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Coupon code system**[m
+[31m-- **Shipping cost based on country**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Image: - entkunstung.com.png[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: THlmsleW0DWbJMo7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/3_entkunstung/entkunstung.com.jpg b/content/showcase/3_entkunstung/entkunstung.com.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 1633cfd..0000000[m
+Binary files a/content/showcase/3_entkunstung/entkunstung.com.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/3_entkunstung/entkunstung.com.jpg.txt b/content/showcase/3_entkunstung/entkunstung.com.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 4294d80..0000000[m
+[1m--- a/content/showcase/3_entkunstung/entkunstung.com.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Uuid: pynjkLH2mdwbXZZL[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/4_sambamba/case.txt b/content/showcase/4_sambamba/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 09e5f66..0000000[m
+[1m--- a/content/showcase/4_sambamba/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,33 +0,0 @@[m
+[31m-Title: Sambamba[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://sambamba.net/en[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Hippe Agentur[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://hippe-agentur.de/de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - file://blWwe1r6qFk80SM5[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Voucher system** with expiration date, fixed and percentage amount, differentiation between shipping destinations[m
+[31m-- **Calculation of shipping costs** based on country[m
+[31m-- **Generated PDF invoice** sent via email[m
+[31m-- **Facebook Conversion API** integration[m
+[31m-- **Shipping platform integration** [m
+[31m-Immediate shipping after purchase, tracking ID stored in order[m
+[31m-- **Shop statistics** for admin user[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: xDW94pkkXt9oUqqO[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/4_sambamba/sambamba.jpg b/content/showcase/4_sambamba/sambamba.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 14e2692..0000000[m
+Binary files a/content/showcase/4_sambamba/sambamba.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/4_sambamba/sambamba.jpg.txt b/content/showcase/4_sambamba/sambamba.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 664b4b8..0000000[m
+[1m--- a/content/showcase/4_sambamba/sambamba.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Uuid: blWwe1r6qFk80SM5[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/5_promenad/case.txt b/content/showcase/5_promenad/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 9957fe6..0000000[m
+[1m--- a/content/showcase/5_promenad/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,29 +0,0 @@[m
+[31m-Title: Promenad[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://www.promenad.ch[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Felix Niklas[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://felixniklas.de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - promenad.ch.jpg[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Sale prices**[m
+[31m-- **Product variants**[m
+[31m-- **Coupon system**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: yn4HrruvP98Pa5Kn[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/5_promenad/promenad.ch.jpg b/content/showcase/5_promenad/promenad.ch.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 0515d0d..0000000[m
+Binary files a/content/showcase/5_promenad/promenad.ch.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/5_promenad/promenad.ch.jpg.txt b/content/showcase/5_promenad/promenad.ch.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 05c6b46..0000000[m
+[1m--- a/content/showcase/5_promenad/promenad.ch.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Uuid: 7LsXgusaSMbYhdfA[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/6_klett-schokolade/case.txt b/content/showcase/6_klett-schokolade/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex bffe90c..0000000[m
+[1m--- a/content/showcase/6_klett-schokolade/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,29 +0,0 @@[m
+[31m-Title: Klett Schokolade[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://klett-schoko.de/shop[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Wagnerwagner[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://www.wagnerwagner.de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - klett-schoko.de.jpg[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Shop evaluation**[m
+[31m-Monthly overview and evaluation for each product in the panel. Downloadable CSV (Excel) files for accounting.[m
+[31m-- **Stock management**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: kqaSkCHsjUr3qX89[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/6_klett-schokolade/klett-schoko.de.jpg b/content/showcase/6_klett-schokolade/klett-schoko.de.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex b0ebdbf..0000000[m
+Binary files a/content/showcase/6_klett-schokolade/klett-schoko.de.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/6_klett-schokolade/klett-schoko.de.jpg.txt b/content/showcase/6_klett-schokolade/klett-schoko.de.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 561822d..0000000[m
+[1m--- a/content/showcase/6_klett-schokolade/klett-schoko.de.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-Uuid: 9a6riHQ33fwELP2L[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/7_the-knitwit-stable/case.txt b/content/showcase/7_the-knitwit-stable/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex bacdf72..0000000[m
+[1m--- a/content/showcase/7_the-knitwit-stable/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,29 +0,0 @@[m
+[31m-Title: The Knitwit Stable[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://theknitwitstable.nl/en/webshop[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Bart van de Biezen[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://bartvandebiezen.com/en[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - theknitwitstable.nl.jpg[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special:[m
+[31m-[m
+[31m-- **Custom iDeal integration**[m
+[31m-- **Bilingual**[m
+[31m-- **No JavaScript**[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: Aj7oz3gWNvSoO3Vh[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/7_the-knitwit-stable/theknitwitstable.nl.jpg b/content/showcase/7_the-knitwit-stable/theknitwitstable.nl.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex 906b7f0..0000000[m
+Binary files a/content/showcase/7_the-knitwit-stable/theknitwitstable.nl.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/maison-des-editions/maisondeseditions.fr.jpg.txt b/content/showcase/maison-des-editions/maisondeseditions.fr.jpg.txt[m
+[1mindex e69de29..cf09b6c 100644[m
+[1m--- a/content/showcase/maison-des-editions/maisondeseditions.fr.jpg.txt[m
+[1m+++ b/content/showcase/maison-des-editions/maisondeseditions.fr.jpg.txt[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mUuid: tDKGClgbZzy2VJvz[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/mokit/mokit.tools.jpg.txt b/content/showcase/mokit/mokit.tools.jpg.txt[m
+[1mindex e69de29..3a46e30 100644[m
+[1m--- a/content/showcase/mokit/mokit.tools.jpg.txt[m
+[1m+++ b/content/showcase/mokit/mokit.tools.jpg.txt[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mUuid: 6mixoEcoerRHpse7[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/new-jorg/newjoerg.at.jpg.txt b/content/showcase/new-jorg/newjoerg.at.jpg.txt[m
+[1mindex e69de29..53af6c2 100644[m
+[1m--- a/content/showcase/new-jorg/newjoerg.at.jpg.txt[m
+[1m+++ b/content/showcase/new-jorg/newjoerg.at.jpg.txt[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mUuid: XKOiYByZi3eOT9pe[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/steinhart-schuttgut/case.txt b/content/showcase/steinhart-schuttgut/case.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 2313c6d..0000000[m
+[1m--- a/content/showcase/steinhart-schuttgut/case.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,25 +0,0 @@[m
+[31m-Title: Steinhart Schüttgut[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Link: https://www.steinhart-schuettgut.de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byname: Wagnerwagner GmbH[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Byurl: https://www.wagnerwagner.de[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Screenshot: - file://MCLdfUMVEo8mePNp[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Special: [m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: vRu2uPoqlXcbAiyx[m
+\ No newline at end of file[m
+[1mdiff --git a/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg b/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg[m
+[1mdeleted file mode 100644[m
+[1mindex db86f75..0000000[m
+Binary files a/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg and /dev/null differ
+[1mdiff --git a/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg.txt b/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg.txt[m
+[1mdeleted file mode 100644[m
+[1mindex 6d6ca1a..0000000[m
+[1m--- a/content/showcase/steinhart-schuttgut/steinhart-schuettgut.jpg.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,5 +0,0 @@[m
+[31m-Sort: 1[m
+[31m-[m
+[31m-----[m
+[31m-[m
+[31m-Uuid: MCLdfUMVEo8mePNp[m
+\ No newline at end of file[m
+[1mdiff --git a/content/try/default.txt b/content/try/default.txt[m
+[1mindex 2d34f4e..ac937fa 100644[m
+[1m--- a/content/try/default.txt[m
+[1m+++ b/content/try/default.txt[m
+[36m@@ -12,11 +12,11 @@[m [mShortdescription:[m
+ [m
+ Text:[m
+ [m
+[31m-We recommend to give Merx Plainkit a try. [m
+[32m+[m[32mWe recommend to give Merx Starterkit a try.[m[41m [m
+ It’s a very basic but complete online shop.[m
+ [m
+[31m-(link: https://github.com/wagnerwagner/merx-examples text: Plainkit (GitHub) → class: button)[m
+[31m-<small>(link: http://plainkit-merx.wagnerwagner.de text: plainkit-merx.wagnerwagner.de)</small>[m
+[32m+[m[32m(link: https://github.com/wagnerwagner/merx-starterkit text: Merx Starterkit (GitHub) → class: button)[m
+[32m+[m[32m<small>(link: https://starterkit.merx.wagnerwagner.de text: starterkit.merx.wagnerwagner.de)</small>[m
+ [m
+  (link: https://github.com/wagnerwagner/merx text: Merx (GitHub) → class: button)[m
+ <small>(link: /docs/getting-started/installation text: How to install Merx)</small>[m
+[36m@@ -30,7 +30,7 @@[m [mIt’s a very basic but complete online shop.[m
+ ### More Source Code[m
+ [m
+ (link: https://github.com/wagnerwagner/merx.wagnerwagner.de text: merx.wagnerwagner.de (GitHub))[m
+[31m-(link: https://github.com/wagnerwagner/babyreport.de text: babyreport.de (GitHub))[m
+[32m+[m[32m(link: https://github.com/wagnerwagner/merx-examples text: merx-examples (GitHub))[m
+ [m
+ ----[m
+ [m

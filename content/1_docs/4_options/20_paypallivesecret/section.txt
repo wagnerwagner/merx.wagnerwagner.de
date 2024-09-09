@@ -2,7 +2,7 @@ Title: paypal.live.secret
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -16,3 +16,7 @@ return [
 
 ### Type
 `string`
+
+----
+
+Uuid: SvJRJDC215KtbknN

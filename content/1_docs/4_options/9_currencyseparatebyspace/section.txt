@@ -18,3 +18,7 @@ return [
 
 ### Type
 `bool`
+
+----
+
+Uuid: TpGMMdeVSfRLWR9L

@@ -2,7 +2,7 @@ Title: $cart->delete()
 
 ----
 
-ClassName: Wagnerwagner\Merx\Cart
+Classname: Wagnerwagner\Merx\Cart
 
 ----
 
@@ -10,12 +10,16 @@ Methodname: delete
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
+
+----
+
+Uuid: QhiJKcfETW4RjEpO

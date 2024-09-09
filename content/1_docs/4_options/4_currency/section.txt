@@ -21,3 +21,7 @@ Used for Stripe Source and PayPal Payment.
 
 ### Default
 `EUR`
+
+----
+
+Uuid: xnsNFAM9b6pGPUur

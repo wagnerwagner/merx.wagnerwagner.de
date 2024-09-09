@@ -1,0 +1,17 @@
+Title: Test with delayed notification of payment success
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+Test your integration with a payment method which has a (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). For example, (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit) payments are marked as completed in an average of 7 to 8 business days.
+
+See (link: https://docs.stripe.com/payments/sepa-debit/accept-a-payment#test-integration text: Stripe’s Documentation) to learn more about how to test SEPA Direct Debit payments.
+
+----
+
+Uuid: Xa1TgDHZyV3ycskN

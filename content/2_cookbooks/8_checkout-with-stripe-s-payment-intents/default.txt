@@ -10,7 +10,11 @@ Shortdescription: How to create a SCA-compliant checkout experience
 
 ----
 
-Text: Since Merx 1.2 there is a new *payment method* called [`credit-card-sca`](/docs/getting-started/payment-methods/credit-card-sca) and a new `Cart` method called [`getStripePaymentIntent()`](/docs/classes/cart/getstripepaymentintent) which help you to create a SCA-compliant checkout experience.
+Text:
+
+For (link: page://FjxvIWwokjVwZ4ED text: Credit Card) and (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit) payments, you need to use (link: https://docs.stripe.com/payments/payment-element text: Stripe Payment Elements). During the payment flow, you need to create a Payment Intent. You can use the (link: page://hAyN7KZ42ZUsOIjo text: Cart::getStripePaymentIntent()) method to create this Payment Intent.
+
+The (link: https://starterkit.merx.wagnerwagner.de text: Merx Starterkit) includes the complete payment flow for Stripe Elements. Feel free to look at the (link: https://github.com/wagnerwagner/merx-starterkit/ text: source code) of the Starterkit to learn more about the implementation.
 
 ----
 

@@ -8,7 +8,7 @@ Abstract:
 
 Text:
 
-*Since Merx 1.1*
+*Since (link: https://github.com/wagnerwagner/merx/releases/tag/1.1.0 text: Merx 1.1)*
 
 The cart hook is executed on [Cart::_construct()](/docs/classes/cart#construct).
 You can find an example in the [*Shipping Costs and Discounts*](/cookbooks/shipping-costs-and-discounts) cookbook.
@@ -24,3 +24,7 @@ return [
   ],
 ];
 ```
+
+----
+
+Uuid: NPQRXCBEg3TYwqRs

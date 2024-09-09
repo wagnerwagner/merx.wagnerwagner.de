@@ -2,7 +2,7 @@ Title: stripe.test.publishable_key
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -16,3 +16,7 @@ return [
 
 ### Type
 `string`
+
+----
+
+Uuid: BbGm4aRAsqIe1IU2

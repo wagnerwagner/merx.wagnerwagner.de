@@ -1,0 +1,36 @@
+Title: iDEAL
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+### Initialize Payment
+
+```php
+$redirect = $merx->initializePayment([
+  'paymentMethod' => 'ideal',
+]);
+go($redirect); // customer’s banking website
+```
+
+iDEAL redirects customers to their online banking environment to authenticate a payment using a second factor of authentication. There is immediate notification about the success or failure of a payment. The exact customer experience depends on their bank.
+
+### Complete Payment
+
+(filename: site/templates/success.php)
+
+```php
+$paymentIntent = get('payment_intent'); // pi_XXXXXXXXXXXXXXXXXXXXXXXX
+
+$merx->completePayment([
+  'payment_intent' => $paymentIntent,
+]);
+```
+
+----
+
+Uuid: o4kyptHhyOUB9Xik

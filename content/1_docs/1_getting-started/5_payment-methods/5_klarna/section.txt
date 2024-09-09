@@ -1,0 +1,37 @@
+Title: Klarna
+
+----
+
+Abstract: 
+
+----
+
+Text:
+
+### Initialize Payment
+
+```php
+$redirect = $merx->initializePayment([
+  'paymentMethod' => 'klarna',
+]);
+go($redirect); // https://payments.klarna.com
+```
+
+
+You are redirected to *klarna.com* where the customer has to accept the payment.
+
+### Complete Payment
+
+(filename: site/templates/success.php)
+
+```php
+$paymentIntent = get('payment_intent'); // pi_XXXXXXXXXXXXXXXXXXXXXXXX
+
+$merx->completePayment([
+  'payment_intent' => $paymentIntent,
+]);
+```
+
+----
+
+Uuid: FRFv2co67by7H9jA

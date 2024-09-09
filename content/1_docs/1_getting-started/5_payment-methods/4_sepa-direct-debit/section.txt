@@ -2,20 +2,18 @@ Title: SEPA Direct Debit
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
 Text:
-
-SEPA Direct Debit works very similar to Credit Card. Create a (link: https://stripe.com/docs/stripe-js/elements/iban text: Stripe IBAN Element) to get a `stripeToken`.
 
 ### Initialize Payment
 
 ```php
 $redirect = $merx->initializePayment([
   'paymentMethod' => 'sepa-debit',
-  'stripeToken' => 'tok_XXXXXXXXXXXXXXXXXXXXXXXX',
+  'stripePaymentIntentId' => 'pi_XXXXXXXXXXXXXXXXXXXXXXXX',
 ]);
 go($redirect); // /success
 ```
@@ -29,3 +27,9 @@ You don’t have to provide any additional information for the `completePayment`
 ```php
 $merx->completePayment():
 ```
+
+SEPA Direct Debit payments are not marked as `paymentComplete` immediately, because this payment method has a (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). You can use (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks) to mark SEPA Direct Debit payments as completed.
+
+----
+
+Uuid: xbvSI4L8EqAkHM6T

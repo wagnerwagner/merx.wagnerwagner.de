@@ -25,3 +25,7 @@ $data = array_merge($data, [
 $redirect = merx()->initializePayment($data);
 …
 ```
+
+----
+
+Uuid: la7kJ1JQyGaCKDhQ

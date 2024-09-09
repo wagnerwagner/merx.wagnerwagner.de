@@ -15,3 +15,7 @@ Text: A *product* is a Kirby page with a product template.
 ----
 
 Redirect: false
+
+----
+
+Uuid: NMmvW5UCp5H422vI

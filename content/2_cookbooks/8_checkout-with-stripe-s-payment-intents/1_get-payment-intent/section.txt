@@ -19,3 +19,7 @@ $kirby->session()->set('stripePaymentIntentId', $paymentIntent->id);
 
 You need the `$clientSecret` for the Stripe payment flow in step 2.
 `stripePaymentIntentId` is required for `initializePayment()` in step 3.
+
+----
+
+Uuid: nObVrDMrBQrCTjTr

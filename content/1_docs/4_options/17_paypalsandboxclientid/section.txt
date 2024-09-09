@@ -2,7 +2,7 @@ Title: paypal.sandbox.clientID
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
@@ -16,3 +16,7 @@ return [
 
 ### Type
 `string`
+
+----
+
+Uuid: nFbQo1lxfBKSToe6

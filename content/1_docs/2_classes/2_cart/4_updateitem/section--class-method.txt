@@ -2,7 +2,7 @@ Title: $cart->updateItem()
 
 ----
 
-ClassName: Wagnerwagner\Merx\Cart
+Classname: Wagnerwagner\Merx\Cart
 
 ----
 
@@ -10,12 +10,16 @@ Methodname: updateItem
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
+
+----
+
+Uuid: 19vuP1ptwsmN6xdo

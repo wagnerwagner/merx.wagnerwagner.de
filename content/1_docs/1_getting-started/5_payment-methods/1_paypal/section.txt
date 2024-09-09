@@ -23,8 +23,13 @@ go($redirect); // https://www.paypal.com/cgi-bin/webscr…
 (filename: site/templates/success.php)
 
 ```php
+$payerID = get('PayerID');
+
 $merx->completePayment([
-  'paymentId' => 'PAYID-XXXXXXXXXXXXXXXXXXXXXXXX',
-  'PayerID' => 'XXXXXXXXXXXXX'
+  'PayerID' => $payerID,
 ]);
 ```
+
+----
+
+Uuid: JauaB7vmDfUmxbCg

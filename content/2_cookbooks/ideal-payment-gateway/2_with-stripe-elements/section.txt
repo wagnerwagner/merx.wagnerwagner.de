@@ -62,3 +62,7 @@ $redirect = merx()->initializePayment($data);
 ```
 
 Use (link: https://stripe.com/docs/sources/ideal text: Stripe Elements) to get the source string. Pass this `source` into the (link: docs/classes/merx/initializepayment text: initializePayment) method.
+
+----
+
+Uuid: poaMKoiRXYbf3Y94

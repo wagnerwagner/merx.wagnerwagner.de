@@ -22,7 +22,7 @@ Summary: There is a `cart()` shortcut.
 
 ----
 
-Text: 
+Text:
 
 ### `$data` keys
 
@@ -49,3 +49,7 @@ $cart = cart([
   ],
 ]);
 ```
+
+----
+
+Uuid: xNFag4DTkRVlk8hy

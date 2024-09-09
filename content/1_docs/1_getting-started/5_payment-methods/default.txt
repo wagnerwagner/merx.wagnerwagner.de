@@ -18,10 +18,10 @@ Merx comes with five payment gateways built in.
 Payment Method | Provider | Keyword
 | ---- | ---- | ---- |
 PayPal Payments | (link: https://developer.paypal.com/docs/api/payments/v2/ text: PayPal) | `paypal`
-Credit Card<br><small>with Payment Intents</small> | (link: https://stripe.com/docs/payments/payment-intents/web text: Stripe) | `credit-card-sca`
-Credit Card | (link: https://stripe.com/payments/payment-methods-guide#cards text: Stripe) | `credit-card`
-SEPA Direct Debit | (link: https://stripe.com/payments/payment-methods-guide#sepa-direct-debit text: Stripe) | `sepa-debit`
-SOFORT | (link: https://stripe.com/payments/payment-methods-guide#sofort text: Stripe) | `sofort`
+Credit Card | (link: https://stripe.com/de/payments/payment-methods text: Stripe) | `credit-card-sca`
+iDEAL | (link: https://stripe.com/de/payment-method/ideal text: Stripe) | `ideal`
+SEPA Direct Debit | (link: https://stripe.com/de/payments/sepa-direct-debit text: Stripe) | `sepa-debit`
+Klarna | (link: https://stripe.com/de/payments/klarna text: Stripe) | `klarna`
 
 If you want to use another payment provider read the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways) cookbook to learn how to create your own custom payment gateway.
 
@@ -30,3 +30,7 @@ If you want to use another payment provider read the (link: cookbooks/custom-pay
 ----
 
 Redirect: false
+
+----
+
+Uuid: GZeQ8osDBaIn62VC

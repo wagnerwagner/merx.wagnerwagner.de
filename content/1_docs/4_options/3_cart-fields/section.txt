@@ -28,3 +28,7 @@ By default following values are stored in a (link: /docs/classes/productlist tex
 `[]`
 
 (github: /src/ProductList.php line: 110 text: Source Code)
+
+----
+
+Uuid: OizU5vtLJ2z9uJga

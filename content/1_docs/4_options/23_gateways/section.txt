@@ -6,7 +6,7 @@ Abstract: Custom payment gateways.
 
 ----
 
-Text: 
+Text:
 
 ```php
 return [
@@ -29,3 +29,7 @@ More information in the (link: cookbooks/custom-payment-gateways text: Custom Pa
 
 ### Type
 `array`
+
+----
+
+Uuid: nHS0VeLYtoJ45n7Z

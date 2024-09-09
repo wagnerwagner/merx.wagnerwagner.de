@@ -6,7 +6,7 @@ Abstract:
 
 ----
 
-Text: 
+Text:
 
 ```php
 return [
@@ -19,3 +19,7 @@ You need a valid license to make real purchases.
 ### Type
 
 `string`
+
+----
+
+Uuid: iRoB0DomhJOjNcUR

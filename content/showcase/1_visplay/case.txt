@@ -1,0 +1,30 @@
+Title: Visplay
+
+----
+
+Link: https://visplay.com
+
+----
+
+Byname: Wagnerwagner
+
+----
+
+Byurl: https://www.wagnerwagner.de
+
+----
+
+Screenshot: - file://AwIS1C4JQxe6MpQv
+
+----
+
+Special:
+
+- Individual products can be created with **(link: https://visplay.com/en/systems/multi-lane/configurator text: Roomle 3D configurator)** and ordered
+- **Individual shipping prices** based on country and postal code
+- Separate **wish lists** that can be converted to shopping carts and ordered
+- **Product price (link: https://visplay.com/en/produkt-typen/invisible-6-profile-electrified-without-power-supply text: based on length)**
+
+----
+
+Uuid: O0QgkCcB3EjPTMUz

@@ -6,4 +6,8 @@ Abstract:
 
 ----
 
-Text: Authorize the Payment Intent by following step 2 to 4 of (link: https://stripe.com/docs/payments/accept-a-payment?integration=elements text: Accept a payment (Custom payment flow) guide).
+Text: Authorize the Payment Intent by following step 2 to 4 of (link: https://docs.stripe.com/payments/accept-a-payment?platform=web&ui=elements#web-create-intent text: Accept a payment (Custom payment flow) guide).
+
+----
+
+Uuid: DYoB5smqboj9KkvS

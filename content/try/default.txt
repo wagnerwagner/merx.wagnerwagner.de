@@ -12,11 +12,11 @@ Shortdescription:
 
 Text:
 
-We recommend to give Merx Plainkit a try. 
+We recommend to give Merx Starterkit a try. 
 It’s a very basic but complete online shop.
 
-(link: https://github.com/wagnerwagner/merx-examples text: Plainkit (GitHub) → class: button)
-<small>(link: http://plainkit-merx.wagnerwagner.de text: plainkit-merx.wagnerwagner.de)</small>
+(link: https://github.com/wagnerwagner/merx-starterkit text: Merx Starterkit (GitHub) → class: button)
+<small>(link: https://starterkit.merx.wagnerwagner.de text: starterkit.merx.wagnerwagner.de)</small>
 
  (link: https://github.com/wagnerwagner/merx text: Merx (GitHub) → class: button)
 <small>(link: /docs/getting-started/installation text: How to install Merx)</small>
@@ -30,7 +30,7 @@ It’s a very basic but complete online shop.
 ### More Source Code
 
 (link: https://github.com/wagnerwagner/merx.wagnerwagner.de text: merx.wagnerwagner.de (GitHub))
-(link: https://github.com/wagnerwagner/babyreport.de text: babyreport.de (GitHub))
+(link: https://github.com/wagnerwagner/merx-examples text: merx-examples (GitHub))
 
 ----
 
