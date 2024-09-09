@@ -2,7 +2,11 @@ Title: Stripe Webhooks
 
 ----
 
-Shortdescription: 
+Headline: 
+
+----
+
+Shortdescription: Set payment complete for payments with delayed notification of payment success
 
 ----
 
