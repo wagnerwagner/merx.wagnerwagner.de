@@ -87,8 +87,11 @@ function updateCart(quantity = 1, cartQuantityNumberElement, countrySelectElemet
   });
 }
 
-function getClientSecret() {
-  return fetch('merx-api/get-client-secret').then(response => response.json()).then(data => data.clientSecret).catch((exception) => {
+function getClientSecret(_paymentMethod = 'card') {
+  const { protocol, host } = window.location;
+  const url = new URL('/merx-api/get-client-secret', `${protocol}//${host}`);
+  url.searchParams.set('payment-method', _paymentMethod);
+  return fetch(url).then(response => response.json()).then(data => data.clientSecret).catch((exception) => {
     console.error(exception);
     showGlobalError('Fatal Error: Could not get client secret.');
   });
@@ -112,14 +115,6 @@ function changePaymentMethod(paymentMethodElements) {
   });
 }
 
-function setStripeToken(token, formElement) {
-  const hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
-  formElement.appendChild(hiddenInput);
-}
-
 function initStripe() {
   const stripePublishableKey = element.querySelector('input[name="stripePublishableKey"]').value;
   const stripe = Stripe(stripePublishableKey);
@@ -141,6 +136,8 @@ function initStripe() {
 
   stripeCard.mount(stripeCardElement);
   stripeSepaDebit.mount(stripeSepaDebitElement);
+
+  stripe.stripeElements = stripeElements;
 
   stripe.card = stripeCard;
   stripe.cardElement = stripeCardElement;
@@ -233,24 +230,23 @@ if (element) {
           submit(formElement);
         }
       } else if (paymentMethod === 'sepa-debit') {
-        const sourceData = {
-          type: 'sepa_debit',
-          currency: 'eur',
-          owner: {
-            name: formElement.name.value,
-            email: formElement.email.value,
+        const clientSecret = await getClientSecret('sepa_debit');
+        const { error } = await stripe.confirmSepaDebitPayment(clientSecret, {
+          payment_method: {
+            sepa_debit: stripe.stripeElements.getElement('iban'),
+            billing_details: {
+              name: formElement.name.value,
+              email: formElement.email.value,
+            },
           },
-        };
-
-        stripe.createSource(stripe.sepaDebit, sourceData).then((result) => {
-          if (result.error) {
-            const errorElement = getErrorElement(result.error.message);
-            stripe.sepaDebitElement.parentElement.appendChild(errorElement);
-          } else {
-            setStripeToken(result.source, formElement);
-            submit(formElement);
-          }
         });
+
+        if (error) {
+          const errorElement = getErrorElement(error.message);
+          stripe.cardElement.parentElement.appendChild(errorElement);
+        } else {
+          submit(formElement);
+        }
       } else {
         submit(formElement);
       }
