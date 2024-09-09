@@ -28,6 +28,8 @@ class OrderPage extends OrderPageAbstract
     $paymentMethods['paypal'] = 'PayPal';
     $paymentMethods['sepa-debit'] = 'SEPA Direct Debit';
     $paymentMethods['sofort'] = 'Klarna';
+    $paymentMethods['klarna'] = 'Klarna';
+    $paymentMethods['ideal'] = 'iDEAL';
     if (key_exists($paymentMethodKey, $paymentMethods)) {
       return $paymentMethods[$paymentMethodKey];
     }

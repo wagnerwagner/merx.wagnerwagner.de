@@ -161,18 +161,15 @@
 .form-checkout__payment-method {
   margin-top: rem(15);
   margin-bottom: rem(-10);
-  display: flex;
-  flex-wrap: wrap;
   flex-basis: 100%;
-  justify-content: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+  column-gap: rem(24);
 
   label {
     box-sizing: border-box;
-    flex-basis: auto;
-    flex-grow: 1;
     margin-top: 0;
     margin-bottom: rem(10);
-    padding-right: rem(24);
   }
 }
 

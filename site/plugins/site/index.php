@@ -202,7 +202,17 @@ Kirby::plugin('wagnerwagner/site', [
       'action' => function() {
         $merx = merx();
         $cart = $merx->cart();
-        $paymentIntent = $cart->getStripePaymentIntent();
+
+        $paymentMethod = get('payment-method', 'card');
+        $params = [
+            'payment_method_types' => [$paymentMethod],
+        ];
+
+        if ($paymentMethod === 'sepa_debit') {
+            $params['capture_method'] = 'automatic';
+        }
+
+        $paymentIntent = $cart->getStripePaymentIntent($params);
         kirby()->session()->set('ww.site.paymentIntentId', $paymentIntent->id);
         return [
           'clientSecret' => $paymentIntent->client_secret,

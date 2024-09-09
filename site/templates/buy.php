@@ -82,8 +82,12 @@ use Wagnerwagner\Merx\Merx;
             <div>SEPA Direct Debit</div>
           </label>
           <label class="has-radio">
-            <input type="radio" name="paymentMethod" required value="sofort" data-submit-text="continue to Klarna">
+            <input type="radio" name="paymentMethod" required value="klarna" data-submit-text="continue to Klarna">
             <div>Klarna</div>
+          </label>
+          <label class="has-radio">
+            <input type="radio" name="paymentMethod" required value="ideal" data-submit-text="continue to iDEAL">
+            <div>iDEAL</div>
           </label>
         </div>
         <div class="form-checkout__payment-fields">
