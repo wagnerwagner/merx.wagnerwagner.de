@@ -9,6 +9,10 @@ $stripeLiveSecretKey = file_get_contents('secrets/.stripeLiveSecretKey', FILE_US
 $paypalLiveClientID = file_get_contents('secrets/.paypalLiveClientID', FILE_USE_INCLUDE_PATH);
 $paypalLiveSecret = file_get_contents('secrets/.paypalLiveSecret', FILE_USE_INCLUDE_PATH);
 
+$smtpHost = file_get_contents('secrets/.smtpHost', FILE_USE_INCLUDE_PATH);
+$smtpUsername = file_get_contents('secrets/.smtpUsername', FILE_USE_INCLUDE_PATH);
+$smtpPassword = file_get_contents('secrets/.smtpPassword', FILE_USE_INCLUDE_PATH);
+
 $merxLicense = file_get_contents('secrets/.merxLicense', FILE_USE_INCLUDE_PATH);
 
 return [
@@ -26,4 +30,15 @@ return [
   'ww.merx.paypal.sandbox.secret' => $paypalSandboxSecret,
   'ww.merx.paypal.live.clientID' => $paypalLiveClientID,
   'ww.merx.paypal.live.secret' => $paypalLiveSecret,
+  'email' => [
+    'transport' => [
+      'type' => 'smtp',
+      'host' => $smtpHost,
+      'port' => 465,
+      'auth' => true,
+      'security' => true,
+      'username' => $smtpUsername,
+      'password' => $smtpPassword,
+    ],
+  ],
 ];
