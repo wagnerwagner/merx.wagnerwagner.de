@@ -6,7 +6,7 @@ Abstract: Use hooks to throw exception if the stock is not sufficient.
 
 ----
 
-Text: 
+Text:
 
 Check the availability of the products with the (link: docs/hooks#initializepaymentbefore text: `initializePayment:before`) and (link: docs/hooks#completepaymentbefore text: `completePayment:before`) hooks. For each item in the cart check if the available stock is smaller than the quantity of the cart item. If that’s the case an exception is thrown.
 
@@ -76,3 +76,7 @@ try {
   echo $ex->getMessage();
 }
 ```
+
+----
+
+Uuid: FmKJK8jpzPzGpayz

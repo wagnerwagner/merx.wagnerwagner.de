@@ -15,3 +15,7 @@ composer require wagnerwagner/merx
 ```
 
 Read more about Composer and Kirby on [getkirby.com](https://getkirby.com/docs/cookbook/setup/composer)
+
+----
+
+Uuid: zlfa4d6Wnd6f6wCd

@@ -2,6 +2,10 @@ Title: Privacy
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: 
 
 ----
@@ -25,8 +29,8 @@ Telefon: 07121 5395686-10
 mail@wagnerwagner.de
 
 ## II. Datenschutzbeauftragter
-Herr Peter Wagner
-peter.wagner@wagnerwagner.de
+Herr Marcus Wagner
+marcus.wagner@wagnerwagner.de
 
 ## III. Zwecke, Rechtsgrundlagen und Informationen der Datenverarbeitung
 ### 1. Informatorische Nutzung der Website
@@ -168,8 +172,8 @@ Legen Sie Widerspruch ein, werden wir Ihre personenbezogenen Daten nicht mehr ve
 2. Wir verarbeiten Ihre personenbezogenen Daten nicht, um Direktwerbung zu betreiben.
 3. Der Widerspruch kann formfrei erfolgen und sollte möglichst gerichtet werden an:
 Kontaktdaten unseres Datenschutzbeauftragten:
-Herrn Peter Wagner
-peter.wagner@wagnerwagner.de
+Herrn Marcus Wagner
+marcus.wagner@wagnerwagner.de
 
 ----
 

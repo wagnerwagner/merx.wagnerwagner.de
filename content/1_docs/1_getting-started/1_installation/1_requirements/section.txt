@@ -6,4 +6,8 @@ Abstract:
 
 ----
 
-Text: Merx does not have any special requirements. If Kirby 3 is running fine, Merx also will be fine.
+Text: Merx does not have any special requirements. If Kirby 3 or Kirby 4 is running fine, Merx also will be fine.
+
+----
+
+Uuid: EeFq8qJCYRltqbvi

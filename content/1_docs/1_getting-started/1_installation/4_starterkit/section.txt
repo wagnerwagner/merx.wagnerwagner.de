@@ -15,3 +15,7 @@ It is ideal for new users to explore many of Merx’s possibilities. If you want
 (link: https://starterkit.merx.wagnerwagner.de text: Preview → class: button)&emsp;(link: https://github.com/wagnerwagner/merx-starterkit/releases/latest text: Download ↓ class: button)
 
 (link: https://github.com/wagnerwagner/merx-starterkit text: Source Code on GitHub class: link-secondary)
+
+----
+
+Uuid: Yz7BkK9TfxFy01C0

@@ -1,0 +1,31 @@
+Title: Antigoni Jewellery
+
+----
+
+Link: https://antigoni.com
+
+----
+
+Byname: 
+
+----
+
+Byurl: 
+
+----
+
+Screenshot: - file://eyyONM0ATIXy8DDL
+
+----
+
+Special:
+
+- Products and variations based on combinations of design, materials and characteristics
+- Delivery time calculation based on product availability and manufacturing time of the handmade products
+- Individual shipping cost based on continent and country
+- Coupons
+- Inventory management
+
+----
+
+Uuid: XzNj6nvUneUIf3aa
