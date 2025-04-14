@@ -15,3 +15,7 @@ git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx
 ```
 
 Read more about Kirby and Git on [getkirby.com](https://getkirby.com/docs/cookbook/setup/git)
+
+----
+
+Uuid: iHZOb0ge9j7ZDYqp

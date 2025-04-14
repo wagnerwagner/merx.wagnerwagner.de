@@ -6,11 +6,11 @@ Link: https://www.hanszuercher.ch/shop
 
 ----
 
-Byname: 
+Byname: Felix Niklas
 
 ----
 
-Byurl: 
+Byurl: https://www.felixniklas.de
 
 ----
 
@@ -18,7 +18,11 @@ Screenshot: - file://0wZ0MTkCAaboiTqS
 
 ----
 
-Special: 
+Special:
+
+- Discrete design
+- Payment on pick-up
+- Option to request quote for resellers
 
 ----
 
