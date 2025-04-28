@@ -1,7 +1,10 @@
 <?php
-use Merx\Merx;
+
+use Kirby\Cms\App;
+use Kirby\Cms\Page;
+use Kirby\Cms\Response;
+use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
-use Kirby\Toolkit\Collection;
 use Kirby\Toolkit\Html;
 
 @include_once __DIR__ . '/vendor/autoload.php';
@@ -35,7 +38,7 @@ function sendConfirmationMail(OrderPage $orderPage) {
 }
 
 
-Kirby::plugin('wagnerwagner/site', [
+App::plugin('wagnerwagner/site', [
   'options' => [
     'countryList' => $countryList,
   ],
@@ -171,7 +174,7 @@ Kirby::plugin('wagnerwagner/site', [
         $quantity = (int)$_POST['quantity'];
         $country = (string)$_POST['country'];
         if ($quantity > 10) {
-          throw Exception('Quantity can’t be more than 10.');
+          throw new Exception('Quantity can’t be more than 10.');
         }
         $cart = merx()->cart();
         $newCartData = [
