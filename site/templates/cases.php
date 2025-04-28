@@ -1,6 +1,6 @@
 <?php
 if ($page->redirect()->isTrue()) {
-  go($page->children()->listed()->first()->url());
+  $page->children()->listed()->first()?->go();
 }
 ?>
 <?php snippet('head') ?>

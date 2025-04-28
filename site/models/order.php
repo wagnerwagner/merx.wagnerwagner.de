@@ -2,7 +2,7 @@
 
 use Kirby\Cms\Field;
 
-class OrderPage extends OrderPageAbstract
+class OrderPage extends Wagnerwagner\Merx\OrderPage
 {
   public function errors(): array
   {

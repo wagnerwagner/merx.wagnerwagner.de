@@ -29,5 +29,6 @@ columns:
     sections:
       pages:
         type: pages
+        info: "{{ page.intendedTemplate }}"
       files:
         type: files
