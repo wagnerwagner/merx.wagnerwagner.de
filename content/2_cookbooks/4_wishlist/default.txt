@@ -2,6 +2,10 @@ Title: Wishlist
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: How you can use productList to create a wishlist.
 
 ----
@@ -11,6 +15,43 @@ Text: Using (link: docs/classes/productlist text: `productList`) to create a wis
 ----
 
 Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Create new list",
+            "abstract": "",
+            "text": "```php\nuse Wagnerwagner\\Merx;\n\n$productList = new ProductList();\n```"
+        },
+        "id": "66a3e0b8-2894-42e7-a119-926c3ba21c4f",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Add product",
+            "abstract": "",
+            "text": "```php\n$productList->append([\n  'id' => 'nice-shoes',\n  'added' => date('c'),\n]);\n```\n\nMake sure `id` is a valid product page id."
+        },
+        "id": "4080d28e-4bcd-424e-ac01-86868c3f2ca9",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Save list",
+            "abstract": "",
+            "text": "You may want to save the users wish list. Let’s assume you don’t have a user management so you have to save the list into the users session.\n\n```php\nkirby()->session()->set('wishlist', $productList->toArray());\n```"
+        },
+        "id": "de12a7ea-279f-45a1-b6fc-68c196f6c41e",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

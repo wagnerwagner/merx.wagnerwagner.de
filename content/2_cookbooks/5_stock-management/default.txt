@@ -23,4 +23,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Add stock field to product page",
+            "abstract": "",
+            "text": "(filename: content/knitted-socks/product.txt)\n\n```txt\nTitle: Knitted socks\n----\nPrice: 14.99\n----\nTax: 19\n----\nStock: 10\n```"
+        },
+        "id": "2ff3e15b-92de-4a77-9f85-8bbdb67dd941",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Check if stock is sufficient",
+            "abstract": "Use hooks to throw exception if the stock is not sufficient.",
+            "text": "Check the availability of the products with the (link: docs/hooks#initializepaymentbefore text: `initializePayment:before`) and (link: docs/hooks#completepaymentbefore text: `completePayment:before`) hooks. For each item in the cart check if the available stock is smaller than the quantity of the cart item. If that’s the case an exception is thrown.\n\nIn this example we use Kirby’s helpful `Exception` class to throw a nice error message.\n\n(filename: site/config/config.php)\n\n```php\n<?php\nuse Kirby\\Exception\\Exception;\n\nfunction checkStock($cart) {\n  foreach($cart as $cartItem) {\n    $cartItemPage = page($cartItem['id']);\n    $availableStock = $cartItemPage->stock()->toInt();\n    if ($availableStock < (int)$cartItem['quantity']) {\n      throw new Exception([\n        'httpCode' => 400,\n        'fallback' => '“{productTitle}” is out of stock',\n        'data' => [\n          'productTitle' => $cartItemPage->title(),\n        ],\n      ]);\n    }\n  }\n}\n\nreturn [\n  'hooks' => [\n    'ww.merx.initializePayment:before' => function ($data, $cart) {\n      checkStock($cart);\n    },\n    'ww.merx.completePayment:before' => function ($virtualOrderPage) {\n      checkStock($virtualOrderPage->cart());\n    },\n  ],\n];\n```\n\nIt’s up to you were you print the exception / error message. For example you can use a checkout controller like this.\n\n(filename: site/controllers/checkout.php)\n\n``` php\n<?php\nif (kirby()->request()->method() === 'POST') {\n  try {\n    $data = $_POST;\n    $redirect = merx()->initializePayment($data);\n    go($redirect);\n  } catch (Exception $ex) {\n    echo $ex->getMessage(); // e.g. “Knitted socks” is out of stock.\n  }\n}\n```\n\nMerx comes with a default success template which prints the exceptions of the (link: docs/classes/merx#completepayment text: `completePayment`) method. You can/should use your own success template to handle `completePayment` exceptions.\n\n(filename: site/plugins/merx/templates/success.php)\n\n``` php\n<?php\ntry {\n  $orderPage = merx()->completePayment($_GET);\n  go($orderPage->url());\n} catch (Exception $ex) {\n  echo $ex->getMessage();\n}\n```"
+        },
+        "id": "c6861bef-261d-4398-a5ed-5048ce518488",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Update stock",
+            "abstract": "Use the (link: docs/hooks#completepaymentafter text: `completePayment:after`) hook to update the stocks.",
+            "text": "(filename: site/config/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    …\n    'ww.merx.completePayment:after' => function ($orderPage) {\n      foreach($orderPage->cart() as $cartItem) {\n        $cartItemPage = page($cartItem['id']);\n        $newStock = $cartItemPage->stock()->toInt() - (int)$cartItem['quantity'];\n        $cartItemPage->update([\n          'stock' => (int)$newStock,\n        ]);\n      }\n    },\n  ],\n];\n```"
+        },
+        "id": "e06eb0a7-9f93-4b16-aab7-4773a5ff8250",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: Mu3R1h2iEbZfWwCQ

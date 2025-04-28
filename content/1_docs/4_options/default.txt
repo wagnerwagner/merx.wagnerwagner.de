@@ -2,6 +2,10 @@ Title: Options
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: List of all available options.
 
 ----
@@ -11,6 +15,243 @@ Text:
 ----
 
 Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "production",
+            "abstract": "Enables/disables production.",
+            "text": "(filename: site/config/config.php)\n\n```php\nreturn [\n  'ww.merx.production' => true,\n];\n```\n\nIf set to `true` `paypal.live…` and `stripe.live…` keys are used.\nIf set to `false` `paypal.sandbox…` and `stripe.test…` keys are used.\n\nYou need a valid Merx license to use the plugin in production mode.\n\n### Type\n`boolean`\n\n### Default\n`false`"
+        },
+        "id": "83d7bbc7-209c-48cb-8db7-efcf4a726e6d",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "license",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.license' => 'MERX-XXXXXXXX-XXXXXXXX',\n];\n```\n\nYou need a valid license to make real purchases.\n\n### Type\n\n`string`"
+        },
+        "id": "89c1ad62-da52-47d6-94fc-92f824ac4f7e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "cart.fields",
+            "abstract": "Store page fields in the cart item.",
+            "text": "*Since 1.4.0*\n\n```php\nreturn [\n  'ww.merx.cart.fields' => ['sku', 'color'],\n];\n```\n\nIf additional fields of your product page (e.g. a *sku* field) should be stored in the item of the `ProductList` or `Cart`, you can use this option.\n\nBy default following values are stored in a (link: /docs/classes/productlist text: `ProductList`)’s or (link: /docs/classes/cart text: `Cart`)’s item and are taken from the product page (if a valid id provided):\n`id`, `title`, `price`, `taxRate`, `template`, `uid`\n\n### Type\n`array`\n\n### Default\n`[]`\n\n(github: /src/ProductList.php line: 110 text: Source Code)"
+        },
+        "id": "ecfe2bfe-c8a9-400f-82f0-5132a01f975e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currency",
+            "abstract": "Currency string.",
+            "text": "```php\nreturn [\n  'ww.merx.currency' => 'GBP',\n];\n```\n\nUsed for Stripe Source and PayPal Payment.\n\n### Type\n`string`\n\n### Default\n`EUR`"
+        },
+        "id": "c86d7b29-8d01-4112-8f52-995c5cb82a18",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currencySymbol",
+            "abstract": "The Symbol of the desired currency.",
+            "text": "```php\nreturn [\n  'ww.merx.currencySymbol' => '£',\n];\n```\n\n### Type\n`string`\n\n### Default\n`€`"
+        },
+        "id": "aa38e498-8a1b-4e5d-8a45-411b5a619637",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currencyDecimalPoint",
+            "abstract": "Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.",
+            "text": "Overwrites `decimal_point` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)\n\n```php\nreturn [\n  'ww.merx.currencyDecimalPoint' => ',', // e.g. 1234,56 €\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "27b71430-3d83-4c36-b12f-beac19f0bfb4",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currencyThousandsSeparator",
+            "abstract": "Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.",
+            "text": "Overwrites `thousands_sep` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)\n\n```php\nreturn [\n  'ww.merx.currencyThousandsSeparator' => '.', // e.g. 1.234,56 €\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "3a1e573d-754a-412d-9c72-065e74f72735",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currencyPositionPrecedes",
+            "abstract": "Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.",
+            "text": "Overwrites `p_cs_precedes` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)\n\n```php\nreturn [\n  'ww.merx.currencyPositionPrecedes' => true, // e.g. €123.45\n];\n```\n\n### Type\n`bool`"
+        },
+        "id": "890e7ae9-fd2d-4b7e-8b16-495a712b561c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "currencySeparateBySpace",
+            "abstract": "Used for [`formatPrice`](/docs/classes/merx/formatprice) helper method.",
+            "text": "Overwrites `p_sep_by_space` of [`localeconv`](https://www.php.net/manual/function.localeconv.php)\n\n```php\nreturn [\n  'ww.merx.currencySeparateBySpace' => true, // e.g. € 123.45\n];\n```\n\n### Type\n`bool`"
+        },
+        "id": "3173f986-b6bc-40b8-8931-a9329b509421",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "successPage",
+            "abstract": "The page to be redirected after (link: docs/classes/merx/initializepayment text: `initializePayment`)",
+            "text": "```php\nreturn [\n  'ww.merx.successPage' => 'complete-order',\n];\n```\n\nUsed as the `cancel_url` and `return_url` for PayPal Payment.\n\nUsed as the `return_url` for Stripe Transaction.\n\n### Type\n`string`\n\n### Default\n`success`"
+        },
+        "id": "37daec74-fa96-4f64-bd7d-f785e632214c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "ordersPage",
+            "abstract": "The parent page of all order pages.",
+            "text": "```php\nreturn [\n  'ww.merx.ordersPage' => 'all-the-orders',\n];\n```\n\n### Type\n`string`\n\n### Default\n`orders`"
+        },
+        "id": "54aefd74-82e0-499e-83b0-a8878949a110",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe.test.publishable_key",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.stripe.test.publishable_key' => 'pk_test_xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "6ba4122a-b434-4fca-b186-bba5653044fb",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe.test.secret_key",
+            "abstract": "stripe.test.secret_key",
+            "text": "```php\nreturn [\n  'ww.merx.stripe.test.secret_key' => 'sk_test_xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "40692a84-8925-46f5-9a32-23be1d251cdf",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe.live.publishable_key",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.stripe.live.publishable_key' => 'pk_live_xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "4b3a280a-5c4a-4d65-a253-53f1968db2f2",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe.live.secret_key",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.stripe.live.secret_key' => 'sk_live_xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "12634971-1deb-471b-98f4-fb8067f77100",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe.webhook_signing_secret",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXX',\n];\n```\n\nTo update payment details for payment methods with delayed payment notifications (e.g. (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit)) you need to use (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks). This option is used to set the Stripe’s Webhook Signing Key\n\n### Type\n\n`string`"
+        },
+        "id": "0197d0b4-8684-480e-8020-02017e673121",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.sandbox.clientID",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.paypal.sandbox.clientID' => 'xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "6d985331-a8a7-4a9b-9ebf-b7ea25c33ad0",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.sandbox.secret",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.paypal.sandbox.secret' => 'xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "0a821a6f-a847-40c4-b378-9d4ac7750b79",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.live.clientID",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.paypal.live.clientID' => 'xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "4d6a961e-8b6b-405d-acaa-f72ada895d1e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.live.secret",
+            "abstract": "",
+            "text": "```php\nreturn [\n  'ww.merx.paypal.live.secret' => 'xxx…',\n];\n```\n\n### Type\n`string`"
+        },
+        "id": "20c5a2d3-55d5-4220-8586-1f6da00364da",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.applicationContext",
+            "abstract": "Merges (link: https://developer.paypal.com/docs/api/orders/v2/#definition-application_context text: applicationContext) on (link: http://merx.wagnerwagner.local/docs/classes/merx/initializepayment text: initializePayment).",
+            "text": "```php\nreturn [\n  'ww.merx.paypal.applicationContext' => [\n    'brand_name' => 'Beautiful Clothes Shop',\n  ],\n];\n```\n\n### Type\n`array`\n\n### Default applicationContext\n\nIf this option is not set the following is set as the application context.\n\n```php\n$applicationContext = [\n  'cancel_url' => url(option('ww.merx.successPage')),\n  'return_url' => url(option('ww.merx.successPage')),\n  'user_action' => 'PAY_NOW',\n  'shipping_preference' => 'NO_SHIPPING',\n  'brand_name' => (string)site()->title(),\n];\n```"
+        },
+        "id": "dd99fc9e-9869-432c-a815-fc503e13845a",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "paypal.purchaseUnits",
+            "abstract": "Provide PayPal with additional information",
+            "text": "(filename: site/config/config.php)\n\n```php\nreturn [\n  'ww.merx.paypal.purchaseUnits' => function() {\n    $cart = cart();\n    return $cart->payPalPurchaseUnits();\n  },\n];\n```\n\nThe array returned by this function is used as [`purchase_units`](https://developer.paypal.com/docs/api/orders/v2/#orders-create-request-body) object of the PayPal’s *Create order* request. You can use the [`payPalPurchaseUnits`](/docs/classes/cart/paypalpurchaseunits) method of the `Cart` class to get a formatted array of all items in the cart.\n\nIf you do not set this option, only the total amount of the shopping cart will be transferred to PayPal.\n\n### Type\n`function`\n\n### Screenshot\n\nIf you have the following cart, the PayPal Checkout screen will look like this.\n\n```php\n$cart = cart([\n  [\n    'id' => 'apple',\n    'title' => 'Apple',\n    'quantity' => 6,\n    'price' => 0.99,\n  ],\n  [\n    'id' => 't-shirt',\n    'title' => 'T-Shirt',\n    'quantity' => 2,\n    'price' => 49.99,\n  ]\n]);\n```\n\n(image: paypal-purchaseunits.png)"
+        },
+        "id": "08858eed-087a-4306-a1f9-cbe861f6c7d2",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "gateways",
+            "abstract": "Custom payment gateways.",
+            "text": "```php\nreturn [\n  'ww.merx.gateways' => [\n    'my-payment-provider' => [\n      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage\n      {\n        return $virtualOrderPage;\n      },\n      'completePayment' => function(OrderPage $virtualOrderPage): OrderPage\n      {\n        return $virtualOrderPage;\n      },\n    ],\n  ],\n];\n```\n\nMore information in the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways Cookbook)\n\n### Type\n`array`"
+        },
+        "id": "58d771a3-5ad3-45ed-8c59-67afe79f88d5",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

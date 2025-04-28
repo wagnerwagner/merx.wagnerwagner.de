@@ -18,4 +18,31 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Securing Order Pages",
+            "abstract": "Order pages may contain sensitive personal data from your customers. Make sure to secure these personal information.",
+            "text": "### Basic\n\n- Do not show personal information when it is not necessary.\n- Make sure order page links don’t appear in a sitemap or similar list of pages.\n- Add a robots meta tag to prevent search engines to crawl order pages. \n`<meta name=\"robots\" content=\"noindex, follow\">`\n- Add a `robots.txt` to disallow order pages. (Your `/orders/` path can be different depending on your [ordersPage option](/docs/options#orderspage))\n```\nUser-agent: *\nDisallow: /orders/\n```\n\n### Advanced\n\n- Prevent the use of `$orderPage->siblings()` or similar.\n- If you use a page search: Make sure order pages are not searchable.\n- If you use git: Make sure order pages are not included in your (public) git repository.\n\n### Further considerations\n\n- Only show the order page with a valid hash as [suggested by @bruno](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/128).\n- Create a log entry each time a OrderPage is rendered. You could overwrite the `OrderPage::render()` method.\n- Add a method to detect/prevent brute force attacks.\n- Only send one time, hashed order page links, which are only valid for a short period of time. (self destroying link)\n- ”Deactivate“/“Unplublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131)."
+        },
+        "id": "4d0b3757-2f99-4b16-94f0-6f57a0ff550b",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Further Reading",
+            "abstract": "",
+            "text": "- [Kirby Security Advices](https://getkirby.com/docs/guide/security)"
+        },
+        "id": "bce06c84-015e-46ff-bfb5-0708e94bf726",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: GHz8OM3Cq4xMWxxT

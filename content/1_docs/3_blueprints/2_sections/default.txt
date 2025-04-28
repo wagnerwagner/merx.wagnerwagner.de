@@ -2,7 +2,56 @@ Title: Sections
 
 ----
 
+Headline: 
+
+----
+
+Shortdescription: 
+
+----
+
 Text: Merx provides the most basic sections. You can overwrite them with your own sections and/or use them in your own blueprints.
+
+----
+
+Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "order",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/sections/order.yml)\n```"
+        },
+        "id": "8efba965-1121-4b95-9b73-e4011c1352ea",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "orders",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/sections/orders.yml)\n```"
+        },
+        "id": "fac109ab-88ab-4294-909b-797e0e3a8efc",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "payment-method",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/sections/payment-method.yml)\n```"
+        },
+        "id": "593f0937-0dad-4d02-811b-4768446a7998",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

@@ -18,4 +18,31 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Add to cart",
+            "abstract": "",
+            "text": "Add the desired variations to the customer’s (link: docs/classes/cart text: cart). That’s it.\n\n```php\n$cart->add([\n  'id' => 'nice-shoes',\n  'key' => 'nice-shoes-abc',\n  'color' => 'red',\n  'size' => 38,\n]);\n```\n\nYou can even set a custom price within the add method:\n\n```php\n$cart->add([\n  'id' => 'nice-shoes',\n  'key' => 'nice-shoes-xyc',\n  'color' => 'gold',\n  'size' => 41.5,\n  'price' => 249.99,\n]);\n```\n\nTax is calculated automatically based on the tax value (link: docs/getting-started/add-products/content text: defined in the product page).\n\nIf you add the same product to the cart, the cart item will be merged/overwritten by default (the quantity is added up). To add more than one variant of a product to the cart, you have to set a unique `key` for each variant."
+        },
+        "id": "692e1089-a856-4114-aa00-f85d05488e00",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Combination with stock management",
+            "abstract": "",
+            "text": "If you want to combine product variations with (link: ./stock-management text: stock management) things are getting more complicated. We recommend to think of product variations as own products.\n\n(filename: content/nice-shoes/variant-red-41/product.txt)\n\n```\nTitle: Nice shoes\n----\nPrice: 99.99\n----\nTax: 19\n----\nColor: red\n----\nSize: 41\n----\nStock: 10\n```\n\n(filename: content/nice-shoes/variant-red-40/product.txt)\n\n```\nTitle: Nice shoes\n----\nPrice: 99.99\n----\nTax: 19\n----\nColor: red\n----\nSize: 40\n----\nStock: 8\n```\n\n(filename: content/nice-shoes/variant-gold-40/product.txt)\n\n```\nTitle: Nice shoes\n----\nPrice: 249.99\n----\nTax: 19\n----\nColor: gold\n----\nSize: 41\n----\nStock: 1\n```\n\n### Add variant to cart\n\n```php\n$cart->add([\n  'id' => 'nice-shoes/variant-gold-40',\n]);\n```"
+        },
+        "id": "a3ccba55-2bb5-43cf-b220-5716b12af9d5",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: tBM6XEXS8fb858AR

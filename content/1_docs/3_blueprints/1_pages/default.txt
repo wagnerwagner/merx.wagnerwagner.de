@@ -2,7 +2,56 @@ Title: Pages
 
 ----
 
+Headline: 
+
+----
+
+Shortdescription: 
+
+----
+
 Text: Merx provides the most basic blueprints. You can overwrite them with your own blueprints.
+
+----
+
+Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "order",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/pages/order.yml)\n```"
+        },
+        "id": "924667ae-8986-4a77-8682-6880d2f382e7",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "orders",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/pages/orders.yml)\n```"
+        },
+        "id": "2e6fc3c2-8257-4bb9-8932-7bcc5fce21ed",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "product",
+            "abstract": "",
+            "text": "```yaml\n(fileContents: plugins/merx/blueprints/pages/product.yml)\n```"
+        },
+        "id": "6e6a0c2f-e824-409a-a3c7-cd0409b810c1",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

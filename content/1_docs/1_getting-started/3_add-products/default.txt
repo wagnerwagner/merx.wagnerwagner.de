@@ -18,4 +18,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Content",
+            "abstract": "",
+            "text": "A product page must have a price (including tax). Everything else is optional. The tax is a percentage float.\n\n(filename: content/nice-shoes/product.txt)\n\n```txt\nTitle: Nice shoes\n----\nPrice: 99.99\n----\nTax: 19\n----\nDescription: Lorem Ipsum\n```"
+        },
+        "id": "79af51ba-a6cd-4f0a-9e83-45a6cc5c86ef",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Blueprint",
+            "abstract": "",
+            "text": "Merx comes with a (link: docs/blueprints/pages/product text: default product blueprint). You can extend or overwrite the blueprint with your own fields.\n\n(filename: site/blueprints/product.yml)\n\n```yaml\ntitle: Product\nfields:\n  price:\n    label: Price\n    type: number\n    required: true\n    min: 100\n  description:\n    label: Description\n    type: textarea\n```"
+        },
+        "id": "8a35c415-cf61-4670-bb2d-b1dd0f9c2004",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Add product to cart",
+            "abstract": "",
+            "text": "Add an `array` with a valid product page `id`. The page must have a price field.\n\n```php\n$cart = merx()->cart();\n$cart->add([\n  'id' => 'nice-shoes',\n]);\n$cart->getSum(); // 99.99\n$cart->getTax(); // 15.964789916\n```"
+        },
+        "id": "b33c9b10-35b9-4d51-8c50-eec163104f99",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: NMmvW5UCp5H422vI

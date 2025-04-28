@@ -18,4 +18,71 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "initializePayment:before",
+            "abstract": "",
+            "text": "(filename: site/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.initializePayment:before' => function ($data, $cart) {\n      // your code goes here\n    },\n  ],\n];\n```"
+        },
+        "id": "44734a03-73da-4bb5-90e8-7850288a010e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "initializePayment:after",
+            "abstract": "",
+            "text": "(filename: site/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.initializePayment:after' => function ($virtualOrderPage, $redirect) {\n      // your code goes here\n    },\n  ],\n];\n```\n\nBe careful! Updating `$virtualOrderPage` does not have any effect."
+        },
+        "id": "8ae3e24c-51d2-4236-bd9b-6e16b91c080d",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "completePayment:before",
+            "abstract": "",
+            "text": "(filename: site/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.completePayment:before' => function ($virtualOrderPage, $gateway, $data) {\n      // your code goes here\n    },\n  ],\n];\n```"
+        },
+        "id": "6ff93da8-f91c-4987-885d-cb258e2bd229",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "completePayment:after",
+            "abstract": "",
+            "text": "(filename: site/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.completePayment:after' => function ($orderPage) {\n      // your code goes here\n    },\n  ],\n];\n```"
+        },
+        "id": "f0b36829-e95c-44e6-b251-bf6a7757cc04",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "cart",
+            "abstract": "",
+            "text": "*Since (link: https://github.com/wagnerwagner/merx/releases/tag/1.1.0 text: Merx 1.1)*\n\nThe cart hook is executed on [Cart::_construct()](/docs/classes/cart#construct).\nYou can find an example in the [*Shipping Costs and Discounts*](/cookbooks/shipping-costs-and-discounts) cookbook.\n\n(filename: site/config/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.cart' => function ($cart) {\n      // manipulate cart here\n    }\n  ],\n];\n```"
+        },
+        "id": "4cbcb376-1a27-44e6-beef-ceb99abeef39",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "stripe-hooks",
+            "abstract": "",
+            "text": "*Since (link: https://github.com/wagnerwagner/merx/releases/tag/v1.9.0 text: Merx 1.9)*\n\nThis hook is only triggered, when you implemented (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks).  \n\nMerx uses this hook to set `paidDate` and `paymentComplete` for payments with (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). \n\n(filename: site/config/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    'ww.merx.stripe-hooks' => function ($stripeEvent) {\n      // your code here\n    }\n  ],\n];\n```"
+        },
+        "id": "cc9d78ba-3a1f-4d03-bfc7-2613816f1419",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: yhIQU3K8eTbdmO2Z

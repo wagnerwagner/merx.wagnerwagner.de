@@ -24,4 +24,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Override invoiceNumber()",
+            "abstract": "",
+            "text": "You can override the default [`invoiceNumber()`](/docs/classes/orderpage/invoicenumber) method to return *for example* a content field. In this example the content of invoiceNumber field is returned.\n\n(filename: site/models/order.php)\n\n``` php\n<?php\nclass OrderPage extends OrderPageAbstract\n{\n  public function invoiceNumber(): string\n  {\n    return $this->content()->invoiceNumber()->toString();\n  }\n}\n```\n\nBe careful, the `invoiceNumber()` method has to return a `string`."
+        },
+        "id": "ca08ff3f-6bb9-4128-9c5c-95c907876656",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Update content field using a hook",
+            "abstract": "",
+            "text": "To update the `invoiceNumber` content field you can use the [`completePayment:after` hook](/docs/hooks/completepaymentafter).\n\n(filename: site/config/config.php)\n\n```php\n<?php\nreturn [\n  'hooks' => [\n    'ww.merx.completePayment:after' => function ($orderPage) {\n      $invoiceNumber = 0;\n      if ($prevOrder = $orderPage->prevListed()) {\n        $invoiceNumber = (int)$prevOrder->invoiceNumber();\n      }\n      $invoiceNumber = $invoiceNumber + 1;\n      $orderPage->update([\n        'invoiceNumber' => $invoiceNumber,\n      ]);\n    },\n  ],\n];"
+        },
+        "id": "44182ff4-3201-49a1-9e57-9160c904e6c9",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Return Invoice Number",
+            "abstract": "",
+            "text": "To return the invoice number you should use the custom `$orderPage->invoiceNumber()` method.\n\n(filename: site/templates/order.php)\n\n```php \n<?php\necho 'Invoice Number: ';\necho $page->invoiceNumber();\n```"
+        },
+        "id": "94e11a94-c693-4542-8641-ecc74dfda01f",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: 545lcM9lFN4ywERF

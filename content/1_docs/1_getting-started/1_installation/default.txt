@@ -2,6 +2,10 @@ Title: Installation
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: How to install the Merx plugin.
 
 ----
@@ -11,6 +15,63 @@ Text: There are a few options to install the Merx plugin.
 ----
 
 Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Requirements",
+            "abstract": "",
+            "text": "Merx does not have any special requirements. If Kirby 3 or Kirby 4 is running fine, Merx also will be fine."
+        },
+        "id": "aca936ef-a25c-462b-b867-afe8c9ae1acb",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Installation as Git submodule",
+            "abstract": "",
+            "text": "Run the following command on your website’s root and Merx and it’s dependencies are installed at `site/plugins/merx`.\n\n```bash\ngit submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx\n```\n\nRead more about Kirby and Git on [getkirby.com](https://getkirby.com/docs/cookbook/setup/git)"
+        },
+        "id": "d23a54ce-22f4-44de-8a39-869675017ad5",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Installation via Composer",
+            "abstract": "",
+            "text": "If you prefer composer you can add Merx with this command from your website’s root. This will install Merx and it’s dependencies at `site/plugins/merx`.\n\n```bash\ncomposer require wagnerwagner/merx\n```\n\nRead more about Composer and Kirby on [getkirby.com](https://getkirby.com/docs/cookbook/setup/composer)"
+        },
+        "id": "438edd01-2298-4f9e-aac5-9f1235b674c4",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Starterkit",
+            "abstract": "",
+            "text": "The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS.\n\nIt is ideal for new users to explore many of Merx’s possibilities. If you want to create a simple store fast, this would also be a good option for you. If you want to use PayPal and/or Stripe (Credit card, SEPA Direct Debit, Klarna) with the Starterkit you have to create and add the respective (link: /docs/options#stripetestpublishablekey text: keys).\n\n(link: https://starterkit.merx.wagnerwagner.de text: Preview → class: button)&emsp;(link: https://github.com/wagnerwagner/merx-starterkit/releases/latest text: Download ↓ class: button)\n\n(link: https://github.com/wagnerwagner/merx-starterkit text: Source Code on GitHub class: link-secondary)"
+        },
+        "id": "670bcc15-3be7-44f7-bfec-1b61588b0b6e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Plainkit",
+            "abstract": "",
+            "text": "If you want you can start with the [Plainkit](https://github.com/wagnerwagner/merx-examples/tree/plainkit). This is a full working shop but with no styles and no fancy JavaScript. If you want to use PayPal with the Plainkit you have to set up (link: /docs/getting-started/set-up text: your PayPal keys)."
+        },
+        "id": "e071351e-3336-4112-80d1-5a4a38f76efc",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

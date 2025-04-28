@@ -2,6 +2,10 @@ Title: Validate Checkout
 
 ----
 
+Headline: 
+
+----
+
 Shortdescription: How to make sure you get all the data you need.
 
 ----
@@ -15,6 +19,43 @@ You don’t have to check if the customers cart is valid.
 ----
 
 Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Custom Order Blueprint",
+            "abstract": "",
+            "text": "You can copy the default (link: docs/blueprints/pages/order text: order blueprint) or start from scratch. Add your own fields and add the validation options you like.\n\n### Example\n\nLet’s assume you need a *given name* which has to have at least two characters but at the most three words.\n\n(filename: site/blueprints/pages/order.yml)\n\n```yaml\ntitle: Order\n\nfields:\n  givenName:\n    type: text\n    required: true\n    validate:\n      minLength: 2\n      maxWords: 3\n```\n\n```php\n$merx->initializePayment([\n  'givenName' => 'Elizabeth Alexandra Mary',\n]); // ok\n\n$merx->initializePayment([\n  'givenName' => 'Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester',\n]); // not ok (throws Exception)\n```"
+        },
+        "id": "b4084255-6a51-41cd-8860-bd90da5cd738",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Conditional Errors",
+            "abstract": "",
+            "text": "Sometimes you need something like if field *A* is set, check field *B*. This can’t be solved with the blueprint validation.\n\nTo get conditional field errors, extend the `errors` method of the OrderPage class with the help of the `addFieldError` method.\n\n(filename: site/models/order.php)\n\n```php\nclass OrderPage extends OrderPageAbstract {\n  public function errors(): array\n  {\n    $errors = parent::errors();\n    if (!$this->useInvoiceAddressAsShippingAddress()->toBool()) {\n      $rule = ['minLength' => 3, 'maxLength' => 255];\n      $shippingAddressGivenNameError = Merx::getFieldError($this->shippingAddressGivenName(), $rule);\n      $errors = array_merge($errors, $shippingAddressGivenNameError);\n    }\n    return $errors;\n  }\n}\n```"
+        },
+        "id": "dfb370cf-9077-49e1-8566-47bd01655775",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Display Errors",
+            "abstract": "",
+            "text": "The `initializePayment` method throws an error if the validation fails.\n\n```php\ntry {\n  $redirect = merx()->initializePayment($data);\n} catch (Kirby\\Exception\\Exception $ex) {\n  // do something with $ex.\n}\n```\n\n`$ex->getDetails()` for example will get you something like this.\n\n```json\n\"name\": {\n  \"label\": \"Name\",\n  \"message\": {\n    \"required\": \"Please enter something\"\n  }\n}\n```\n\nSee the documentation of (link: docs/classes/merx/initializepayment text: `initializePayment`) for all possible Exceptions."
+        },
+        "id": "544ab88f-2cd7-48a4-ae7b-a424741a9cdb",
+        "isHidden": false,
+        "type": "section"
+    }
+]
 
 ----
 

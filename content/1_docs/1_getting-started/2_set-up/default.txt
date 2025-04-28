@@ -18,4 +18,31 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Order Page Model",
+            "abstract": "",
+            "text": "If you installed Merx with (link: docs/getting-started/installation/add-as-git-submodule text: git submodule) or (link: docs/getting-started/installation/installation-via-composer text: composer) you have to create your own Order Page Model. Create `site/models/order.php` and extend the (link: docs/classes/orderpage text: `OrderPageAbstract`). Afterwards you are ready to use the Order Page Model for the (link: docs/getting-started/validate-checkout text: checkout validation)\n\n(filename: site/models/order.php)\n\n```php\nclass OrderPage extends OrderPageAbstract {};\n```"
+        },
+        "id": "7d0291c2-0bf1-44ee-af4b-aa74a80e1034",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Options",
+            "abstract": "",
+            "text": "If you want to use Stripe and/or PayPal you need to set the respective keys. Read the (link: https://stripe.com/docs/keys text: Stripe) and (link: https://developer.paypal.com/docs/api/overview/#make-your-first-call text: PayPal) documentation on how to get the keys.\n\n(filename: site/config/config.php)\n\n```php\nreturn [\n  'ww.merx.stripe.test.publishable_key' => 'pk_test_xxx…',\n  'ww.merx.stripe.test.secret_key' => 'sk_test_xxx…',\n  'ww.merx.stripe.live.publishable_key' => 'pk_live_xxx…',\n  'ww.merx.stripe.live.secret_key' => 'sk_live_xxx…',\n  'ww.merx.paypal.sandbox.clientID' => 'xxx…',\n  'ww.merx.paypal.sandbox.secret' => 'xxx…',\n  'ww.merx.paypal.live.clientID' => 'xxx…',\n  'ww.merx.paypal.live.secret' => 'xxx…',\n];\n```"
+        },
+        "id": "947ad807-495a-46f5-870d-28c0bdb89f2d",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: vbc1nuuQ764W9ghf

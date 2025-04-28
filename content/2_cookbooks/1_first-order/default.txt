@@ -18,4 +18,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Add product to cart",
+            "abstract": "",
+            "text": "```php\n$merx = merx();\n$merx->cart()->add(['id' => 'nice-shoes']);\n```\n\nThe `id` has to be a valid page. The page must have a price field.\n\nOn another page you should show the customer’s cart.\n\n(filename: site/templates/cart.php)\n\n```php\n$merx = merx();\nforeach($merx->cart() as $item) {\n  $itemPage = page($item['id']);\n  echo $itemPage->title(); // Nice shoes\n  echo $itemPage->price(); // 99.99\n}\n```"
+        },
+        "id": "9e8857d5-a910-4ae6-9a66-1f0d43e24ec0",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Initialize Payment",
+            "abstract": "",
+            "text": "Provide a `paymentMethod` and other data you need to handle the order (email, name, billing / shipping address etc.).\n\nThe payment is validated by the Order Page. Read more about (link: docs/getting-started/validate-checkout text: validation).\n\n(filename: site/templates/checkout.php)\n\n```php\n$data = [\n  'paymentMethod' => 'paypal',\n  'email' => 'chuck@example.com',\n  'name' => 'Chuck Norris',\n  …\n]\ntry {\n  $redirect = merx()->initializePayment($data);\n  go($redirect);\n} catch (Exception $ex) {\n  echo $ex->getMessage();\n}\n```"
+        },
+        "id": "dd1d4ea4-4936-42ec-8387-21b9eedee30a",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Complete Payment",
+            "abstract": "",
+            "text": "Depending on the payment method the customer is redirected directly or after the customer completed the payment on the payment provider’s external webpage (e.g. PayPal) to the success page.\n\n(filename: site/templates/success.php)\n\n```php\ntry {\n  $orderPage = merx()->completePayment();\n  echo 'Payment completed.';\n} catch (Exception $ex) {\n  echo $ex->getMessage();\n}\n\n```"
+        },
+        "id": "673b9d02-224f-44c4-9ded-c1982fd621b7",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: 8Wez288f2ERs1TEC

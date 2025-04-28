@@ -33,4 +33,61 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "PayPal",
+            "abstract": "",
+            "text": "### Initialize Payment\n\n```php\n$redirect = $merx->initializePayment([\n  'paymentMethod' => 'paypal',\n]);\ngo($redirect); // https://www.paypal.com/cgi-bin/webscr…\n```\n\n### Complete Payment\n\n\n(filename: site/templates/success.php)\n\n```php\n$payerID = get('PayerID');\n\n$merx->completePayment([\n  'PayerID' => $payerID,\n]);\n```"
+        },
+        "id": "3cbafa96-200d-4c4d-a447-fd8d88822a8d",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "SEPA Direct Debit",
+            "abstract": "",
+            "text": "### Initialize Payment\n\n```php\n$redirect = $merx->initializePayment([\n  'paymentMethod' => 'sepa-debit',\n  'stripePaymentIntentId' => 'pi_XXXXXXXXXXXXXXXXXXXXXXXX',\n]);\ngo($redirect); // /success\n```\n\n### Complete Payment\n\nYou don’t have to provide any additional information for the `completePayment` method.\n\n(filename: site/templates/success.php)\n\n```php\n$merx->completePayment():\n```\n\nSEPA Direct Debit payments are not marked as `paymentComplete` immediately, because this payment method has a (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). You can use (link: page://3JmqKeq0BzykRSiC text: Stripe Webhooks) to mark SEPA Direct Debit payments as completed."
+        },
+        "id": "34e8fc4b-a932-445a-a571-fa702e63aaeb",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Credit Card",
+            "abstract": "",
+            "text": "For historical reasons this payment method is called `credit-card-sca` instead of `credit-card`. SCA stands for Strong customer authentication.\n\n### Initialize Payment\n\n```php\n$redirect = $merx->initializePayment([\n  'paymentMethod' => 'credit-card-sca',\n  'stripePaymentIntentId' => 'pi_XXXXXXXXXXXXXXXXXXXXXXXX'\n]);\ngo($redirect); // /success\n```\n\n### Complete Payment\n\nYou don’t have to provide any additional information for the `completePayment` method.\n\n(filename: site/templates/success.php)\n\n```php\n$merx->completePayment():\n```"
+        },
+        "id": "5ca6a976-0f61-4e88-ba3f-822181faf945",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "iDEAL",
+            "abstract": "",
+            "text": "### Initialize Payment\n\n```php\n$redirect = $merx->initializePayment([\n  'paymentMethod' => 'ideal',\n]);\ngo($redirect); // customer’s banking website\n```\n\niDEAL redirects customers to their online banking environment to authenticate a payment using a second factor of authentication. There is immediate notification about the success or failure of a payment. The exact customer experience depends on their bank.\n\n### Complete Payment\n\n(filename: site/templates/success.php)\n\n```php\n$paymentIntent = get('payment_intent'); // pi_XXXXXXXXXXXXXXXXXXXXXXXX\n\n$merx->completePayment([\n  'payment_intent' => $paymentIntent,\n]);\n```"
+        },
+        "id": "820aae25-5299-473c-a149-cddbe57bc702",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Klarna",
+            "abstract": "",
+            "text": "### Initialize Payment\n\n```php\n$redirect = $merx->initializePayment([\n  'paymentMethod' => 'klarna',\n]);\ngo($redirect); // https://payments.klarna.com\n```\n\n\nYou are redirected to *klarna.com* where the customer has to accept the payment.\n\n### Complete Payment\n\n(filename: site/templates/success.php)\n\n```php\n$paymentIntent = get('payment_intent'); // pi_XXXXXXXXXXXXXXXXXXXXXXXX\n\n$merx->completePayment([\n  'payment_intent' => $paymentIntent,\n]);\n```"
+        },
+        "id": "cfa5d4e7-46f4-4b30-b757-d5851a1f08f2",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: GZeQ8osDBaIn62VC

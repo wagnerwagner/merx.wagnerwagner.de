@@ -1,4 +1,8 @@
 <?php
+
+/** @var \Kirby\Cms\Page $page */
+/** @var \Kirby\Cms\Blocks $sections */
+
 if ($page->redirect()->isTrue()) {
   go($page->children()->listed()->first()->url());
 }
@@ -13,12 +17,10 @@ if ($page->redirect()->isTrue()) {
       <div class="text">
         <?= $page->text()->kt() ?>
       </div>
-      <?php if ($page->sections()->count() > 0): ?>
-      <?php snippet('toc'); ?>
-      <?php foreach($page->sections() as $section): ?>
-        <?php snippet($section->intendedTemplate(), ['section' => $section]); ?>
-      <?php endforeach; ?>
-      <?php endif; ?>
+      <?php if ($sections->count() > 0): ?>
+        <?php snippet('toc'); ?>
+        <?= $sections ?>
+      <?php endif ?>
     </main>
   </div>
   <?php snippet('footer') ?>

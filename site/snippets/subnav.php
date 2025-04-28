@@ -5,7 +5,7 @@
     <li>
       <a class="<?= $item->isActive() ? 'is-active' : '' ?>" href="<?= $item->url() ?>"><?= $item->title() ?></a>
       <ul>
-      <?php foreach($item->listedChildren() as $item): ?>
+      <?php foreach($item->children()->listed() as $item): ?>
         <li>
           <a class="<?= $item->isOpen() ? 'is-active' : '' ?>" href="<?= $item->url() ?>"><?= $item->title() ?></a>
         </li>

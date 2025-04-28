@@ -22,4 +22,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "1. Get Payment Intent",
+            "abstract": "",
+            "text": "Use [`$cart->getStripePaymentIntent()`](/docs/classes/cart/getstripepaymentintent) to get the client_secret and save the Payment Intent ID in a user session.\n\n```php\n<?php\n$paymentIntent = $cart->getStripePaymentIntent();\n$clientSecret = $paymentIntent->client_secret;\n$kirby->session()->set('stripePaymentIntentId', $paymentIntent->id);\n```\n\nYou need the `$clientSecret` for the Stripe payment flow in step 2.\n`stripePaymentIntentId` is required for `initializePayment()` in step 3."
+        },
+        "id": "9a030bbb-ca4c-4143-9230-94fcbeaeec49",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "2. Authorize the Payment Intent",
+            "abstract": "",
+            "text": "Authorize the Payment Intent by following step 2 to 4 of (link: https://docs.stripe.com/payments/accept-a-payment?platform=web&ui=elements#web-create-intent text: Accept a payment (Custom payment flow) guide)."
+        },
+        "id": "edf66572-ff9c-4459-96d1-51f3b5dbd716",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "3. Initialize Payment",
+            "abstract": "",
+            "text": "Use the Payment Intent ID saved in the user’s session and merge it with other user data.\n\n```php\n<?php\n$data = [\n  'paymentMethod' => 'credit-card-sca',\n  'email' => 'chuck@example.com',\n  'name' => 'Chuck Norris',\n  …\n];\n$stripePaymentIntentId = $kirby->session()->get('stripePaymentIntentId');\n$data = array_merge($data, [\n  'stripePaymentIntentId' => $stripePaymentIntentId,\n]);\n$redirect = merx()->initializePayment($data);\n…\n```"
+        },
+        "id": "0f2beae3-314b-40df-9ba1-45f65021e7fb",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: lYucVFU97dPdSy1A

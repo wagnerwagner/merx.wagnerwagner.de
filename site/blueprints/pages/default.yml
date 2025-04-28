@@ -16,7 +16,15 @@ columns:
             type: textarea
           redirect:
             type: toggle
-      sections: sections/sections
+      sections:
+        headline: Sections
+        type: fields
+        fields:
+          sections:
+            type: blocks
+            pretty: true
+            fieldsets:
+              - section
   - width: 1/3
     sections:
       pages:

@@ -1,0 +1,10 @@
+label: Section
+preview: fields
+
+fields:
+  title:
+    type: text
+  abstract:
+    type: textarea
+  text:
+    type: textarea

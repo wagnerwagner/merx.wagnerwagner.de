@@ -18,4 +18,41 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Create Stripe Webhook",
+            "abstract": "",
+            "text": "Go to (link: https://dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded text: dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded).\n\nEnter the *Endpoint URL*. `https://[your-domain]/api/merx/hooks/stripe`.\n\nCopy the *Signing secret*. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`"
+        },
+        "id": "0ee287f5-f425-42b7-8652-615fca7fe8db",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Set the stripe.webhook_signing_secret option",
+            "abstract": "",
+            "text": "Set the (link: page://JghZEsvncQm7IEoz text: *stripe.webhook_signing_secret*). \n\n(filename: site/config/env.php)\n\n```php\n<?php\nreturn [\n        'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\n];\n```\n\nWe recommend to use (link: https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration text: `config/env.php`) for your secret keys."
+        },
+        "id": "9eee7537-fa42-4808-8090-a996c73bbda7",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Test with delayed notification of payment success",
+            "abstract": "",
+            "text": "Test your integration with a payment method which has a (link: https://docs.stripe.com/payments/payment-methods#payment-notification text: delayed notification of payment success). For example, (link: page://xbvSI4L8EqAkHM6T text: SEPA Direct Debit) payments are marked as completed in an average of 7 to 8 business days.\n\nSee (link: https://docs.stripe.com/payments/sepa-debit/accept-a-payment#test-integration text: Stripe’s Documentation) to learn more about how to test SEPA Direct Debit payments."
+        },
+        "id": "b6eb4480-f014-4b57-9c33-467bb0d7badd",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: 3JmqKeq0BzykRSiC

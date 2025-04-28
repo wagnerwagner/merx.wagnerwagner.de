@@ -36,6 +36,403 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "ProductList::__construct()",
+            "abstract": "",
+            "text": "### Example\n\n```php\n$productList = new ProductList([\n  [\n    'id' => 'new-shoes',\n    'quantity' => 3,\n  ],\n  [\n    'id' => 'blue-socks'\n  ],\n]);\n```"
+        },
+        "id": "54ad027b-74f6-4aab-aeae-e7dcdc4b830a",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->append()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "73be5ed7-c2e1-4dfc-ab9d-e4fb3b93bf27",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->updateItem()",
+            "abstract": "",
+            "text": "### Example\n\n```php\n$productList->updateItem([\n  'id' => 'nice-shoes',\n  'price' => 89.99,\n  'tax' => 14.3681512605,\n]);"
+        },
+        "id": "884c621e-6be2-4121-a6cc-e067ba672fb4",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->remove()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "cbd855a5-1c28-4eaa-bf14-f8596a172c5c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->getTax()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "ab113299-df0f-4d34-9459-b944812c959c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->getTaxRates()",
+            "abstract": "",
+            "text": "### Example\n\n```php\nuse Wagnerwagner\\Merx\\ProductList;\n\n$productList = new ProductList([\n  [\n    'id' => 'apple',\n    'quantity' => 6,\n    'price' => 0.99,\n    'taxRate' => 7, // in percent\n  ],\n  [\n    'id' => 't-shirt',\n    'quantity' => 2,\n    'price' => 49.99,\n    'taxRate' => 19, // in percent\n  ]\n]);\n\ndump($productList->getTaxRates());\n```\n\n#### Returns\n```php\nArray\n(\n  [0] => Array\n    (\n      [taxRate] => 7\n      [sum] => 0.38859813084112\n    )\n  [1] => Array\n    (\n      [taxRate] => 19\n      [sum] => 15.963193277311\n    )\n)\n```"
+        },
+        "id": "4c9d26e1-99ec-4b16-bff4-3ce622b8994a",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->getSum()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "54861751-125a-4784-a89c-88ec0fadde5c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->getFormattedItems()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "207a23a7-dd74-4b7c-abd9-32f26c8222c1",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->chunk()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "d1850acc-0de3-4157-b06c-27eaad81339f",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->count()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "13e95ddb-25b6-4ce2-97da-8d3d43ac3c28",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->data()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "be24330b-a932-422b-aa64-b230db5368e1",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->empty()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "4cc8fa73-95cc-40c0-918e-4e671eb9d18e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->filter()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "6fb8fd4d-99c4-4673-8ca6-5867c25cc4c2",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->filterBy()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "d3c741e4-83c7-4c4f-921d-546297918ebb",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->find()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "1f6170c4-a2db-4b86-a329-7e5124bf341e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->findBy()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "6d41c71e-0c4f-4674-9bc3-1322dadbe39e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->findByKey()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "054b56bf-fbab-4965-a6eb-712bbd101b93",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->flip()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "335650f4-cabc-431f-9c6e-d06739776f92",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->get()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "34a68848-36a0-453c-92b9-4ed370d013a1",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->group()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "1069469e-3427-4b72-a64a-e400721ce51e",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->groupBy()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "f6b910aa-65e7-441a-b870-56854915f75c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->isEmpty()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "b4e2689d-cd18-4739-91be-64224a9f5625",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->isEven()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "f86e3574-99ff-47e3-9a83-d1e000e24382",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->isNotEmpty()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "36459cd4-592e-4102-8be3-ce6ff9cdb60f",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->isOdd()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "2ec34244-2796-4903-b407-b27441a2e8b4",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->last()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "459b3409-e0ac-4e07-ac07-6853672e5ff9",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->limit()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "07111a71-e66a-4d49-ad48-b6e0eec1927a",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->map()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "14d7550e-c041-419b-a637-3c9f33280af8",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->nth()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "32384890-7b9c-48b3-92c3-551a222f85d6",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->not()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "1bf32e68-8f83-4516-bebf-d664276ab448",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->offset()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "9c2d3ac3-4c00-404f-8e64-d4c5fd4fe01d",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->paginate()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "3de2a44d-ed57-4ae7-abf0-541651ac8547",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->pagination()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "772dd839-08f9-4e4c-a7e6-54456188815b",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->pluck()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "fd65757a-36ea-4251-a692-746d02ed76e4",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->shuffle()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "e6edab7d-971b-4e2f-ae7f-6ba2312f98cd",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->slice()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "7a378110-b258-4afd-917e-6bb54d4c308d",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->toArray()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "f7ce72c9-f6b4-48a7-aa88-de39e374c83c",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->toJson()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "4584dbe5-b29b-496b-95e4-074cf85be650",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "$productList->without()",
+            "abstract": "",
+            "text": ""
+        },
+        "id": "407f4bae-e0aa-4d0c-bd47-195b2c1955c6",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Contentbuilder: 
 
 ----

@@ -23,4 +23,31 @@ Redirect: false
 
 ----
 
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Create Products",
+            "abstract": "Shipping Costs or Discounts are handled as own products. It’s up to you how you will output and style these things on the frontend.",
+            "text": "(filename: content/shipping/product.txt)\n\n```\nTitle: Shippping\n\n----\n\nPrice: 7.99\n\n----\n\nTax: 7\n\n```\n\n(filename: content/discount/product.txt)\n\n```\nTitle: Discount\n\n----\n\nPrice: -10\n\n----\n\nTax: 0\n```\n\nYou probably noted that the price of *Discount* is negative. This is possible since Merx&nbsp;1.1. Merx will still check if the whole cart has a negative sum, if so an exception will be thrown."
+        },
+        "id": "9bc4ec2e-4f86-43e1-b09f-11eb68d09732",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Create cart hook",
+            "abstract": "",
+            "text": "Use the [`ww.merx.cart`](/docs/hooks/cart) hook to manipulate the user’s cart.\n\nIn this example Shipping is added if the sum of the cart is lower than 50.\nWhen you have five or more Knitted Socks you will get a discount of 10.\n\n(filename: site/config.php)\n\n``` php\nreturn [\n  'hooks' => [\n    'ww.merx.cart' => function ($cart) {\n      if ($cart->count() > 0) {\n        $cart->remove('shipping');\n        $cart->remove('discount');\n        if ($cart->getSum() < 50) {\n          $cart->add([\n            'id' => 'shipping',\n          ]);\n        }\n        if ($cart->get('knitted-socks')['quantity'] >= 5) {\n          $cart->add([\n            'id' => 'discount',\n          ]);\n        }\n      }\n    }\n  ],\n];\n```"
+        },
+        "id": "642fcf5f-e118-4a44-b247-e4bc1bd131ea",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
 Uuid: qzbplEZBxGxsu9xv
