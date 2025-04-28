@@ -1,16 +1,87 @@
-node_modules
-.ssh
-.bash_history
-.viminfo
+# System files
+# ------------
 
-/content/orders/**/order.txt
-/public/media
-/public/assets/fonts/*
-/site/cache
-/site/sessions
-/site/accounts
-/site/config/secrets
-/site/plugins/site/.license-base
-/site/config/.license
-/site/config/config.merx.wagnerwagner.de.php
+Icon
+.DS_Store
+
+
+# Temporary files
+# ---------------
+
+node_modules
+/public/media/*
+!/public/media/index.html
+
+
+# Lock files
+# ---------------
+
+.lock
+
+# -------------SECURITY-------------
+# NEVER publish these files via Git!
+# -------------SECURITY-------------
+
+
+# Merx Orders
+# ---------------------------
+
+/content/**/order.txt
+/content/**/order.*.txt
+
+
+# Editors
+# (sensitive workspace files)
+# ---------------------------
+
+*.sublime-workspace
+/.vscode
+/.idea
 /.nova
+
+
+# Cache Files
+# ---------------
+
+/site/cache/*
+!/site/cache/index.html
+
+
+# Accounts
+# ---------------
+
+/site/accounts/*
+!/site/accounts/index.html
+
+
+# Sessions
+# ---------------
+
+/site/sessions/*
+!/site/sessions/index.html
+
+
+# Logs
+# ---------------
+
+/site/logs/*
+!/site/logs/index.html
+
+
+# License
+# ---------------
+
+/site/config/.license
+
+
+# Development/Live configurations
+# ---------------
+
+/site/config/env.php
+/site/plugins/site/.license-base
+
+
+# Other
+# ---------------------------
+
+/.intelephense-alias.php
