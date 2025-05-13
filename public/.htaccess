@@ -62,7 +62,7 @@ SetEnvIf Authorization "(.+)" HTTP_AUTHORIZATION=$1
   AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-Header add Content-Security-Policy "default-src 'self' *.googletagmanager.com *.google-analytics.com *.stripe.com *.doubleclick.net 'unsafe-inline';"
+Header add Content-Security-Policy "default-src 'self' *.stripe.com mtm.wagnerwagner.de 'unsafe-inline';"
 Header add Strict-Transport-Security "max-age=31536000"
 Header add X-Frame-Options "allow-from https://js.stripe.com/"
 Header add X-Content-Type-Options "nosniff"

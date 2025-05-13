@@ -22,3 +22,5 @@
     </nav>
   </div>
 </footer>
+
+<?php snippet('matomo') ?>
