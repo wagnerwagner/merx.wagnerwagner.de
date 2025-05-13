@@ -2,11 +2,11 @@ Title: Contact
 
 ----
 
-Headline: 
+Headline:
 
 ----
 
-Shortdescription: 
+Shortdescription:
 
 ----
 
@@ -28,7 +28,7 @@ Burkhardt+Weber-Straße 59
 72760 Reutlingen
 Germany
 
-mail@​wagnerwagner.​de
+(email: mail@wagnerwagner.de)
 
 HRB Stuttgart 354262
 Tax number: 78092 / 68991
@@ -36,7 +36,7 @@ VAT identification number: DE231029364
 
 Responsible for all content is Marcus Wagner
 
-**[www.wagnerwagner.​de](https://www.wagnerwagner.​de)**
+**[www.wagnerwagner.de](https://www.wagnerwagner.de)**
 
 ----
 

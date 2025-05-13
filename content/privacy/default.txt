@@ -20,7 +20,7 @@ These data protection provisions regulate which personal data we collect, proces
 
 **(1)** In the following, we provide information about the collection of personal data when using our website. Personal data is all data that can be related to you personally, e.g. name, address, e-mail addresses, user behavior.
 
-**(2)** The controller pursuant to Art. 4 (7) of the EU General Data Protection Regulation (GDPR) is Wagnerwagner GmbH, Burkhardt+Weber-Straße 59, 72760 Reutlingen, mail@wagnerwagner.de (see our [legal notice](/contact)).
+**(2)** The controller pursuant to Art. 4 (7) of the EU General Data Protection Regulation (GDPR) is Wagnerwagner GmbH, Burkhardt+Weber-Straße 59, 72760 Reutlingen, &#109;&#097;&#105;&#108;&#064;&#119;&#097;&#103;&#110;&#101;&#114;&#119;&#097;&#103;&#110;&#101;&#114;&#046;&#100;&#101; (see our [legal notice](/contact)).
 The data protection officer is:
 
 Lawyer Michael Stefan
@@ -86,7 +86,7 @@ d) You can configure your browser settings according to your wishes and, for exa
 
 **(2)** If we base the processing of your personal data on the balancing of interests, you can object to the processing. This is the case if, in particular, the processing is not necessary for the performance of a contract with you, which is described by us in the following description of the functions. When exercising such an objection, we ask you to explain the reasons why we should not process your personal data as we have done. In the event of your justified objection, we will examine the situation and will either stop or adapt the data processing or show you our compelling reasons worthy of protection on the basis of which we will continue the processing.
 
-**(3)** Of course, you can object to the processing of your personal data for advertising and data analysis purposes at any time. You can inform us of your objection to advertising using the following contact details: Wagnerwagner GmbH, Burkhardt+Weber-Straße 59, 72760 Reutlingen, mail@wagnerwagner.de (see our [legal notice](/contact)).
+**(3)** Of course, you can object to the processing of your personal data for advertising and data analysis purposes at any time. You can inform us of your objection to advertising using the following contact details: Wagnerwagner GmbH, Burkhardt+Weber-Straße 59, 72760 Reutlingen, &#109;&#097;&#105;&#108;&#064;&#119;&#097;&#103;&#110;&#101;&#114;&#119;&#097;&#103;&#110;&#101;&#114;&#046;&#100;&#101; (see our [legal notice](/contact)).
 
 ## Coverage analysis<br> § 7 Use of Matomo
 

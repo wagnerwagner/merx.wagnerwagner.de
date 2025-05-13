@@ -6,7 +6,7 @@ Headline: End User License Agreement
 
 ----
 
-Shortdescription: 
+Shortdescription:
 
 ----
 
@@ -92,7 +92,7 @@ We reserve the right to **limit technical support for free licenses**.
 
 We offer a **14-day**, money back refund policy if Merx didn't work out for Your project.
 
-If you need a refund, please get in touch directly at merx@wagnerwagner.de.
+If you need a refund, please get in touch directly at (email: merx@wagnerwagner.de).
 
 ## No Warranty
 MERX IS OFFERED ON AN **"AS-IS" BASIS** AND **NO WARRANTY**, EITHER EXPRESSED OR IMPLIED, IS GIVEN. WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. YOU ASSUME ALL RISK ASSOCIATED WITH THE QUALITY, PERFORMANCE, INSTALLATION AND USE OF MERX INCLUDING, BUT NOT LIMITED TO, THE RISKS OF PROGRAM ERRORS, DAMAGE TO EQUIPMENT, LOSS OF DATA OR SOFTWARE PROGRAMS, OR UNAVAILABILITY OR INTERRUPTION OF OPERATIONS. **YOU ARE SOLELY RESPONSIBLE** FOR DETERMINING THE APPROPRIATENESS OF USE OF MERX AND ASSUME ALL RISKS ASSOCIATED WITH ITS USE.
