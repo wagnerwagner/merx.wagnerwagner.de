@@ -29,17 +29,30 @@ return [
         $sum = $virtualOrderPage->cart()->getSum();
         // do something to get a redirect url
         $redirectUrl = 'https://mypaymentprovider.com/payment/mlDquvqMQK85M1Pw',
-        $virtualOrderPage->content()->update([
-          'redirect' => $redirectUrl,
-        ]);
+        if (version_compare(App::version(), '5.0.0', '>=')) {
+            $virtualOrderPage->version('latest')->update([
+                'redirect' => $redirectUrl,
+            ]);
+        } else {
+            $virtualOrderPage->content()->update([
+              'redirect' => $redirectUrl,
+            ]);
+        }
         return $virtualOrderPage;
       },
       'completePayment' => function(OrderPage $virtualOrderPage, array $data): OrderPage
       {
-        $virtualOrderPage->content()->update([
-          'paymentComplete' => true,
-          'paidDate' => date('c'),
-        ]);
+        if (version_compare(App::version(), '5.0.0', '>=')) {
+          $virtualOrderPage->version('latest')->update([
+            'paymentComplete' => true,
+            'paidDate' => date('c'),
+          ]);
+        } else {
+          $virtualOrderPage->content()->update([
+            'paymentComplete' => true,
+            'paidDate' => date('c'),
+          ]);
+        }
         return $virtualOrderPage;
       }
     ],
@@ -47,7 +60,7 @@ return [
 ];
 ```
 
-Be careful. Since `$virtualOrderPage` is just virtual and not yet written to the content folder you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->content()->update()`](https://getkirby.com/docs/reference/@/cms/content/update) to update the virtual page’s content.
+Be careful. Since `$virtualOrderPage` is just virtual and not yet written to the content folder you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version('latest')->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
 
 ----
 
