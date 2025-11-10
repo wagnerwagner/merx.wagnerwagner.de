@@ -1,6 +1,7 @@
 <?php
 use Kirby\Toolkit\Str;
 
+/** @var SectionClassMethodPage $section */
 $reflectionMethod = $section->reflectionMethod();
 ?>
 

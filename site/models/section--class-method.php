@@ -1,4 +1,6 @@
 <?php
+
+use Kirby\Cms\Page;
 use Wagnerwagner\Site\MyReflectionMethod;
 
 class SectionClassMethodPage extends Page {
