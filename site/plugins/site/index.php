@@ -11,6 +11,27 @@ use Kirby\Toolkit\Html;
 require_once 'country-list.php';
 $licenseBase = file_get_contents('.license-base', FILE_USE_INCLUDE_PATH);
 
+/**
+ * Create a element with link to class documentation
+ */
+function classLink(string $class, bool $codeBlock = true): string
+{
+  $link = '';
+  $slugs = array_map(fn ($item) => Str::kebab($item), Str::split($class, '\\'));
+  $slug = implode('/', $slugs);
+  if (Str::startsWith($class, 'Kirby\\')) {
+    $slug = Str::replace($slug, 'kirby/', '');
+    $link = 'https://getkirby.com/docs/reference/objects/' . $slug;
+  } else {
+    $slug = Str::replace($slug, 'wagnerwagner/merx/', '');
+    $link = url('/reference/classes/' . $slug);
+  }
+  $content = $codeBlock ? ['<code>' . $class . '</code>'] : $class;
+  return Html::tag('a', $content, [
+    'href' => $link,
+  ]);
+}
+
 function niceExcerpt($string, $query) {
   $start = stripos($string, $query) - 100;
   $start = $start < 0 ? 0 : $start;

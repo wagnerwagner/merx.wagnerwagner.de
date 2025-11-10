@@ -1,11 +1,9 @@
 <?php
 
-/** @var \Kirby\Cms\Page $page */
+/** @var ReferenceClassPage $page */
 /** @var \Kirby\Cms\Blocks $sections */
 
-if ($page->redirect()->isTrue()) {
-  $page->children()->listed()->first()?->go();
-}
+var_dump($page->reflection());
 ?>
 <?php snippet('head') ?>
 <body>
@@ -17,10 +15,19 @@ if ($page->redirect()->isTrue()) {
       <div class="text">
         <?= $page->text()->kt() ?>
       </div>
-      <?php if ($sections->count() > 0): ?>
-        <?php snippet('toc'); ?>
-        <?= $sections ?>
-      <?php endif ?>
+      <nav class="toc">
+        <div>
+          <h4>Table of Contents</h4>
+          <ul>
+            <?php foreach($page->children()->listed() as $classMethod): ?>
+              <li>
+                <a href="<?= $classMethod->url() ?>"><?= $classMethod->title() ?></a>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </nav>
+
     </main>
   </div>
   <?php snippet('footer') ?>
