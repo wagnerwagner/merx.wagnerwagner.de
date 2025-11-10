@@ -17,9 +17,7 @@ var_dump($page->reflection()->isStatic());
 
         <p><a href="<?= $page->gitHubUrl() ?>"><?= $page->filePath() ?></a></p>
 
-        <code>
-          <?= $page->call() ?>
-        </code>
+        <pre class="language-php"><code><?= $page->call() ?></code></pre>
 
         <?php if ($page->params()): ?>
           <h2>Parameters</h2>

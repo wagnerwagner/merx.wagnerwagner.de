@@ -164,12 +164,18 @@ class ReferenceClassMethodPage extends Page
         $defaultValue = $param->getDefaultValue();
         if (gettype($defaultValue) === 'array') {
           $defaultValue = '[]';
-        } else if (gettype($defaultValue) === 'string')
+        } else if (gettype($defaultValue) === 'NULL') {
+          $defaultValue = 'null';
+        } else if (gettype($defaultValue) === 'string') {
           $defaultValue = "'$defaultValue'";
+        }
       };
       $name = '$' . $param->getName();
-      $types = $docBlockParam?->type->types ?? explode('|', Str::replace($param->getType() ?? 'mixed', '?', 'null|'));
-      $types = new Types($types, $this->reflection());
+      $types = $docBlockParam?->type->types;
+      if ($types === null && $param->getType() !== null) {
+        $types = explode('|', Str::replace($param->getType() ?? '', '?', 'null|'));
+      }
+      $types = new Types($types ?? [], $this->reflection());
       $name = $param->isVariadic() ? '...' . $name : $name;
       return [
         'name' => $name,
@@ -185,12 +191,13 @@ class ReferenceClassMethodPage extends Page
     /** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
     $returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
     if (isset($returnTags[0])) {
-      $type = $returnTags[0]->type;
+      if ($returnTags[0]->type instanceof PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+        return new Types([$returnTags[0]->type->name], $this->reflection());
+      }
+      return new Types($returnTags[0]->type->types, $this->reflection());
     }
 
-    $type ??= $this->reflection()->getReturnType();
-    $types = new Types(explode(',', $type), $this->reflection());
-    return $types;
+    return new Types(explode(',', $this->reflection()->getReturnType()), $this->reflection());;
   }
 
   /**

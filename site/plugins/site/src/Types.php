@@ -2,6 +2,7 @@
 
 namespace Wagnerwagner\Site;
 
+use Kirby\Cms\Html;
 use Kirby\Toolkit\Iterator;
 
 /**
@@ -17,6 +18,10 @@ class Types extends Iterator {
 
   public function toHtml(bool $codeBlock = true): string
   {
+    if ($this->count() === 0) {
+      return Html::tag('code', 'mixed');
+    }
+
     return implode('|', array_map(fn (Type $type) => $type->toHtml($codeBlock), $this->data));
   }
 
