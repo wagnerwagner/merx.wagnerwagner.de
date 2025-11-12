@@ -4,6 +4,7 @@
 	grid-template-rows: 1fr 0;
 	align-items: center;
 	padding-inline: var(--gap-inline);
+	font: var(--font-label-medium);
 	text-decoration: none;
 
 	&::after {
@@ -17,7 +18,7 @@
 
 	&[data-state="open"] {
 		&::after {
-			background-color: var(--color-border-secondary);
+			background-color: var(--color-gray-300);
 		}
 	}
 }

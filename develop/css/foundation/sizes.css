@@ -3,10 +3,12 @@
  */
 
 :root {
+	--size-10: calc(1rem / 16);
 	--size-50: calc(2rem / 16);
 	--size-100: calc(4rem / 16);
 	--size-150: calc(6rem / 16);
 	--size-200: calc(8rem / 16);
+	--size-250: calc(10rem / 16);
 	--size-300: calc(12rem / 16);
 	--size-400: calc(16rem / 16);
 	--size-500: calc(20rem / 16);
@@ -21,7 +23,6 @@
 	--gap-block-header: var(--size-700);
 
 	/* Sizes */
-	--max-width: calc(1600rem / 16);
 	--max-width-content: calc(1380rem / 16);
 	--max-width-text: calc(700rem / 16);
 
@@ -29,9 +30,16 @@
 
 	/* Border */
 	/* Use px values instead of rem */
+	--border-size-xsmall: 1px;
 	--border-size-small: 2px;
 	--border-size-medium: 4px;
-	--border-radius-small: 4px;
-	--border-radius-medium: 5px;
-	--border-radius-large: 6px;
+	--border-radius-xsmall: 1px;
+	--border-radius-small: 2px;
+	--border-radius-medium: 4px;
+	--border-radius-large: 8px;
+
+	@media (min-width: 94em) {
+		--max-width-content: calc(1500rem / 16);
+		--max-width-text: calc(780rem / 16);
+	}
 }

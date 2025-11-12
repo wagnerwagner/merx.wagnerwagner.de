@@ -19,6 +19,8 @@ class ReferenceClassPage extends Page
 	}
 
 	/**
+	 * Returns (and caches) the public class methods as child pages.
+	 *
 	 * @return \Kirby\Cms\Pages<ReferenceClassMethodPage>
 	 */
 	public function children(): Pages
@@ -59,7 +61,7 @@ class ReferenceClassPage extends Page
 			$children[] = [
 				'slug'     => $slug,
 				'model'    => 'reference-classmethod',
-				'template' => 'reference-classmethod',
+				'template' => 'reference-doc',
 				'parent'   => $this,
 				'content'  => $content,
 				'num'      => $num

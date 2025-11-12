@@ -17,8 +17,8 @@ class ReferenceBlueprintTypePage extends Page
 
 
 	/**
-	 * Creates children collection by parsing the `src/` folder of
-	 * the Kirby core
+	 * Builds the child collection for a blueprint type by reading the
+	 * plugin's blueprint directory and caching the result.
 	 */
 	public function children(): Pages
 	{
@@ -28,8 +28,7 @@ class ReferenceBlueprintTypePage extends Page
 
 		$children = [];
 
-		// Add unlisted pages for all classes in namespace:
-		// Loop through filesystem as proxy for namespace structure
+		// Add pages for every blueprint file stored for this type.
 		$root = $this->kirby()->plugin('ww/merx')->root() . '/blueprints/' . $this->slug();
 
 		$children = $this->childrenFactory(
@@ -40,16 +39,15 @@ class ReferenceBlueprintTypePage extends Page
 	}
 
 	/**
-	 * Creates an array of page properties for all blueprint folders in the
-	 * provided root.
+	 * Returns the page configuration array for every blueprint file in the
+	 * given root directory so `Pages::factory()` can instantiate them.
 	 */
 	protected function childrenFactory(
 		string $root
 	): array {
 		$children = [];
 
-		// Loop through each class PHP file and
-		// create as child page
+		// Loop through each blueprint file and register it as a child page.
 		foreach (Dir::files($root) as $type) {
 			$slug  = Str::kebab($type);
 			$root  = $this->root() . '/0_' . $slug;
@@ -64,7 +62,7 @@ class ReferenceBlueprintTypePage extends Page
 				'slug'     => $slug,
 				'root'     => $root,
 				'model'    => 'reference-blueprint',
-				'template' => 'reference-blueprint',
+				'template' => 'reference-doc',
 				'num'      => 0,
 				'content'  => [
 					...$content,
@@ -73,10 +71,8 @@ class ReferenceBlueprintTypePage extends Page
 			];
 		}
 
-		// we need to create a Pages collection to properly filter
-		// pages (e.g. as non-internal); however, we need to pass the
-		// data on as array again to be consumable by the upper
-		// Pages::factory() call
+		// Keep the raw array because Pages::factory() expects the data
+		// structure in array form.
 		return $children;
 	}
 }

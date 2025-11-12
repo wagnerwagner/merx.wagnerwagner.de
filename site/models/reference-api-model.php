@@ -3,7 +3,7 @@
 use Kirby\Cms\Page;
 use Kirby\Content\Field;
 use Kirby\Toolkit\Str;
-use Wagnerwagner\Site\Types;
+use Wagnerwagner\Site\Type;
 
 class ReferenceApiModelPage extends Page
 {
@@ -13,49 +13,30 @@ class ReferenceApiModelPage extends Page
 		return parent::title()->value($class);
 	}
 
-	public function reflection(): ReflectionFunction
+	public function referenceClass(): Type
 	{
-		return $this->content()->reflection()->value();
-	}
-
-	public function params(): array
-	{
-		return $this->reflection()->getParameters();
-	}
-
-	public function returnTypes(): ?Types
-	{
-		if (!$this->reflection()->hasReturnType()) {
-			return null;
-		}
-		return new Types([$this->reflection()->getReturnType()]);
-	}
-
-	public function exceptions(): array
-	{
-		return [];
+		return new Type('Wagnerwagner\\Merx\\' . $this->class());
 	}
 
 	/**
-	 * Path with line number
-	 *
-	 * @return ?string e.g. src/ListItems.php#L32
+	 * Returns the plugin-relative file path with the reflection start line
+	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
 	 */
 	public function filePath(): ?string
 	{
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
-		$filePath = Str::replace($this->reflection()->getFileName(), $root, '');
-		$line = $this->reflection()->getStartLine();
-		return $filePath . '#L' . $line;
+		$filePath = 'api/models/' . $this->class() . '.php';
+		return $filePath;
 	}
 
 	/**
-	 * @return string e.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
+	 * Returns the versioned GitHub URL that points to the file and line of the
+	 * reflected model action.
+	 * E.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
 	 */
 	public function gitHubUrl(): ?string
 	{
-		$gitHubRoot = option('github-repositories.merx');
-		$version = $this->kirby()->plugin('ww/merx')->version();
-		return $gitHubRoot . '/blob/' . $version . '/' . $this->filePath();
+		$gitHubRoot = option("github-repositories.merx");
+		$version = $this->kirby()->plugin("ww/merx")->version();
+		return $gitHubRoot . "/blob/" . $version . "/" . $this->filePath();
 	}
 }

@@ -1,0 +1,108 @@
+/* PrismJS 1.30.0
+https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javascript */
+/**
+ * prism.js Dark theme for JavaScript, CSS and HTML
+ * Based on the slides of the talk “/Reg(exp){2}lained/”
+ * @author Lea Verou
+ */
+
+.m-code {
+	padding: var(--size-400);
+	color: var(--color-white);
+	font: var(--font-code-medium);
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	tab-size: 2;
+	hyphens: none;
+	overflow: auto;
+	border-radius: var(--border-radius-small);
+	background-color: var(--color-background-primary-inverse);
+
+	> code {
+		font: inherit;
+	}
+
+	/** @todo Improve colors similar to https://github.com/getkirby/getkirby.com/blob/e6352626f704531b9981f60ae69ea2a2c7b005e8/assets/css/site/code.css */
+	.token.class-name,
+	.token.scope {
+		color: var(--color-green-300);
+	}
+
+	.token.function {
+		color: var(--color-blue-300);
+	}
+
+	.token.comment,
+	.token.prolog,
+	.token.doctype,
+	.token.cdata {
+		color: var(--color-gray-150);
+	}
+
+	.token.punctuation {
+		opacity: .7;
+	}
+
+	.token.namespace {
+		opacity: .7;
+	}
+
+	.token.property,
+	.token.tag,
+	.token.boolean,
+	.token.number,
+	.token.constant,
+	.token.symbol {
+		color: var(--color-red-150);
+	}
+
+	.token.selector,
+	.token.attr-name,
+	.token.string,
+	.token.char,
+	.token.builtin,
+	.token.inserted {
+		color: var(--color-yellow-300);
+	}
+
+	.token.operator,
+	.token.entity,
+	.token.url,
+	.language-css .token.string,
+	.style .token.string,
+	.token.variable {
+		color: var(--color-red-300);
+	}
+
+	.token.atrule,
+	.token.attr-value,
+	.token.keyword {
+		color: var(--color-purple-300);
+	}
+
+	.token.regex,
+	.token.important {
+		color: var(--color-orange-400);
+	}
+
+	.token.important,
+	.token.bold {
+		font-weight: bold;
+	}
+	.token.italic {
+		font-style: italic;
+	}
+
+	.token.entity {
+		cursor: help;
+	}
+
+	.token.deleted {
+		color: var(--color-red-500);
+	}
+}
+
+

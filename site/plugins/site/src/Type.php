@@ -10,15 +10,31 @@ class Type {
 
   public ?string $alias = null;
 
+	/** string, class, float, int, etc. */
+  public ?string $dataType = null;
+
   public function __construct(string $type, ?\ReflectionMethod $reflector = null)
   {
     if (in_array($type, ['self', 'static', '$this']) === true) {
       $this->alias = $type;
       $this->type = $reflector?->getDeclaringClass()->getName() ?? $type;
+			$this->dataType = 'class';
     } else {
       $this->type = $type;
+			$this->dataType = $this->getDataType($reflector);
     }
   }
+
+	public function getDataType(?\ReflectionMethod $reflector = null): ?string
+	{
+		$type = Str::lower($this->type);
+		if (in_array($type, ['string', 'null', 'bool', 'int', 'float'])) {
+			return $type;
+		} else if ($reflector instanceof \ReflectionMethod || Str::contains($type, '\\')) {
+			return 'class';
+		}
+		return null;
+	}
 
   public function toHtml(bool $codeBlock = true): string
   {
@@ -34,12 +50,16 @@ class Type {
       $link = url('/reference/classes/' . $slug);
     }
     $html = '';
+		$attr = [
+			'class' => 'a-type',
+			'data-type' => $this->dataType,
+		];
     if ($codeBlock) {
-      $html = Html::tag('code', $type);
+      $html = Html::tag('code', $type, $attr);
     }
     if (is_string($link)) {
-      $html = Html::tag('a', [$html], [
-        'href' => $link,
+      $html = Html::tag('a', [Html::tag('code', $type)], [
+        ...['href' => $link,], $attr,
       ]);
     }
 

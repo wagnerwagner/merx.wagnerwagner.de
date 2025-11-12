@@ -14,9 +14,9 @@ class ReferenceApiTypePage extends Page
 		return $this->type()->value(ucfirst($type));
 	}
 
-
 	/**
-	 * Creates children collection by parsing the `src/` folder
+	 * Builds the child collection for a specific API type (routes/models)
+	 * by reading the plugin extension definition and caching the result.
 	 */
 	public function children(): Pages
 	{
@@ -30,8 +30,8 @@ class ReferenceApiTypePage extends Page
 	}
 
 	/**
-	 * Creates an array of page properties for all blueprint folders in the
-	 * provided root.
+	 * Returns the page configuration array for every registered API item
+	 * (either routes or models), preparing it for `Pages::factory()`.
 	 */
 	protected function childrenFactory(): array {
 			$children = [];
@@ -72,7 +72,7 @@ class ReferenceApiTypePage extends Page
 				}
 
 				try {
-					/** Add content from .txt content files */
+					/** Merge optional content overrides from the stored text file */
 					$content = [...Data::read($root . '/' . $template . '.txt'), $content];
 				} catch (Throwable) {
 				}

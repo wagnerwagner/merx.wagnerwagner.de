@@ -13,7 +13,7 @@ if ($page->redirect()->isTrue()) {
 	<?php snippet('o-header') ?>
 	<div class="o-main-wrapper">
 		<div>
-			<?php snippet('m-nav-secondary', ['parent' => $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())]); ?>
+			<?php snippet('m-nav-sidebar', ['parent' => $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())]); ?>
 			<main class="o-reference" aria-label="<?= $page->title() ?>">
 				<h1 class="a-display"><?= $page->headline()->isNotEmpty() ? $page->headline() : $page->title() ?></h1>
 				<div class="text">

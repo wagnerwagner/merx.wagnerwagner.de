@@ -1,0 +1,8 @@
+:root {
+	--border-xsmall-primary: var(--border-size-xsmall) solid var(--color-border-primary);
+	--border-xsmall-secondary: var(--border-size-xsmall) solid var(--color-border-secondary);
+	--border-xsmall-tertiary: var(--border-size-xsmall) solid var(--color-border-tertiary);
+	--border-small-primary: var(--border-size-small) solid var(--color-border-primary);
+	--border-small-secondary: var(--border-size-small) solid var(--color-border-secondary);
+	--border-small-tertiary: var(--border-size-small) solid var(--color-border-tertiary);
+}

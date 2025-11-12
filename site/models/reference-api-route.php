@@ -14,6 +14,18 @@ class ReferenceApiRoutePage extends Page
 		return parent::title()->value($method . ' ' . $pattern);
 	}
 
+	public function call(): string
+	{
+		$pattern = $this->pattern();
+		$method = $this->method();
+
+		$call = "fetch('/api/$pattern', {\n";
+		$call .= "	method: '$method',\n";
+		$call .= "});";
+
+		return $call;
+	}
+
 	public function reflection(): ReflectionFunction
 	{
 		return $this->content()->reflection()->value();
@@ -27,7 +39,7 @@ class ReferenceApiRoutePage extends Page
 	public function returnTypes(): ?Types
 	{
 		if (!$this->reflection()->hasReturnType()) {
-			return null;
+			return new Types(['void']);
 		}
 		return new Types([$this->reflection()->getReturnType()]);
 	}
@@ -38,9 +50,8 @@ class ReferenceApiRoutePage extends Page
 	}
 
 	/**
-	 * Path with line number
-	 *
-	 * @return ?string e.g. src/ListItems.php#L32
+	 * Returns the plugin-relative file path with the reflection start line
+	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
 	 */
 	public function filePath(): ?string
 	{
@@ -51,7 +62,8 @@ class ReferenceApiRoutePage extends Page
 	}
 
 	/**
-	 * @return string e.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
+	 * Returns the versioned GitHub URL that points to the file and line of the
+	 * reflected route action.
 	 */
 	public function gitHubUrl(): ?string
 	{

@@ -5,7 +5,7 @@
 :root {
 	/* Font family */
 	--font-family: 'TT Norms', Avenir, sans-serif;
-	--font-family-system-standard: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; /* stolen from Github */
+	--font-family-code: ui-monospace, monospace;
 
 
 	/* Font size */
@@ -22,12 +22,14 @@
 	--font-size-label-small: calc(14rem / 16);
 	--font-size-label-xsmall: calc(12rem / 16);
 
-	--font-size-paragraph-large: calc(18rem / 16);
+	--font-size-paragraph-xlarge: calc(20rem / 16);
+	--font-size-paragraph-large: calc(17.5rem / 16);
 	--font-size-paragraph-medium: calc(16rem / 16);
 	--font-size-paragraph-small: calc(14rem / 16);
 	--font-size-paragraph-xsmall: calc(12rem / 16);
 
-	--font-size: var(--font-size-paragraph-medium);
+	--font-size-code-medium: calc(15rem / 16);
+	--font-size-code-small: calc(14rem / 16);
 
 	/* Line height */
 	--line-height-heading-xxlarge: calc(40 / 40);
@@ -43,12 +45,14 @@
 	--line-height-label-small: calc(16 / 14);
 	--line-height-label-xsmall: calc(16 / 12);
 
+	--line-height-paragraph-xlarge: calc(24 / 20);
 	--line-height-paragraph-large: calc(24 / 18);
 	--line-height-paragraph-medium: calc(24 / 16);
 	--line-height-paragraph-small: calc(20 / 14);
 	--line-height-paragraph-xsmall: calc(16 / 12);
 
-	--line-height: var(--line-height-paragraph-medium);
+	--line-height-code-medium: calc(24 / 15);
+	--line-height-code-small: calc(20 / 13);
 
 	/* Font */
 	--font-heading-xxlarge: 700 var(--font-size-heading-xxlarge)/var(--line-height-heading-xxlarge) var(--font-family);
@@ -64,10 +68,14 @@
 	--font-label-small: 450 var(--font-size-label-small)/var(--line-height-label-small) var(--font-family);
 	--font-label-xsmall: 450 var(--font-size-label-xsmall)/var(--line-height-label-xsmall) var(--font-family);
 
+	--font-paragraph-xlarge: 450 var(--font-size-paragraph-xlarge)/var(--line-height-paragraph-xlarge) var(--font-family);
 	--font-paragraph-large: 450 var(--font-size-paragraph-large)/var(--line-height-paragraph-large) var(--font-family);
 	--font-paragraph-medium: 450 var(--font-size-paragraph-medium)/var(--line-height-paragraph-medium) var(--font-family);
 	--font-paragraph-small: 450 var(--font-size-paragraph-small)/var(--line-height-paragraph-small) var(--font-family);
 	--font-paragraph-xsmall: 450 var(--font-size-paragraph-xsmall)/var(--line-height-paragraph-xsmall) var(--font-family);
+
+	--font-code-medium: 500 var(--font-size-code-medium)/var(--line-height-code-medium) var(--font-family-code);
+	--font-code-small: 500 var(--font-size-code-small)/var(--line-height-code-small) var(--font-family-code);
 
 	--font: var(--font-paragraph-medium);
 

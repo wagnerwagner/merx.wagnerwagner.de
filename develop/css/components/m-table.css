@@ -1,0 +1,25 @@
+.m-table {
+	overflow: auto;
+	background-color: var(--color-background-secondary);
+	border: var(--border-xsmall-secondary);
+	border-radius: var(--border-radius-small);
+
+	> table {
+		inline-size: 100%;
+
+		td, th {
+			padding-block: var(--size-200);
+			padding-inline: var(--size-300);
+			text-align: start;
+		}
+		th {
+			border-block-end: var(--border-xsmall-secondary);
+		}
+		tr:not(:last-child) td {
+			border-block-end: var(--border-xsmall-secondary);
+		}
+	}
+}
+.o-reference > .m-text > .m-table {
+	margin-inline: calc(var(--size-300) * -1);
+}

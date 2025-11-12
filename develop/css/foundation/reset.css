@@ -43,8 +43,12 @@ a {
 	text-underline-offset: 0.2ex;
 }
 
-img, picture, svg, video, canvas, audio, iframe, embed, object, summary {
+picture, video, canvas, audio, iframe, embed, object, summary {
 	display: block;
+}
+
+img, svg {
+	vertical-align: middle;
 }
 
 img, picture, svg {

@@ -38,3 +38,6 @@ body {
 	}
 }
 
+code {
+	font: var(--font-code-medium);
+}

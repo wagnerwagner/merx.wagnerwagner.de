@@ -22,7 +22,9 @@ class Types extends Iterator {
       return Html::tag('code', 'mixed');
     }
 
-    return implode('|', array_map(fn (Type $type) => $type->toHtml($codeBlock), $this->data));
+		$seperator = ' <span class="a-separator" aria-hidden="true">|</span><span class="a-visually-hidden">or</span> ';
+
+    return implode($seperator, array_map(fn (Type $type) => $type->toHtml($codeBlock), $this->data));
   }
 
   public function __toString(): string

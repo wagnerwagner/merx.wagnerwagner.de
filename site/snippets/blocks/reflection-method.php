@@ -6,10 +6,10 @@ $reflection = $block->content()->data()['reflection'];
 ?>
 <section id="<?= $block->id() ?>" class="section" aria-label="<?= $block->title() ?>">
 	<h2><?= $block->title() ?></h2>
-	<div class="text text--big">
+	<div class="m-text" data-size="large">
 		<?= $reflection->summary() ?>
 	</div>
-	<div class="text">
+	<div class="m-text">
 		<?= $reflection->description() ?>
 	</div>
 </section>

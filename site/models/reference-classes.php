@@ -9,8 +9,8 @@ use Kirby\Toolkit\Str;
 class ReferenceClassesPage extends Page
 {
 	/**
-	 * Creates children collection by parsing the `src/` folder of
-	 * the Kirby core
+	 * Builds the child collection for every Merx class by scanning the plugin's
+	 * `src` directory and caches the result.
 	 */
 	public function children(): Pages
 	{
@@ -20,8 +20,7 @@ class ReferenceClassesPage extends Page
 
 		$children = [];
 
-		// Add unlisted pages for all classes in namespace:
-		// Loop through filesystem as proxy for namespace structure
+		// Add one child page per PHP class shipped in the plugin.
 		$root = $this->kirby()->plugin('ww/merx')->root() . '/src';
 
 		$children = $this->childrenFactory(
@@ -33,8 +32,8 @@ class ReferenceClassesPage extends Page
 	}
 
 	/**
-	 * Creates an array of page properties for all class files in the
-	 * provided root, assigning them to a provided namespace
+	 * Returns the page configuration array for each class file found in the
+	 * given namespace/root pair so `Pages::factory()` can instantiate them.
 	 */
 	protected function childrenFactory(
 		string $namespace,
@@ -42,8 +41,7 @@ class ReferenceClassesPage extends Page
 	): array {
 		$children = [];
 
-		// Loop through each class PHP file and
-		// create as child page
+		// Loop through each class file and register it as a child page.
 		foreach (Dir::files($root) as $class) {
 			$name  = ucfirst(basename($class, '.php'));
 			$class = $namespace . '\\' . $name;
@@ -63,7 +61,7 @@ class ReferenceClassesPage extends Page
 				'slug' => $slug,
 				'root' => $root,
 				'model' => 'reference-class',
-				'template' => 'reference-class',
+				'template' => 'reference-doc',
 				'num' => $isInternal ? null : 0,
 				'content'  => [
 					...$content,
