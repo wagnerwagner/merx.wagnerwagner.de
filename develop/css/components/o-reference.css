@@ -1,0 +1,6 @@
+.o-reference {
+	max-inline-size: var(--max-width-text);
+	inline-size: 100%;
+	margin-inline: auto;
+	padding-block-start: var(--gap-block-header);
+}

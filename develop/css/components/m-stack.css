@@ -1,0 +1,5 @@
+.m-stack {
+	> * + * {
+		margin-block-start: var(--gap-block);
+	}
+}

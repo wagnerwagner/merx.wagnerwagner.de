@@ -1,7 +1,7 @@
 <?php
 
 return function () {
-  return [
-    'results' => site()->prettySearch(get('q')),
-  ];
+	return [
+		'results' => site()->prettySearch(get('q')),
+	];
 };

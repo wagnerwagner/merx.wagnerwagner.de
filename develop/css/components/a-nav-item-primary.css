@@ -1,0 +1,23 @@
+.a-nav-item-primary {
+	display: grid;
+	block-size: 100%;
+	grid-template-rows: 1fr 0;
+	align-items: center;
+	padding-inline: var(--gap-inline);
+	text-decoration: none;
+
+	&::after {
+		content: '';
+		margin-block-end: calc(var(--border-size-small) * -1);
+		display: block;
+		inline-size: 100%;
+		block-size: var(--border-size-small);
+		background-color: transparent;
+	}
+
+	&[data-state="open"] {
+		&::after {
+			background-color: var(--color-border-secondary);
+		}
+	}
+}

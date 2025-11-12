@@ -9,7 +9,7 @@ use Kirby\Toolkit\Html;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
-$licenseBase = file_get_contents('.license-base', FILE_USE_INCLUDE_PATH);
+$licenseBase = option('wagnerwagner.site.licenseBase');
 
 /**
  * Create a element with link to class documentation

@@ -3,22 +3,22 @@
 use Kirby\Cms\Blocks;
 
 return function (ReferenceClassPage $page) {
-  $blocks = [];
+	$blocks = [];
 
-  $children = $page->children();
+	$children = $page->children();
 
-  foreach ($children as $child) {
-    $blocks[] = [
-      'content' => [
-        'title' => $child->title(),
-        'reflection' => $child->reflection(),
-      ],
-      'type' => 'reflection-method',
-      'id' => $child->slug(),
-    ];
-  }
+	foreach ($children as $child) {
+		$blocks[] = [
+			'content' => [
+				'title' => $child->title(),
+				'reflection' => $child->reflection(),
+			],
+			'type' => 'reflection-method',
+			'id' => $child->slug(),
+		];
+	}
 
-  return [
-    'sections' => Blocks::factory($blocks),
-  ];
+	return [
+		'sections' => Blocks::factory($blocks),
+	];
 };

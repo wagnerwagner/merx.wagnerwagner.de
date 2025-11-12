@@ -1,0 +1,37 @@
+/**
+ * Each size should divide by 4.
+ */
+
+:root {
+	--size-50: calc(2rem / 16);
+	--size-100: calc(4rem / 16);
+	--size-150: calc(6rem / 16);
+	--size-200: calc(8rem / 16);
+	--size-300: calc(12rem / 16);
+	--size-400: calc(16rem / 16);
+	--size-500: calc(20rem / 16);
+	--size-600: calc(28rem / 16);
+	--size-700: calc(40rem / 16);
+	--size-800: calc(56rem / 16);
+	--size-900: calc(80rem / 16);
+
+	/* Grid */
+	--gap-inline: var(--size-500);
+	--gap-block: var(--size-500);
+	--gap-block-header: var(--size-700);
+
+	/* Sizes */
+	--max-width: calc(1600rem / 16);
+	--max-width-content: calc(1380rem / 16);
+	--max-width-text: calc(700rem / 16);
+
+	--height-header: calc(60rem / 16);
+
+	/* Border */
+	/* Use px values instead of rem */
+	--border-size-small: 2px;
+	--border-size-medium: 4px;
+	--border-radius-small: 4px;
+	--border-radius-medium: 5px;
+	--border-radius-large: 6px;
+}

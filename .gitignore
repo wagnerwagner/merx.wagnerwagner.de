@@ -4,31 +4,11 @@
 Icon
 .DS_Store
 
-
 # Temporary files
 # ---------------
 
-node_modules
 /public/media/*
-!/public/media/index.html
-
-
-# Lock files
-# ---------------
-
-.lock
-
-# -------------SECURITY-------------
-# NEVER publish these files via Git!
-# -------------SECURITY-------------
-
-
-# Merx Orders
-# ---------------------------
-
-/content/**/order.txt
-/content/**/order.*.txt
-
+!/public/media/.gitkeep
 
 # Editors
 # (sensitive workspace files)
@@ -39,49 +19,46 @@ node_modules
 /.idea
 /.nova
 
+# -------------SECURITY-------------
+# NEVER publish these files via Git!
+# -------------SECURITY-------------
+
+# Merx Orders
+# ---------------------------
+
+/content/**/order.txt
+/content/**/order.*.txt
 
 # Cache Files
 # ---------------
 
 /site/cache/*
-!/site/cache/index.html
-
+!/site/cache/.gitkeep
 
 # Accounts
 # ---------------
 
 /site/accounts/*
-!/site/accounts/index.html
-
+!/site/accounts/.gitkeep
 
 # Sessions
 # ---------------
 
 /site/sessions/*
-!/site/sessions/index.html
-
+!/site/sessions/.gitkeep
 
 # Logs
 # ---------------
 
 /site/logs/*
-!/site/logs/index.html
-
+!/site/logs/.gitkeep
 
 # License
 # ---------------
 
 /site/config/.license
 
-
-# Development/Live configurations
+# Other
 # ---------------
 
 /site/config/env.php
-/site/plugins/site/.license-base
-
-
-# Other
-# ---------------------------
-
-/.intelephense-alias.php

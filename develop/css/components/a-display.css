@@ -1,0 +1,4 @@
+.a-display {
+	font: var(--font-heading-large);
+	font-feature-settings: "ss19", "ss18";
+}
