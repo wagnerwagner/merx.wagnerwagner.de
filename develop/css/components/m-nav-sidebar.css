@@ -1,0 +1,26 @@
+nav.m-nav-sidebar {
+	margin-inline-start: calc(3rem / -16);
+	padding-inline-start: calc(3rem / 16);
+	max-block-size: calc(100vh - var(--height-header));
+	padding-block: var(--size-500);
+	border-inline-end: var(--border-size-small) solid var(--color-border-tertiary);
+	overflow: auto;
+
+	&[data-variant="secondary"] {
+    > ul {
+      > li + li {
+        margin-block-start: var(--size-400);
+      }
+    }
+	}
+
+	&[data-variant="tertiary"] {
+		position: relative;
+
+		> ul {
+			> li + li {
+				border-block-start: var(--border-small-tertiary);
+			}
+		}
+	}
+}

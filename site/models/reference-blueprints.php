@@ -9,8 +9,8 @@ use Kirby\Toolkit\Str;
 class ReferenceBlueprintsPage extends Page
 {
 	/**
-	 * Creates children collection by parsing the `src/` folder of
-	 * the Kirby core
+	 * Builds the child collection for every blueprint type defined in the
+	 * plugin and caches the result.
 	 */
 	public function children(): Pages
 	{
@@ -20,8 +20,7 @@ class ReferenceBlueprintsPage extends Page
 
 		$children = [];
 
-		// Add unlisted pages for all classes in namespace:
-		// Loop through filesystem as proxy for namespace structure
+		// Add one child page per blueprint type directory in the plugin.
 		$root = $this->kirby()->plugin('ww/merx')->root() . '/blueprints';
 
 		$children = $this->childrenFactory(
@@ -32,16 +31,15 @@ class ReferenceBlueprintsPage extends Page
 	}
 
 	/**
-	 * Creates an array of page properties for all blueprint folders in the
-	 * provided root.
+	 * Returns the page configuration array for each blueprint type directory
+	 * inside the given root, preparing it for `Pages::factory()`.
 	 */
 	protected function childrenFactory(
 		string $root
 	): array {
 		$children = [];
 
-		// Loop through each class PHP file and
-		// create as child page
+		// Loop through each blueprint type directory and register it.
 		foreach (Dir::dirs($root) as $type) {
 			$slug  = Str::kebab($type);
 			$root  = $this->root() . '/0_' . $slug;
@@ -56,7 +54,7 @@ class ReferenceBlueprintsPage extends Page
 				'slug'     => $slug,
 				'root'     => $root,
 				'model'    => 'reference-blueprint-type',
-				'template' => 'reference-blueprint-type',
+				'template' => 'reference-doc',
 				'num'      => 0,
 				'content'  => [
 					...$content,
@@ -65,10 +63,7 @@ class ReferenceBlueprintsPage extends Page
 			];
 		}
 
-		// we need to create a Pages collection to properly filter
-		// pages (e.g. as non-internal); however, we need to pass the
-		// data on as array again to be consumable by the upper
-		// Pages::factory() call
+		// Keep the raw array because Pages::factory() expects this structure.
 		return $children;
 	}
 }

@@ -1,0 +1,36 @@
+/** a or code element */
+.a-type {
+	--_color-background: var(--color-gray-150);
+	border-radius: var(--border-radius-small);
+	padding-block: var(--size-50);
+	padding-inline: var(--size-150);
+	font: var(--font-code-small);
+	background-color: var(--_color-background);
+
+	&:where([data-type="class"], [data-type="object"]) {
+		--_color-background: var(--color-green-200);
+	}
+	&:where([data-type="bool"]) {
+		--_color-background: var(--color-purple-150);
+	}
+	&:where([data-type="int"]) {
+		--_color-background: var(--color-orange-150);
+	}
+	&:where([data-type="float"], [data-type="number"]) {
+		--_color-background: var(--color-red-150);
+	}
+	&:where([data-type="string"]) {
+		--_color-background: var(--color-yellow-200);
+	}
+	&:where([data-type="array"], [data-type="callable"]) {
+		--_color-background: var(--color-turquoise-150);
+	}
+
+	&:where(a) {
+		text-decoration: none;
+
+		&:where(:focus-visible, :hover) {
+			background-color: hsl(from var(--_color-background) h s calc(l - 3));
+		}
+	}
+}

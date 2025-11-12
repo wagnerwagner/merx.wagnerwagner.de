@@ -9,8 +9,8 @@ use Kirby\Toolkit\Str;
 class ReferenceApiPage extends Page
 {
 	/**
-	 * Creates children collection by parsing the `src/` folder of
-	 * the Kirby core
+	 * Builds the children collection from the plugin's `api` directory
+	 * and caches it on the page instance.
 	 */
 	public function children(): Pages
 	{
@@ -20,8 +20,8 @@ class ReferenceApiPage extends Page
 
 		$children = [];
 
-		// Add unlisted pages for all classes in namespace:
-		// Loop through filesystem as proxy for namespace structure
+		// Add unlisted pages for each available API type by mirroring
+		// the directory structure inside the plugin's `api` folder.
 		$root = $this->kirby()->plugin('ww/merx')->root() . '/api';
 
 		$children = $this->childrenFactory(
@@ -32,16 +32,16 @@ class ReferenceApiPage extends Page
 	}
 
 	/**
-	 * Creates an array of page properties for all class files in the
-	 * provided root, assigning them to a provided namespace
+	 * Returns the page property array for every directory inside the
+	 * given root, mapping each one to a `reference-api-type` child.
 	 */
 	protected function childrenFactory(
 		string $root
 	): array {
 			$children = [];
 
-			// Loop through each class PHP file and
-			// create as child page
+			// Loop through every API type directory and register it
+			// as a child page configuration.
 			foreach (Dir::dirs($root) as $type) {
 				$slug  = Str::kebab($type);
 				$root  = $this->root() . '/0_' . $slug;
@@ -59,7 +59,7 @@ class ReferenceApiPage extends Page
 					'slug'     => $slug,
 					'root'     => $root,
 					'model'    => 'reference-api-type',
-					'template' => 'reference-api-type',
+					'template' => 'reference-doc',
 					'num'      => $num,
 					'content'  => [
 						...$content,

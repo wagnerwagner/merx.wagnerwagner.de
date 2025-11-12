@@ -25,6 +25,9 @@
 	}
 
 	/* Modifications */
+	&[data-size="xlarge"] {
+		font: var(--font-paragraph-xlarge);
+	}
 	&[data-size="large"] {
 		font: var(--font-paragraph-large);
 	}
@@ -39,4 +42,11 @@
 	> * + * {
 		margin-block-start: var(--_gap-paragraph);
 	}
+	> * + :where(h2, h3, h4) {
+		margin-block-start: var(--size-700);
+	}
+}
+
+.a-display + .m-text {
+	margin-block-start: var(--_gap-paragraph);
 }

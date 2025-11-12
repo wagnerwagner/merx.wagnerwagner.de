@@ -1,0 +1,13 @@
+.a-link-reference {
+	display: inline-flex;
+	gap: var(--size-50);
+	padding-block: var(--size-50);
+	padding-inline: var(--size-150);
+	font: var(--font-code-small);
+	background-color: var(--color-background-tertiary);
+	text-decoration: none;
+
+	&:where(:focus-visible, :hover) {
+		background-color: hsl(from var(--color-background-tertiary) h s calc(l - 3) / alpha);
+	}
+}

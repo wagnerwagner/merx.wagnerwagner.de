@@ -72,9 +72,8 @@ class ReferenceClassMethodPage extends Page
 	}
 
 	/**
-	 * Path with line number
-	 *
-	 * @return ?string e.g. src/ListItems.php#L32
+	 * Returns the framework- or plugin-relative file path with the start line
+	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
 	 */
 	public function filePath(): ?string
 	{
@@ -91,7 +90,9 @@ class ReferenceClassMethodPage extends Page
 	}
 
 	/**
-	 * @return string e.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
+	 * Returns the versioned GitHub URL that points directly to the
+	 * reflected method definition.
+   * E.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
 	 */
 	public function gitHubUrl(): ?string
 	{
@@ -145,7 +146,8 @@ class ReferenceClassMethodPage extends Page
 	}
 
 	/**
-	 * @return ?array with name, type, defaultValue, description
+	 * Returns parameter metadata (name, types, default value, description)
+	 * sourced from reflection and DocBlocks.
 	 */
 	public function params(): array
 	{
@@ -205,19 +207,24 @@ class ReferenceClassMethodPage extends Page
 	}
 
 	/**
-	 * DocBlock description of return type
+	 * Returns the DocBlock description for the method's return value as an
+	 * HTML string with preserved line breaks.
 	 */
 	public function returnDescription(): ?string
 	{
-		/** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] */
-		$returnTags = $this->docBlock()?->getTagsByName('return') ?? [];
+		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
+		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
 		if (count($returnTags) === 0) {
 			return null;
 		}
 
-		return nl2br($returnTags[0]->getDescription());
+		$description = trim($returnTags[0]->description);
+		return $description === '' ? null : $description;
 	}
 
+	/**
+	 * Returns an array describing every exception declared via @throws tags.
+	 */
 	public function exceptions(): array
 	{
 		/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode[] */
@@ -229,6 +236,10 @@ class ReferenceClassMethodPage extends Page
 		], $throws);
 	}
 
+	/**
+	 * Returns a string representation of the method signature including types,
+	 * defaults and return type.
+	 */
 	public function call(): string
 	{
 		$parameters = array_map(function ($param) {
