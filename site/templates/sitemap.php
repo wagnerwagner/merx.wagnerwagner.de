@@ -11,9 +11,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
 <?php foreach($pages->index() as $item): ?>
 <?php if(in_array((string)$item->intendedTemplate(), $ignoreTemplates)) continue ?>
 <?php if(in_array((string)$item->id(), $ignoreSlug)) continue ?>
-  <url>
-    <loc><?= html($item->url()) ?></loc>
-    <lastmod><?= $item->modified('c') ?></lastmod>
-  </url>
+	<url>
+		<loc><?= html($item->url()) ?></loc>
+		<lastmod><?= $item->modified('c') ?></lastmod>
+	</url>
 <?php endforeach ?>
 </urlset>

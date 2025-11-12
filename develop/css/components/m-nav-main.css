@@ -1,0 +1,7 @@
+.m-nav-main {
+	display: flex;
+
+	> ul {
+		display: flex;
+	}
+}

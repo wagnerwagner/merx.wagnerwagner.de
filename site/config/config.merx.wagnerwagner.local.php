@@ -1,6 +1,6 @@
 <?php
 return [
-  'debug' => true,
-  'timestampedAsset' => false,
-  'ww.merx.production' => false,
+	'debug' => true,
+	'ww.merx.production' => false,
+	'nova-links' => true,
 ];

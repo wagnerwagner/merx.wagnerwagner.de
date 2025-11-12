@@ -1,0 +1,15 @@
+.o-header {
+	block-size: var(--height-header);
+	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
+	padding-inline: var(--gap-inline);
+}
+
+.o-header__center {
+	block-size: 100%;
+	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+	margin-inline: auto;
+	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	justify-items: start;
+}

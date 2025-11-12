@@ -1,0 +1,13 @@
+/** DEBUG */
+body[data-show-grid] {
+	--_color: hsla(0, 0%, 0%, 5%);
+	--_grid-vertical: calc(4rem / 16);
+	--_grid-gap: var(--gap-inline);
+	--_grid-column: calc((var(--max-width) - var(--_grid-gap) * 11) / 12);
+
+	background:
+		center/calc(var(--_grid-column) + var(--_grid-gap)) 100%
+		linear-gradient(90deg, var(--_color) calc(var(--_grid-column) * 0.5), transparent calc(var(--_grid-column) * 0.5), transparent calc(var(--_grid-column) * 0.5 + var(--_grid-gap)), var(--_color) calc(var(--_grid-column) * 0.5 + var(--_grid-gap))),
+		top/100% calc(var(--_grid-vertical) * 2)
+		linear-gradient(transparent var(--_grid-vertical), var(--_color) var(--_grid-vertical));
+}

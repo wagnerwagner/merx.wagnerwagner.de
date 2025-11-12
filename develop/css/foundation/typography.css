@@ -1,0 +1,79 @@
+/**
+ * Each size should divide by 4.
+ */
+
+:root {
+	/* Font family */
+	--font-family: 'TT Norms', Avenir, sans-serif;
+	--font-family-system-standard: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; /* stolen from Github */
+
+
+	/* Font size */
+	--font-size-heading-xxlarge: calc(40rem / 16);
+	--font-size-heading-xlarge: calc(36rem / 16);
+	--font-size-heading-large: calc(32rem / 16);
+	--font-size-heading-medium: calc(28rem / 16);
+	--font-size-heading-small: calc(24rem / 16);
+	--font-size-heading-xsmall: calc(20rem / 16);
+	--font-size-heading-xxsmall: calc(16rem / 16);
+
+	--font-size-label-large: calc(18rem / 16);
+	--font-size-label-medium: calc(16rem / 16);
+	--font-size-label-small: calc(14rem / 16);
+	--font-size-label-xsmall: calc(12rem / 16);
+
+	--font-size-paragraph-large: calc(18rem / 16);
+	--font-size-paragraph-medium: calc(16rem / 16);
+	--font-size-paragraph-small: calc(14rem / 16);
+	--font-size-paragraph-xsmall: calc(12rem / 16);
+
+	--font-size: var(--font-size-paragraph-medium);
+
+	/* Line height */
+	--line-height-heading-xxlarge: calc(40 / 40);
+	--line-height-heading-xlarge: calc(36 / 36);
+	--line-height-heading-large: calc(36 / 32);
+	--line-height-heading-medium: calc(32 / 28);
+	--line-height-heading-small: calc(28 / 24);
+	--line-height-heading-xsmall: calc(24 / 20);
+	--line-height-heading-xxsmall: calc(20 / 16);
+
+	--line-height-label-large: calc(24 / 18);
+	--line-height-label-medium: calc(20 / 16);
+	--line-height-label-small: calc(16 / 14);
+	--line-height-label-xsmall: calc(16 / 12);
+
+	--line-height-paragraph-large: calc(24 / 18);
+	--line-height-paragraph-medium: calc(24 / 16);
+	--line-height-paragraph-small: calc(20 / 14);
+	--line-height-paragraph-xsmall: calc(16 / 12);
+
+	--line-height: var(--line-height-paragraph-medium);
+
+	/* Font */
+	--font-heading-xxlarge: 700 var(--font-size-heading-xxlarge)/var(--line-height-heading-xxlarge) var(--font-family);
+	--font-heading-xlarge: 700 var(--font-size-heading-xlarge)/var(--line-height-heading-xlarge) var(--font-family);
+	--font-heading-large: 700 var(--font-size-heading-large)/var(--line-height-heading-large) var(--font-family);
+	--font-heading-medium: 700 var(--font-size-heading-medium)/var(--line-height-heading-medium) var(--font-family);
+	--font-heading-small: 700 var(--font-size-heading-small)/var(--line-height-heading-small) var(--font-family);
+	--font-heading-xsmall: 700 var(--font-size-heading-xsmall)/var(--line-height-heading-xsmall) var(--font-family);
+	--font-heading-xxsmall: 700 var(--font-size-heading-xxsmall)/var(--line-height-heading-xxsmall) var(--font-family);
+
+	--font-label-large: 450 var(--font-size-label-large)/var(--line-height-label-large) var(--font-family);
+	--font-label-medium: 450 var(--font-size-label-medium)/var(--line-height-label-medium) var(--font-family);
+	--font-label-small: 450 var(--font-size-label-small)/var(--line-height-label-small) var(--font-family);
+	--font-label-xsmall: 450 var(--font-size-label-xsmall)/var(--line-height-label-xsmall) var(--font-family);
+
+	--font-paragraph-large: 450 var(--font-size-paragraph-large)/var(--line-height-paragraph-large) var(--font-family);
+	--font-paragraph-medium: 450 var(--font-size-paragraph-medium)/var(--line-height-paragraph-medium) var(--font-family);
+	--font-paragraph-small: 450 var(--font-size-paragraph-small)/var(--line-height-paragraph-small) var(--font-family);
+	--font-paragraph-xsmall: 450 var(--font-size-paragraph-xsmall)/var(--line-height-paragraph-xsmall) var(--font-family);
+
+	--font: var(--font-paragraph-medium);
+
+	/* Letter spacing */
+	--leter-spacing-display: -0.003em;
+
+	/* Other */
+	--hyphenate-limit: 7;
+}

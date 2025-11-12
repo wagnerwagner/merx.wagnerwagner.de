@@ -1,12 +1,36 @@
 {
-  "name": "merx-wagnerwagner-de",
-  "description": "Website of Merx by Wagnerwagner",
-  "license": "proprietary",
-  "author": "tobias.wolf@wagnerwagner.de",
-  "repository": "https://github.com/wagnerwagner/merx",
-  "scripts": {
-    "install": "cd develop; npm install",
-    "update": "cd develop; npm update; npm audit fix",
-    "build": "npm run update; cd develop; npm run build"
-  }
+	"name": "merx-wagnerwagner-de",
+	"description": "Website of Merx by Wagnerwagner",
+	"version": "2.0.0",
+	"scripts": {
+		"js": "npx webpack --config webpack.config.js",
+		"js-dev": "npx webpack watch --config webpack.config.js --mode development",
+		"js-lint": "npx eslint --fix develop/js",
+		"css": "npx postcss develop/css/*.css --dir public/assets/css -m --env production",
+		"css-dev": "npx postcss develop/css/*.css --dir public/assets/css -m -w --env development",
+		"build": "npm run css; npm run js-lint; npm run js;"
+	},
+	"author": "tobias.wolf@wagnerwagner.de",
+	"devDependencies": {
+		"@babel/cli": "^7.23.9",
+		"@babel/core": "^7.23.9",
+		"@babel/preset-env": "^7.23.9",
+		"@csstools/postcss-color-mix-function": "^2.0.10",
+		"@csstools/postcss-oklab-function": "^2.2.3",
+		"autoprefixer": "^10.4.17",
+		"babel-loader": "^8.3.0",
+		"cssnano": "^5.1.15",
+		"eslint": "^8.56.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-plugin-import": "^2.29.1",
+		"postcss": "^8.4.35",
+		"postcss-cli": "^10.1.0",
+		"postcss-import": "^15.1.0",
+		"postcss-nesting": "^11.3.0",
+		"webpack": "^5.90.3",
+		"webpack-cli": "^4.10.0"
+	},
+	"dependencies": {
+		"core-js": "^3.36.0"
+	}
 }

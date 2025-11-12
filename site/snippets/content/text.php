@@ -1,3 +1,3 @@
 <div class="c-text c-text--<?= $item->style() ?>">
-  <?= $item->text()->kt() ?>
+	<?= $item->text()->kt() ?>
 </div>

@@ -1,0 +1,5 @@
+.a-logo-header {
+	padding-inline: calc(var(--gap-inline) - 1rem / 16);
+	display: grid;
+	align-items: center;
+}

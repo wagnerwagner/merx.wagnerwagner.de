@@ -1,25 +1,25 @@
 <?php
 if ($page->redirect()->isTrue()) {
-  $page->children()->listed()->first()?->go();
+	$page->children()->listed()->first()?->go();
 }
 ?>
 <?php snippet('head') ?>
 <body class="l-cases">
-  <?php snippet('header') ?>
-  <main class="cases">
-    <h1><?= $page->headline() ?></h1>
-    <?php foreach($page->children()->listed() as $item): ?>
-      <?php snippet('case', compact('item')); ?>
-    <?php endforeach; ?>
-    <ul>
-      <?php foreach($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
-        <?php snippet('case-list-item', compact('item')) ?>
-      <?php endforeach; ?>
-    </ul>
-    <footer>
-      <?= $page->footerText()->kt() ?>
-    </footer>
-  </main>
-  <?php snippet('footer') ?>
+	<?php snippet('o-header') ?>
+	<main class="cases">
+		<h1><?= $page->headline() ?></h1>
+		<?php foreach($page->children()->listed() as $item): ?>
+			<?php snippet('case', compact('item')); ?>
+		<?php endforeach; ?>
+		<ul>
+			<?php foreach($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
+				<?php snippet('case-list-item', compact('item')) ?>
+			<?php endforeach; ?>
+		</ul>
+		<footer>
+			<?= $page->footerText()->kt() ?>
+		</footer>
+	</main>
+	<?php snippet('o-footer') ?>
 </body>
 <?php snippet('foot') ?>

@@ -1,0 +1,40 @@
+:root {
+	font-family: var(--font-family);
+	-webkit-hyphens: auto;
+	-webkit-hyphenate-limit-after: var(--hyphenate-limit);
+	-webkit-hyphenate-limit-before: var(--hyphenate-limit);
+
+	@supports (hyphenate-limit-chars: 16 8 8) {
+		:root {
+			hyphens: auto;
+			hyphenate-limit-chars: calc(var(--hyphenate-limit) * 2) var(--hyphenate-limit) var(--hyphenate-limit)
+		}
+	}
+}
+
+:root[data-no-scroll],
+:root[data-no-scroll] & {
+	overflow: hidden;
+	block-size: 100%;
+}
+
+body {
+	font: var(--font-paragraph-medium);
+	color: var(--color-content-primary);
+	display: grid;
+	grid-template-rows: auto 1fr;
+	background-color: var(--color-background-primary);
+	background-image: url('/assets/images/grid.png');
+	background-repeat: repeat;
+	background-position: center -1px;
+
+	> * {
+		inline-size: 100%;
+	}
+
+	@media (min-resolution: 2dppx) {
+		background-image: url('/assets/images/grid@2x.png');
+		background-size: calc(20rem / 16);
+	}
+}
+

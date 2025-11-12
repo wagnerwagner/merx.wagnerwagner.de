@@ -1,0 +1,19 @@
+:root {
+	--duration-xsmall: 0s;
+	--duration-small: 0s;
+	--duration-medium: 0s;
+	--duration-large: 0s;
+	--duration-xlarge: 0s;
+	--duration-rotate-loader: 0s;
+
+	--ease-out: cubic-bezier(0.215, 0.610, 0.275, 1.000);
+
+	@media (prefers-reduced-motion: no-preference) {
+		--duration-xsmall: 120ms;
+		--duration-small: 160ms;
+		--duration-medium: 200ms;
+		--duration-large: 400ms;
+		--duration-xlarge: 550ms;
+		--duration-rotate-loader: 1000ms;
+	}
+}

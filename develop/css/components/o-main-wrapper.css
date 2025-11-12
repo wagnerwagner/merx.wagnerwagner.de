@@ -1,0 +1,30 @@
+.o-main-wrapper {
+	inline-size: 100%;
+	padding-inline: var(--gap-inline);
+
+	> div {
+		block-size: 100%;
+		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+		margin-inline: auto;
+		border-inline: var(--border-size-small) solid var(--color-border-tertiary);
+		display: grid;
+		grid-template-columns:
+			calc(260rem / 16)
+			1fr;
+
+	}
+	&[data-layout="ref"] {
+		> div {
+			grid-template-columns:
+				calc(280rem / 16)
+				calc(280rem / 16)
+				1fr;
+			max-block-size: calc(100vh - var(--height-header));
+
+			> * {
+				overflow: auto;
+				max-block-size: 100%;
+			}
+		}
+	}
+}
