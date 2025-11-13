@@ -3,6 +3,7 @@
 	background-color: var(--color-background-secondary);
 	border: var(--border-xsmall-secondary);
 	border-radius: var(--border-radius-small);
+	font-variant-numeric: tabular-nums;
 
 	> table {
 		inline-size: 100%;

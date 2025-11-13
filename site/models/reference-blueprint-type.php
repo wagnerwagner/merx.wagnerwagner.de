@@ -1,13 +1,13 @@
 <?php
 
-use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Data\Data;
 use Kirby\Filesystem\Dir;
 use Kirby\Toolkit\Str;
+use Wagnerwagner\Site\ReferencePageAbstract;
 
-class ReferenceBlueprintTypePage extends Page
+class ReferenceBlueprintTypePage extends ReferencePageAbstract
 {
 	public function title(): Field
 	{
@@ -48,9 +48,9 @@ class ReferenceBlueprintTypePage extends Page
 		$children = [];
 
 		// Loop through each blueprint file and register it as a child page.
-		foreach (Dir::files($root) as $type) {
-			$slug  = Str::kebab($type);
-			$root  = $this->root() . '/0_' . $slug;
+		foreach (Dir::files($root) as $filename) {
+			$slug = basename($filename, '.yml');
+			$root = $this->root() . '/0_' . $slug;
 
 			try {
 				$content = Data::read($root . '/reference-blueprint.txt');
@@ -66,7 +66,8 @@ class ReferenceBlueprintTypePage extends Page
 				'num'      => 0,
 				'content'  => [
 					...$content,
-					'type' => $type,
+					'title' => $filename,
+					'filename' => $filename,
 				]
 			];
 		}
@@ -74,5 +75,14 @@ class ReferenceBlueprintTypePage extends Page
 		// Keep the raw array because Pages::factory() expects the data
 		// structure in array form.
 		return $children;
+	}
+
+	/**
+	 * Returns the plugin-relative file path for blueprint types
+	 * (e.g. `blueprints/fields`).
+	 */
+	public function relativeFilePath(): ?string
+	{
+		return 'blueprints/' . $this->slug();
 	}
 }

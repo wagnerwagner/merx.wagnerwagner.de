@@ -1,11 +1,10 @@
 <?php
 
-use Kirby\Cms\Page;
 use Kirby\Content\Field;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Types;
 
-class ReferenceApiRoutePage extends Page
+class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 {
 	public function title(): Field
 	{
@@ -14,8 +13,13 @@ class ReferenceApiRoutePage extends Page
 		return parent::title()->value($method . ' ' . $pattern);
 	}
 
+  public function apiModelBaseUrl(): string
+  {
+    return url($this->parent()->parent()->id() . '/models/');
+  }
+
 	public function call(): string
-	{
+  {
 		$pattern = $this->pattern();
 		$method = $this->method();
 
@@ -24,9 +28,9 @@ class ReferenceApiRoutePage extends Page
 		$call .= "});";
 
 		return $call;
-	}
+  }
 
-	public function reflection(): ReflectionFunction
+	public function reflection(): ?Reflector
 	{
 		return $this->content()->reflection()->value();
 	}
@@ -44,31 +48,13 @@ class ReferenceApiRoutePage extends Page
 		return new Types([$this->reflection()->getReturnType()]);
 	}
 
+  public function returnType(): ?Type
+  {
+    return $this->returnTypes()[0]->type;
+  }
+
 	public function exceptions(): array
 	{
 		return [];
-	}
-
-	/**
-	 * Returns the plugin-relative file path with the reflection start line
-	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
-	 */
-	public function filePath(): ?string
-	{
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
-		$filePath = Str::replace($this->reflection()->getFileName(), $root, '');
-		$line = $this->reflection()->getStartLine();
-		return $filePath . '#L' . $line;
-	}
-
-	/**
-	 * Returns the versioned GitHub URL that points to the file and line of the
-	 * reflected route action.
-	 */
-	public function gitHubUrl(): ?string
-	{
-		$gitHubRoot = option('github-repositories.merx');
-		$version = $this->kirby()->plugin('ww/merx')->version();
-		return $gitHubRoot . '/blob/' . $version . '/' . $this->filePath();
 	}
 }

@@ -2,7 +2,7 @@
 
 :root {
 	/* Color Primitives */
-	--color-white: hsl(0 0% 99.5%);
+	--color-white: hsl(0 0% 100%);
 	--color-gray-20: hsl(0 0% 97.5%);
 	--color-gray-100: hsl(0 0% 90%);
 	--color-gray-150: hsl(0 0% 87%);
@@ -17,41 +17,41 @@
 	--color-gray-950: hsl(0 0% 8%);
 	--color-black: hsl(0 0% 2%);
 
-	--color-red-50: hsl(0 50% 95%);
-	--color-red-100: hsl(0 50% 90%);
-	--color-red-150: hsl(0 50% 85%);
-	--color-red-200: hsl(0 50% 80%);
-	--color-red-300: hsl(0 50% 70%);
-	--color-red-400: hsl(0 50% 60%);
-	--color-red-500: hsl(0 50% 50%);
-	--color-red-600: hsl(0 50% 40%);
-	--color-red-700: hsl(0 50% 30%);
-	--color-red-800: hsl(0 50% 20%);
-	--color-red-900: hsl(0 50% 10%);
+	--color-red-50: hsl(0 80% 95%);
+	--color-red-100: hsl(0 80% 90%);
+	--color-red-150: hsl(0 80% 85%);
+	--color-red-200: hsl(0 80% 80%);
+	--color-red-300: hsl(0 80% 70%);
+	--color-red-400: hsl(0 80% 60%);
+	--color-red-500: hsl(0 80% 50%);
+	--color-red-600: hsl(0 80% 40%);
+	--color-red-700: hsl(0 80% 30%);
+	--color-red-800: hsl(0 80% 20%);
+	--color-red-900: hsl(0 80% 10%);
 
-	--color-orange-50: hsl(42 62% 95%);
-	--color-orange-100: hsl(42 62% 90%);
-	--color-orange-150: hsl(42 62% 83%);
-	--color-orange-200: hsl(42 62% 80%);
-	--color-orange-300: hsl(42 62% 70%);
-	--color-orange-400: hsl(42 62% 60%);
-	--color-orange-500: hsl(42 62% 50%);
-	--color-orange-600: hsl(42 62% 40%);
-	--color-orange-700: hsl(42 62% 30%);
-	--color-orange-800: hsl(42 62% 20%);
-	--color-orange-900: hsl(42 62% 10%);
+	--color-orange-50: hsl(37 70% 95%);
+	--color-orange-100: hsl(37 70% 90%);
+	--color-orange-150: hsl(37 70% 83%);
+	--color-orange-200: hsl(37 70% 80%);
+	--color-orange-300: hsl(37 70% 70%);
+	--color-orange-400: hsl(37 70% 60%);
+	--color-orange-500: hsl(37 70% 50%);
+	--color-orange-600: hsl(37 70% 40%);
+	--color-orange-700: hsl(37 70% 30%);
+	--color-orange-800: hsl(37 70% 20%);
+	--color-orange-900: hsl(37 70% 10%);
 
-	--color-yellow-50: hsl(55 64% 95%);
-	--color-yellow-100: hsl(55 64% 90%);
-	--color-yellow-150: hsl(55 64% 85%);
-	--color-yellow-200: hsl(55 64% 80%);
-	--color-yellow-300: hsl(55 64% 70%);
-	--color-yellow-400: hsl(55 64% 60%);
-	--color-yellow-500: hsl(55 64% 50%);
-	--color-yellow-600: hsl(55 64% 40%);
-	--color-yellow-700: hsl(55 64% 30%);
-	--color-yellow-800: hsl(55 64% 20%);
-	--color-yellow-900: hsl(55 64% 10%);
+	--color-yellow-50: hsl(60 80% 95%);
+	--color-yellow-100: hsl(60 80% 90%);
+	--color-yellow-150: hsl(60 80% 85%);
+	--color-yellow-200: hsl(60 80% 80%);
+	--color-yellow-300: hsl(60 80% 70%);
+	--color-yellow-400: hsl(60 80% 60%);
+	--color-yellow-500: hsl(60 80% 50%);
+	--color-yellow-600: hsl(60 80% 40%);
+	--color-yellow-700: hsl(60 80% 30%);
+	--color-yellow-800: hsl(60 80% 20%);
+	--color-yellow-900: hsl(60 80% 10%);
 
 	--color-green-50: hsl(79 35% 95%);
 	--color-green-100: hsl(82 35% 90%);
