@@ -1,5 +1,5 @@
 <?php
-/** @var \Kirby\Cms\Page $page */
+/** @var \Wagnerwagner\Site\ReferencePageAbstract $page */
 
 use Wagnerwagner\Site\Type;
 
@@ -13,10 +13,12 @@ use Wagnerwagner\Site\Type;
 		</div>
 	<?php endif ?>
 
-	<a class="a-link-reference" href="<?= $page->gitHubUrl() ?>">
-		<?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
-		<?= $page->filePath() ?>
-	</a>
+  <?php if ($page->gitHubUrl()): ?>
+    <a class="a-link-reference" href="<?= $page->gitHubUrl() ?>">
+      <?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
+      <?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
+    </a>
+	<?php endif ?>
 
 	<div class="m-text">
 		<?php if (is_string($page->call())): ?>
@@ -50,7 +52,40 @@ use Wagnerwagner\Site\Type;
 			</div>
 		<?php endif ?>
 
+    <?php if ($page instanceof ReferenceTranslationPage): ?>
+      <h2>Translation strings</h2>
+      <div class="m-table">
+        <table>
+          <thead>
+            <th>Language</th>
+            <th>Translation</th>
+          </thead>
+          <?php foreach ($page->translationStrings() as $langKey => $translationString): ?>
+            <tr>
+              <td><?= $langKey ?></td>
+              <td><?= $translationString ?></td>
+            </tr>
+          <?php endforeach ?>
+        </table>
+      </div>
+    <?php endif ?>
+
+		<?php if ($page instanceof ReferenceOptionPage): ?>
+			<h2>Default value</h2>
+			<pre class="m-code"><code><?= $page->defaultValue() ?></code></pre>
+
+			<h2>Type</h2>
+			<p><?= $page->type()->toHtml() ?></p>
+		<?php endif ?>
+
 		<?php if (($returnTypes = $page->returnTypes()) && is_countable($returnTypes) && count($returnTypes) > 0): ?>
+      <?php if ($page instanceof ReferenceApiRoutePage): ?>
+        <h2>Api model</h2>
+        <p>
+          <?= $returnTypes->toHtml(baseUrl: $page->apiModelBaseUrl()) ?>
+        </p>
+      <?php endif ?>
+
 			<h2>Return type</h2>
 			<p>
 				<?= $returnTypes->toHtml() ?>
@@ -120,12 +155,12 @@ use Wagnerwagner\Site\Type;
             <th>Fields</th>
           </thead>
           <?php
-          $formatViewFields = function($fields) use (&$formatViewFields) {
+          $formatViewFields = function($fields) {
             $result = [];
             foreach ($fields as $key => $value) {
               if (is_array($value)) {
-                // Nested array: format as "key (value1, value2, ...)"
-                $result[] = $key . ' &lt;' . implode(', ', $value) . '&gt;';
+                // Nested array: format as "key<value1, value2, ...>"
+                $result[] = $key . '&lt;' . implode(', ', $value) . '&gt;';
               } else {
                 // String value: use the value directly (ignore numeric keys)
                 $result[] = $value;
@@ -145,6 +180,11 @@ use Wagnerwagner\Site\Type;
 
       <h2>Class</h2>
       <p><?= $page->referenceClass()->toHtml() ?></p>
+    <?php endif ?>
+
+    <?php if ($page instanceof ReferenceBlueprintPage): ?>
+      <h2>Default blueprint</h2>
+      <pre class="m-code language-yaml"><code><?= $page->blueprintFileContent() ?></code></pre>
     <?php endif ?>
 
 		<?php if ($page->examples()->isNotEmpty()): ?>

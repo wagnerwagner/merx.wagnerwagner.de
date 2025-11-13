@@ -1,12 +1,12 @@
 <?php
 
-use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Data\Data;
 use Kirby\Toolkit\Str;
+use Wagnerwagner\Site\ReferencePageAbstract;
 
-class ReferenceApiTypePage extends Page
+class ReferenceApiTypePage extends ReferencePageAbstract
 {
 	public function title(): Field
 	{
@@ -89,4 +89,13 @@ class ReferenceApiTypePage extends Page
 
 			return $children;
 		}
+
+	/**
+	 * Returns the plugin-relative file path for API definitions
+	 * (e.g. `index.php`).
+	 */
+	public function relativeFilePath(): ?string
+	{
+		return 'api/' . $this->slug();
+	}
 }

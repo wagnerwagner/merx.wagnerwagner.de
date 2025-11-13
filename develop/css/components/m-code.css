@@ -43,38 +43,11 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 	}
 
 	.token.punctuation {
-		opacity: .7;
+		color: var(--color-gray-150);
 	}
 
 	.token.namespace {
 		opacity: .7;
-	}
-
-	.token.property,
-	.token.tag,
-	.token.boolean,
-	.token.number,
-	.token.constant,
-	.token.symbol {
-		color: var(--color-red-150);
-	}
-
-	.token.selector,
-	.token.attr-name,
-	.token.string,
-	.token.char,
-	.token.builtin,
-	.token.inserted {
-		color: var(--color-yellow-300);
-	}
-
-	.token.operator,
-	.token.entity,
-	.token.url,
-	.language-css .token.string,
-	.style .token.string,
-	.token.variable {
-		color: var(--color-red-300);
 	}
 
 	.token.atrule,
@@ -83,12 +56,40 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 		color: var(--color-purple-300);
 	}
 
+	.token.property,
+	.token.tag,
+	.token.boolean,
+	.token.number,
+	.token.constant,
+	.token.symbol,
+	.token.operator,
+	.token.entity,
+	.token.url,
+	.language-css .token.string,
+	.style .token.string,
+	.token.variable,
+	.token.key {
+		color: var(--color-red-200);
+	}
+
+	.token.deleted {
+		color: var(--color-red-500);
+	}
+
+	.token.selector,
+	.token.attr-name,
+	.token.string,
+	.token.char,
+	.token.builtin,
+	.token.inserted {
+		color: var(--color-yellow-400);
+	}
+
 	.token.regex,
 	.token.important {
 		color: var(--color-orange-400);
 	}
 
-	.token.important,
 	.token.bold {
 		font-weight: bold;
 	}
@@ -98,10 +99,6 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 
 	.token.entity {
 		cursor: help;
-	}
-
-	.token.deleted {
-		color: var(--color-red-500);
 	}
 }
 

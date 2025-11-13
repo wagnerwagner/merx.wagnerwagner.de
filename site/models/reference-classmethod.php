@@ -1,6 +1,5 @@
 <?php
 
-use Kirby\Cms\Page;
 use Kirby\Content\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
@@ -14,22 +13,24 @@ use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPStan\PhpDocParser\ParserConfig;
+use Wagnerwagner\Site\ReferencePageAbstract;
 use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
 /**
  * @method \Kirby\Content\Field name()
  */
-class ReferenceClassMethodPage extends Page
+class ReferenceClassMethodPage extends ReferencePageAbstract
 {
 	public function title(): Field
 	{
 		$className = A::last(Str::split($this->class(), '\\'));
+		$reflection = $this->reflection();
 
 		$title = (string)$this->name() . '()';
-		if ($this->reflection()->isConstructor()) {
+		if ($reflection->isConstructor()) {
 			$title = 'new ' . $className . '()';
-		} else if ($this->reflection()->isStatic()) {
+		} else if ($reflection->isStatic()) {
 			$title = $className . '::' . $title;
 		} else {
 			$objectName = lcfirst($className);
@@ -52,10 +53,11 @@ class ReferenceClassMethodPage extends Page
 
 	public function docBlock(): ?PhpDocNode
 	{
-		if ($this->reflection()->getDocComment() === false) {
+		$reflection = $this->reflection();
+		if ($reflection->getDocComment() === false) {
 			return null;
 		}
-		$docblock  = $this->reflection()->getDocComment();
+		$docblock  = $reflection->getDocComment();
 		$config    = new ParserConfig(usedAttributes: []);
 		$lexer     = new Lexer($config);
 		$constExpr = new ConstExprParser($config);
@@ -66,7 +68,7 @@ class ReferenceClassMethodPage extends Page
 		return $node;
 	}
 
-	public function reflection(): ReflectionMethod
+	public function reflection(): ?Reflector
 	{
 		return new ReflectionMethod((string)$this->class(), $this->name());
 	}
@@ -75,7 +77,7 @@ class ReferenceClassMethodPage extends Page
 	 * Returns the framework- or plugin-relative file path with the start line
 	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
 	 */
-	public function filePath(): ?string
+	public function relativeFilePath(): ?string
 	{
 		if (Str::startsWith($this->declaringClass(), 'Kirby\\')) {
 			$root = $this->kirby()->root('kirby') . '/';
@@ -84,33 +86,11 @@ class ReferenceClassMethodPage extends Page
 		} else {
 			return null;
 		}
-		$filePath = Str::replace($this->reflection()->getFileName(), $root, '');
-		$line = $this->reflection()->getStartLine();
-		return $filePath . '#L' . $line;
+		$reflection = $this->reflection();
+		$relativeFilePath = Str::replace($reflection->getFileName(), $root, '');
+		return $relativeFilePath;
 	}
 
-	/**
-	 * Returns the versioned GitHub URL that points directly to the
-	 * reflected method definition.
-   * E.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
-	 */
-	public function gitHubUrl(): ?string
-	{
-		if (Str::startsWith($this->declaringClass(), 'Kirby\\')) {
-			$gitHubRoot = option('github-repositories.kirby');
-			$version = $this->kirby()->version();
-		} else if (Str::startsWith($this->declaringClass(), 'Wagnerwagner\\')) {
-			$gitHubRoot = option('github-repositories.merx');
-			$version = $this->kirby()->plugin('ww/merx')->version();
-
-			if (option('nova-links') === true) {
-				return 'nova://open?path=' . $this->reflection()->getFileName() . '&line=' . $this->reflection()->getStartLine();
-			}
-		} else {
-			return null;
-		}
-		return $gitHubRoot . '/blob/' . $version . '/' . $this->filePath();
-	}
 
 	public function summary(): ?string
 	{
@@ -153,7 +133,7 @@ class ReferenceClassMethodPage extends Page
 	{
 		$reflection = $this->reflection();
 
-		return A::map($reflection->getParameters(), function (ReflectionParameter $param) {
+		return A::map($reflection->getParameters(), function (ReflectionParameter $param) use ($reflection) {
 			/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode */
 			$docBlockParam = A::find(
 				$this->docBlock()?->getParamTagValues() ?? [],
@@ -177,7 +157,7 @@ class ReferenceClassMethodPage extends Page
 			if ($types === null && $param->getType() !== null) {
 				$types = explode('|', Str::replace($param->getType() ?? '', '?', 'null|'));
 			}
-			$types = new Types($types ?? [], $this->reflection());
+			$types = new Types($types ?? [], $reflection);
 			$name = $param->isVariadic() ? '...' . $name : $name;
 			return [
 				'name' => $name,
@@ -190,17 +170,18 @@ class ReferenceClassMethodPage extends Page
 
 	public function returnTypes(): ?Types
 	{
+		$reflection = $this->reflection();
 		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
 		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
 		if (isset($returnTags[0])) {
 			if ($returnTags[0]->type instanceof PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
-				return new Types($returnTags[0]->type->types, $this->reflection());
+				return new Types($returnTags[0]->type->types, $reflection);
 			}
-			return new Types([(string)$returnTags[0]->type], $this->reflection());
+			return new Types([(string)$returnTags[0]->type], $reflection);
 		}
 
-		if ($this->reflection()->getReturnType() !== null) {
-			return new Types(explode('|', $this->reflection()->getReturnType()), $this->reflection());;
+		if ($reflection->getReturnType() !== null) {
+			return new Types(explode('|', $reflection->getReturnType()), $reflection);
 		}
 
 		return null;
