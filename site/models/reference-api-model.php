@@ -1,7 +1,6 @@
 <?php
 
 use Kirby\Content\Field;
-use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Type;
 
 class ReferenceApiModelPage extends \Wagnerwagner\Site\ReferencePageAbstract

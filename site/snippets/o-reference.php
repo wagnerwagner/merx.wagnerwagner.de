@@ -2,7 +2,21 @@
 /** @var \Wagnerwagner\Site\ReferencePageAbstract $page */
 
 use Wagnerwagner\Site\Type;
+use Wagnerwagner\Site\Types;
 
+function formatViewFields($fields) {
+	$result = [];
+	foreach ($fields as $key => $value) {
+		if (is_array($value)) {
+			// Nested array: format as "key<value1, value2, ...>"
+			$result[] = $key . '&lt;' . implode(', ', $value) . '&gt;';
+		} else {
+			// String value: use the value directly (ignore numeric keys)
+			$result[] = $value;
+		}
+	}
+	return implode(', ', $result);
+};
 ?>
 <main class="o-reference" aria-label="<?= $page->title() ?>">
 	<h1 class="a-display"><?= $page->headline()->isNotEmpty() ? $page->headline() : $page->title() ?></h1>
@@ -22,7 +36,9 @@ use Wagnerwagner\Site\Type;
 
 	<div class="m-text">
 		<?php if (is_string($page->call())): ?>
-			<pre class="m-code language-php"><code><?= $page->call() ?></code></pre>
+			<figure class="m-code">
+				<pre class="language-php"><code><?= $page->call() ?></code></pre>
+			</figure>
 		<?php endif ?>
 
 		<?php if (gettype($page->params()) === 'array' && count($page->params()) > 0): ?>
@@ -72,7 +88,9 @@ use Wagnerwagner\Site\Type;
 
 		<?php if ($page instanceof ReferenceOptionPage): ?>
 			<h2>Default value</h2>
-			<pre class="m-code"><code><?= $page->defaultValue() ?></code></pre>
+			<div class="m-code">
+				<pre><code><?= $page->defaultValue() ?></code></pre>
+			</div>
 
 			<h2>Type</h2>
 			<p><?= $page->type()->toHtml() ?></p>
@@ -80,7 +98,7 @@ use Wagnerwagner\Site\Type;
 
 		<?php if (($returnTypes = $page->returnTypes()) && is_countable($returnTypes) && count($returnTypes) > 0): ?>
       <?php if ($page instanceof ReferenceApiRoutePage): ?>
-        <h2>Api model</h2>
+        <h2>API model</h2>
         <p>
           <?= $returnTypes->toHtml(baseUrl: $page->apiModelBaseUrl()) ?>
         </p>
@@ -141,7 +159,7 @@ use Wagnerwagner\Site\Type;
           <?php foreach ($page->fields()->value() as $key => $field): ?>
             <tr>
               <td><?= $key ?></td>
-              <td><?= (new ReflectionFunction($field))->getReturnType() ?></td>
+              <td><?= (new Types((new ReflectionFunction($field))->getReturnType()))->toHtml(baseUrl: '/reference/api/models/') ?></td>
             </tr>
           <?php endforeach ?>
         </table>
@@ -154,37 +172,24 @@ use Wagnerwagner\Site\Type;
             <th>Name</th>
             <th>Fields</th>
           </thead>
-          <?php
-          $formatViewFields = function($fields) {
-            $result = [];
-            foreach ($fields as $key => $value) {
-              if (is_array($value)) {
-                // Nested array: format as "key<value1, value2, ...>"
-                $result[] = $key . '&lt;' . implode(', ', $value) . '&gt;';
-              } else {
-                // String value: use the value directly (ignore numeric keys)
-                $result[] = $value;
-              }
-            }
-            return implode(', ', $result);
-          };
-          ?>
           <?php foreach ($page->views()->value() as $key => $view): ?>
             <tr>
               <td><?= $key ?></td>
-              <td><?= $formatViewFields($view) ?></td>
+              <td><?= formatViewFields($view) ?></td>
             </tr>
           <?php endforeach ?>
         </table>
       </div>
 
-      <h2>Class</h2>
+      <h2>Type</h2>
       <p><?= $page->referenceClass()->toHtml() ?></p>
     <?php endif ?>
 
     <?php if ($page instanceof ReferenceBlueprintPage): ?>
       <h2>Default blueprint</h2>
-      <pre class="m-code language-yaml"><code><?= $page->blueprintFileContent() ?></code></pre>
+			<figure class="m-code">
+      	<pre class="language-yaml"><code><?= $page->blueprintFileContent() ?></code></pre>
+			</figure>
     <?php endif ?>
 
 		<?php if ($page->examples()->isNotEmpty()): ?>

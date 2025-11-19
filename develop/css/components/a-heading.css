@@ -1,6 +1,6 @@
 .a-heading {
 	font: var(--font-heading-medium);
-	text-wrap-style: balance;
+	text-wrap-style: pretty;
 }
 
 h1.a-heading,

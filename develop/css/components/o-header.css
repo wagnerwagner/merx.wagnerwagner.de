@@ -1,7 +1,11 @@
 .o-header {
+	z-index: var(--z-index-header);
+	position: sticky;
+	inset-block-start: 0;
 	block-size: var(--height-header);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
 	padding-inline: var(--gap-inline);
+	background: inherit;
 }
 
 .o-header__center {

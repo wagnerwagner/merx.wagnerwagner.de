@@ -58,7 +58,7 @@ class Type {
       $slug = Str::replace($slug, 'wagnerwagner/merx/', '');
     }
     if ($baseUrl !== null) {
-      $link = $baseUrl . $slug;
+      $link = $baseUrl . Str::replace($slug, '[]', '');
     }
     $html = '';
 		$attr = [

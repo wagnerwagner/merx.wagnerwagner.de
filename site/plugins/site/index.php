@@ -1,11 +1,13 @@
 <?php
 
 use Kirby\Cms\App;
+use Kirby\Cms\Collection;
 use Kirby\Cms\Page;
 use Kirby\Cms\Response;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
+use Kirby\Toolkit\Obj;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
@@ -63,45 +65,6 @@ App::plugin('wagnerwagner/site', [
   'options' => [
     'countryList' => $countryList,
   ],
-  'tags' => [
-    'fileContents' => [
-      'html' => function($tag) {
-        try {
-          return file_get_contents(kirby()->root('site') . '/' . $tag->value);
-        } catch (Exception $ex) {
-          return 'No such file or directory. (' . $tag->value . ')';
-          // return $ex->getMessage();
-        }
-      },
-    ],
-    'github' => [
-      'attr' => [
-        'line',
-        'text',
-        'url',
-      ],
-      'html' => function($tag) {
-        $url = option('github-repository');
-        if ($tag->url) {
-          $url = $tag->url;
-        }
-        $url .= '/blob/main' . $tag->value;
-        $text = 'Source Code';
-        if ($tag->line) {
-          $url .= '#L' . $tag->line;
-        }
-        if ($tag->text) {
-          $text = $tag->text;
-        }
-        return '<a class="link-secondary" href="'. $url . '">' . $text . '</a>';
-      }
-    ],
-    'filename' => [
-      'html' => function($tag) {
-        return '<h3 class="filename">' . $tag->value . '</h3>';
-      }
-    ],
-  ],
   'pageMethods' => [
     'seoTitle' => function (): string
     {
@@ -151,6 +114,7 @@ App::plugin('wagnerwagner/site', [
       sendConfirmationMail($orderPage);
     },
   ],
+	'components'   => include __DIR__ . '/extensions/components.php',
   'routes' => [
     [
       'pattern' => 'sitemap.xml',
@@ -161,104 +125,36 @@ App::plugin('wagnerwagner/site', [
         ]);
       },
     ],
-    [
-      'method' => 'post',
-      'pattern' => 'merx-api/buy',
-      'action' => function() {
-        $data = $_POST;
-        try {
-          $paymentIntentId = kirby()->session()->get('ww.site.paymentIntentId', '');
-          $data = array_merge($data, [
-            'stripePaymentIntentId' => $paymentIntentId,
-          ]);
-          $redirect = merx()->initializePayment($data);
-          return [
-            'status' => 201,
-            'redirect' => $redirect,
-          ];
-        } catch (Kirby\Exception\Exception $ex) {
-          return [
-            'status' => $ex->getHttpCode(),
-            'code' => $ex->getCode(),
-            'message' => $ex->getMessage(),
-            'details' => $ex->getDetails(),
-          ];
-        };
-      },
-    ],
-    [
-      'method' => 'post',
-      'pattern' => 'merx-api/update-cart',
-      'action' => function() {
-        setlocale(LC_ALL, 'en_US');
-        $product = page('merx-license');
-        $quantity = (int)$_POST['quantity'];
-        $country = (string)$_POST['country'];
-        if ($quantity > 10) {
-          throw new Exception('Quantity can’t be more than 10.');
-        }
-        $cart = merx()->cart();
-        $newCartData = [
-          'id' => $product->id(),
-          'quantity' => $quantity,
-        ];
-        if ($country !== 'DE') {
-          $newCartData['price'] = $product->getNet();
-          $newCartData['tax'] = 0;
-        } else {
-          $newCartData['price'] = $product->price()->toFloat();
-          $newCartData['tax'] = calculateTax($product->price()->toFloat(), $product->tax()->toFloat());
-        }
-        $cart->updateItem($newCartData);
-        $data = $cart->first();
-        return [
-          'quantity' => $data['quantity'],
-          'sumNet' => formatPrice($data['sum'] - $data['sumTax']),
-          'sumTax' => '+ Vat (19%) ' . formatPrice($data['sumTax']),
-          'sumTaxRaw' => $data['sumTax'],
-          'sum' => formatPrice($data['sum']),
-          'country' => $country,
-        ];
-      }
-    ],
-    [
-      'pattern' => 'merx-api/get-client-secret',
-      'action' => function() {
-        $merx = merx();
-        $cart = $merx->cart();
-
-        $paymentMethod = get('payment-method', 'card');
-        $params = [
-            'payment_method_types' => [$paymentMethod],
-        ];
-
-        if ($paymentMethod === 'sepa_debit') {
-            $params['capture_method'] = 'automatic';
-        }
-
-        $paymentIntent = $cart->getStripePaymentIntent($params);
-        kirby()->session()->set('ww.site.paymentIntentId', $paymentIntent->id);
-        return [
-          'clientSecret' => $paymentIntent->client_secret,
-        ];
-      }
-    ],
-    [
-      'method' => 'get',
-      'pattern' => 'search-api',
-      'action' => function() {
-        $query = get('q');
-        $results = site()->prettySearch($query)->limit(6);
-        $results->map(function ($page) {
-          return [
-            'title' => (string)$page->title(),
-            'id' => $page->id(),
-            'url' => $page->url(),
-            'excerpt' => (string)$page->excerpt(),
-          ];
-        });
-        return new Response(json_encode(array_values($results->data()), JSON_PRETTY_PRINT), 'application/json');
-      }
-    ]
   ],
+	'fieldMethods' => [
+		/**
+		 * Extract headlines from the field value and return a collection of them
+		 */
+		'toToc' => function (\Kirby\Content\Field $field, string $headline = 'h2'): Collection
+		{
+			$value = $field->value() ?? '';
+
+			// Make sure not to include sceencast boxes
+			$value = preg_replace('$\(screencast:.*\)$', '', $value);
+
+			preg_match_all(
+				'!<' . $headline . '.*?>(.*?)</' . $headline . '>!s',
+				$field->value($value)->kt()->value(),
+				$matches
+			);
+
+			$headlines = new Collection();
+
+			foreach ($matches[1] as $text) {
+				$headline = new Obj([
+					'id'   => '#' . Str::slug(Str::unhtml($text)),
+					'text' => trim(strip_tags($text)),
+				]);
+
+				$headlines->append($headline->id(), $headline);
+			}
+
+			return $headlines;
+		},
+	],
 ]);

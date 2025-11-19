@@ -28,7 +28,7 @@ abstract class ReferencePageAbstract extends Page
     if ($this->detectNamespace() === 'Kirby') {
       $root = $this->kirby()->root('kirby') . '/';
     }
-    $relativeFilePath = Str::replace($this->reflection()->getFileName(), $root, '');
+    $relativeFilePath = Str::replace($this->reflection()?->getFileName() ?? '', $root, '');
     return $relativeFilePath;
 	}
 
