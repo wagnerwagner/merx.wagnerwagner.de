@@ -155,7 +155,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 			$name = '$' . $param->getName();
 			$types = $docBlockParam->type->types ?? null;
 			if ($types === null && $param->getType() !== null) {
-				$types = explode('|', Str::replace($param->getType() ?? '', '?', 'null|'));
+				$types = $param->getType();
 			}
 			$types = new Types($types ?? [], $reflection);
 			$name = $param->isVariadic() ? '...' . $name : $name;
@@ -181,7 +181,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		}
 
 		if ($reflection->getReturnType() !== null) {
-			return new Types(explode('|', $reflection->getReturnType()), $reflection);
+			return new Types($reflection->getReturnType(), $reflection);
 		}
 
 		return null;

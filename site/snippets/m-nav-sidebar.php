@@ -15,13 +15,11 @@ if ($parent === null) return null;
 		<li>
 			<?php if ($variant === 'tertiary'): ?>
 				<?php
-					$title = $item->title();
-					$summary = $item->summary();
+					$title = (string)$item->title();
+					$summary = (string)$item->summary();
+					$html = "<span>$title</span>" . (empty($summary) ? '' : "<small>$summary</small>");
 				?>
-				<?= Html::tag('a', [<<<HTML
-				<span>$title</span>
-				<small>$summary</small>
-				HTML], [
+				<?= Html::tag('a', [$html], [
 					'href' => $item->url(),
 					'class' => 'a-nav-item-sidebar',
 					'data-state' => $item->isOpen() ? 'open' : null,

@@ -3,6 +3,9 @@
 	--border-xsmall-secondary: var(--border-size-xsmall) solid var(--color-border-secondary);
 	--border-xsmall-tertiary: var(--border-size-xsmall) solid var(--color-border-tertiary);
 	--border-small-primary: var(--border-size-small) solid var(--color-border-primary);
+	--border-small-primary-inverse: var(--border-size-small) solid var(--color-border-primary-inverse);
 	--border-small-secondary: var(--border-size-small) solid var(--color-border-secondary);
+	--border-small-secondary-inverse: var(--border-size-small) solid var(--color-border-secondary-inverse);
 	--border-small-tertiary: var(--border-size-small) solid var(--color-border-tertiary);
+	--border-small-tertiary-inverse: var(--border-size-small) solid var(--color-border-tertiary-inverse);
 }

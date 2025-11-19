@@ -1,4 +1,6 @@
 nav.m-nav-sidebar {
+	position: sticky;
+	inset-block-start: var(--height-header);
 	margin-inline-start: calc(3rem / -16);
 	padding-inline-start: calc(3rem / 16);
 	max-block-size: calc(100vh - var(--height-header));
@@ -6,19 +8,16 @@ nav.m-nav-sidebar {
 	border-inline-end: var(--border-size-small) solid var(--color-border-tertiary);
 	overflow: auto;
 
-	&[data-variant="secondary"] {
-    > ul {
-      > li + li {
-        margin-block-start: var(--size-400);
-      }
+  > ul {
+    > li + li {
+      margin-block-start: var(--size-400);
     }
-	}
+  }
 
 	&[data-variant="tertiary"] {
-		position: relative;
-
 		> ul {
 			> li + li {
+				margin-block-start: 0;
 				border-block-start: var(--border-small-tertiary);
 			}
 		}

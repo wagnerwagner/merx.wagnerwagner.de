@@ -1,35 +1,78 @@
 .m-text {
-	--_gap-paragraph: calc(var(--line-height-paragraph-medium) * 0.5em);
-
-	font: var(--font-paragraph-medium);
+	/* Caution: default size is large (not medium) */
+	font: var(--font-paragraph-large);
 
 	/* Child elements */
 	> h1 {
 		font: var(--font-heading-large);
 	}
 	> h2 {
-		font: var(--font-heading-small);
+		font: var(--font-heading-medium);
 	}
 	> h3 {
-		font: var(--font-heading-xsmall);
+		font: var(--font-heading-small);
 	}
 	> h4 {
 		font: var(--font-heading-xsmall);
 	}
 
-	:where(ul, ol) {
+	> :is(h2, h3, h4) {
+		text-wrap-style: pretty;
+
+		/* Anchor links */
+		> a[href^="#"] {
+			display: flex;
+			align-items: baseline;
+			text-decoration: none;
+
+			&::before {
+				content: '#';
+				display: block;
+				margin-inline-start: -1.5ch;
+				inline-size: 1.5ch;
+				font-feature-settings: "c2sc";
+				color: var(--color-content-tertiary);
+				pointer-events: none;
+				opacity: 0;
+				transition-property: opacity;
+				transition-duration: var(--duration-medium);
+			}
+
+			&:where(:focus-visible, :hover) {
+				&::before {
+					pointer-events: auto;
+					opacity: 1;
+					transition-delay: var(--duration-xsmall);
+				}
+			}
+		}
+	}
+
+	> :where(ul, ol) {
 		padding-inline-start: 2ch;
 		* + :where(ul, ol, li) {
-			margin-block-start: calc(var(--_gap-paragraph) * 0.5);
+			margin-block-start: calc(var(--gap-text-paragraph) * 0.5);
+		}
+	}
+
+	/* elements, that are not child of another molecule or atom */
+	&, *:not([class^="m-"], [class^="a-"]) {
+		a {
+			text-decoration-color: hsl(from var(--color-border-brand) h s l / 0.7);
 		}
 	}
 
 	/* Modifications */
 	&[data-size="xlarge"] {
 		font: var(--font-paragraph-xlarge);
+		text-wrap-style: pretty;
 	}
 	&[data-size="large"] {
 		font: var(--font-paragraph-large);
+		text-wrap-style: pretty;
+	}
+	&[data-size="medium"] {
+		font: var(--font-paragraph-medium);
 	}
 	&[data-size="small"] {
 		font: var(--font-paragraph-small);
@@ -40,13 +83,13 @@
 
 	/* Stack */
 	> * + * {
-		margin-block-start: var(--_gap-paragraph);
+		margin-block-start: var(--gap-text-paragraph);
 	}
 	> * + :where(h2, h3, h4) {
-		margin-block-start: var(--size-700);
+		margin-block-start: var(--gap-text-heading);
 	}
 }
 
 .a-display + .m-text {
-	margin-block-start: var(--_gap-paragraph);
+	margin-block-start: var(--gap-text-paragraph);
 }

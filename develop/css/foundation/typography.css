@@ -4,15 +4,15 @@
 
 :root {
 	/* Font family */
-	--font-family: 'TT Norms', Avenir, sans-serif;
+	--font-family: 'TT Norms M', 'TT Norms', Avenir, sans-serif;
 	--font-family-code: ui-monospace, monospace;
 
 
 	/* Font size */
 	--font-size-heading-xxlarge: calc(40rem / 16);
-	--font-size-heading-xlarge: calc(36rem / 16);
+	--font-size-heading-xlarge: calc(37rem / 16);
 	--font-size-heading-large: calc(32rem / 16);
-	--font-size-heading-medium: calc(28rem / 16);
+	--font-size-heading-medium: calc(29rem / 16);
 	--font-size-heading-small: calc(24rem / 16);
 	--font-size-heading-xsmall: calc(20rem / 16);
 	--font-size-heading-xxsmall: calc(16rem / 16);
@@ -22,20 +22,21 @@
 	--font-size-label-small: calc(14rem / 16);
 	--font-size-label-xsmall: calc(12rem / 16);
 
-	--font-size-paragraph-xlarge: calc(20rem / 16);
-	--font-size-paragraph-large: calc(17.5rem / 16);
+	--font-size-paragraph-xlarge: calc(23rem / 16);
+	--font-size-paragraph-large: calc(18rem / 16);
 	--font-size-paragraph-medium: calc(16rem / 16);
 	--font-size-paragraph-small: calc(14rem / 16);
 	--font-size-paragraph-xsmall: calc(12rem / 16);
 
+	--font-size-code-large: calc(17rem / 16);
 	--font-size-code-medium: calc(15rem / 16);
 	--font-size-code-small: calc(14rem / 16);
 
 	/* Line height */
 	--line-height-heading-xxlarge: calc(40 / 40);
-	--line-height-heading-xlarge: calc(36 / 36);
+	--line-height-heading-xlarge: calc(40 / 37);
 	--line-height-heading-large: calc(36 / 32);
-	--line-height-heading-medium: calc(32 / 28);
+	--line-height-heading-medium: calc(32 / 29);
 	--line-height-heading-small: calc(28 / 24);
 	--line-height-heading-xsmall: calc(24 / 20);
 	--line-height-heading-xxsmall: calc(20 / 16);
@@ -45,12 +46,13 @@
 	--line-height-label-small: calc(16 / 14);
 	--line-height-label-xsmall: calc(16 / 12);
 
-	--line-height-paragraph-xlarge: calc(24 / 20);
-	--line-height-paragraph-large: calc(24 / 18);
+	--line-height-paragraph-xlarge: calc(28 / 23);
+	--line-height-paragraph-large: calc(28 / 18);
 	--line-height-paragraph-medium: calc(24 / 16);
 	--line-height-paragraph-small: calc(20 / 14);
 	--line-height-paragraph-xsmall: calc(16 / 12);
 
+	--line-height-code-large: calc(28 / 17);
 	--line-height-code-medium: calc(24 / 15);
 	--line-height-code-small: calc(20 / 13);
 
@@ -74,6 +76,7 @@
 	--font-paragraph-small: 450 var(--font-size-paragraph-small)/var(--line-height-paragraph-small) var(--font-family);
 	--font-paragraph-xsmall: 450 var(--font-size-paragraph-xsmall)/var(--line-height-paragraph-xsmall) var(--font-family);
 
+	--font-code-large: 500 var(--font-size-code-large)/var(--line-height-code-large) var(--font-family-code);
 	--font-code-medium: 500 var(--font-size-code-medium)/var(--line-height-code-medium) var(--font-family-code);
 	--font-code-small: 500 var(--font-size-code-small)/var(--line-height-code-small) var(--font-family-code);
 
@@ -84,4 +87,30 @@
 
 	/* Other */
 	--hyphenate-limit: 7;
+
+	/* Font feature settings */
+	--font-variant-alternates-display: styleset(display);
+
+	* {
+		font-variant-alternates: styleset(alternates);
+	}
+}
+
+/*
+ * @author tobias.wolf@wagnerwagner.de
+ * We want the M with ss19 (styleset 19).
+ * Therefore we define a "TT Norms M" in tt-norms.css with unicode range "U+004D" (uppercase M)
+ * This results in a M rendered with ss19 and all other characters rendered without styleset.
+ */
+
+@font-feature-values 'TT Norms M' {
+	@styleset {
+		alternates: 19;
+		display: 19;
+	}
+}
+@font-feature-values 'TT Norms' {
+	@styleset {
+		display: 18;
+	}
 }

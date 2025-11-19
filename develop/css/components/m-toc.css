@@ -1,0 +1,31 @@
+.m-toc {
+	--_padding-block: var(--size-100);
+	--_padding-inline: var(--gap-inline);
+
+	margin-inline-start: calc(var(--border-size-small) * -1);
+	padding-block: var(--gap-block-header);
+	font: var(--font-label-medium);
+
+	> h2 {
+		padding-inline: var(--_padding-inline);
+		padding-block-end: var(--_padding-block);
+		font-size: inherit;
+		font-weight: 700;
+	}
+
+	> ol {
+		list-style: none;
+	}
+}
+
+.m-toc__link {
+	display: block;
+	padding-block: var(--_padding-block);
+	padding-inline: var(--_padding-inline);
+	color: var(--color-content-secondary);
+	text-decoration: none;
+
+	&[aria-current="true"] {
+		color: var(--color-content-primary);
+	}
+}

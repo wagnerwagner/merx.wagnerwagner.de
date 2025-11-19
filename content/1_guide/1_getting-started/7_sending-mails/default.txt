@@ -1,0 +1,54 @@
+Title: Sending mails
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+To send confirmation mails to your customers you can use hooks.
+
+Read [Kirby’s guide about emails](https://getkirby.com/docs/guide/emails) to learn more.
+
+<code caption="/site/config/config.php">
+```php
+function sendConfirmationMail($orderPage) {
+  kirby()->email([
+    'from' => 'info@my-shop.com',
+    'to' => (string)$orderPage->email(),
+    'subject' => 'Thank’s for your order!',
+    'body'=> 'Dear ' . $orderPage->name() . ', you have paid ' . formatPrice($orderPage->cart()->getSum()),
+  ]);
+}
+
+return [
+  'hooks' => [
+    'ww.merx.completePayment:after' => function ($orderPage) {
+      sendConfirmationMail($orderPage);
+    },
+  ],
+];
+```
+</code>
+
+----
+
+Shortdescription: 
+
+----
+
+Redirect: false
+
+----
+
+Sections: 
+
+----
+
+Uuid: ycxxutf8tpkhsfto

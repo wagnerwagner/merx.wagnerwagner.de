@@ -1,4 +1,5 @@
 .a-display {
-	font: var(--font-heading-large);
-	font-feature-settings: "ss19", "ss18";
+	font: var(--font-heading-xlarge);
+	font-variant-alternates: var(--font-variant-alternates-display);
+	text-wrap-style: balance;
 }

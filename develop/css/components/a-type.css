@@ -1,10 +1,14 @@
 /** a or code element */
 .a-type {
-	--_color-background: var(--color-gray-150);
+	--_color-background: var(--color-background-tertiary);
+	--_color-border: hsl(from var(--_color-background) h calc(s - 5) calc(l - 20));
+
 	border-radius: var(--border-radius-small);
 	padding-block: var(--size-50);
 	padding-inline: var(--size-150);
 	font: var(--font-code-small);
+	border: var(--border-size-xsmall) solid var(--_color-border);
+	border-radius: var(--border-radius-xsmall);
 	background-color: var(--_color-background);
 
 	&:where([data-type="class"], [data-type="object"]) {
@@ -12,6 +16,9 @@
 	}
 	&:where([data-type="bool"]) {
 		--_color-background: var(--color-purple-150);
+	}
+	&:where([data-type="null"]) {
+		--_color-background: var(--color-purple-100);
 	}
 	&:where([data-type="int"]) {
 		--_color-background: var(--color-orange-150);

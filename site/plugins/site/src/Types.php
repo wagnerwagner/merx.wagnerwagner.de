@@ -4,6 +4,7 @@ namespace Wagnerwagner\Site;
 
 use Kirby\Cms\Html;
 use Kirby\Toolkit\Iterator;
+use Kirby\Toolkit\Str;
 use Reflector;
 
 /**
@@ -12,8 +13,12 @@ use Reflector;
 class Types extends Iterator {
   public array $data = [];
 
-  public function __construct(array $types, ?Reflector $reflector = null)
+  public function __construct(array|string $types, ?Reflector $reflector = null)
   {
+		if (is_string($types)) {
+			$types = Str::replace($types, '?', 'null|');
+			$types = explode('|', $types);
+		}
     $this->data = array_map(fn ($type) => new Type($type, $reflector), $types);
   }
 
