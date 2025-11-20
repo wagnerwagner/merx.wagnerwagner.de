@@ -12,3 +12,6 @@ indent_style = space
 [*.md]
 indent_size = 4
 trim_trailing_whitespace = false
+
+[content/**/*.txt]
+trim_trailing_whitespace = false

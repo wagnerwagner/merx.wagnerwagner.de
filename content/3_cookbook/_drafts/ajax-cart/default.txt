@@ -1,9 +1,0 @@
-Title: Ajax Cart
-
-----
-
-Text: 
-
-----
-
-Uuid: 1LIx0f6rCqyCa7ti

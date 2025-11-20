@@ -1,0 +1,63 @@
+Title: Showing the cart
+
+----
+
+Headline: 
+
+----
+
+Intro: Learn how to show the users cart with JavaScript.
+
+----
+
+Text:
+
+We recommend to use JavaScript and the API to show the cart to the user. This makes it possible to cache all pages server-side and load the cart asynchronously.
+
+For this example we define a custom element. There is a `getCart()` function, which gets users cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
+
+<code caption="script.js">
+```js
+customElements.define('my-cart', class extends HTMLElement {
+  /** @see https://merx.wagnerwagner.de/reference/api/models/cart */
+  data = null;
+
+  endpoint = '/api/shop/cart';
+
+  async fetchCart() {
+    const response = await fetch(this.endpoint);
+    const responseData = await response.json();
+    this.data = responseData.data;
+    console.log(this.data);
+  }
+
+  async connectedCallback() {
+    await this.fetchCart();
+    this.render();
+  }
+
+  render() {
+    this.innerHTML = `
+      <h2>Cart</h2>
+      ${this.data?.products?.items.map(item => `
+        <ul>
+          <li>
+            <strong>${item.title}</strong><br>
+            Price: ${item.price.price}
+          </li>
+        </ul>
+      `).join('') ?? 'Empty cart'}
+      <p>Total: ${this.data.total.price}</p>
+    `;
+  }
+});
+```
+</code>
+
+Add the `<my-cart>` element to the header of your page.
+
+To check which fields are available see [Cart model API reference](/reference/api/models/cart)
+
+----
+
+Uuid: 7zwwkglswis6ucrx

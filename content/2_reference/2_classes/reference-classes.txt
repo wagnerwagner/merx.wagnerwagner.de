@@ -2,23 +2,7 @@ Title: Classes
 
 ----
 
-Shortdescription: 
-
-----
-
-Text: 
-
-----
-
 Redirect: true
-
-----
-
-Contentbuilder:
-
--
-  text: '# Merx'
-  style: ""
 
 ----
 

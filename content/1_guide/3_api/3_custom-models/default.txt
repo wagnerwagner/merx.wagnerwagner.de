@@ -1,0 +1,67 @@
+Title: Custom models
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+[API models reference](/reference/api/models)
+
+By default the API returns one thumbnail image per list item. Let’s assume you want to show two thumbs in your cart. Therefore you can add a new `thumbs` field to the ListItem model.
+
+<code caption="/site/plugins/site/index.php">
+```php
+<?php
+
+use Kirby\Cms\App;
+use Kirby\Cms\File;
+use Kirby\Cms\Files;
+use Wagnerwagner\Merx\ListItem;
+
+App::plugin(
+  name: 'site/site',
+  extends: [
+    'api' => [
+      'models' => [
+        'ListItem' => [
+          'fields' => [
+            'thumbs' => function (ListItem $listItem): ?array {
+              if (!$listItem->page) return null;
+
+              /** @var \Kirby\Cms\Files $thumbs */
+              $thumbs = $listItem->page->thumbs() instanceof Files ? $listItem->page->thumbs() : $listItem->page->thumbs()->toFile();
+
+              return $thumbs ? $thumbs->toArray(fn (File $thumb) =>[
+                'alt' => (string)$thumb->alt(),
+                'src' => $thumb->thumb('thumb')->url(),
+                'srcset' => $thumb->srcset('thumb'),
+              ]) : null;
+            },
+          ],
+          'views' => [
+            'default' => [
+              'thumbs',
+            ],
+          ]
+        ],
+      ],
+    ]
+  ],
+);
+```
+</code>
+
+<callout theme="warning">
+To overwrite Merx defaults, the custom plugin must be loaded after Merx. The plugins are loaded alphabetically. Because *s* comes after *m* a plugin named *site* would work.
+</callout>
+
+----
+
+Uuid: qez0bnp1cqofknjo

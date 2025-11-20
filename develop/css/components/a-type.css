@@ -1,8 +1,10 @@
 /** a or code element */
 .a-type {
 	--_color-background: var(--color-background-tertiary);
-	--_color-border: hsl(from var(--_color-background) h calc(s - 5) calc(l - 20));
+	--_color-border: hsl(from var(--_color-background) h calc(s - 5) calc(l - 10));
 
+	display: inline-flex;
+	gap: var(--size-50);
 	border-radius: var(--border-radius-small);
 	padding-block: var(--size-50);
 	padding-inline: var(--size-150);

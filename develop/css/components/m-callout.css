@@ -4,6 +4,18 @@
 	border: var(--border-size-small) solid var(--color-blue-400);
 	background-color: var(--color-blue-50);
 
+	&[data-theme="tip"] {
+		border: var(--border-size-small) solid var(--color-green-400);
+		background-color: var(--color-green-20);
+	}
+	&[data-theme="important"] {
+		border: var(--border-size-small) solid var(--color-purple-400);
+		background-color: var(--color-purple-20);
+	}
+	&[data-theme="warning"] {
+		border: var(--border-size-small) solid var(--color-orange-400);
+		background-color: var(--color-orange-20);
+	}
 	&[data-theme="caution"] {
 		border: var(--border-size-small) solid var(--color-red-400);
 		background-color: var(--color-red-20);

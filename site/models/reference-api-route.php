@@ -1,7 +1,7 @@
 <?php
 
 use Kirby\Content\Field;
-use Kirby\Toolkit\Str;
+use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
 class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
@@ -50,7 +50,7 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 
   public function returnType(): ?Type
   {
-    return $this->returnTypes()[0]->type;
+    return $this->returnTypes()->first();
   }
 
 	public function exceptions(): array
