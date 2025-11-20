@@ -7,6 +7,7 @@
 	grid-template-columns: 0 1fr;
 	column-gap: var(--_padding-inline);
 	font: var(--font-label-medium);
+	text-wrap-style: pretty;
 	padding-block: var(--size-150);
 	padding-inline-end: var(--_padding-inline);
 

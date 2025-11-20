@@ -68,29 +68,10 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		return $node;
 	}
 
-	public function reflection(): ?Reflector
+	public function reflection(): ?ReflectionMethod
 	{
 		return new ReflectionMethod((string)$this->class(), $this->name());
 	}
-
-	/**
-	 * Returns the framework- or plugin-relative file path with the start line
-	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		if (Str::startsWith($this->declaringClass(), 'Kirby\\')) {
-			$root = $this->kirby()->root('kirby') . '/';
-		} else if (Str::startsWith($this->declaringClass(), 'Wagnerwagner\\')) {
-			$root = $this->kirby()->plugin('ww/merx')->root() . '/';
-		} else {
-			return null;
-		}
-		$reflection = $this->reflection();
-		$relativeFilePath = Str::replace($reflection->getFileName(), $root, '');
-		return $relativeFilePath;
-	}
-
 
 	public function summary(): ?string
 	{
@@ -174,10 +155,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
 		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
 		if (isset($returnTags[0])) {
-			if ($returnTags[0]->type instanceof PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
-				return new Types($returnTags[0]->type->types, $reflection);
-			}
-			return new Types([(string)$returnTags[0]->type], $reflection);
+			return new Types((string)$returnTags[0]->type, $reflection);
 		}
 
 		if ($reflection->getReturnType() !== null) {

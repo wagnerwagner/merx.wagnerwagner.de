@@ -1,0 +1,21 @@
+.m-nav-overview {
+	> ul {
+		display: grid;
+		gap: var(--gap-inline);
+		grid-template-columns: repeat(auto-fill, minmax(calc(200rem / 16), 1fr));
+	}
+	> ul > li > a {
+		text-decoration: none;
+		display: grid;
+
+		> strong {
+			font: var(--font-label-large);
+			text-decoration: underline;
+			text-decoration-color: inherit;
+		}
+		> small {
+			font: var(--font-paragraph-small);
+			text-wrap-style: balance;
+		}
+	}
+}

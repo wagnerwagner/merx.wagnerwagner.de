@@ -45,11 +45,26 @@ class ReferenceOptionPage extends ReferencePageAbstract
 			return null;
 		}
 
+		$relativeFilePath = Str::replace($configFile, $root, '');
+
+		return $relativeFilePath;
+	}
+
+	public function line(): ?int
+	{
+		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
+		$configFile = $root . 'config/config.php';
+
+		if (file_exists($configFile) === false) {
+			return null;
+		}
+
+		$lineNumber = null;
+		$lines = file($configFile);
+
 		// Try to find the line number where this option is defined
 		$key = $this->key()->value();
 		$keyWithoutPrefix = Str::replace($key, 'ww.merx.', '');
-		$lines = file($configFile);
-		$lineNumber = null;
 
 		if ($lines !== false) {
 			foreach ($lines as $index => $line) {
@@ -61,13 +76,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 			}
 		}
 
-		$relativeFilePath = Str::replace($configFile, $root, '');
-		if ($lineNumber !== null) {
-			return $relativeFilePath . '#L' . $lineNumber;
-		}
-
-		return $relativeFilePath;
+		return $lineNumber;
 	}
-
 }
 

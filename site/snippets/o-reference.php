@@ -1,6 +1,9 @@
 <?php
 /** @var \Wagnerwagner\Site\ReferencePageAbstract $page */
+/** @var \Kirby\Cms\App $kirby */
 
+use Kirby\Cms\Api;
+use Kirby\Cms\App;
 use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
@@ -28,7 +31,7 @@ function formatViewFields($fields) {
 	<?php endif ?>
 
   <?php if ($page->gitHubUrl()): ?>
-    <a class="a-link-reference" href="<?= $page->gitHubUrl() ?>">
+    <a class="a-type" href="<?= $page->gitHubUrl() ?>">
       <?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
       <?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
     </a>
@@ -56,9 +59,9 @@ function formatViewFields($fields) {
 					</thead>
 					<?php foreach ($page->params() as $param): ?>
 						<tr>
-							<td><code><?= $param['name'] ?></code></td>
+							<td><code class="a-type"><?= $param['name'] ?></code></td>
 							<td><?= $param['types']?->toHtml() ?></td>
-							<td><code><?= $param['defaultValue'] === null ? '-' : $param['defaultValue'] ?></code></td>
+							<td><code class="a-type"><?= $param['defaultValue'] === null ? '-' : $param['defaultValue'] ?></code></td>
 							<?php if ($showDescription): ?>
 								<td><?= kt($param['description']) ?></td>
 							<?php endif ?>
@@ -97,10 +100,10 @@ function formatViewFields($fields) {
 		<?php endif ?>
 
 		<?php if (($returnTypes = $page->returnTypes()) && is_countable($returnTypes) && count($returnTypes) > 0): ?>
-      <?php if ($page instanceof ReferenceApiRoutePage): ?>
+      <?php if ($page instanceof ReferenceApiRoutePage && ($returnType = $page->returnType()) && $returnType->getDataType() === 'class'): ?>
         <h2>API model</h2>
         <p>
-          <?= $returnTypes->toHtml(baseUrl: $page->apiModelBaseUrl()) ?>
+          <?= $returnType->toHtml(api: true) ?>
         </p>
       <?php endif ?>
 
@@ -150,6 +153,7 @@ function formatViewFields($fields) {
 
     <?php if ($page instanceof ReferenceApiModelPage): ?>
       <h2>Fields</h2>
+			<p>The following fields are available in the <?= $page->title() ?> model and can be fetched with the select parameter.</p>
       <div class="m-table">
         <table>
           <thead>
@@ -157,15 +161,20 @@ function formatViewFields($fields) {
             <th>Return type</th>
           </thead>
           <?php foreach ($page->fields()->value() as $key => $field): ?>
+						<?php
+							$reflector = new ReflectionFunction($field);
+							$returnType = $reflector->getReturnType();
+						?>
             <tr>
               <td><?= $key ?></td>
-              <td><?= (new Types((new ReflectionFunction($field))->getReturnType()))->toHtml(baseUrl: '/reference/api/models/') ?></td>
+              <td><?= (new Types($returnType, $reflector))->toHtml(api: true) ?></td>
             </tr>
           <?php endforeach ?>
         </table>
       </div>
 
       <h2>Views</h2>
+			<p>The following fields are available in the <?= $page->title() ?> model and can be fetched with the view parameter.</p>
       <div class="m-table">
         <table>
           <thead>
@@ -195,6 +204,24 @@ function formatViewFields($fields) {
 		<?php if ($page->examples()->isNotEmpty()): ?>
 			<h2>Examples</h2>
 			<?= $page->examples()->kt() ?>
+		<?php endif ?>
+
+
+		<?php if ($page instanceof ReferenceApiRoutePage): ?>
+			<h2>Example response</h2>
+			<figure class="m-code">
+				<figcaption>https://shop.test/api/<?= $page->pattern() ?></figcaption>
+				<div class="m-code">
+					<pre><code class="language-json"><?= $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method()) ?></code></pre>
+				</div>
+			</figure>
+		<?php endif ?>
+
+		<?php if ($page instanceof ReferenceApiModelPage && ($resolvedApiModel = $page->parent()->parent()->resolveApiModel($page->class()))): ?>
+			<h2>Example response</h2>
+			<figure class="m-code">
+				<pre><code class="language-json"><?= json_encode($resolvedApiModel, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></code></pre>
+			</figure>
 		<?php endif ?>
 	</div>
 </main>

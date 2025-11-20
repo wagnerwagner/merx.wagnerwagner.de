@@ -16,7 +16,7 @@ class ReferenceHooksPage extends Page
     $hooks = $this->kirby()->plugin('ww/merx')->extends()['hooks'];
     $children = [];
     foreach ($hooks as $key => $hook) {
-			$slug = Str::replace($key, 'ww.merx.', '');
+			$slug = Str::slug(Str::replace($key, 'ww.merx.', ''));
       $children[] = [
         'slug' => $slug,
         'model' => 'reference-hook',

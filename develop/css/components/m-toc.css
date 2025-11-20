@@ -24,6 +24,7 @@
 	padding-inline: var(--_padding-inline);
 	color: var(--color-content-secondary);
 	text-decoration: none;
+	text-wrap-style: pretty;
 
 	&[aria-current="true"] {
 		color: var(--color-content-primary);

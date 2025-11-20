@@ -10,9 +10,12 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 	color: var(--color-white);
 	font: var(--font-code-medium);
 	overflow: auto;
-	border: var(--border-size-small) solid var(--color-black);
 	border-radius: var(--border-radius-small);
 	background-color: var(--color-background-primary-inverse);
+
+	&:where(figure) {
+		border: var(--border-size-small) solid var(--color-black);
+	}
 
 	> figcaption {
 		padding-block: var(--size-200);
@@ -39,6 +42,7 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 
 	/** @todo Improve colors similar to https://github.com/getkirby/getkirby.com/blob/e6352626f704531b9981f60ae69ea2a2c7b005e8/assets/css/site/code.css */
 	.token.class-name,
+	.token.package,
 	.token.scope {
 		color: var(--color-green-400);
 	}
@@ -51,7 +55,7 @@ https://prismjs.com/download#themes=prism-dark&languages=markup+css+clike+javasc
 	.token.prolog,
 	.token.doctype,
 	.token.cdata {
-		color: var(--color-gray-150);
+		color: var(--color-gray-300);
 	}
 
 	.token.punctuation {

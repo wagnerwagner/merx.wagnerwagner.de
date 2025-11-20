@@ -22,7 +22,7 @@
 	--gap-block: var(--size-500);
 	--gap-block-header: var(--size-700);
 	--gap-text-paragraph: var(--size-400);
-	--gap-text-heading: var(--size-700);
+	--gap-text-heading: var(--size-800);
 
 	/* Sizes */
 	--max-width-content: calc(1380rem / 16);

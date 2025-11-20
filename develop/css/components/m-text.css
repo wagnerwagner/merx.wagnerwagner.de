@@ -21,7 +21,7 @@
 
 		/* Anchor links */
 		> a[href^="#"] {
-			display: flex;
+			display: inline-flex;
 			align-items: baseline;
 			text-decoration: none;
 

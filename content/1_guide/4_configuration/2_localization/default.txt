@@ -1,0 +1,32 @@
+Title: Localization
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+## Localization vs. Internationalization
+
+## Different currencies
+
+## Add language to API request
+
+```js
+const lang = document.querySelector('html').lang;
+const response = await fetch(this.endpoint, {
+	headers: {
+		'x-language': lang,
+	},
+});
+```
+
+----
+
+Uuid: u24qavrriyshckrc

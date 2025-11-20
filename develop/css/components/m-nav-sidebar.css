@@ -2,9 +2,9 @@ nav.m-nav-sidebar {
 	position: sticky;
 	inset-block-start: var(--height-header);
 	margin-inline-start: calc(3rem / -16);
+	padding-block-start: calc(var(--size-700) - var(--size-250));
 	padding-inline-start: calc(3rem / 16);
 	max-block-size: calc(100vh - var(--height-header));
-	padding-block: var(--size-500);
 	border-inline-end: var(--border-size-small) solid var(--color-border-tertiary);
 	overflow: auto;
 

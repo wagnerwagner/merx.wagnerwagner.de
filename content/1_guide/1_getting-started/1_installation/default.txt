@@ -1,4 +1,4 @@
-Title: Installation
+Title: Installation & update
 
 ----
 
@@ -6,49 +6,86 @@ Headline:
 
 ----
 
-Shortdescription: How to install the Merx plugin.
+Intro: Learn different methods to install Merx plugin
 
 ----
 
 Text:
 
+There are different options to add Merx to your existing Kirby website. If you are starting from scratch you can use the [Starterkit](#starterkit).
+
+[Kirby docs: Installing plugins](https://getkirby.com/docs/guide/plugins/installing-plugins)
+
 ## Requirements
 
-Merx does not have any special requirements. When Kirby 5 is running fine, Merx also will be fine.
+Merx does not have any special requirements. As long as Kirby 5 is running fine, Merx also will be working.
+[System requirements of Kirby](https://getkirby.com/docs/reference/system/requirements)
 
-## Installation as Git submodule
+## Download Merx
 
-Run the following command on your website’s root and Merx and it’s dependencies are installed at `site/plugins/merx`.
+[Download Merx](https://github.com/wagnerwagner/merx/archive/main.zip) and unzip. Then put the unzipped folder into the `/site/plugins/` folder of your Kirby project.
+
+## Install and update as Git submodule
+
+[Kirby docs: Install & update via Git](https://getkirby.com/docs/guide/install-guide/git)
 
 ```bash
+# navigate to the root of your kirby website
+cd your-website
+
+# install the submodule in plugins direction
 git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx
+
+# commit the changes
+git commit -m "Add Merx as submodule"
 ```
 
-Read more about Kirby and Git on [getkirby.com](https://getkirby.com/docs/guide/install-guide/git).
+### Update Merx via Git submodule
 
-## Installation via Composer
+To update Merx to the latest version, navigate to the merx plugin directory. 
 
-If you prefer composer you can add Merx with this command from your website’s root. This will install Merx and it’s dependencies at `site/plugins/merx`.
+```bash
+cd ./site/plugins/merx
+
+# update to the latest version
+git checkout main   # ensure main branch is checked out
+git pull            # fetch latests changes and update code
+```
+
+## Install and update via Composer
+
+Read more about Composer and Kirby on [getkirby.com](https://getkirby.com/docs/guide/install-guide/composer#using-composer-for-kirby-plugins).
 
 ```bash
 composer require wagnerwagner/merx
 ```
 
-Read more about Composer and Kirby on [getkirby.com](https://getkirby.com/docs/guide/install-guide/composer#using-composer-for-kirby-plugins).
+### Updating Merx using composer
 
-## Starterkit
+```bash
+composer update wagnerwagner/merx
+```
+
+## Install with Kirby CLI
+
+```bash
+kirby plugin:install https://github.com/wagnerwagner/merx.git
+```
+
+
+## Install the Starterkit
 
 The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS.
 
-It is ideal for new users to explore many of Merx’s possibilities. If you want to create a simple store fast, this would also be a good option for you. If you want to use PayPal and/or Stripe (Credit card, SEPA Direct Debit, Klarna) with the Starterkit you have to create and add the respective keys.
+It is ideal for new users to explore many of Merx’s possibilities. If you want to create a simple store fast, this would also be a good option for you.
 
 [Preview →](https://starterkit.merx.wagnerwagner.de){.a-button} [Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest)
 
 [Source Code on GitHub](https://github.com/wagnerwagner/merx-starterkit)
 
-## Plainkit
+----
 
-If you want you can start with the Plainkit. This is a full working shop but with no styles and no fancy JavaScript. If you want to use PayPal with the Plainkit you have to set up your PayPal keys.
+Shortdescription: How to install the Merx plugin.
 
 ----
 
@@ -57,10 +94,6 @@ Redirect: false
 ----
 
 Sections: 
-
-----
-
-Intro: There are a few options to install the Merx plugin.
 
 ----
 

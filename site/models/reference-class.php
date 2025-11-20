@@ -4,6 +4,16 @@ use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
+use PHPStan\PhpDocParser\Ast\Node;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\ConstExprParser;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
+use PHPStan\PhpDocParser\Parser\TypeParser;
+use PHPStan\PhpDocParser\ParserConfig;
 
 /**
  * @method static \Kirby\Content\Field class()
@@ -78,36 +88,43 @@ class ReferenceClassPage extends ReferencePageAbstract
 		);
 	}
 
+	public function docBlock(): ?PhpDocNode
+	{
+		$reflection = $this->reflection();
+		if ($reflection->getDocComment() === false) {
+			return null;
+		}
+		$docblock  = $reflection->getDocComment();
+		$config    = new ParserConfig(usedAttributes: []);
+		$lexer     = new Lexer($config);
+		$constExpr = new ConstExprParser($config);
+		$type      = new TypeParser($config, $constExpr);
+		$phpDoc    = new PhpDocParser($config, $type, $constExpr);
+		$tokens    = new TokenIterator($lexer->tokenize($docblock));
+		$node      = $phpDoc->parse($tokens);
+		return $node;
+	}
+
+	public function summary(): ?string
+	{
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
+		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text)[0];
+			$text = str_replace(PHP_EOL, ' ', $text);
+			return trim($text);
+		}
+
+		return null;
+	}
 
 	public function reflection(): ReflectionClass
 	{
 		return new ReflectionClass($this->class()->value());
-	}
-
-	/**
-	 * Returns the framework- or plugin-relative file path with the start line
-	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		$reflection = $this->reflection();
-		$className = $reflection->getName();
-
-		if (Str::startsWith($className, 'Kirby\\')) {
-			$root = $this->kirby()->root('kirby') . '/';
-		} else if (Str::startsWith($className, 'Wagnerwagner\\')) {
-			$root = $this->kirby()->plugin('ww/merx')->root() . '/';
-		} else {
-			return null;
-		}
-
-		$fileName = $reflection->getFileName();
-		if ($fileName === false) {
-			return null;
-		}
-
-		$relativeFilePath = Str::replace($fileName, $root, '');
-		return $relativeFilePath;
 	}
 
   public function line(): ?int
@@ -116,8 +133,19 @@ class ReferenceClassPage extends ReferencePageAbstract
     return null;
   }
 
-	public function save(?array $data = null, ?string $languageCode = null, bool $overwrite = false): static
+	public function description(): ?string
 	{
-		return parent::save($data, $languageCode, $overwrite);
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
+		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text)[1] ?? '';
+			return empty($text) ? null : trim($text);
+		}
+
+		return null;
 	}
 }

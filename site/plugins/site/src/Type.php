@@ -39,7 +39,7 @@ class Type {
 		return null;
 	}
 
-  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null): string
+  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null): string
   {
     $type = $this->type;
     $link = null;
@@ -49,7 +49,7 @@ class Type {
       if (Str::startsWith($type, 'Kirby\\')) {
         $baseUrl = 'https://getkirby.com/docs/reference/objects/';
       } else if (Str::startsWith($type, 'Wagnerwagner\\Merx\\')) {
-        $baseUrl = url('/reference/classes/');
+        $baseUrl = $api === true ? url('/reference/api/models/') : url('/reference/classes/');
       }
     }
     if (Str::startsWith($type, 'Kirby\\')) {

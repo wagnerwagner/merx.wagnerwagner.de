@@ -1,9 +1,10 @@
 <?php
+/** @var \Kirby\Cms\Collection $items */
 /** @var \Kirby\Cms\Field $text */
 /** @var ?\Kirby\Cms\Field $title */
 /** @var ?string $tag */
 
-$items = $text->toToc($tag ?? 'h2');
+$items = $items ?? $text->toToc($tag ?? 'h2');
 ?>
 
 <?php if($items->count() > 0): ?>
