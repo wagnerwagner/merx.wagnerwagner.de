@@ -4,7 +4,6 @@
 
 use Kirby\Cms\Collection;
 use Kirby\Toolkit\Obj;
-use Kirby\Toolkit\Str;
 
 $hasTertiaryNav = true;
 $secondaryParent = $page;

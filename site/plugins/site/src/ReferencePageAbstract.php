@@ -3,10 +3,21 @@
 namespace Wagnerwagner\Site;
 
 use Kirby\Cms\Page;
+use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use Reflector;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionParameter;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\ConstExprParser;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
+use PHPStan\PhpDocParser\Parser\TypeParser;
+use PHPStan\PhpDocParser\ParserConfig;
+
 
 abstract class ReferencePageAbstract extends Page
 {
@@ -70,7 +81,7 @@ abstract class ReferencePageAbstract extends Page
 		if (option('nova-links') === true) {
       $absoluteFilePath = $this->absoluteFilePath();
       if ($absoluteFilePath !== null) {
-        return 'cursor://file/' . $absoluteFilePath . ':' . $line ?? 1;
+        // return 'cursor://file/' . $absoluteFilePath . ':' . $line ?? 1;
         return 'nova://open?path=' . $absoluteFilePath . '&line=' . $line ?? 1;
       }
 		}
@@ -125,6 +136,71 @@ abstract class ReferencePageAbstract extends Page
 		// For other reflection types or when detection fails, default to empty
 		// (which will cause gitHubUrl to default to merx)
 		return null;
+	}
+
+
+	public function docBlock(): ?PhpDocNode
+	{
+		$reflection = $this->reflection();
+		if ($reflection->getDocComment() === false) {
+			return null;
+		}
+		$docblock  = $reflection->getDocComment();
+		$config    = new ParserConfig(usedAttributes: []);
+		$lexer     = new Lexer($config);
+		$constExpr = new ConstExprParser($config);
+		$type      = new TypeParser($config, $constExpr);
+		$phpDoc    = new PhpDocParser($config, $type, $constExpr);
+		$tokens    = new TokenIterator($lexer->tokenize($docblock));
+		$node      = $phpDoc->parse($tokens);
+		return $node;
+	}
+
+	/**
+	 * Returns parameter metadata (name, types, default value, description)
+	 * sourced from reflection and DocBlocks.
+	 */
+	public function params(): ?array
+	{
+		$reflection = $this->reflection();
+
+		if ($reflection === null || !method_exists($reflection, 'getParameters')) {
+			return null;
+		}
+
+		return A::map($reflection->getParameters(), function (ReflectionParameter $param) use ($reflection) {
+			/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode */
+			$docBlockParam = A::find(
+				$this->docBlock()?->getParamTagValues() ?? [],
+				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name);
+
+			$defaultValue = null;
+			if ($param->isDefaultValueAvailable()) {
+				$defaultValue = $param->getDefaultValue();
+				if (gettype($defaultValue) === 'array') {
+					$defaultValue = '[]';
+				} else if (gettype($defaultValue) === 'boolean') {
+					$defaultValue = $defaultValue ? 'true' : 'false';
+				} else if (gettype($defaultValue) === 'NULL') {
+					$defaultValue = 'null';
+				} else if (gettype($defaultValue) === 'string') {
+					$defaultValue = "'$defaultValue'";
+				}
+			};
+			$name = '$' . $param->getName();
+			$types = $docBlockParam->type->types ?? null;
+			if ($types === null && $param->getType() !== null) {
+				$types = $param->getType();
+			}
+			$types = new Types($types ?? [], $reflection);
+			$name = $param->isVariadic() ? '...' . $name : $name;
+			return [
+				'name' => $name,
+				'types' => $types,
+				'defaultValue' => $defaultValue,
+				'description' => $docBlockParam?->description,
+			];
+		});
 	}
 }
 
