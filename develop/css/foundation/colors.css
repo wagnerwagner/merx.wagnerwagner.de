@@ -111,7 +111,7 @@
 	/* Core Colors */
 	--color-background-primary: var(--color-gray-20);
 	--color-background-secondary: var(--color-white);
-	--color-background-tertiary: var(--color-gray-150);
+	--color-background-tertiary: var(--color-gray-100);
 	--color-background-primary-inverse: var(--color-gray-900);
 	--color-background-secondary-inverse: var(--color-gray-800);
 	--color-background-brand: hsl(from var(--color-brand) h calc(s - 40) calc(l + 65));
