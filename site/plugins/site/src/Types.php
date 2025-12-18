@@ -22,7 +22,7 @@ class Types extends Collection {
     $this->data = array_map(fn ($type) => new Type($type, $reflector), $types);
   }
 
-  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null): string
+  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null, $short = false): string
   {
     if ($this->count() === 0) {
       return Html::tag('code', 'mixed');
@@ -30,7 +30,7 @@ class Types extends Collection {
 
 		$seperator = ' <span class="a-separator" aria-hidden="true">|</span><span class="a-visually-hidden">or</span> ';
 
-    return implode($seperator, array_map(fn (Type $type) => $type->toHtml($codeBlock, $baseUrl, $api), $this->data));
+    return implode($seperator, array_map(fn (Type $type) => $type->toHtml($codeBlock, $baseUrl, $api, $short), $this->data));
   }
 
   public function __toString(): string

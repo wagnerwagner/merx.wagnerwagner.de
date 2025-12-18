@@ -4,15 +4,7 @@ use Kirby\Content\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use PHPStan\PhpDocParser\Ast\Node;
-use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
-use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\ConstExprParser;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use PHPStan\PhpDocParser\Parser\TypeParser;
-use PHPStan\PhpDocParser\ParserConfig;
 use Wagnerwagner\Site\ReferencePageAbstract;
 use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
@@ -51,23 +43,6 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		return new Type($this->reflection()->getDeclaringClass()->getName());
 	}
 
-	public function docBlock(): ?PhpDocNode
-	{
-		$reflection = $this->reflection();
-		if ($reflection->getDocComment() === false) {
-			return null;
-		}
-		$docblock  = $reflection->getDocComment();
-		$config    = new ParserConfig(usedAttributes: []);
-		$lexer     = new Lexer($config);
-		$constExpr = new ConstExprParser($config);
-		$type      = new TypeParser($config, $constExpr);
-		$phpDoc    = new PhpDocParser($config, $type, $constExpr);
-		$tokens    = new TokenIterator($lexer->tokenize($docblock));
-		$node      = $phpDoc->parse($tokens);
-		return $node;
-	}
-
 	public function reflection(): ?ReflectionMethod
 	{
 		return new ReflectionMethod((string)$this->class(), $this->name());
@@ -104,49 +79,6 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		}
 
 		return null;
-	}
-
-	/**
-	 * Returns parameter metadata (name, types, default value, description)
-	 * sourced from reflection and DocBlocks.
-	 */
-	public function params(): array
-	{
-		$reflection = $this->reflection();
-
-		return A::map($reflection->getParameters(), function (ReflectionParameter $param) use ($reflection) {
-			/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode */
-			$docBlockParam = A::find(
-				$this->docBlock()?->getParamTagValues() ?? [],
-				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name);
-
-			$defaultValue = null;
-			if ($param->isDefaultValueAvailable()) {
-				$defaultValue = $param->getDefaultValue();
-				if (gettype($defaultValue) === 'array') {
-					$defaultValue = '[]';
-				} else if (gettype($defaultValue) === 'boolean') {
-					$defaultValue = $defaultValue ? 'true' : 'false';
-				} else if (gettype($defaultValue) === 'NULL') {
-					$defaultValue = 'null';
-				} else if (gettype($defaultValue) === 'string') {
-					$defaultValue = "'$defaultValue'";
-				}
-			};
-			$name = '$' . $param->getName();
-			$types = $docBlockParam->type->types ?? null;
-			if ($types === null && $param->getType() !== null) {
-				$types = $param->getType();
-			}
-			$types = new Types($types ?? [], $reflection);
-			$name = $param->isVariadic() ? '...' . $name : $name;
-			return [
-				'name' => $name,
-				'types' => $types,
-				'defaultValue' => $defaultValue,
-				'description' => $docBlockParam?->description,
-			];
-		});
 	}
 
 	public function returnTypes(): ?Types

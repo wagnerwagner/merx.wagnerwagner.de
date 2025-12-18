@@ -6,12 +6,7 @@ use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
 use Kirby\Data\Data;
 use Kirby\Filesystem\Dir;
-use Kirby\Http\Response;
-use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
-use Wagnerwagner\Merx\ListItem;
-use Wagnerwagner\Merx\ProductList;
-use Wagnerwagner\Merx\Tax;
 
 class ReferenceApiPage extends Page
 {
@@ -112,13 +107,18 @@ class ReferenceApiPage extends Page
 
 		if ($path === 'shop/cart') {
 			return json_encode([
-				'code'   => 200,
-				'data'   => $this->resolveApiModel('Cart'),
+				'code' => 200,
+				'data' => $this->resolveApiModel('ProductList'),
 				'status' => 'ok',
-				'type'   => 'model'
+				'type' => 'model'
 			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 		if ($path === 'shop/checkout') {
+			$requestData['body']['email'] = 'example@example.com';
+			$requestData['body']['street'] = 'Milkyway';
+			$requestData['body']['city'] = 'Ducktown';
+			$requestData['body']['country'] = 'DE';
+			$requestData['body']['legal'] = '1';
 			$requestData['body']['paymentMethod'] = 'invoice';
 			$requestData['body']['company'] = 'Example Inc.';
 		}

@@ -16,12 +16,16 @@ class Type {
 
   public function __construct(string $type, ?Reflector $reflector = null)
   {
-    if (in_array($type, ['self', 'static', '$this']) === true) {
+    if (
+			in_array($type, ['self', 'static', '$this']) === true
+			|| Str::startsWith($type, '$')
+			|| Str::startsWith($type, 'Wagnerwagner\\')
+		) {
+    	$this->type = $reflector !== null && method_exists($reflector, 'getDeclaringClass') ? $reflector?->getDeclaringClass()?->getName() ?? $type : $type;
       $this->alias = $type;
-      $this->type = $reflector?->getDeclaringClass()?->getName() ?? $type;
 			$this->dataType = 'class';
     } else {
-			$type = $type === 'NULL' ? strtolower($type) : $type;
+			$type = $type === 'NULL' ? 'null' : $type;
       $this->type = $type;
 			$this->dataType = $this->getDataType($reflector);
     }
@@ -39,9 +43,12 @@ class Type {
 		return null;
 	}
 
-  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null): string
+  public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null, $short = false): string
   {
     $type = $this->type;
+		if (Str::startsWith($type, '\\')) {
+			$type = Str::substr($type, 1);
+		}
     $link = null;
     $parts = array_map(fn ($item) => Str::kebab($item), Str::split($type, '\\'));
     $slug = implode('/', $parts);
@@ -68,6 +75,12 @@ class Type {
     if ($codeBlock) {
       $html = Html::tag('code', $type, $attr);
     }
+
+		// remove Wagnerwagner\Merx\
+		if ($short === true) {
+			$type = Str::replace($type, 'Wagnerwagner\\Merx\\', '');
+		}
+
     if (is_string($link)) {
       $html = Html::tag('a', [Html::tag('code', $type)], [
         ...['href' => $link,], $attr,

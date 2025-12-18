@@ -5,15 +5,7 @@ use Kirby\Content\Field;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
 use PHPStan\PhpDocParser\Ast\Node;
-use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
-use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\ConstExprParser;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use PHPStan\PhpDocParser\Parser\TypeParser;
-use PHPStan\PhpDocParser\ParserConfig;
 
 /**
  * @method static \Kirby\Content\Field class()
@@ -70,7 +62,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 
 			$children[] = [
 				'slug'     => $slug,
-				'model'    => 'reference-classmethod',
+				'model'    => 'reference-class-method',
 				'template' => 'reference-doc',
 				'parent'   => $this,
 				'content'  => $content,
@@ -86,23 +78,6 @@ class ReferenceClassPage extends ReferencePageAbstract
 			'asc',
 			SORT_NATURAL
 		);
-	}
-
-	public function docBlock(): ?PhpDocNode
-	{
-		$reflection = $this->reflection();
-		if ($reflection->getDocComment() === false) {
-			return null;
-		}
-		$docblock  = $reflection->getDocComment();
-		$config    = new ParserConfig(usedAttributes: []);
-		$lexer     = new Lexer($config);
-		$constExpr = new ConstExprParser($config);
-		$type      = new TypeParser($config, $constExpr);
-		$phpDoc    = new PhpDocParser($config, $type, $constExpr);
-		$tokens    = new TokenIterator($lexer->tokenize($docblock));
-		$node      = $phpDoc->parse($tokens);
-		return $node;
 	}
 
 	public function summary(): ?string

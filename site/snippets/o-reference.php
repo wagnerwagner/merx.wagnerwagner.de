@@ -2,8 +2,6 @@
 /** @var \Wagnerwagner\Site\ReferencePageAbstract $page */
 /** @var \Kirby\Cms\App $kirby */
 
-use Kirby\Cms\Api;
-use Kirby\Cms\App;
 use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
@@ -60,7 +58,7 @@ function formatViewFields($fields) {
 					<?php foreach ($page->params() as $param): ?>
 						<tr>
 							<td><code class="a-type"><?= $param['name'] ?></code></td>
-							<td><?= $param['types']?->toHtml() ?></td>
+							<td><?= $param['types']?->toHtml(short: true) ?></td>
 							<td><code class="a-type"><?= $param['defaultValue'] === null ? '-' : $param['defaultValue'] ?></code></td>
 							<?php if ($showDescription): ?>
 								<td><?= kt($param['description']) ?></td>
