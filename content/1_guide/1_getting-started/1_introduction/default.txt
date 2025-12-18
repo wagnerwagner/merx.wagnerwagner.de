@@ -1,0 +1,28 @@
+Title: Introduction
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+## Checkout flow
+
+1. Customer enters personal data and selects payment method
+    - Personal data is validated and stored together with cart in user session on server
+    - *Optional:* Payment details are validated on page
+    - *Optional:* User is redirected to payment provider
+2. *Optional:* Payment process is handled by payment provider
+    - User is redirected back to web shop
+3. Order page is created with data from the user session
+4. *Optional:* Later via hook: Order is marked as complete.
+
+----
+
+Uuid: xiiv4g8nr42ddppy

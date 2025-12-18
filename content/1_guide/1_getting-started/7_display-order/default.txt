@@ -1,0 +1,37 @@
+Title: Display order
+
+----
+
+Headline: 
+
+----
+
+Intro: Learn how to show the order information including cart and user data.
+
+----
+
+Text:
+
+During the checkout process, a new [`OrderPage`](/reference/classes/order-page) is created as a child of [`$site->ordersPage()`](/reference/options/site-methods/orders-page) with a random id.
+
+The invoice number is created automatically. By default it is a up-counting number.
+
+## Create template
+
+<code caption="/site/templates/order.php">
+```php
+<?php /** @var Wagnerwagner\Merx\OrderPage $page */ ?>
+
+Invoice number: <?= $page->invoiceNumber() ?>
+
+Name: <?= $page->given_name() ?> <?= $page->family_name() ?>
+
+<?php foreach($page->cart() as $item): ?>
+<!-- Show cart -->
+<?php endforeach ?>
+```
+</code>
+
+----
+
+Uuid: c8cuzjdzkiqztlmb

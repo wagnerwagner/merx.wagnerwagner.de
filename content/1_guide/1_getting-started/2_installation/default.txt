@@ -12,7 +12,7 @@ Intro: Learn different methods to install Merx plugin
 
 Text:
 
-There are different options to add Merx to your existing Kirby website. If you are starting from scratch you can use the [Starterkit](#starterkit).
+There are different options to add Merx to your existing Kirby website. If you are starting from scratch you can use the [Starterkit](#install-the-starterkit).
 
 [Kirby docs: Installing plugins](https://getkirby.com/docs/guide/plugins/installing-plugins)
 
