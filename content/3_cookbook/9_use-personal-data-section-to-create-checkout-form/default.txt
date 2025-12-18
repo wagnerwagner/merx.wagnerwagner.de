@@ -1,0 +1,71 @@
+Title: Use personal data section to create checkout form
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+<code caption="/site/controllers/checkout.php">
+```php
+<?php
+return function (\Kirby\Cms\Site $site) {
+  $orderBlueprint = Kirby\Cms\Blueprint::factory('pages/order', null, $site);
+  $personalDataSection = $orderBlueprint->section('personalData');
+  return [
+     'fields' => $personalDataSection->toArray()['fields'],
+  ];
+?>
+```
+</code>
+
+<code caption="/site/templates/checkout.php">
+```php
+<?php foreach ($fields as $field) : ?>
+  <?= snippet(['fields/' . $field['type'], 'fields/text'], compact('field')) ?>
+<?php endif ?>
+```
+</code>
+
+<code caption="/site/snippets/fields/text.php">
+```php
+<div>
+  <label for="<?= $field['name'] ?>">
+    <?= $field['label'] ?>
+    <?php if ($field['required'] ?? false): ?>
+      <abbr aria-hidden="true" title="<?= t('field.required') ?>">*</abbr>
+    <?php endif; ?>
+  </label>
+  <input
+    <?= Html::attr([
+      'type' => $field['type'],
+      'name' => $field['name'],
+      'id' => $field['name'],
+      'required' => $field['required'] ?? null,
+      'placeholder' => isset($field['placeholder']) ? $field['placeholder'] : null,
+      'value' => isset($field['default']) ? $field['default'] : null,
+      'autocomplete' => isset($field['autocomplete']) ? $field['autocomplete'] : null,
+      'max' => isset($field['validate']['max']) ? $field['validate']['max'] : null,
+      'maxLength' => isset($field['validate']['maxLength']) ? $field['validate']['maxLength'] : null,
+      'min' => isset($field['validate']['min']) ? $field['validate']['min'] : null,
+      'minLength' => isset($field['validate']['minLength']) ? $field['validate']['minLength'] : null,
+    ]) ?>
+  >
+  <?php if (isset($field['help'])): ?>
+    <small>
+      <?= $field['help'] ?>
+    </small>
+  <?php endif; ?>
+</div>
+```
+</code>
+
+----
+
+Uuid: 74bdzvzafvbqxndl
