@@ -16,31 +16,16 @@ Text:
 
 Merx comes with a [product blueprint](reference/blueprints/pages/product). Create a new page in the panel and select *Product* as template. Set a price for your product.
 
-## Page model
-
-To get some convenience functions create a own page model and extend the `Wagnerwagner\Merx\ProductPage` class. You can add your own methods to the product page model later on.
-
-[Kirby docs: Page models](https://getkirby.com/docs/guide/templates/page-models)
-
-<code caption="/site/models/product.php">
-```php
-<?php
-
-class ProductPage extends Wagnerwagner\Merx\ProductPage
-{}
-```
-</code>
-
 ## Template
 
-You are completely free to build your very own template that fits to your product.
+By default the page model of product templates is [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page). If you want to, you can create your own page model and extend the default [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page) model.
 
-You most likely want to display the price of the product and a button to add the product to the cart.
+You are completely free to build your very own template that fits to your product. Most likely you want to display the price of the product and a button to add the product to the cart. You can use [`$page->price()`](/reference/classes/product-page/price) to display the formatted price, with currency symbol.
 
 <code caption="/site/templates/product.php">
 ```php
 <?php
-/** @var ProductPage $page */
+/** @var Wagnerwagner\Merx\ProductPage $page */
 ?>
 …
 <span class="price"><?= $page->price() ?></span>
@@ -53,9 +38,9 @@ You most likely want to display the price of the product and a button to add the
 ```
 </code>
 
-## Add product to cart
+## Add the product to the cart
 
-Submitting the product form will create a POST request to the [Merx API endpoint](/reference/api/routes/shop-cart-post) and responds as JSON. Use JavaScript to interfere the submit event and log the response data to the console.
+Submitting the product form will create a POST request to the [Merx API endpoint](/reference/api/routes/shop-cart-post) and responds as JSON. Use JavaScript to interfere the submit event and log the response data to the console for now.
 
 <code caption="script.js">
 ```js
@@ -71,6 +56,8 @@ productForm.addEventListener('submit', async (event) => {
 });
 ```
 </code>
+
+Continue with [Showing the cart](/guide/getting-started/showing-the-cart) and learn how to use JavaScript to show the cart to the user.
 
 If you don’t want to use JavaScript continue with [Using the API with PHP](/guide/api/using-api-with-php).
 

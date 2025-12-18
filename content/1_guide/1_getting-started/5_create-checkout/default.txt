@@ -1,0 +1,43 @@
+Title: Create checkout
+
+----
+
+Headline: 
+
+----
+
+Intro: Learn how to collect and validate your customer’s email and shipping address.
+
+----
+
+Text:
+
+## Create checkout page
+
+Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Create a new page in the panel and select *Checkout* as template. By default the status of the page is *unlisted*.
+### Create checkout form
+
+Add form fields for the data you need to collect from your customer. For the moment we use *invoice* as payment method.
+
+<code caption="/site/blueprints/checkout.php">
+```php
+…
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+  <label>
+    Email
+    <input type="email" name="email" autocomplete="email" required>
+  </label>
+  <input type="hidden" name="payment-method" value="invoice">
+  <button>Submit order</button>
+</form>
+…
+```
+</code>
+
+As long as all user data is valid, the user is redirected directly to the order page, where the user sees the summary of its placed order.
+
+When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout `](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error.
+
+----
+
+Uuid: w4r2fgxheopdlx52

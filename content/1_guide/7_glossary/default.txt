@@ -1,0 +1,43 @@
+Title: Glossary
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+## Payment provider
+
+Other terms: Payment service
+
+An external service, that handles payment. For example PayPal or Stripe.
+
+## Payment method
+
+## Order page
+
+A Kirby page where user data (e.g. name, email, address) and the user’s cart is stored.
+
+## Product
+
+Something that could be bought.
+
+## Coupon
+
+## Discount
+
+## Price
+
+A number (negative or positive) with a tax rate and a currency.
+
+## Wishlist
+
+----
+
+Uuid: geafbjfaqivqfawh

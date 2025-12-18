@@ -1,0 +1,283 @@
+Title: Validate checkout
+
+----
+
+Headline: 
+
+----
+
+Intro: Learn how to validate customer’s data.
+
+----
+
+Text:
+
+To make sure you get all the data you need from your customers, Merx uses Kirby’s page validation. You can define the required fields and set `validate` options for each field you want to validate. See [Kirby’s documentation](https://getkirby.com/docs/reference/system/validators) for all available validators. If you need more specific validation, you can [create your own validators](https://getkirby.com/docs/reference/plugins/extensions/validators).
+
+## Define fields
+
+Set up the fields, that are required to fulfill orders. Therefore create a new personal data section. If you don’t create you own personal data section, the [default personal data section](/reference/blueprints/sections/personal-data) is used.
+
+<code caption="/site/blueprints/sections/personal-data.yml">
+```yaml
+type: fields
+fields:
+  email:
+    label: Email
+    type: email
+    required: true
+  given-name:
+    label: Given name
+    type: text
+    required: true
+    validate:
+      minLength: 2
+  family-name:
+    label: Family name
+    type: text
+    required: true
+  organization: # Optional field
+    label: Organization
+    type: text
+# …
+```
+</code>
+
+## Update checkout template
+
+Add the new fields to the checkout template.
+
+
+<code caption="/site/blueprints/checkout.php">
+```php
+…
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+  <label>
+    Email
+    <input type="email" name="email" autocomplete="email" required>
+  </label>
+  <label>
+    Given name 
+    <input type="text" name="given-name" autocomplete="given-name" required>
+  </label>
+  <label>
+    Family name
+    <input type="text" name="family-name" autocomplete="family-name" required>
+  </label>
+  <label>
+    Organization (optional)
+    <input type="text" name="organization" autocomplete="organization">
+  </label>
+  <input type="hidden" name="payment-method" value="invoice">
+  <button>Submit order</button>
+</form>
+…
+```
+</code>
+
+### Example response
+
+When there are no validation errors, the API endpoint returns a redirect response, which redirects to the payment provider or directly to the order page.
+
+When the validation fails, the API returns a JSON with one or more error messages per invalid field.
+
+<code caption="POST https://shop.test/api/shop/checkout">
+```json
+{
+	"status": "error",
+	"message": "Field validation failed.",
+	"code": 400,
+	"key": "error.merx.fieldsvalidation",
+	"details": {
+		"email": {
+			"label": "Email",
+			"message": {
+				"required": "Please enter something"
+			}
+		},
+		"given-name": {
+			"label": "Given name",
+			"message": {
+				"required": "Please enter something",
+				"minlength": "Please enter a longer value. (min. 2 characters)"
+			}
+		},
+		"family-name": {
+			"label": "Family name",
+			"message": {
+				"required": "Please enter something"
+			}
+		}
+	}
+}
+```
+</code>
+
+## Use JavaScript to handle form submit
+
+Use JavaScript to interfere the submit event of the checkout form. Use the validation details to show the error messages to the user.
+
+<code caption="script.js">
+```js
+const checkoutForm = document.getElementById('checkout-form');
+checkoutForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const response = await fetch(checkoutForm.action, {
+    method: 'post',
+    body: new FormData(checkoutForm),
+  });
+  console.log(response);
+
+  if (response.redirected === true) {
+    // [1] Redirect user to payment provider or directly to order page
+    window.location.href = response.url;
+  } else {
+    // [2] Handle validation errors
+    const json = await response.json();
+    const errorDetails = json.details;
+    console.log(errorDetails);
+  }
+});
+```
+</code>
+
+
+### Complete validation handling
+
+
+<code caption="script.js">
+```js
+const checkoutForm = document.getElementById('checkout-form');
+
+/**
+ * Creates a p element with class “error”.
+ * @param {String} error e.g. “Please enter a valid email address”
+ */
+function createErrorElement(errorMessage) {
+  return Object.assign(document.createElement('p'), {
+    classList: 'error',
+    innerText: errorMessage,
+  });
+}
+
+/**
+ * Removes all elements with class “error”.
+ */
+function clearErrors() {
+  checkoutForm.querySelectorAll('.error').forEach((_) => _.remove());
+}
+
+checkoutForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  clearErrors();
+
+  const formData = new FormData(checkoutForm);
+
+  // Disables all form fields to prevent multiple submissions
+  [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', true));
+
+  // Send form data tot API endpoint
+  const response = await fetch(checkoutForm.action, {
+    method: 'post',
+    body: formData,
+  });
+
+  // Enables all form fields
+  [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', false));
+
+  console.log(response);
+
+  if (response.redirected === true) {
+    // Redirect user to payment provider or directly to order page
+    window.location.href = response.url;
+  } else {
+    // Handle validation errors
+    try {
+      /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
+      const json = await response.json();
+
+      if (json.key === 'error.merx.fieldsvalidation') {
+        // Handle field errors
+        const errorDetails = json.details;
+
+        for (const [key, error] of Object.entries(errorDetails)) {
+          const labelElement = checkoutForm.querySelector(`label:has([name="${key}"])`);
+
+          if (labelElement) {
+            for (const errorMessage of Object.values(error.message)) {
+              // Display error message(s) inside of label element
+              labelElement.appendChild(createErrorElement(errorMessage));
+            }
+          } else {
+            throw json.message ?? 'Fatal error';
+          }
+        }
+      } else {
+        throw json.message ?? 'Fatal error';
+      }
+    } catch (errorMessage) {
+      // Display general error message before submit button
+      checkoutForm.insertBefore(createErrorElement(errorMessage), event.submitter)
+    }
+  }
+});
+```
+</code>
+
+<callout>
+You should add some kind of loading indication, so that the user knows that something is happening.
+</callout>
+
+----
+
+Shortdescription: How to make sure you get all the data you need.
+
+----
+
+Redirect: false
+
+----
+
+Sections:
+
+[
+    {
+        "content": {
+            "title": "Custom Order Blueprint",
+            "abstract": "",
+            "text": "You can copy the default (link: docs/blueprints/pages/order text: order blueprint) or start from scratch. Add your own fields and add the validation options you like.\n\n### Example\n\nLet’s assume you need a *given name* which has to have at least two characters but at the most three words.\n\n(filename: site/blueprints/pages/order.yml)\n\n```yaml\ntitle: Order\n\nfields:\n  givenName:\n    type: text\n    required: true\n    validate:\n      minLength: 2\n      maxWords: 3\n```\n\n```php\n$merx->initializePayment([\n  'givenName' => 'Elizabeth Alexandra Mary',\n]); // ok\n\n$merx->initializePayment([\n  'givenName' => 'Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester',\n]); // not ok (throws Exception)\n```"
+        },
+        "id": "b4084255-6a51-41cd-8860-bd90da5cd738",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Conditional Errors",
+            "abstract": "",
+            "text": "Sometimes you need something like if field *A* is set, check field *B*. This can’t be solved with the blueprint validation.\n\nTo get conditional field errors, extend the `errors` method of the OrderPage class with the help of the `addFieldError` method.\n\n(filename: site/models/order.php)\n\n```php\nclass OrderPage extends OrderPageAbstract {\n  public function errors(): array\n  {\n    $errors = parent::errors();\n    if (!$this->useInvoiceAddressAsShippingAddress()->toBool()) {\n      $rule = ['minLength' => 3, 'maxLength' => 255];\n      $shippingAddressGivenNameError = Merx::getFieldError($this->shippingAddressGivenName(), $rule);\n      $errors = array_merge($errors, $shippingAddressGivenNameError);\n    }\n    return $errors;\n  }\n}\n```"
+        },
+        "id": "dfb370cf-9077-49e1-8566-47bd01655775",
+        "isHidden": false,
+        "type": "section"
+    },
+    {
+        "content": {
+            "title": "Display Errors",
+            "abstract": "",
+            "text": "The `initializePayment` method throws an error if the validation fails.\n\n```php\ntry {\n  $redirect = merx()->initializePayment($data);\n} catch (Kirby\\Exception\\Exception $ex) {\n  // do something with $ex.\n}\n```\n\n`$ex->getDetails()` for example will get you something like this.\n\n```json\n\"name\": {\n  \"label\": \"Name\",\n  \"message\": {\n    \"required\": \"Please enter something\"\n  }\n}\n```\n\nSee the documentation of (link: docs/classes/merx/initializepayment text: `initializePayment`) for all possible Exceptions."
+        },
+        "id": "544ab88f-2cd7-48a4-ae7b-a424741a9cdb",
+        "isHidden": false,
+        "type": "section"
+    }
+]
+
+----
+
+Contentbuilder: 
+
+----
+
+Uuid: VDT8ILcWQPzF8BsC

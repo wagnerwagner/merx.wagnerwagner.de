@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: Learn how to show the users cart with JavaScript.
+Intro: Learn how to show the user’s cart with JavaScript.
 
 ----
 
@@ -14,7 +14,7 @@ Text:
 
 We recommend to use JavaScript and the API to show the cart to the user. This makes it possible to cache all pages server-side and load the cart asynchronously.
 
-For this example we define a custom element. There is a `getCart()` function, which gets users cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
+For this example we define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). There is a `getCart()` function, which gets the cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
 
 <code caption="script.js">
 ```js
@@ -26,8 +26,8 @@ customElements.define('my-cart', class extends HTMLElement {
 
   async fetchCart() {
     const response = await fetch(this.endpoint);
-    const responseData = await response.json();
-    this.data = responseData.data;
+    const json = await response.json();
+    this.data = json.data;
     console.log(this.data);
   }
 
@@ -37,16 +37,19 @@ customElements.define('my-cart', class extends HTMLElement {
   }
 
   render() {
+    const items = this.data?.products?.items ?? null;
     this.innerHTML = `
       <h2>Cart</h2>
-      ${this.data?.products?.items.map(item => `
+      ${items ? `
         <ul>
-          <li>
-            <strong>${item.title}</strong><br>
-            Price: ${item.price.price}
-          </li>
-        </ul>
-      `).join('') ?? 'Empty cart'}
+          ${items.map(item => `
+            <li>
+              <strong>${item.title}</strong><br>
+              Price: ${item.price.price}
+            </li>
+        `).join('')}
+      ` : 'Empty cart'}
+      </ul>
       <p>Total: ${this.data.total.price}</p>
     `;
   }
