@@ -35,7 +35,7 @@ Sections:
         "content": {
             "title": "Set the stripe.webhook_signing_secret option",
             "abstract": "",
-            "text": "Set the (link: page://JghZEsvncQm7IEoz text: *stripe.webhook_signing_secret*). \n\n(filename: site/config/env.php)\n\n```php\n<?php\nreturn [\n        'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\n];\n```\n\nWe recommend to use (link: https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration text: `config/env.php`) for your secret keys."
+            "text": "Set the (link: page://JghZEsvncQm7IEoz text: *stripe.webhook_signing_secret*). \n\n(filename: site/config/env.php)\n\n```php\n<?php\nreturn [\n        'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',\n];\n```\n\nWe recommend to use (link: https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration text: `config/env.php`) for your secret keys."
         },
         "id": "9eee7537-fa42-4808-8090-a996c73bbda7",
         "isHidden": false,

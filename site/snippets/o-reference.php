@@ -2,6 +2,7 @@
 /** @var \Wagnerwagner\Site\ReferencePageAbstract $page */
 /** @var \Kirby\Cms\App $kirby */
 
+use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
@@ -24,7 +25,7 @@ function formatViewFields($fields) {
 
 	<?php if (is_string($page->summary())): ?>
 		<div class="m-text" data-size="xlarge">
-			<p><?= $page->summary() ?></p>
+			<p><?= kti($page->summary()) ?></p>
 		</div>
 	<?php endif ?>
 
@@ -38,7 +39,7 @@ function formatViewFields($fields) {
 	<div class="m-text">
 		<?php if (is_string($page->call())): ?>
 			<figure class="m-code">
-				<pre class="language-php"><code><?= $page->call() ?></code></pre>
+				<pre class="language-php"><code><?= Str::esc($page->call(), 'html') ?></code></pre>
 			</figure>
 		<?php endif ?>
 
@@ -89,9 +90,7 @@ function formatViewFields($fields) {
 
 		<?php if ($page instanceof ReferenceOptionPage): ?>
 			<h2>Default value</h2>
-			<div class="m-code">
-				<pre><code><?= $page->defaultValue() ?></code></pre>
-			</div>
+			<?= (new Type($page->defaultValue()))->toHtml() ?>
 
 			<h2>Type</h2>
 			<p><?= $page->type()->toHtml() ?></p>

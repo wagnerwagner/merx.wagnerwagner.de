@@ -13,7 +13,7 @@ class ReferenceTranslationsPage extends ReferencePageAbstract
 			return $this->children;
 		}
 
-    $translations = $this->kirby()->plugin('ww/merx')->extends()['translations'];
+    $translations = $this->kirby()->plugin('wagnerwagner/merx')->extends()['translations'];
     $enTranslations = $translations['en'] ?? [];
     $children = [];
     foreach ($enTranslations as $key => $value) {
@@ -29,7 +29,7 @@ class ReferenceTranslationsPage extends ReferencePageAbstract
         ],
       ];
     }
-    return $this->children = Pages::factory($children, $this);
+    return $this->children = Pages::factory($children, $this)->sortBy('slug');
   }
 
 	/**

@@ -18,7 +18,7 @@ class ReferenceBlueprintPage extends \Wagnerwagner\Site\ReferencePageAbstract
   public function blueprintFileContent(): string
   {
     $relativeFilePath = $this->relativeFilePath();
-    $root = $this->kirby()->plugin('ww/merx')->root();
+    $root = $this->kirby()->plugin('wagnerwagner/merx')->root();
     return F::read($root . '/' . $relativeFilePath);
   }
 }

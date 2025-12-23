@@ -28,7 +28,7 @@ function sendConfirmationMail($orderPage) {
 
 return [
   'hooks' => [
-    'ww.merx.completePayment:after' => function ($orderPage) {
+    'wagnerwagner.merx.completePayment:after' => function ($orderPage) {
       sendConfirmationMail($orderPage);
     },
   ],

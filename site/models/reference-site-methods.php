@@ -16,7 +16,7 @@ class ReferenceSiteMethodsPage extends ReferencePageAbstract
 			return $this->children;
 		}
 
-		$siteMethods = $this->kirby()->plugin('ww/merx')->extends()['siteMethods'];
+		$siteMethods = $this->kirby()->plugin('wagnerwagner/merx')->extends()['siteMethods'];
 		$children = [];
 		foreach ($siteMethods as $key => $value) {
 			$slug = Str::slug(Str::camelToKebab($key));
@@ -34,7 +34,7 @@ class ReferenceSiteMethodsPage extends ReferencePageAbstract
 				],
 			];
 		}
-		return $this->children = Pages::factory($children, $this);
+		return $this->children = Pages::factory($children, $this)->sortBy('slug');
 	}
 
 		/**

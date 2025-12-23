@@ -31,6 +31,20 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 
 ## Namechanges
 
+### Merx methods
+
+`Merx::initializePayment` → [`Merx::initializeOrder`](reference/classes/merx/initialize-order)
+`Merx::completePayment ` → [`Merx::createOrder`](/reference/classes/merx/create-order)
+
+### hooks
+
+`initializePayment:before` → [`initializeOrder:before`](/reference/options/hooks/initialize-order-before)
+`initializePayment:after` → [`initializeOrder:after`](/reference/options/hooks/initialize-order-after)
+`completePayment:before` → [`createOrder:before`](/reference/options/hooks/create-order-before)
+`completePayment:after` → [`createOrder:after`](/reference/options/hooks/create-order-after)
+
+Apart from that, there are many more [new hooks](/reference/options/hooks).
+
 ### formatPrice()
 
 `formatPrice` or `Merx::formatPrice` → [`Merx::formatCurrency`](/reference/classes/merx/format-currency)

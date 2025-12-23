@@ -22,13 +22,48 @@ The invoice number is created automatically. By default it is a up-counting numb
 ```php
 <?php /** @var Wagnerwagner\Merx\OrderPage $page */ ?>
 
-Invoice number: <?= $page->invoiceNumber() ?>
+<h1>Invoice #<?= $page->invoiceNumber() ?></h1>
 
-Name: <?= $page->given_name() ?> <?= $page->family_name() ?>
+<p>Name: <?= $page->given_name() ?> <?= $page->family_name() ?></p>
 
-<?php foreach($page->cart() as $item): ?>
-<!-- Show cart -->
-<?php endforeach ?>
+<?php snippet('cart', ['cart' => $page->cart()]) ?>
+```
+</code>
+
+## Cart snippet
+
+To display the summary of the items ordered, you can use a [snippet](https://getkirby.com/docs/guide/templates/snippets).
+
+<code caption="/site/snippets/cart.php">
+```php
+<?php /** @var \Wagnerwagner\Merx\ProductList $cart */ ?>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Price per item</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($cart as $item): ?>
+      <?php /** @var Wagnerwagner\Merx\ListItem $item */ ?>
+      <tr>
+        <td><?= $item->title() ?></td>
+        <td><?= $item->price() ?></td>
+        <td><?= $item->quantity() ?></td>
+        <td><?= $item->total() ?></td>
+      </tr>
+    <?php endforeach ?>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="3">Total</th>
+      <td><?= $cart->total() ?></td>
+    </tr>
+  </tfoot>
+</table>
 ```
 </code>
 

@@ -41,7 +41,7 @@ Sections:
         "content": {
             "title": "Update content field using a hook",
             "abstract": "",
-            "text": "To update the `invoiceNumber` content field you can use the [`completePayment:after` hook](/docs/hooks/completepaymentafter).\n\n(filename: site/config/config.php)\n\n```php\n<?php\nreturn [\n  'hooks' => [\n    'ww.merx.completePayment:after' => function ($orderPage) {\n      $invoiceNumber = 0;\n      if ($prevOrder = $orderPage->prevListed()) {\n        $invoiceNumber = (int)$prevOrder->invoiceNumber();\n      }\n      $invoiceNumber = $invoiceNumber + 1;\n      $orderPage->update([\n        'invoiceNumber' => $invoiceNumber,\n      ]);\n    },\n  ],\n];"
+            "text": "To update the `invoiceNumber` content field you can use the [`completePayment:after` hook](/docs/hooks/completepaymentafter).\n\n(filename: site/config/config.php)\n\n```php\n<?php\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.completePayment:after' => function ($orderPage) {\n      $invoiceNumber = 0;\n      if ($prevOrder = $orderPage->prevListed()) {\n        $invoiceNumber = (int)$prevOrder->invoiceNumber();\n      }\n      $invoiceNumber = $invoiceNumber + 1;\n      $orderPage->update([\n        'invoiceNumber' => $invoiceNumber,\n      ]);\n    },\n  ],\n];"
         },
         "id": "44182ff4-3201-49a1-9e57-9160c904e6c9",
         "isHidden": false,

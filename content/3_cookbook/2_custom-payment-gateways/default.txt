@@ -14,17 +14,17 @@ Text:
 
 Use the gateway option to add your own payment gateway.
 
-`initializePayment` and `completePayment` must return a (link: docs/classes/orderpage text: `OrderPage`) object.
+`initializeOrder` and `completePayment` must return a (link: docs/classes/orderpage text: `OrderPage`) object.
 
-In `initializePayment` you can set a redirect url. The user will be redirected to this url. If you don’t set `redirect` the user will be sent to (link: docs/options/successpage text: successPage).
+In `initializeOrder` you can set a redirect url. The user will be redirected to this url. If you don’t set `redirect` the user will be sent to (link: docs/options/successpage text: successPage).
 
 (filename: site/config/config.php)
 
 ```php
 return [
-  'ww.merx.gateways' => [
+  'wagnerwagner.merx.gateways' => [
     'my-payment-provider' => [
-      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage
+      'initializeOrder' => function(OrderPage $virtualOrderPage): OrderPage
       {
         $sum = $virtualOrderPage->cart()->getSum();
         // do something to get a redirect url

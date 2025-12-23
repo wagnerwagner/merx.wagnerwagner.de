@@ -19,9 +19,14 @@ class Type {
     if (
 			in_array($type, ['self', 'static', '$this']) === true
 			|| Str::startsWith($type, '$')
-			|| Str::startsWith($type, 'Wagnerwagner\\')
 		) {
     	$this->type = $reflector !== null && method_exists($reflector, 'getDeclaringClass') ? $reflector?->getDeclaringClass()?->getName() ?? $type : $type;
+      $this->alias = $type;
+			$this->dataType = 'class';
+		} else if (
+			Str::startsWith($type, 'Wagnerwagner\\')
+		) {
+    	$this->type = $type;
       $this->alias = $type;
 			$this->dataType = 'class';
     } else {
@@ -35,7 +40,7 @@ class Type {
 	{
 		$type = Str::lower($this->type);
 		$type = $type === 'boolean' ? 'bool' : $type;
-		if (in_array($type, ['string', 'null', 'bool', 'int', 'float'])) {
+		if (in_array($type, ['string', 'null', 'bool', 'int', 'float', 'array'])) {
 			return $type;
 		} else if ($reflector instanceof Reflector || Str::contains($type, '\\')) {
 			return 'class';

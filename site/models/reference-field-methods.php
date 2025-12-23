@@ -16,7 +16,7 @@ class ReferenceFieldMethodsPage extends ReferencePageAbstract
 			return $this->children;
 		}
 
-		$fieldMethods = $this->kirby()->plugin('ww/merx')->extends()['fieldMethods'];
+		$fieldMethods = $this->kirby()->plugin('wagnerwagner/merx')->extends()['fieldMethods'];
 		$children = [];
 		foreach ($fieldMethods as $key => $value) {
 			$slug = Str::slug(Str::camelToKebab($key));
@@ -34,7 +34,11 @@ class ReferenceFieldMethodsPage extends ReferencePageAbstract
 				],
 			];
 		}
-		return $this->children = Pages::factory($children, $this);
+		return $this->children = Pages::factory($children, $this)->sort(
+			'slug',
+			'asc',
+			SORT_NATURAL,
+		);
 	}
 
 		/**

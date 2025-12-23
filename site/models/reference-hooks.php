@@ -13,10 +13,10 @@ class ReferenceHooksPage extends Page
 			return $this->children;
 		}
 
-    $hooks = $this->kirby()->plugin('ww/merx')->extends()['hooks'];
+    $hooks = $this->kirby()->plugin('wagnerwagner/merx')->extends()['hooks'];
     $children = [];
     foreach ($hooks as $key => $hook) {
-			$slug = Str::slug(Str::replace($key, 'ww.merx.', ''));
+			$slug = Str::slug(Str::replace(Str::camelToKebab($key), 'wagnerwagner.merx.', ''));
       $children[] = [
         'slug' => $slug,
         'model' => 'reference-hook',
@@ -28,7 +28,7 @@ class ReferenceHooksPage extends Page
         ],
       ];
     }
-    return $this->children = Pages::factory($children, $this);
+    return $this->children = Pages::factory($children, $this)->sortBy('slug');
   }
 
 	/**

@@ -42,11 +42,11 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 			$model = '';
 			$template = 'reference-doc';
 			if ($apiType === 'routes') {
-				$items = $this->kirby()->plugin('ww/merx')->extends()['api']['routes']($this->kirby());
+				$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['routes']($this->kirby());
 				$model = 'reference-api-route';
 			}
 			if ($apiType === 'models') {
-				$items = $this->kirby()->plugin('ww/merx')->extends()['api']['models'];
+				$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['models'];
 				$model = 'reference-api-model';
 			}
 			foreach ($items as $key => $item) {

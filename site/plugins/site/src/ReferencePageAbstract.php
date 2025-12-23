@@ -35,7 +35,7 @@ abstract class ReferencePageAbstract extends Page
 	 */
   public function relativeFilePath(): ?string
 	{
-    $root = $this->kirby()->plugin('ww/merx')->root() . '/';
+    $root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
     if ($this->detectNamespace() === 'Kirby') {
       $root = $this->kirby()->root('kirby') . '/';
     }
@@ -59,7 +59,7 @@ abstract class ReferencePageAbstract extends Page
       return $this->kirby()->root('kirby') . '/' . $relativeFilePath;
     }
 
-    return $this->kirby()->plugin('ww/merx')->root() . '/' . $relativeFilePath;
+    return $this->kirby()->plugin('wagnerwagner/merx')->root() . '/' . $relativeFilePath;
   }
 
 	/**
@@ -91,11 +91,11 @@ abstract class ReferencePageAbstract extends Page
 			$version = $this->kirby()->version();
 		} else if ($namespace === 'Wagnerwagner') {
 			$gitHubRoot = option('github-repositories.merx');
-			$version = $this->kirby()->plugin('ww/merx')->version();
+			$version = $this->kirby()->plugin('wagnerwagner/merx')->version();
 		} else {
 			// Default to merx for models without namespace detection
 			$gitHubRoot = option('github-repositories.merx');
-			$version = $this->kirby()->plugin('ww/merx')->version();
+			$version = $this->kirby()->plugin('wagnerwagner/merx')->version();
 		}
 
     if ($line !== null) {

@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: Learn how to show the user’s cart with JavaScript.
+Intro: Learn how to show the user’s cart using JavaScript.
 
 ----
 

@@ -12,7 +12,7 @@ Shortdescription: How to use a hook to manipulate the cart.
 
 Text:
 
-With Merx 1.1 there is a new hook called [`ww.merx.cart`](/docs/hooks/cart) which gives you the capability to manipulate the cart. You can add new products (e.g. *Shipping*). You could even change the price of products in the cart with [$cart->updateItem()](docs/classes/cart/updateitem).
+With Merx 1.1 there is a new hook called [`wagnerwagner.merx.cart`](/docs/hooks/cart) which gives you the capability to manipulate the cart. You can add new products (e.g. *Shipping*). You could even change the price of products in the cart with [$cart->updateItem()](docs/classes/cart/updateitem).
 
 Find the source code of a full working example on Github:
 [Source Code](https://github.com/wagnerwagner/merx-examples/tree/shipping-costs)
@@ -40,7 +40,7 @@ Sections:
         "content": {
             "title": "Create cart hook",
             "abstract": "",
-            "text": "Use the [`ww.merx.cart`](/docs/hooks/cart) hook to manipulate the user’s cart.\n\nIn this example Shipping is added if the sum of the cart is lower than 50.\nWhen you have five or more Knitted Socks you will get a discount of 10.\n\n(filename: site/config.php)\n\n``` php\nreturn [\n  'hooks' => [\n    'ww.merx.cart' => function ($cart) {\n      if ($cart->count() > 0) {\n        $cart->remove('shipping');\n        $cart->remove('discount');\n        if ($cart->getSum() < 50) {\n          $cart->add([\n            'id' => 'shipping',\n          ]);\n        }\n        if ($cart->get('knitted-socks')['quantity'] >= 5) {\n          $cart->add([\n            'id' => 'discount',\n          ]);\n        }\n      }\n    }\n  ],\n];\n```"
+            "text": "Use the [`wagnerwagner.merx.cart`](/docs/hooks/cart) hook to manipulate the user’s cart.\n\nIn this example Shipping is added if the sum of the cart is lower than 50.\nWhen you have five or more Knitted Socks you will get a discount of 10.\n\n(filename: site/config.php)\n\n``` php\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.cart' => function ($cart) {\n      if ($cart->count() > 0) {\n        $cart->remove('shipping');\n        $cart->remove('discount');\n        if ($cart->getSum() < 50) {\n          $cart->add([\n            'id' => 'shipping',\n          ]);\n        }\n        if ($cart->get('knitted-socks')['quantity'] >= 5) {\n          $cart->add([\n            'id' => 'discount',\n          ]);\n        }\n      }\n    }\n  ],\n];\n```"
         },
         "id": "642fcf5f-e118-4a44-b247-e4bc1bd131ea",
         "isHidden": false,

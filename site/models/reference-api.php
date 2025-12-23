@@ -24,7 +24,7 @@ class ReferenceApiPage extends Page
 
 		// Add unlisted pages for each available API type by mirroring
 		// the directory structure inside the plugin's `api` folder.
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/api';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/api';
 
 		$children = $this->childrenFactory(
 			$root,
@@ -81,10 +81,10 @@ class ReferenceApiPage extends Page
 		$kirby = $this->kirby();
 		$api = new Api([
 			'kirby' => new App(),
-			'collections' => $kirby->plugin('ww/merx')->extends()['api']['collections'],
-			'data' => $kirby->plugin('ww/merx')->extends()['api']['data'],
-			'models' => $kirby->plugin('ww/merx')->extends()['api']['models'],
-			'routes' => $kirby->plugin('ww/merx')->extends()['api']['routes']($kirby),
+			'collections' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['collections'],
+			'data' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['data'],
+			'models' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['models'],
+			'routes' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['routes']($kirby),
 		]);
 		return $api;
 	}

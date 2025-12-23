@@ -21,7 +21,7 @@ class ReferenceClassesPage extends Page
 		$children = [];
 
 		// Add one child page per PHP class shipped in the plugin.
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/src';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/src';
 
 		$children = $this->childrenFactory(
 			'Wagnerwagner\\Merx',
