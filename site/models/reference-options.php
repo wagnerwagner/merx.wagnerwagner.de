@@ -13,22 +13,22 @@ class ReferenceOptionsPage extends ReferencePageAbstract
 			return $this->children;
 		}
 
-    $options = $this->kirby()->plugin('ww/merx')->extends()['options'];
+    $options = $this->kirby()->plugin('wagnerwagner/merx')->extends()['options'];
     $children = [];
     foreach ($options as $key => $value) {
-			$slug = Str::slug($key);
+			$slug = Str::slug(Str::camelToKebab($key));
       $children[] = [
         'slug' => $slug,
         'model' => 'reference-option',
         'template' => 'reference-doc',
         'num' => 0,
         'content' => [
-          'key' => $key,
+          'key' => 'wagnerwagner.merx.' . $key,
 					'defaultValue' => $value,
         ],
       ];
     }
-    return $this->children = Pages::factory($children, $this)->sortBy('num');
+    return $this->children = Pages::factory($children, $this)->sortBy('slug');
   }
 
 	/**
@@ -55,7 +55,7 @@ class ReferenceOptionsPage extends ReferencePageAbstract
 	 */
 	public function relativeFilePath(): ?string
 	{
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
 		$configFile = $root . 'config/config.php';
 
 		if (file_exists($configFile) === false) {

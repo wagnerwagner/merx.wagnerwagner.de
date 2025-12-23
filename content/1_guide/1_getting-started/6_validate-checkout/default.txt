@@ -26,13 +26,13 @@ fields:
     label: Email
     type: email
     required: true
-  given-name:
+  given_name:
     label: Given name
     type: text
     required: true
     validate:
       minLength: 2
-  family-name:
+  family_name:
     label: Family name
     type: text
     required: true
@@ -58,17 +58,17 @@ Add the new fields to the checkout template.
   </label>
   <label>
     Given name 
-    <input type="text" name="given-name" autocomplete="given-name" required>
+    <input type="text" name="given_name" autocomplete="given-name" required>
   </label>
   <label>
     Family name
-    <input type="text" name="family-name" autocomplete="family-name" required>
+    <input type="text" name="family_name" autocomplete="family-name" required>
   </label>
   <label>
     Organization (optional)
     <input type="text" name="organization" autocomplete="organization">
   </label>
-  <input type="hidden" name="payment-method" value="invoice">
+  <input type="hidden" name="payment_method" value="invoice">
   <button>Submit order</button>
 </form>
 …
@@ -95,14 +95,14 @@ When the validation fails, the API returns a JSON with one or more error message
 				"required": "Please enter something"
 			}
 		},
-		"given-name": {
+		"given_name": {
 			"label": "Given name",
 			"message": {
 				"required": "Please enter something",
 				"minlength": "Please enter a longer value. (min. 2 characters)"
 			}
 		},
-		"family-name": {
+		"family_name": {
 			"label": "Family name",
 			"message": {
 				"required": "Please enter something"
@@ -246,7 +246,7 @@ Sections:
         "content": {
             "title": "Custom Order Blueprint",
             "abstract": "",
-            "text": "You can copy the default (link: docs/blueprints/pages/order text: order blueprint) or start from scratch. Add your own fields and add the validation options you like.\n\n### Example\n\nLet’s assume you need a *given name* which has to have at least two characters but at the most three words.\n\n(filename: site/blueprints/pages/order.yml)\n\n```yaml\ntitle: Order\n\nfields:\n  givenName:\n    type: text\n    required: true\n    validate:\n      minLength: 2\n      maxWords: 3\n```\n\n```php\n$merx->initializePayment([\n  'givenName' => 'Elizabeth Alexandra Mary',\n]); // ok\n\n$merx->initializePayment([\n  'givenName' => 'Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester',\n]); // not ok (throws Exception)\n```"
+            "text": "You can copy the default (link: docs/blueprints/pages/order text: order blueprint) or start from scratch. Add your own fields and add the validation options you like.\n\n### Example\n\nLet’s assume you need a *given name* which has to have at least two characters but at the most three words.\n\n(filename: site/blueprints/pages/order.yml)\n\n```yaml\ntitle: Order\n\nfields:\n  givenName:\n    type: text\n    required: true\n    validate:\n      minLength: 2\n      maxWords: 3\n```\n\n```php\n$merx->initializeOrder([\n  'givenName' => 'Elizabeth Alexandra Mary',\n]); // ok\n\n$merx->initializeOrder([\n  'givenName' => 'Karl-Theodor Maria Nikolaus Johann Jacob Philipp Franz Joseph Sylvester',\n]); // not ok (throws Exception)\n```"
         },
         "id": "b4084255-6a51-41cd-8860-bd90da5cd738",
         "isHidden": false,
@@ -266,7 +266,7 @@ Sections:
         "content": {
             "title": "Display Errors",
             "abstract": "",
-            "text": "The `initializePayment` method throws an error if the validation fails.\n\n```php\ntry {\n  $redirect = merx()->initializePayment($data);\n} catch (Kirby\\Exception\\Exception $ex) {\n  // do something with $ex.\n}\n```\n\n`$ex->getDetails()` for example will get you something like this.\n\n```json\n\"name\": {\n  \"label\": \"Name\",\n  \"message\": {\n    \"required\": \"Please enter something\"\n  }\n}\n```\n\nSee the documentation of (link: docs/classes/merx/initializepayment text: `initializePayment`) for all possible Exceptions."
+            "text": "The `initializeOrder` method throws an error if the validation fails.\n\n```php\ntry {\n  $redirect = merx()->initializeOrder($data);\n} catch (Kirby\\Exception\\Exception $ex) {\n  // do something with $ex.\n}\n```\n\n`$ex->getDetails()` for example will get you something like this.\n\n```json\n\"name\": {\n  \"label\": \"Name\",\n  \"message\": {\n    \"required\": \"Please enter something\"\n  }\n}\n```\n\nSee the documentation of (link: docs/classes/merx/initializeOrder text: `initializeOrder`) for all possible Exceptions."
         },
         "id": "544ab88f-2cd7-48a4-ae7b-a424741a9cdb",
         "isHidden": false,

@@ -29,7 +29,7 @@ class ReferenceBlueprintTypePage extends ReferencePageAbstract
 		$children = [];
 
 		// Add pages for every blueprint file stored for this type.
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/blueprints/' . $this->slug();
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/blueprints/' . $this->slug();
 
 		$children = $this->childrenFactory(
 			$root,

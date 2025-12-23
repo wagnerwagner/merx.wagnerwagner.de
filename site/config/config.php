@@ -6,5 +6,5 @@ return [
 		'kirby' => 'https://github.com/getkirby/kirby',
 	],
 	'merx-email' => 'merx@wagnerwagner.de',
-	'ww.merx.production' => true,
+	'wagnerwagner.merx.production' => true,
 ];

@@ -14,7 +14,7 @@ Keys are prefixed with `error.merx.`.
 
 Key | English
 --- | ---
-`initializePayment` | The payment could not be initialized.
+`initializeOrder` | The payment could not be initialized.
 `noPaymentMethod` | No payment method provided.
 `fieldsvalidation` | Field validation failed.
 `emptycart` | Cart is empty.

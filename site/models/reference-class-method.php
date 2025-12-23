@@ -87,7 +87,9 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
 		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
 		if (isset($returnTags[0])) {
-			return new Types((string)$returnTags[0]->type, $reflection);
+			$types = (string)$returnTags[0]->type;
+			$types = Str::replace($types, ['(', ')', ' | '], ['' , '', '|']);
+			return new Types($types, $reflection);
 		}
 
 		if ($reflection->getReturnType() !== null) {

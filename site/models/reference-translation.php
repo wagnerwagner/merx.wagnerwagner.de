@@ -7,7 +7,7 @@ class ReferenceTranslationPage extends ReferencePageAbstract
 	public function translationStrings(): array
 	{
 		$translationKey = $this->key()->value();
-		$translations = $this->kirby()->plugin('ww/merx')->extends()['translations'];
+		$translations = $this->kirby()->plugin('wagnerwagner/merx')->extends()['translations'];
 		$languages = array_keys($translations);
 		$translationStrings = [];
 		foreach ($languages as $langKey) {

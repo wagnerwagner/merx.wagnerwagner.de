@@ -10,7 +10,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 	public function title(): Field
 	{
 		$key = $this->key()->value();
-		return parent::title()->value($key);
+		return parent::title()->value(Str::replace($key, 'wagnerwagner.merx.', ''));
 	}
 
 	public function type(): ?Type
@@ -18,13 +18,32 @@ class ReferenceOptionPage extends ReferencePageAbstract
 		return new Type(gettype($this->content()->defaultValue()->value()));
 	}
 
+	public function call(): string
+	{
+		$defaultValue = $this->defaultValue();
+		$defaultValue = $defaultValue === 'closure' ? 'function() {}' : $defaultValue;
+		return "'" . $this->key() . "'" . ' => ' . $defaultValue;
+	}
+
 	public function defaultValue(): ?string
 	{
 		$defaultValue = $this->content()->defaultValue()->value();
-		if (is_array($defaultValue)) {
-			return var_export($defaultValue, true);
+		if (gettype($defaultValue) === 'array') {
+			$defaultValue = '[]';
+		} else if (gettype($defaultValue) === 'boolean') {
+			$defaultValue = $defaultValue ? 'true' : 'false';
+		} else if (gettype($defaultValue) === 'NULL') {
+			$defaultValue = 'null';
+		} else if (gettype($defaultValue) === 'string') {
+			$defaultValue = "'$defaultValue'";
+		} else if (gettype($defaultValue) === 'object') {
+			if (is_callable($defaultValue)) {
+				$defaultValue = "closure";
+			} else {
+				$defaultValue = "object";
+			}
 		}
-		return var_export($defaultValue, true);
+		return $defaultValue;
 	}
 
 	public function reflection(): ?Reflector
@@ -38,7 +57,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 	 */
 	public function relativeFilePath(): ?string
 	{
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
 		$configFile = $root . 'config/config.php';
 
 		if (file_exists($configFile) === false) {
@@ -52,7 +71,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 
 	public function line(): ?int
 	{
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
 		$configFile = $root . 'config/config.php';
 
 		if (file_exists($configFile) === false) {
@@ -64,7 +83,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 
 		// Try to find the line number where this option is defined
 		$key = $this->key()->value();
-		$keyWithoutPrefix = Str::replace($key, 'ww.merx.', '');
+		$keyWithoutPrefix = Str::replace($key, 'wagnerwagner.merx.', '');
 
 		if ($lines !== false) {
 			foreach ($lines as $index => $line) {

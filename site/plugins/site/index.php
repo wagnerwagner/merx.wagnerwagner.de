@@ -102,7 +102,7 @@ App::plugin('wagnerwagner/site', [
     }
   ],
   'hooks' => [
-    'ww.merx.completePayment:after' => function($orderPage) use ($licenseBase) {
+    'wagnerwagner.merx.completePayment:after' => function($orderPage) use ($licenseBase) {
       $quantity = $orderPage->cart()->findBy('id', 'merx-license')['quantity'];
       $licenses = [];
       while (count($licenses) < $quantity) {

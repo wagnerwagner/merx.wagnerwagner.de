@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: Learn how to collect and validate your customer’s email and shipping address.
+Intro: Learn how to collect your customer’s email and shipping address.
 
 ----
 

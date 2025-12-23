@@ -68,7 +68,7 @@ if (!function_exists('formatPrice')) {
 
 ### $orderPage->invoiceDate()
 
-`$orderPage->invoiceDate()` → `$orderPage->created()`
+`$orderPage->invoiceDate()` → [`$orderPage->created()`]
 
 ## Payment methods
 
@@ -77,3 +77,7 @@ Payment method `credit-card-sca` is now `credit-card`.
 ----
 
 Uuid: zamwcwdsjaddylba
+
+----
+
+Lock: orWUZXGb

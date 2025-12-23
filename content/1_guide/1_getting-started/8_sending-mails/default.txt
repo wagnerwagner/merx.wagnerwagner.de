@@ -1,0 +1,101 @@
+Title: Sending mails
+
+----
+
+Headline: 
+
+----
+
+Intro: Learn how to use hooks to send confirmation mails to the customer.
+
+----
+
+Text:
+
+Merx comes with several [hooks](/reference/options/hooks) you can use to hook into processes.
+
+Use the [`completeOrder:after`](/reference/options/hooks/createorder-after) hook to send a mail to the customer to inform about the succeeded order.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+  'hooks' => [
+    'wagnerwagner.merx.completeOrder:after' => function (\Wagnerwagner\Merx\OrderPage $orderPage) {
+      $name = $orderPage->given_name() . ' ' . $orderPage->family_name();
+      kirby()->email([
+        'from' => 'info@shop.test',
+        'fromName' => $orderPage->site()->title(),
+        'to' => [(string)$orderPage->email() => $name],
+        'subject' => 'Thank’s for your order!',
+        'body'=> 'Dear ' . $name . ', you have paid ' . $orderPage->total(),
+      ]);
+    },
+  ],
+];
+```
+</code>
+
+Read [Kirby’s guide about emails](https://getkirby.com/docs/guide/emails) to learn more about sending mails.
+
+## Best practices
+
+### Use email presets
+
+It’s recommended to use [mail presets](https://getkirby.com/docs/guide/emails#presets). This has the advantage that you can define the sender email address and a mail template globally in the config file.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+return [
+  'email' => [
+    'presets' => [
+      'createOrder' => [
+        'from' => 'info@shop.test',
+        'template' => 'create-order',
+      ],
+    ],
+  ],
+  'hooks' => [
+    'wagnerwagner.merx.createOrder:after' => function (\Wagnerwagner\Merx\OrderPage $orderPage) {
+      kirby()->email('createOrder', [
+        'to' => (string)$orderPage->email(),
+        'fromName' => $orderPage->site()->title(),
+        'subject' => 'Thank’s for your order!',
+        'data' => [
+          'orderPage' => $orderPage,
+        ],
+      ]);
+    },
+  ],
+];
+```
+</code>
+
+<code caption="/site/templates/emails/create-order.php">
+```php
+<?php /** @var \Wagnerwagner\Merx\OrderPage $orderPage */ ?>
+Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, you have paid <?= $orderPage->total() ?>
+```
+</code>
+
+### Logging
+
+@TODO
+
+----
+
+Shortdescription: 
+
+----
+
+Redirect: false
+
+----
+
+Sections: 
+
+----
+
+Uuid: ycxxutf8tpkhsfto

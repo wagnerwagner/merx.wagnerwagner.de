@@ -21,7 +21,7 @@ class ReferenceBlueprintsPage extends Page
 		$children = [];
 
 		// Add one child page per blueprint type directory in the plugin.
-		$root = $this->kirby()->plugin('ww/merx')->root() . '/blueprints';
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/blueprints';
 
 		$children = $this->childrenFactory(
 			$root,
