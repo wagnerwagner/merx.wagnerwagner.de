@@ -91,7 +91,7 @@ use Wagnerwagner\Merx\Merx;
 					</label>
 				</div>
 				<div class="form-checkout__payment-fields">
-					<input type="hidden" name="stripePublishableKey" value="<?= option('ww.merx.production') === true ? option('ww.merx.stripe.live.publishable_key') : option('ww.merx.stripe.test.publishable_key') ?>">
+					<input type="hidden" name="stripePublishableKey" value="<?= option('wagnerwagner.merx.production') === true ? option('wagnerwagner.merx.stripe.live.publishable_key') : option('wagnerwagner.merx.stripe.test.publishable_key') ?>">
 
 					<label class="is-required" hidden data-payment-method="credit-card-sca">
 						<strong>Credit Card</strong>
