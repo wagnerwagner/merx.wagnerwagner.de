@@ -14,7 +14,7 @@ Text:
 
 ## Localization vs. Internationalization
 
-## Different currencies
+**@TODO**
 
 ## Add language to API request
 

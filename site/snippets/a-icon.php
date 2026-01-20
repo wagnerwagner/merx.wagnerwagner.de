@@ -8,6 +8,6 @@ $weight ??= 400;
 
 if ($name === null) return null;
 
-$filename = $name . '-' . $weight . '.svg';
+$iconName = $name . '-' . $weight;
 ?>
-<span class="a-icon"><?= svg('/assets/images/icons/' . $filename) ?></span>
+<span class="a-icon"><svg aria-hidden="true" focusable="false"><use href="<?= url('assets/images/icons.svg') ?>#<?= $iconName ?>"></use></svg></span>

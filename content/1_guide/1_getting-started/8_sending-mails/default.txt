@@ -14,7 +14,7 @@ Text:
 
 Merx comes with several [hooks](/reference/options/hooks) you can use to hook into processes.
 
-Use the [`completeOrder:after`](/reference/options/hooks/createorder-after) hook to send a mail to the customer to inform about the succeeded order.
+Use the [`createOrder:after`](/reference/options/hooks/create-order-after) hook to send a mail to the customer to inform about the succeeded order.
 
 <code caption="/site/config/config.php">
 ```php
@@ -22,7 +22,7 @@ Use the [`completeOrder:after`](/reference/options/hooks/createorder-after) hook
 
 return [
   'hooks' => [
-    'wagnerwagner.merx.completeOrder:after' => function (\Wagnerwagner\Merx\OrderPage $orderPage) {
+    'wagnerwagner.merx.createOrder:after' => function (\Wagnerwagner\Merx\OrderPage $orderPage) {
       $name = $orderPage->given_name() . ' ' . $orderPage->family_name();
       kirby()->email([
         'from' => 'info@shop.test',

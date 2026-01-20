@@ -1,0 +1,13 @@
+.m-showcase-item > a {
+	display: grid;
+	row-gap: var(--size-150);
+	text-decoration: none;
+
+	> strong {
+		font: var(--font-label-large);
+	}
+
+	> small {
+		font: var(--font-label-small);
+	}
+}

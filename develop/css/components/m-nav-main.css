@@ -5,3 +5,15 @@
 		display: flex;
 	}
 }
+
+.m-nav-main__steps {
+	li + li {
+		display: flex;
+		align-items: center;
+
+		&:before {
+			content: '›';
+			color: var(--color-content-secondary);
+		}
+	}
+}

@@ -1,0 +1,17 @@
+.o-showcase-home {
+	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+	margin-inline: auto;
+	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
+	padding-block: var(--size-800);
+	padding-inline: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	display: grid;
+	row-gap: var(--size-400);
+
+	> ul {
+		margin-block-start: var(--size-200);
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		list-style: none;
+		column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	}
+}

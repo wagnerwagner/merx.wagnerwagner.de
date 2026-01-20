@@ -17,4 +17,6 @@
 			<meta property="og:type" content="website">
 			<meta property="og:title" content="<?= $page->title() ?>">
 		<?php endif; ?>
+		<link rel="preload" href="<?= url('assets/images/icons.svg') ?>" as="image" type="image/svg+xml" fetchpriority="low">
+		<!-- Wagnerwagner -->
 	</head>

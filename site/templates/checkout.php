@@ -1,15 +1,11 @@
 <?php
-use Wagnerwagner\Merx\Merx;
+/** @var \Wagnerwagner\Merx\Cart $cart */
 ?>
 <?php snippet('head') ?>
 <body>
 	<?php snippet('o-header') ?>
-	<?php if ($message = Merx::getMessage()): ?>
-		<div class="message">
-			<div><?= $message ?></div>
-		</div>
-	<?php endif; ?>
 	<main class="buy">
+		<?= die('@TODO') ?>
 		<form class="buy__form" method="post" action="merx-api/buy">
 			<div class="buy__abstract">
 				<?= $page->abstract()->kt() ?>
@@ -17,13 +13,13 @@ use Wagnerwagner\Merx\Merx;
 			<div class="cart">
 				<div class="cart__name">Merx License</div>
 				<div class="cart__quantity">
-					<span aria-label="quantity">1</span>
+					<span aria-label="quantity"><?= $cart->quantity() ?></span>
 					<button type="button" data-action="decrease" aria-label="decrease quantity">−</button>
 					<button type="button" data-action="increase" aria-label="increase quantity">+</button>
 				</div>
-				<div class="cart__sum"><?= formatPrice($cart->getSum() - $cart->getTax()) ?></div>
-				<div class="cart__tax">+ Vat (19%) <?= formatPrice($cart->getTax()) ?></div>
-				<div class="cart__total"><?= formatPrice($cart->getSum()) ?></div>
+				<div class="cart__sum"><?= $cart->total()->toString('priceNet') ?></div>
+				<div class="cart__tax">+ Vat (<?= $cart->total()->tax->toString('rate') ?>) <?= $cart->tax() ?></div>
+				<div class="cart__total"><?= $cart->total() ?></div>
 			</div>
 			<div class="form-checkout">
 				<h3>Contact Infomation</h3>

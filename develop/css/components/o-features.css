@@ -1,0 +1,17 @@
+.o-features {
+	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+	margin-inline: auto;
+	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
+	padding-block: var(--size-800);
+	padding-inline: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	row-gap: calc(var(--gap-inline) * 2);
+	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
+}
+
+.o-features__item {
+	display: grid;
+	row-gap: var(--size-200);
+}

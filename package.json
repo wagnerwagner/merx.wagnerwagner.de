@@ -8,7 +8,8 @@
 		"js-lint": "npx eslint --fix develop/js",
 		"css": "npx postcss develop/css/*.css --dir public/assets/css -m --env production",
 		"css-dev": "npx postcss develop/css/*.css --dir public/assets/css -m -w --env development",
-		"build": "npm run css; npm run js-lint; npm run js;"
+		"svg": "./scripts/build-svg-sprite.sh",
+		"build": "npm run css; npm run js-lint; npm run js; npm run svg;"
 	},
 	"author": "tobias.wolf@wagnerwagner.de",
 	"devDependencies": {

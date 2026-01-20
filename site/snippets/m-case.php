@@ -1,10 +1,13 @@
 <?php
+
+use Kirby\Cms\Url;
+
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 ?>
-<section id="<?= $item->uid() ?>">
-	<div>
+<section class="m-case" id="<?= $item->uid() ?>">
+	<div class="m-case__copy">
 		<header>
-			<h2>
+			<h2 class="a-heading" data-size="medium">
 				<?php if ($link): ?>
 					<a href="<?= $item->link() ?>" rel="noopener">
 				<?php endif ?>
@@ -49,21 +52,21 @@ $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 
 				<img
 					src="<?= $screenshot->thumb([
-						'width' => 768,
-						'height' => 768 * 0.7 * 1.5,
+						'width' => 860,
+						'height' => 860 * 0.7 * 1.5,
 						'crop' => 'top',
 					])->url() ?>"
 					srcset="<?= $screenshot->thumb([
-						'width' => 768 * 2,
-						'height' => (768 * 0.7 * 1.5) * 2,
+						'width' => 860 * 2,
+						'height' => (860 * 0.7 * 1.5) * 2,
 						'crop' => 'top',
-					])->url() ?> <?= 768 * 2 ?>w"
+					])->url() ?> <?= 860 * 2 ?>w"
 					sizes="
 						(min-width: 50em) 36em,
 						calc(100vw - 2rem)
 					"
-					width="768"
-					height="<?= 768 * 0.7 * 1.5 ?>"
+					width="860"
+					height="<?= 860 * 0.7 * 1.5 ?>"
 					loading="lazy"
 					alt="Screenshot of “<?= $item->title() ?>”"
 				>
