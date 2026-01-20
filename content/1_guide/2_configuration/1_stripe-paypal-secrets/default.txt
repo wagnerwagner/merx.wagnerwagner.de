@@ -35,7 +35,7 @@ return [
 </code>
 
 
-We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing only the sandbox keys.
+We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing only the sandbox/test keys.
 
 <callout theme="caution">
 Anyone can use your live mode secret API keys to make any API call on behalf of your account, such as creating a charge or performing a refund. Keep your keys safe.

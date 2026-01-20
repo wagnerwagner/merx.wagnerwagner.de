@@ -1,0 +1,7 @@
+.o-home {
+	z-index: var(--z-index-main-wrapper);
+	inline-size: 100%;
+	padding-inline: var(--gap-inline);
+	border-block-end: var(--border-small-tertiary);
+	background: inherit;
+}

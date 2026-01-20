@@ -1,0 +1,139 @@
+.m-case {
+	display: grid;
+	grid-template-columns: 1fr calc(860rem / 16);
+	column-gap: var(--gap-inline);
+	box-sizing: border-box;
+	margin-block-start: var(--size-500);
+
+	figure {
+		position: relative;
+		margin: 0;
+		padding-block-start: calc(70% + var(--size-200));
+		overflow: hidden;
+
+		figcaption {
+			position: absolute;
+			z-index: 1;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			box-sizing: border-box;
+			padding-block: var(--size-100);
+			padding-inline: var(--size-300);
+			text-align: center;
+			font: var(--font-code-medium);
+			color: var(--color-content-secondary);
+			background-color: var(--color-background-secondary);
+			border-block-start: var(--border-size-small) solid var(--color-border-secondary);
+			transition-duration: var(--duration-medium);
+			transition-property: color;
+		}
+	}
+
+	> div.-figure {
+		figure {
+			padding-top: calc(70%);
+		}
+	}
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: auto;
+		transform: translateY(0);
+		transition-duration: var(--duration-large);
+		transition-property: transform;
+	}
+
+	> div.-figure,
+	> a {
+		display: block;
+		width: 100%;
+	}
+
+	> div.-figure:hover,
+	> a:focus,
+	> a:hover {
+		img {
+			transform: translateY(-33.333%);
+			transition-timing-function: ease-in-out;
+		}
+		figure {
+			figcaption {
+				color: var(--color-content-primary);
+			}
+		}
+}
+}
+
+.m-case__copy {
+	padding-block-start: var(--size-700);
+	padding-inline: calc(var(--gap-inline) * 3);
+
+	header {
+		small {
+			font: var(--font-label-medium);
+		}
+	}
+
+	h2 {
+		a {
+			text-decoration: none;
+
+			&:focus,
+			body:not(.is-touch) &:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	/* Website is no longer available online. */
+	> div > em {
+		display: block;
+		margin-block-start: var(--size-500);
+	}
+
+	h3 {
+		margin-block-start: var(--size-500);
+		font-size: inherit;
+		display: inline-block;
+		color: var(--color-black);
+		background-color: var(--color-white);
+	}
+
+	ul,
+	p {
+		margin-block-start: 0;
+		margin-bottom: 0;
+	}
+
+	ul {
+		padding-left: 0;
+		li {
+			position: relative;
+			padding-left: calc(16rem / 16);
+			list-style: none;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: calc(10.5rem / 16);
+				height: calc(2rem / 16);
+				width: calc(8rem / 16);
+				background-color: var(--color-content-secondary);
+			}
+
+			& + li {
+				margin-block-start: var(--size-100);
+			}
+		}
+	}
+
+	.m-case:where(:nth-child(2n)) & {
+		order: 2;
+	}
+}

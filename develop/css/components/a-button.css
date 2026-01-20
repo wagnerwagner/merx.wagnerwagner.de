@@ -1,0 +1,24 @@
+.a-button {
+	display: flex;
+	border: var(--border-size-small) solid var(--color-border-brand);
+	text-decoration: none;
+	font: var(--font-label-medium);
+	padding-inline: var(--size-200);
+	padding-block: var(--size-100);
+
+	&[data-size="large"] {
+		font: var(--font-label-large);
+		padding-inline: var(--size-200);
+		padding-block: var(--size-150);
+	}
+
+	&[data-kind="secondary"] {
+		color: var(--color-content-secondary);
+	}
+
+	&[data-variant="text"] {
+		border: 0;
+		padding-inline: 0;
+		background-color: transparent;
+	}
+}

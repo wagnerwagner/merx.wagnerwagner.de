@@ -1,4 +1,7 @@
 <?php
+
+use Kirby\Cms\Url;
+
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 $width = 336;
 $height = $width * 0.7 * 1.5;
@@ -8,7 +11,7 @@ if ($page->isHomePage()) {
 	$height = $width * 0.75;
 }
 ?>
-<li class="case-list-item">
+<li class="m-showcase-item">
 	<?php if ($screenshot = $item->screenshot()->toFile()): ?>
 		<?php if ($link): ?>
 			<a href="<?= $link ?>" rel="noopener">

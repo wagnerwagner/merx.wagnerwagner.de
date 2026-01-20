@@ -1,4 +1,5 @@
 .a-display {
+	margin-inline-start: -0.02em;
 	font: var(--font-heading-xlarge);
 	font-variant-alternates: var(--font-variant-alternates-display);
 	text-wrap-style: balance;

@@ -68,11 +68,15 @@ if (!function_exists('formatPrice')) {
 
 ### $orderPage->invoiceDate()
 
-`$orderPage->invoiceDate()` → `$orderPage->created()`
+`$orderPage->invoiceDate()` → [`$orderPage->created()`]
 
 ## Payment methods
 
 Payment method `credit-card-sca` is now `credit-card`.
+
+## Merx messages
+
+`Merx::setMessage()`and `Merx::getMessage()` are no longer available.
 
 ----
 

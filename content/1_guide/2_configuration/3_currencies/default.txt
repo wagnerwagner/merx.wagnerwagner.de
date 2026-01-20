@@ -1,0 +1,146 @@
+Title: Currencies
+
+----
+
+Headline: 
+
+----
+
+Intro: Merx is very flexible when it comes to displaying different prices in different currencies. You can write your own rules (using PHP) to determine when and how each price is displayed.
+
+----
+
+Text:
+
+Currencies are defined in the [`pricingRules`](/reference/options/config-options/pricing-rules) option. Each pricing rule is defined by a key and an array with following items.
+
+## Options per pricing rule
+
+| Name | Type | Default | Description |
+| -- | -- | -- | -- |
+| `name` | `string` \| `function` | `null` | |
+| `currency` | `string` | `'EUR'` | Three-letter ISO currency code | 
+| `rule` | `function` | `true` | Function returning true or false. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as a argument. | 
+| `taxIncluded` | `bool` | `true` | Whether price is including tax or not |
+
+## Set up pricing rules
+
+### Change default currency
+
+If you want to change the default currency (e.g. for a single language website), you can set up a simple default pricing rule.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.pricingRules' => [
+		'default' => [
+			'currency' => 'GBP',
+		],
+	],
+];
+```
+</code>
+
+### Currencies based on language
+
+If you want to display prices based on the [Kirby language](https://getkirby.com/docs/guide/languages), you can do so by using the [languageCode()](https://getkirby.com/docs/reference/objects/cms/app/language-code) method of the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.pricingRules' => [
+		'en' => [
+			'name' => 'US dollar',
+			'currency' => 'USD',
+			'rule' => fn (?App $kirby): bool => $kirby->languageCode() === 'us',
+			'taxIncluded' => false,
+		],
+		'default' => [
+			'name' => 'Euro',
+			'currency' => 'EUR',
+		],
+	],
+];
+```
+</code>
+
+### Pricing rule based on weekday
+
+If you want to show a reduced price on Mondays, you can do this as follows.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.pricingRules' => [
+		'reduced' => [
+			'name' => 'Reduced',
+			'currency' => 'EUR',
+			'rule' => fn (): bool => date('N') === '1', // returns true on mondays
+		],
+		'default' => [
+			'name' => 'Default',
+			'currency' => 'EUR',
+		],
+	],
+];
+```
+</code>
+
+When no rule function is defined, the rule is considered as `true`.
+
+## Add prices for products
+
+For each product you can define a **price** per **pricing rule**. If you use the [prices field](/reference/blueprints/fields/prices), there is a nice interface for the panel users, to define the correct prices for each pricing rule.
+
+<code caption="/content/products/1_bike/product.en.txt">
+```kirby
+Title: Bike
+
+\----
+
+Prices:
+
+- 
+  price: 2000
+  pricingrule: default
+- 
+  price: 2100
+  pricingrule: en
+```
+</code>
+
+## Showing the price
+
+The [`price()`](/reference/classes/product-page/price) method of a [product page](/reference/classes/product-page) returns the price based on the first valid pricing rule. The price is formatted automatically with the correct currency symbol (see [`$price->toString()`](/reference/classes/price/to-string)).
+
+<code caption="/site/templates/product.php">
+```php
+<?= $page->price() ?>
+```
+</code>
+
+You can provide the key of the rule as the first argument to the price method, if you want to return the price of a specific rule.
+
+<code caption="/site/templates/product.php">
+```php
+<?= $page->price('default') ?> or <?= $page->price('en') ?>
+```
+</code>
+
+<callout>
+[`Merx::pricingRule()`](/reference/classes/merx/pricing-rule) returns the current pricing rule. You can use it to check if your rules work as expected.
+</callout>
+
+\----
+
+Continue learning how to define and use [tax rules](/guide/configuration/taxes).
+
+----
+
+Uuid: emf7bwlzrpdf8uru

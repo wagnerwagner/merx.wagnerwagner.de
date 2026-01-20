@@ -16,9 +16,17 @@
 		background-color: transparent;
 	}
 
+	&:where(button) {
+		border: 0;
+	}
+
 	&[data-state="open"] {
 		&::after {
 			background-color: var(--color-gray-300);
 		}
+	}
+
+	&[data-variant="step"] {
+		padding-inline: var(--size-400);
 	}
 }

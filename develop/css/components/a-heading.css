@@ -1,6 +1,12 @@
 .a-heading {
 	font: var(--font-heading-medium);
 	text-wrap-style: pretty;
+
+	> a {
+		display: inline-block;
+		text-decoration-thickness: var(--border-size-small);
+		text-decoration-color: var(--color-border-primary);
+	}
 }
 
 h1.a-heading,

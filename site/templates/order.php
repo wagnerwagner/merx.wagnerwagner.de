@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Wagnerwagner\Merx\Cart $cart
+ */
+?>
 <?php snippet('head') ?>
 <body class="l-invoice">
 	<header class="header">
@@ -46,11 +51,12 @@
 				</thead>
 				<tbody>
 					<?php foreach($cart as $item): ?>
+						<?php /** @var \Wagnerwagner\Merx\ListItem $item */ ?>
 					<tr>
-						<td><?= $item['title'] ?></td>
-						<td><?= $item['quantity'] ?></td>
-						<td><?= formatPrice($item['price'] - $item['tax']) ?></td>
-						<td><?= formatPrice($item['sum'] - $item['sumTax']) ?></td>
+						<td><?= $item->title ?></td>
+						<td><?= $item->quantity ?></td>
+						<td><?= $item->price()->toString('priceNet') ?></td>
+						<td><?= $item->total()->toString('priceNet') ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -58,16 +64,16 @@
 					<?php if ($cart->getTax() !== 0.0): ?>
 					<tr>
 						<th colspan="3">Gross</th>
-						<td><?= formatPrice($cart->getSum() - $cart->getTax()) ?></td>
+						<td><?= $cart->total()->toString('priceNet') ?></td>
 					</tr>
 					<tr>
-						<th colspan="3">+ Vat</th>
-						<td><?= formatPrice($cart->getTax()) ?></td>
+						<th colspan="3">+ Vat (<?= $cart->total()->tax->toString('rate') ?>)</th>
+						<td><?= $cart->total()->tax ?></td>
 					</tr>
 					<?php endif; ?>
 					<tr>
 						<th colspan="3">Sum</th>
-						<td><?= formatPrice($cart->getSum()) ?></td>
+						<td><?= $cart->total() ?></td>
 					</tr>
 				</tfoot>
 			</table>

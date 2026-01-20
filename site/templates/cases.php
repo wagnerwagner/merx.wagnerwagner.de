@@ -6,19 +6,27 @@ if ($page->redirect()->isTrue()) {
 <?php snippet('head') ?>
 <body class="l-cases">
 	<?php snippet('o-header') ?>
-	<main class="cases">
-		<h1><?= $page->headline() ?></h1>
-		<?php foreach($page->children()->listed() as $item): ?>
-			<?php snippet('case', compact('item')); ?>
-		<?php endforeach; ?>
-		<ul>
-			<?php foreach($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
-				<?php snippet('case-list-item', compact('item')) ?>
-			<?php endforeach; ?>
-		</ul>
-		<footer>
-			<?= $page->footerText()->kt() ?>
-		</footer>
+	<main class="o-cases">
+		<div class="o-cases__box">
+			<div class="o-cases__title">
+				<h1 class="a-display">
+					Online shops made with Kirby, Merx and <?= snippet('a-icon', ['name' => 'heart', 'weight' => 700]) ?>
+				</h1>
+			</div>
+			<div class="o-cases__grid">
+				<?php foreach($page->children()->listed() as $item): ?>
+					<?php snippet('m-case', compact('item')); ?>
+				<?php endforeach; ?>
+			</div>
+			<ul>
+				<?php foreach($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
+					<?php snippet('case-list-item', compact('item')) ?>
+				<?php endforeach; ?>
+			</ul>
+			<footer>
+				<?= $page->footerText()->kt() ?>
+			</footer>
+		</div>
 	</main>
 	<?php snippet('o-footer') ?>
 </body>

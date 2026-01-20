@@ -4,6 +4,12 @@
 	aspect-ratio: 1;
 
 	> svg {
-		display: block;
+		block-size: 100%;
+		aspect-ratio: 1;
+		fill: currentcolor;
+	}
+
+	&[data-color="brand"] {
+		color: var(--color-brand);
 	}
 }
