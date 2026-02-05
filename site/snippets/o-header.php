@@ -13,14 +13,13 @@ use Kirby\Cms\Html;
 		<?= Html::tag('button', [snippet('a-icon', ['name' => 'search', 'weight' => 700], true)], [
 			'class' => 'a-nav-item-primary',
 			'data-state' => page('search')->isOpen() ? 'open' : null,
-			'commandfor' => 'dialog-search',
-			'command' => 'show-modal',
+			'popovertarget' => 'dialog-search',
+			'popovertargetaction' => 'toggle',
 		]) ?>
-		<dialog class="m-search-dialog" id="dialog-search">
-			<form class="header-search" action="<?= url('search') ?>">
-				<input type="search" name="q" required minlength="3" autocomplete="off" aria-label="Search">
-				<button type="submit" tabindex="-1" title="Toggle Search"></button>
-			</form>
-		</dialog>
+		<div class="m-search-dialog" id="dialog-search" popover="auto">
+			<div>
+				<?php snippet('m-search') ?>
+			</div>
+		</div>
 	</div>
 </header>

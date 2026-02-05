@@ -1,0 +1,97 @@
+Title: Taxes
+
+----
+
+Headline: 
+
+----
+
+Intro: Each product has its own tax rule. For each rule, a PHP function is assigned that returns a floating number.
+
+----
+
+Text:
+
+The tax rule sets are defined in the [`taxRules`](/reference/options/config-options/tax-rules) option. Each tax rule is defined by a key and an array with following items.
+
+## Options per pricing rule
+
+| Name | Type | Default | Description |
+| -- | -- | -- | -- |
+| `name` | `string|function` | `null` | |
+| `rule` | `function` | `null|float` | Function returning a **positive floating number**. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as a argument. |
+
+## Set up default tax rate
+
+If you want to change the default tax rate (e.g. when you only sell products of the same kind), you can set up a simple default tax rate rule.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.taxRules' => [
+		'default' => [
+			'rule' => fn (): float => 0.19,
+		],
+	],
+];
+```
+</code>
+
+## Set tax rate for each product
+
+To use the default tax rate you need to set the `taxRule` field to `default`.
+
+When using the panel, you can use the [tax-rule field](/reference/blueprints/fields/tax-rule) in your product page blueprint.
+
+<code caption="/content/products/1_bike/product.en.txt">
+```kirby
+Title: Bike
+
+\----
+
+Taxrule: default
+```
+</code>
+
+
+## Different tax rates for different countries
+
+Use the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object to return different tax rates for different conditions. For example you can use [`$kirby->languageCode()`](https://getkirby.com/docs/reference/objects/cms/app/language-code) method to return specific tax rates for each language.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.taxRules' => [
+		'default' => [
+			'name' => fn (): string => t('taxRule.default'),
+			'rule' => fn (?App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
+		],
+		'reduced' => [
+			'name' => fn (): string => t('taxRule.reduced'),
+			'rule' => fn (?App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
+		],
+	],
+];
+```
+</code>
+
+Returning the correct tax rate for different countries could get very complicated. Stripe uses [*product tax codes*](https://docs.stripe.com/tax/tax-codes) (PTCs). In theory you could built something like that with Merx.
+
+## Displaying the tax
+
+The tax rate is applied to the price of the product. You can use [`$page->tax()`](/reference/classes/product-page/tax) to retrieve the tax rate and currency value.
+
+<code caption="/site/templates/product.php">
+```php
+<?= $page->tax() ?> (<?= $page->tax()->rate() ?>)
+<!-- €9.42 (19%) -->
+```
+</code>
+
+----
+
+Uuid: gsaaq236wrxhtg1y

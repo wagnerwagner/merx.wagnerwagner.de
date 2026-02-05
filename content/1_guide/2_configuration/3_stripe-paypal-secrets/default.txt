@@ -1,0 +1,62 @@
+Title: Stripe/PayPal secrets
+
+----
+
+Headline: 
+
+----
+
+Intro: If you want to use Stripe or PayPal as a payment provider, you need to set the respective keys. These keys form the connection between your online shop and the payment provider.
+
+----
+
+Text:
+
+## Set Stripe/PayPal secrets
+
+Create a PayPal and/or Stripe account. Read the [Stripe](https://docs.stripe.com/keys) and/or [PayPal](https://developer.paypal.com/api/rest/#link-getclientidandclientsecret) documentation on how to get the keys.
+
+
+<code caption="/site/config/env.php">
+```php
+<?php
+
+return [
+	'wagnerwagner.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
+	'wagnerwagner.merx.stripe.test.secret_key' => 'sk_test_xxx…',
+	'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
+	'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
+	'wagnerwagner.merx.paypal.sandbox.clientID' => 'xxx…',
+	'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
+	'wagnerwagner.merx.paypal.live.clientID' => 'xxx…',
+	'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
+];
+```
+</code>
+
+
+We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing only the sandbox/test keys.
+
+<callout theme="caution">
+Anyone can use your live mode secret API keys to make any API call on behalf of your account, such as creating a charge or performing a refund. Keep your keys safe.
+</callout>
+
+[Kirby docs: env file](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
+
+Next, learn how to use these keys to create [Stripe](/guide/payment-methods/stripe-elements) or [PayPal](/guide/payment-methods/paypal) payments.
+
+----
+
+Shortdescription: Set up your PayPal/Stripe keys.
+
+----
+
+Redirect: 0
+
+----
+
+Sections: 
+
+----
+
+Uuid: vbc1nuuQ764W9ghf

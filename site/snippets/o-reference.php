@@ -29,11 +29,11 @@ function formatViewFields($fields) {
 		</div>
 	<?php endif ?>
 
-  <?php if ($page->gitHubUrl()): ?>
-    <a class="a-type" href="<?= $page->gitHubUrl() ?>">
-      <?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
-      <?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
-    </a>
+	<?php if ($page->gitHubUrl()): ?>
+		<a class="a-type" href="<?= $page->gitHubUrl() ?>">
+			<?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
+			<?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
+		</a>
 	<?php endif ?>
 
 	<div class="m-text">
@@ -70,23 +70,23 @@ function formatViewFields($fields) {
 			</div>
 		<?php endif ?>
 
-    <?php if ($page instanceof ReferenceTranslationPage): ?>
-      <h2>Translation strings</h2>
-      <div class="m-table">
-        <table>
-          <thead>
-            <th>Language</th>
-            <th>Translation</th>
-          </thead>
-          <?php foreach ($page->translationStrings() as $langKey => $translationString): ?>
-            <tr>
-              <td><?= $langKey ?></td>
-              <td><?= $translationString ?></td>
-            </tr>
-          <?php endforeach ?>
-        </table>
-      </div>
-    <?php endif ?>
+		<?php if ($page instanceof ReferenceTranslationPage): ?>
+			<h2>Translation strings</h2>
+			<div class="m-table">
+				<table>
+					<thead>
+						<th>Language</th>
+						<th>Translation</th>
+					</thead>
+					<?php foreach ($page->translationStrings() as $langKey => $translationString): ?>
+						<tr>
+							<td><?= $langKey ?></td>
+							<td><?= $translationString ?></td>
+						</tr>
+					<?php endforeach ?>
+				</table>
+			</div>
+		<?php endif ?>
 
 		<?php if ($page instanceof ReferenceOptionPage): ?>
 			<h2>Default value</h2>
@@ -97,12 +97,12 @@ function formatViewFields($fields) {
 		<?php endif ?>
 
 		<?php if (($returnTypes = $page->returnTypes()) && is_countable($returnTypes) && count($returnTypes) > 0): ?>
-      <?php if ($page instanceof ReferenceApiRoutePage && ($returnType = $page->returnType()) && $returnType->getDataType() === 'class'): ?>
-        <h2>API model</h2>
-        <p>
-          <?= $returnType->toHtml(api: true) ?>
-        </p>
-      <?php endif ?>
+			<?php if ($page instanceof ReferenceApiRoutePage && ($returnType = $page->returnType()) && $returnType->getDataType() === 'class'): ?>
+				<h2>API model</h2>
+				<p>
+					<?= $returnType->toHtml(api: true) ?>
+				</p>
+			<?php endif ?>
 
 			<h2>Return type</h2>
 			<p>
@@ -148,55 +148,51 @@ function formatViewFields($fields) {
 			</p>
 		<?php endif ?>
 
-    <?php if ($page instanceof ReferenceApiModelPage): ?>
-      <h2>Fields</h2>
+		<?php if ($page instanceof ReferenceApiModelPage): ?>
+			<h2>Fields</h2>
 			<p>The following fields are available in the <?= $page->title() ?> model and can be fetched with the select parameter.</p>
-      <div class="m-table">
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Return type</th>
-          </thead>
-          <?php foreach ($page->fields()->value() as $key => $field): ?>
-						<?php
-							$reflector = new ReflectionFunction($field);
-							$returnType = $reflector->getReturnType();
-						?>
-            <tr>
-              <td><?= $key ?></td>
-              <td><?= (new Types($returnType, $reflector))->toHtml(api: true) ?></td>
-            </tr>
-          <?php endforeach ?>
-        </table>
-      </div>
+			<div class="m-table">
+				<table>
+					<thead>
+						<th>Name</th>
+						<th>Return type</th>
+					</thead>
+					<?php foreach ($page->fields()->yaml() as $key => $field): ?>
+						<tr>
+							<td><?= $key ?></td>
+							<td><?= (new Types($field))->toHtml(api: true) ?></td>
+						</tr>
+					<?php endforeach ?>
+				</table>
+			</div>
 
-      <h2>Views</h2>
+			<h2>Views</h2>
 			<p>The following fields are available in the <?= $page->title() ?> model and can be fetched with the view parameter.</p>
-      <div class="m-table">
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Fields</th>
-          </thead>
-          <?php foreach ($page->views()->value() as $key => $view): ?>
-            <tr>
-              <td><?= $key ?></td>
-              <td><?= formatViewFields($view) ?></td>
-            </tr>
-          <?php endforeach ?>
-        </table>
-      </div>
+			<div class="m-table">
+				<table>
+					<thead>
+						<th>Name</th>
+						<th>Fields</th>
+					</thead>
+					<?php foreach ($page->views()->yaml() as $key => $view): ?>
+						<tr>
+							<td><?= $key ?></td>
+							<td><?= formatViewFields($view) ?></td>
+						</tr>
+					<?php endforeach ?>
+				</table>
+			</div>
 
-      <h2>Type</h2>
-      <p><?= $page->referenceClass()->toHtml() ?></p>
-    <?php endif ?>
+			<h2>Type</h2>
+			<p><?= $page->referenceClass()->toHtml() ?></p>
+		<?php endif ?>
 
-    <?php if ($page instanceof ReferenceBlueprintPage): ?>
-      <h2>Default blueprint</h2>
+		<?php if ($page instanceof ReferenceBlueprintPage): ?>
+			<h2>Default blueprint</h2>
 			<figure class="m-code">
-      	<pre class="language-yaml"><code><?= $page->blueprintFileContent() ?></code></pre>
+				<pre class="language-yaml"><code><?= $page->blueprintFileContent() ?></code></pre>
 			</figure>
-    <?php endif ?>
+		<?php endif ?>
 
 		<?php if ($page->examples()->isNotEmpty()): ?>
 			<h2>Examples</h2>

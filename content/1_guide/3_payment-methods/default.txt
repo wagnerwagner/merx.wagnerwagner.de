@@ -6,26 +6,21 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Merx comes with several payment gateways built in.
 
 ----
 
 Text:
 
-Merx comes with five payment gateways built in.
-
-
 Payment Method | Provider | Keyword
 | ---- | ---- | ---- |
-PayPal Payments | (link: https://developer.paypal.com/docs/api/payments/v2/ text: PayPal) | `paypal`
-Credit Card | (link: https://stripe.com/de/payments/payment-methods text: Stripe) | `credit-card`
-iDEAL | (link: https://stripe.com/de/payment-method/ideal text: Stripe) | `ideal`
-SEPA Direct Debit | (link: https://stripe.com/de/payments/sepa-direct-debit text: Stripe) | `sepa-debit`
-Klarna | (link: https://stripe.com/de/payments/klarna text: Stripe) | `klarna`
+Invoice | - | `invoice`
+[PayPal Payments](/guide/payment-methods/paypal) | (link: https://developer.paypal.com/docs/api/payments/v2/ text: PayPal) | `paypal`
+[Stripe Elements](/guide/payment-methods/stripe-elements)<br>Includes **all** available Stripe Payment methods | [Stripe](https://stripe.com/de/payments/payment-methods) | `stripe-elements`
 
-If you want to use another payment provider read the (link: cookbooks/custom-payment-gateways text: Custom Payment Gateways) cookbook to learn how to create your own custom payment gateway.
+If you want to use another payment provider read the (link: cookbook/custom-payment-gateways text: Custom Payment Gateways) cookbook to learn how to create your own custom payment gateway.
 
-(github: /src/Gateways.php)
+Learn how to connect your online shop with Stripe and/or PayPal by [setting up the secret keys](/guide/payment-methods/stripe-paypal-secrets). If you are not sure, which payment method you want to use, we recommend using Stripe Elements. Learn how to **[set up Stripe Elements](/guide/payment-methods/stripe-elements)**.
 
 ----
 

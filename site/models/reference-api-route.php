@@ -13,13 +13,13 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		return parent::title()->value($method . ' ' . $pattern);
 	}
 
-  public function apiModelBaseUrl(): string
-  {
-    return url($this->parent()->parent()->id() . '/models/');
-  }
+	public function apiModelBaseUrl(): string
+	{
+		return url($this->parent()->parent()->id() . '/models/');
+	}
 
 	public function call(): string
-  {
+	{
 		$pattern = $this->pattern();
 		$method = $this->method();
 
@@ -28,7 +28,7 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		$call .= "});";
 
 		return $call;
-  }
+	}
 
 	public function reflection(): ?Reflector
 	{
@@ -48,10 +48,10 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		return new Types([$this->reflection()->getReturnType()]);
 	}
 
-  public function returnType(): ?Type
-  {
-    return $this->returnTypes()->first();
-  }
+	public function returnType(): ?Type
+	{
+		return $this->returnTypes()->first();
+	}
 
 	public function exceptions(): array
 	{

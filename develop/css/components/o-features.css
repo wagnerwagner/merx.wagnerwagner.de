@@ -3,7 +3,7 @@
 	margin-inline: auto;
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 	padding-block: var(--size-800);
-	padding-inline: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	padding-inline: calc(var(--size-1000) - var(--border-size-small));
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));

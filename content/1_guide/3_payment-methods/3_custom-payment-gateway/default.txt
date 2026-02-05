@@ -1,0 +1,56 @@
+Title: Custom payment gateway
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+**@TODO**
+
+Use the [`gateways`](/reference/options/config-options/gateways) option to add your own payment gateway.
+
+`initializeOrder` and `createOrder` must return a [`OrderPage`](/reference/classes/order-page) object.
+
+In `initializeOrder` you can set a redirect url. The user will be redirected to this url. If you don’t set `redirect` the user will be sent to [`/api/shop/success`](/reference/api/routes/shop-success-get).
+
+<code caption="/site/config/config.php">
+```php
+return [
+  'wagnerwagner.merx.gateways' => [
+    'my-payment-provider' => [
+      'initializeOrder' => function(OrderPage $virtualOrderPage): OrderPage
+      {
+        $sum = $virtualOrderPage->cart()->total();
+        // do something to get a redirect url
+        $redirectUrl = 'https://mypaymentprovider.com/payment/mlDquvqMQK85M1Pw',
+        $virtualOrderPage->content()->update([
+          'redirect' => $redirectUrl,
+        ]);
+        return $virtualOrderPage;
+      },
+      'createOrder' => function(OrderPage $virtualOrderPage, array $data): OrderPage
+      {
+        $virtualOrderPage->content()->update([
+          'paymentComplete' => true,
+          'paidDate' => date('c'),
+        ]);
+        return $virtualOrderPage;
+      }
+    ],
+  ],
+];
+```
+</code>
+
+Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->content()->update()`](https://getkirby.com/docs/reference/objects/content/content/update) to update the virtual page’s content.
+
+----
+
+Uuid: sapzl9rjvrbmxwvg

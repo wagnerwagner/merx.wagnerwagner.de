@@ -1,0 +1,166 @@
+Title: Stripe Elements
+
+----
+
+Headline: 
+
+----
+
+Intro: With Stripe Elements you can offer multiple payment options like *credit card*, *PayPal*, *iDEAL*, *SEPA debit* and many more to your customers.
+
+----
+
+Text:
+
+Stripe Elements provides an interface component (iFrame) that shows several payment options. The payment methods shown to your customer is determined by Stripe based on the currency, the customer’s location and the payment methods you have activated for your Stripe account.
+
+To see which payment methods will be shown to your customers, you can use [Stripe’s Payment Review](https://dashboard.stripe.com/settings/payment_methods/review).
+
+It is also possible to present only one payment method.
+[Show only specific payment methods](#optional-show-only-specific-payment-methods)
+
+For detailed information on Stripe Elements, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
+
+## Retrieve the client secret
+
+First, you need to retrieve the client secret of the payment intent. The payment intent is created server-side with the currency and the total of the cart. Use [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint to get the client secret of the payment intent. This secret will later be used to create the Stripe Elements.
+
+<code caption="/assets/js/checkout.js">
+```js
+(async () => {
+	const response = await fetch('/api/shop/stripe-client-secret');
+	const { clientSecret } = await response.json();
+})();
+```
+</code>
+
+
+## Collect payment details
+
+Learn how to create the Stripe Elements interface component, which is used to collect payment information.
+
+### Set up Stripe.js
+
+Add a hidden field called `payment-method` with the value `stripe-elements` to the checkout form. This is used by Merx to complete the order.
+
+Add another hidden field with the publishable key. The publishable key is required to initialize Stripe Elements.
+
+<code caption="/site/templates/checkout.php">
+```php
+<?php
+$stripePublishableKey = option('wagnerwagner.merx.production') === true ? option('wagnerwagner.merx.stripe.live.publishable_key') : option('wagnerwagner.merx.stripe.test.publishable_key');
+?>
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+	<!-- Other form fields -->
+	<input type="hidden" name="payment-method" value="stripe-elements">
+	<input type="hidden" name="stripePublishableKey" value="<?= $stripePublishableKey ?>">
+	<button>Submit order</button>
+</form>
+```
+</code>
+
+Add the `stripe.js` to the head of your HTML file. E.g. in a `head` snippet.
+
+Stripe recommends to include Stripe.js on each page of your site to leverage “Stripe’s advanced fraud functionality”. To accept payments, however, it is sufficient to integrate Stripe on the checkout page.
+
+To learn more, see [Including Stripe.js | Stripe JS Reference](https://docs.stripe.com/js/including).
+
+<code caption="/site/snippets/head.php">
+```php
+<?php if ($page->intendedTemplate()->name() === 'checkout'): ?>
+  <script src="https://js.stripe.com/clover/stripe.js"></script>
+<?php endif ?>
+```
+</code>
+
+To initialize the [Stripe JavaScript API](https://docs.stripe.com/js) you need the publishable key from the checkout form.
+
+<code caption="/assets/js/checkout.js">
+```js
+const checkoutForm = document.getElementById('checkout-form');
+const stripePublishableKey = checkoutForm.elements.stripePublishableKey.value;
+const stripe = Stripe(stripePublishableKey)
+```
+</code>
+
+### Add the Payment Element to your payment page
+
+The Payment Element needs a place to live on your payment page. Create an empty DOM node (container) with a unique ID in your payment form:
+
+<code caption="/site/templates/checkout.php">
+```php
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+	<!-- Other form fields -->
+	<div id="payment-element">
+		<!-- Elements will create form elements here -->
+	</div>
+	<button>Submit order</button>
+</form>
+```
+</code>
+
+### Create and mount the Stripe elements
+
+<code caption="/assets/js/checkout.js">
+```js
+const elements = stripe.elements({
+	clientSecret: clientSecret,
+	locale: document.querySelector('html').lang,
+});
+
+// Create and mount the Payment Element
+const paymentElement = elements.create('payment');
+paymentElement.mount('#payment-element');
+```
+</code>
+
+See [Elements Appearance API | Stripe Documentation](https://docs.stripe.com/elements/appearance-api) to learn how to change the look of the elements.
+
+## Submit the payment to Stripe
+
+As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the user entered into the elements are submitted to and validated by Stripe. If you followed [Validate checkout](/guide/getting-started/validate-checkout), replace `window.location.href = json.redirectUrl;` with the following.
+
+<code caption="/assets/js/checkout.js">
+```js
+   const {error} = await stripe.confirmPayment({
+    // `Elements` instance that was used to create the Payment Element
+    elements,
+    confirmParams: {
+      return_url: json.redirectUrl,
+    },
+  });
+
+  if (error) {
+    // This point will only be reached if there is an immediate error when
+    // confirming the payment. Show error to your customer (for example, payment
+    // details incomplete)
+    checkoutForm.insertBefore(createErrorElement(error.message), event.submitter)
+  }
+```
+</code>
+
+After completing the payment the customer is redirected to the [order page](/guide/getting-started/displaying-order).
+
+Most payment methods have an immediate payment confirmation. Therefore the `paymentComplete` field of the [`OrderPage`](/reference/classes/order-page) is set to true and the `paidDate` field is set to the current date by the `stripe-elements` gateway in the background.
+
+For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you when payments are confirmed.
+
+## Optional: Show only specific payment methods
+
+By default Stripe shows the *best* payment methods. You can also define specific payment methods using the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option.
+
+<code caption="/site/config/config.php">
+```php
+return [
+  'wagnerwagner.merx.stripe.paymentIntentParameters' => [
+    'payment_method_types' => ['card', 'ideal'],
+  ],
+];
+```
+</code>
+
+See Stripe’s API reference [Create a PaymentIntent](https://docs.stripe.com/api/payment_intents/create) to see all parameters. `amount` and `currency` are automatically added to by Merx.
+
+----
+
+Uuid: zhag3ssx4n2mfvwd

@@ -15,7 +15,7 @@
 
 .o-cases__title {
 	padding-block: calc(var(--gap-inline) * 3);
-	padding-inline: calc(var(--gap-inline) * 3);
+	padding-inline: var(--size-1000);
 }
 
 .o-cases__grid {

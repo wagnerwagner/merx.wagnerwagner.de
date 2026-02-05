@@ -10,4 +10,4 @@ if ($name === null) return null;
 
 $iconName = $name . '-' . $weight;
 ?>
-<span class="a-icon"><svg aria-hidden="true" focusable="false"><use href="<?= url('assets/images/icons.svg') ?>#<?= $iconName ?>"></use></svg></span>
+<svg class="a-icon" aria-hidden="true" focusable="false"><use href="<?= url('assets/images/icons.svg') ?>#<?= $iconName ?>"></use></svg>

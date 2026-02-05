@@ -12,7 +12,8 @@ Intro: Learn how to use hooks to send confirmation mails to the customer.
 
 Text:
 
-Merx comes with several [hooks](/reference/options/hooks) you can use to hook into processes.
+Merx comes with several [hooks](/reference/options/hooks) that allow you to hook into processes.
+
 
 Use the [`createOrder:after`](/reference/options/hooks/create-order-after) hook to send a mail to the customer to inform about the succeeded order.
 

@@ -14,7 +14,7 @@ Text:
 
 [API models reference](/reference/api/models)
 
-By default the API returns one thumbnail image per list item. Let’s assume you want to show two thumbs in your cart. Therefore you can add a new `thumbs` field to the ListItem model.
+By default the API returns one thumbnail image per list item. Let’s assume you want to show two thumbs in your cart. Therefore you can add a new `thumbs` field to the [ListItem model](/reference/api/models/list-item).
 
 <code caption="/site/plugins/site/index.php">
 ```php

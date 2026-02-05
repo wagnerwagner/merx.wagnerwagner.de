@@ -1,7 +1,12 @@
 <?php
 /**
  * @var \Wagnerwagner\Merx\Cart $cart
+ * @var \Wagnerwagner\Merx\OrderPage $page
  */
+
+$page->update([
+	'paymentComplete' => true,
+]);
 ?>
 <?php snippet('head') ?>
 <body class="l-invoice">
@@ -18,7 +23,7 @@
 		<header class="invoice__header">
 			<h1>Invoice</h1>
 			<p>
-				Invoice Number: <?= $page->invoiceNumber() ?><br>
+				Invoice Number: <?= $page->orderNumber() ?><br>
 				Date: <?= $page->invoiceDate()->toDate('Y-m-d h:i a') ?>
 			</p>
 		</header>
@@ -31,7 +36,7 @@
 				<?= $page->postal_code()->isNotEmpty() ? $page->postal_code()->html() . ' ' : '' ?>
 				<?= $page->city()->isNotEmpty() ? $page->city()->html() . '<br>' : '' ?>
 				<?= $page->state()->isNotEmpty() ? $page->state()->html() . '<br>' : '' ?>
-				<?= option('wagnerwagner.site.countryList')[(string)$page->country()] ?>
+				<?= option('wagnerwagner.site.countryList')[(string)$page->country()] ?? '' ?>
 			</p>
 			<p>
 				<?= $page->email()->isNotEmpty() ? $page->email()->html() . '<br>' : '' ?>

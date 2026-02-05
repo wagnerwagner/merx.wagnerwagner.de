@@ -14,6 +14,7 @@
 }
 
 :root[data-no-scroll],
+:root:has(:popover-open),
 :root[data-no-scroll] & {
 	overflow: hidden;
 	block-size: 100%;

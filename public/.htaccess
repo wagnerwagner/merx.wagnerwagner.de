@@ -72,10 +72,8 @@ Header set Content-Type "text/plain" "expr=-z %{CONTENT_TYPE}"
 Header set X-Content-Type-Options "nosniff"
 
 # improve headers
-Header add Content-Security-Policy "default-src 'self' 'unsafe-inline';"
+#Header add Content-Security-Policy "default-src 'self' 'unsafe-inline'; script-src js.stripe.com 'self';"
 Header add Strict-Transport-Security "max-age=31536000"
-Header add X-Frame-Options "allow-from https://js.stripe.com/"
-Header add X-Content-Type-Options "nosniff"
 Header always unset X-Powered-By
 </IfModule>
 

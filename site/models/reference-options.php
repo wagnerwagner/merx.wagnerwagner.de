@@ -8,28 +8,32 @@ use Wagnerwagner\Site\ReferencePageAbstract;
 class ReferenceOptionsPage extends ReferencePageAbstract
 {
 	public function children(): Pages
-  {
-    if ($this->children !== null) {
+	{
+		if ($this->children !== null) {
 			return $this->children;
 		}
 
-    $options = $this->kirby()->plugin('wagnerwagner/merx')->extends()['options'];
-    $children = [];
-    foreach ($options as $key => $value) {
+		$options = $this->kirby()->plugin('wagnerwagner/merx')->extends()['options'];
+		$children = [];
+		foreach ($options as $key => $value) {
 			$slug = Str::slug(Str::camelToKebab($key));
-      $children[] = [
-        'slug' => $slug,
-        'model' => 'reference-option',
-        'template' => 'reference-doc',
-        'num' => 0,
-        'content' => [
-          'key' => 'wagnerwagner.merx.' . $key,
-					'defaultValue' => $value,
-        ],
-      ];
-    }
-    return $this->children = Pages::factory($children, $this)->sortBy('slug');
-  }
+			$defaultValue = null;
+			if (is_array($value)) {
+				$defaultValue = 'array';
+			}
+			$children[] = [
+				'slug' => $slug,
+				'model' => 'reference-option',
+				'template' => 'reference-doc',
+				'num' => 0,
+				'content' => [
+					'key' => 'wagnerwagner.merx.' . $key,
+					'defaultValue' => $defaultValue,
+				],
+			];
+		}
+		return $this->children = Pages::factory($children, $this)->sortBy('slug');
+	}
 
 	/**
 	 * Returns the final template

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array $results
+ * @var ?string $message
+ * @var ?array $data
+ */
+?>
 <?php snippet('head') ?>
 <body>
 	<?php snippet('o-header') ?>
@@ -9,24 +16,23 @@
 					<input type="search" autofocus name="q" value="<?= esc(get('q', '')) ?>" required minlength="3" autocomplete="off">
 					<button type="submit"></button>
 				</form>
-				<?php if (get('q') !== null): ?>
-					<small><?= $results->count() === 1 ? $results->count() . ' result' : $results->count() . ' results' ?></small>
-				<?php endif; ?>
+				<?php if ($message): ?>
+					<small><?= $message ?></small>
+				<?php endif ?>
 			</div>
 		</header>
-		<ul class="search__results">
-		<?php foreach($results as $item): ?>
-			<li>
-				<a href="<?= url($item->id()) ?>">
-					<strong><?= $item->title() ?></strong>
-					<small><?= $item->id() ?></small>
-					<?php if ($item->excerpt()->isNotEmpty()): ?>
-					<p><?= $item->excerpt() ?></p>
-					<?php endif; ?>
-				</a>
-			</li>
-		<?php endforeach; ?>
-		</ul>
+		<?php if ($data): ?>
+			<ul class="m-search__results">
+			<?php foreach($data as $item): ?>
+				<li>
+					<a href="<?= $item['url'] ?>">
+						<strong><?= $item['title'] ?></strong>
+						<small><?= implode(' / ', $item['breadcrumbs']) ?></small>
+					</a>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		<?php endif ?>
 	</main>
 	<?php snippet('o-footer') ?>
 </body>

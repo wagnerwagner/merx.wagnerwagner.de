@@ -2,6 +2,7 @@
 
 use Kirby\Cms\Pages;
 use Kirby\Content\Field;
+use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
 use PHPStan\PhpDocParser\Ast\Node;
@@ -46,8 +47,24 @@ class ReferenceClassPage extends ReferencePageAbstract
 			$isMagic = substr($slug, 0, 1) === '_';
 			$num     = $isMagic ? null : 1;
 			$content = $pages->find($slug)?->content()->toArray() ?? [];
+
+			$name = $method->getName();
+			$className = A::last(Str::split($this->class(), '\\'));
+			$reflection = new ReflectionMethod($this->class()->value(), $name);
+
+			$title = (string)$name . '()';
+			if ($reflection->isConstructor()) {
+				$title = 'new ' . $className . '()';
+			} else if ($reflection->isStatic()) {
+				$title = $className . '::' . $title;
+			} else {
+				$objectName = lcfirst($className);
+				$title = '$' . $objectName . '->' . $title;
+			}
+
 			$content = array_merge($content, [
-				'name' => $method->getName(),
+				'title' => $title,
+				'name' => $name,
 			]);
 
 			// Ensure that constructor method is listed,

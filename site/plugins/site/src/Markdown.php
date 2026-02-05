@@ -41,7 +41,7 @@ class Markdown extends ParsedownExtra
 	{
 		if (preg_match('!<(callout|code)(.*?)>!', $Line['text'], $matches)) {
 
-			$type  = strtolower($matches[1]);
+			$type = strtolower($matches[1]);
 			$Block = [
 				'box' => [
 					'type' => $type,
@@ -122,7 +122,7 @@ class Markdown extends ParsedownExtra
 			return;
 		}
 
-		$slug  = Str::slug(Str::unhtml($this->text($Block['element']['handler']['argument'])));
+		$slug = Str::slug(Str::unhtml($this->text($Block['element']['handler']['argument'])));
 		$level = $Block['element']['name'];
 
 		switch ($level) {

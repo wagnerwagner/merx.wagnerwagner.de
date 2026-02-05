@@ -1,6 +1,6 @@
 .m-case {
 	display: grid;
-	grid-template-columns: 1fr calc(860rem / 16);
+	grid-template-columns: 1fr 1fr;
 	column-gap: var(--gap-inline);
 	box-sizing: border-box;
 	margin-block-start: var(--size-500);
@@ -71,7 +71,7 @@
 
 .m-case__copy {
 	padding-block-start: var(--size-700);
-	padding-inline: calc(var(--gap-inline) * 3);
+	padding-inline: var(--size-1000);
 
 	header {
 		small {
@@ -100,8 +100,9 @@
 		margin-block-start: var(--size-500);
 		font-size: inherit;
 		display: inline-block;
-		color: var(--color-black);
-		background-color: var(--color-white);
+		padding-inline: var(--size-100);
+		color: var(--color-white);
+		background-color: var(--color-brand);
 	}
 
 	ul,
@@ -111,6 +112,7 @@
 	}
 
 	ul {
+		margin-block-start: var(--size-300);
 		padding-left: 0;
 		li {
 			position: relative;

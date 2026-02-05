@@ -1,5 +1,8 @@
 <?php
-return function ($page) {
+
+use Wagnerwagner\Merx\OrderPage;
+
+return function (OrderPage $page) {
 	$cart = $page->cart();
 
 	$quantity = 0;
@@ -8,7 +11,7 @@ return function ($page) {
 	} catch (Exception) {}
 
 	return [
-		'cart' => $cart,
+		'cart' => $cart ?? null,
 		'quantity' => $quantity,
 		'licenses' => explode(', ', $page->licenses()),
 	];
