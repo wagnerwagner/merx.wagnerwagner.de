@@ -23,7 +23,7 @@ $merxLinks = pages(['showcase', 'buy', 'privacy', 'license', 'contact']);
 						<?php foreach ($docLinks as $item): ?>
 							<li>
 								<a href="<?= $item->url() ?>">
-									<?=  $item->title() ?>
+									<?= $item->title() ?>
 								</a>
 							</li>
 						<?php endforeach?>
@@ -35,7 +35,7 @@ $merxLinks = pages(['showcase', 'buy', 'privacy', 'license', 'contact']);
 						<?php foreach ($merxLinks as $item): ?>
 							<li>
 								<a href="<?= $item->url() ?>">
-									<?=  $item->title() ?>
+									<?= $item->title() ?>
 								</a>
 							</li>
 						<?php endforeach?>

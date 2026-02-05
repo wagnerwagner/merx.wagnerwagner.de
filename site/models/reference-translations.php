@@ -8,29 +8,29 @@ use Wagnerwagner\Site\ReferencePageAbstract;
 class ReferenceTranslationsPage extends ReferencePageAbstract
 {
 	public function children(): Pages
-  {
-    if ($this->children !== null) {
+	{
+		if ($this->children !== null) {
 			return $this->children;
 		}
 
-    $translations = $this->kirby()->plugin('wagnerwagner/merx')->extends()['translations'];
-    $enTranslations = $translations['en'] ?? [];
-    $children = [];
-    foreach ($enTranslations as $key => $value) {
+		$translations = $this->kirby()->plugin('wagnerwagner/merx')->extends()['translations'];
+		$enTranslations = $translations['en'] ?? [];
+		$children = [];
+		foreach ($enTranslations as $key => $value) {
 			$slug = Str::slug($key);
-      $children[] = [
-        'slug' => $slug,
-        'model' => 'reference-translation',
-        'template' => 'reference-doc',
-        'num' => 0,
-        'content' => [
-          'title' => $key,
-          'key' => $key,
-        ],
-      ];
-    }
-    return $this->children = Pages::factory($children, $this)->sortBy('slug');
-  }
+			$children[] = [
+				'slug' => $slug,
+				'model' => 'reference-translation',
+				'template' => 'reference-doc',
+				'num' => 0,
+				'content' => [
+					'title' => $key,
+					'key' => $key,
+				],
+			];
+		}
+		return $this->children = Pages::factory($children, $this)->sortBy('slug');
+	}
 
 	/**
 	 * Returns the final template

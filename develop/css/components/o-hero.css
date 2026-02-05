@@ -4,12 +4,13 @@
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
 	display: grid;
-	grid-template-columns: 1fr calc(860rem / 16);
+	grid-template-columns: 1fr 1fr;
 }
 
 .o-hero__copy {
 	padding-block: var(--size-900);
-	padding-inline: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	padding-inline-start: calc(var(--size-1000) - var(--border-size-small));
+	padding-inline-end: calc(var(--size-400) - var(--border-size-small));
 	display: grid;
 	row-gap: var(--size-600);
 	align-items: start;

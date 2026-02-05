@@ -1,0 +1,50 @@
+Title: Stripe webhooks
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+**@TODO**
+
+[stripe-hooks](/reference/options/hooks/stripe-hooks) API endpoint.
+
+[Stripe Docs](https://docs.stripe.com/payments/payment-intents/verifying-status#webhooks)
+
+\----
+
+Create Stripe Webhook
+
+Go to dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded.
+
+Enter the Endpoint URL. https://[your-domain]/api/merx/hooks/stripe.
+
+Copy the Signing secret. whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Set the stripe.webhook_signing_secret option
+
+Set the stripe.webhook_signing_secret.
+
+site/config/env.php
+<?php
+return [
+        'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+];
+We recommend to use config/env.php for your secret keys.
+
+Test with delayed notification of payment success
+
+Test your integration with a payment method which has a delayed notification of payment success. For example, SEPA Direct Debit payments are marked as completed in an average of 7 to 8 business days.
+
+See Stripe’s Documentation to learn more about how to test SEPA Direct Debit payments.
+
+----
+
+Uuid: atpnza3rd0njcubi

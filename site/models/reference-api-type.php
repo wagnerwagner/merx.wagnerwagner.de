@@ -3,6 +3,7 @@
 use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Data\Data;
+use Kirby\Data\Yaml;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
 
@@ -52,8 +53,8 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 			foreach ($items as $key => $item) {
 				if ($apiType === 'routes') {
 					$method = Str::upper($item['method'] ?? 'GET');
-					$slug  = Str::slug($item['pattern'] . '-' . $method);
-					$root  = $this->root() . '//0_' . $slug;
+					$slug = Str::slug($item['pattern'] . '-' . $method);
+					$root = $this->root() . '//0_' . $slug;
 					$content = [
 						'pattern' => $item['pattern'],
 						'auth' => $item['auth'],
@@ -61,13 +62,14 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 						'reflection' => new ReflectionFunction($item['action']),
 					];
 				} else if ($apiType === 'models') {
-					$slug  = Str::slug($key);
-					$root  = $this->root() . '//0_' . $slug;
+					$slug = Str::slug(Str::kebab($key));
+					$root = $this->root() . '//0_' . $slug;
+					$fields = array_map(fn ($field) => (string)(new ReflectionFunction($field))->getReturnType(), $item['fields']);
 					$content = [
 						'class' => $key,
-						'fields' => $item['fields'],
+						'fields' => Yaml::encode($fields),
 						'type' => $item['type'],
-						'views' => $item['views'],
+						'views' => Yaml::encode($item['views']),
 					];
 				}
 
@@ -83,7 +85,7 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 					'model' => $model,
 					'template' => $template,
 					'num' => 0,
-					'content'  => $content
+					'content' => $content
 				];
 			}
 

@@ -27,7 +27,7 @@ class ReferenceSiteMethodsPage extends ReferencePageAbstract
 				'template' => 'reference-doc',
 				'num' => 0,
 				'content' => [
-					'title' => $key,
+					'title' => '$site->' . $key . '()',
 					'key' => $key,
 					'reflection' => $reflectionFunction,
 					'returnType' => $reflectionFunction->getReturnType(),

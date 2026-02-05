@@ -93,8 +93,18 @@
 	> * + * {
 		margin-block-start: var(--gap-text-paragraph);
 	}
-	> * + :where(h2, h3, h4) {
-		margin-block-start: var(--gap-text-heading);
+	> :where([class^="m-"]) + *,
+	> * + :where([class^="m-"]) {
+		margin-block-start: var(--size-600);
+	}
+	> * + :where(h2) {
+		margin-block-start: var(--size-800);
+	}
+	> * + :where(h3) {
+		margin-block-start: var(--size-700);
+	}
+	> * + :where(h4) {
+		margin-block-start: var(--size-600);
 	}
 }
 

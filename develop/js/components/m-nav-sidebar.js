@@ -1,15 +1,30 @@
 class MNAvSidebar {
 	scrollTop;
 
-	/** @param {HTMLElement} element */
-	/** @param {number} index */
+	/**
+	 * @param {HTMLElement} element
+	 * @param {number} index
+	 */
 	constructor(element, index) {
 		this.element = element;
 		this.index = index;
 
 		const linkElements = element.querySelectorAll('a');
 		linkElements.forEach((_) => _.addEventListener('click', this.handleLinkClick.bind(this)));
-		element.scrollTop = this.readStorage();
+
+		element.scrollTop = this.readStorage() ?? this.getScrollTopOfOpenLink();
+	}
+
+	getScrollTopOfOpenLink() {
+		const openElement = this.element.querySelector('[data-state="open"]');
+		if (openElement === null) {
+			return null;
+		}
+		const scrollTop = openElement.offsetTop - 50;
+		if (scrollTop < this.element.offsetHeight - 50 - 32) {
+			return null;
+		}
+		return scrollTop;
 	}
 
 	readStorage() {

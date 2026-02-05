@@ -33,34 +33,34 @@ abstract class ReferencePageAbstract extends Page
 	 * Returns the framework- or plugin-relative file path with the start line
 	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
 	 */
-  public function relativeFilePath(): ?string
+	public function relativeFilePath(): ?string
 	{
-    $root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
-    if ($this->detectNamespace() === 'Kirby') {
-      $root = $this->kirby()->root('kirby') . '/';
-    }
-    $relativeFilePath = Str::replace($this->reflection()?->getFileName() ?? '', $root, '');
-    return $relativeFilePath;
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
+		if ($this->detectNamespace() === 'Kirby') {
+			$root = $this->kirby()->root('kirby') . '/';
+		}
+		$relativeFilePath = Str::replace($this->reflection()?->getFileName() ?? '', $root, '');
+		return $relativeFilePath;
 	}
 
-  public function line(): ?int
-  {
-    return $this->reflection()?->getStartLine() ?? null;
-  }
+	public function line(): ?int
+	{
+		return $this->reflection()?->getStartLine() ?? null;
+	}
 
-  private function absoluteFilePath(): ?string
-  {
-    $relativeFilePath = $this->relativeFilePath();
-    if ($relativeFilePath === null) {
-      return null;
-    }
+	private function absoluteFilePath(): ?string
+	{
+		$relativeFilePath = $this->relativeFilePath();
+		if ($relativeFilePath === null) {
+			return null;
+		}
 
-    if ($this->detectNamespace() === 'Kirby') {
-      return $this->kirby()->root('kirby') . '/' . $relativeFilePath;
-    }
+		if ($this->detectNamespace() === 'Kirby') {
+			return $this->kirby()->root('kirby') . '/' . $relativeFilePath;
+		}
 
-    return $this->kirby()->plugin('wagnerwagner/merx')->root() . '/' . $relativeFilePath;
-  }
+		return $this->kirby()->plugin('wagnerwagner/merx')->root() . '/' . $relativeFilePath;
+	}
 
 	/**
 	 * Returns the versioned GitHub URL that points directly to the
@@ -71,7 +71,7 @@ abstract class ReferencePageAbstract extends Page
 	{
 		$namespace = $this->detectNamespace();
 
-    $relativeFilePath = $this->relativeFilePath();
+		$relativeFilePath = $this->relativeFilePath();
 
 		if ($relativeFilePath === null) {
 			return null;
@@ -79,11 +79,11 @@ abstract class ReferencePageAbstract extends Page
 		$line = $this->line();
 
 		if (option('nova-links') === true) {
-      $absoluteFilePath = $this->absoluteFilePath();
-      if ($absoluteFilePath !== null) {
-        // return 'cursor://file/' . $absoluteFilePath . ':' . $line ?? 1;
-        return 'nova://open?path=' . $absoluteFilePath . '&line=' . $line ?? 1;
-      }
+			$absoluteFilePath = $this->absoluteFilePath();
+			if ($absoluteFilePath !== null) {
+				// return 'cursor://file/' . $absoluteFilePath . ':' . $line ?? 1;
+				return 'nova://open?path=' . $absoluteFilePath . '&line=' . $line ?? 1;
+			}
 		}
 
 		if ($namespace === 'Kirby') {
@@ -98,9 +98,9 @@ abstract class ReferencePageAbstract extends Page
 			$version = $this->kirby()->plugin('wagnerwagner/merx')->version();
 		}
 
-    if ($line !== null) {
-      $relativeFilePath = $relativeFilePath . '#L' . $line;
-    }
+		if ($line !== null) {
+			$relativeFilePath = $relativeFilePath . '#L' . $line;
+		}
 
 		return $gitHubRoot . '/blob/' . $version . '/' . $relativeFilePath;
 	}
@@ -113,7 +113,7 @@ abstract class ReferencePageAbstract extends Page
 	{
 		$reflection = $this->reflection();
 
-    // For ReflectionMethod, get the declaring class
+		// For ReflectionMethod, get the declaring class
 		if ($reflection instanceof ReflectionMethod) {
 			$className = $reflection->getDeclaringClass()->getName();
 			if (Str::startsWith($className, 'Kirby\\')) {
@@ -145,14 +145,14 @@ abstract class ReferencePageAbstract extends Page
 		if ($reflection->getDocComment() === false) {
 			return null;
 		}
-		$docblock  = $reflection->getDocComment();
-		$config    = new ParserConfig(usedAttributes: []);
-		$lexer     = new Lexer($config);
+		$docblock = $reflection->getDocComment();
+		$config = new ParserConfig(usedAttributes: []);
+		$lexer = new Lexer($config);
 		$constExpr = new ConstExprParser($config);
-		$type      = new TypeParser($config, $constExpr);
-		$phpDoc    = new PhpDocParser($config, $type, $constExpr);
-		$tokens    = new TokenIterator($lexer->tokenize($docblock));
-		$node      = $phpDoc->parse($tokens);
+		$type = new TypeParser($config, $constExpr);
+		$phpDoc = new PhpDocParser($config, $type, $constExpr);
+		$tokens = new TokenIterator($lexer->tokenize($docblock));
+		$node = $phpDoc->parse($tokens);
 		return $node;
 	}
 

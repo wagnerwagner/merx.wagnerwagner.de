@@ -1,10 +1,8 @@
 <?php
 
 use Kirby\Content\Field;
-use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
-use Wagnerwagner\Site\Type;
 use Wagnerwagner\Site\Types;
 
 class ReferenceHookPage extends ReferencePageAbstract
@@ -20,13 +18,13 @@ class ReferenceHookPage extends ReferencePageAbstract
 		return $this->content()->get('key');
 	}
 
-  public function returnTypes(): ?Types
-  {
-    if (!$this->reflection()->hasReturnType()) {
-      return null;
-    }
-    return new Types([$this->reflection()->getReturnType()]);
-  }
+	public function returnTypes(): ?Types
+	{
+		if (!$this->reflection()->hasReturnType()) {
+			return null;
+		}
+		return new Types([$this->reflection()->getReturnType()]);
+	}
 
 	public function reflection(): ?Reflector
 	{

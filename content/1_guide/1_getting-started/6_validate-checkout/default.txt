@@ -117,7 +117,7 @@ When the validation fails, the API returns a JSON with one or more error message
 
 Use JavaScript to interfere the submit event of the checkout form. Use the validation details to show the error messages to the user.
 
-<code caption="script.js">
+<code caption="/assets/js/checkout.js">
 ```js
 const checkoutForm = document.getElementById('checkout-form');
 checkoutForm.addEventListener('submit', async (event) => {
@@ -145,7 +145,7 @@ checkoutForm.addEventListener('submit', async (event) => {
 ### Complete validation handling
 
 
-<code caption="script.js">
+<code caption="/assets/js/checkout.js">
 ```js
 const checkoutForm = document.getElementById('checkout-form');
 
@@ -188,15 +188,15 @@ checkoutForm.addEventListener('submit', async (event) => {
 
   console.log(response);
 
-  if (response.redirected === true) {
+  /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
+  const json = await response.json();
+
+  if (json.status === 'redirect') {
     // Redirect user to payment provider or directly to order page
-    window.location.href = response.url;
+    window.location.href = json.redirectUrl;
   } else {
     // Handle validation errors
     try {
-      /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
-      const json = await response.json();
-
       if (json.key === 'error.merx.fieldsvalidation') {
         // Handle field errors
         const errorDetails = json.details;
@@ -228,6 +228,23 @@ checkoutForm.addEventListener('submit', async (event) => {
 <callout>
 You should add some kind of loading indication, so that the user knows that something is happening.
 </callout>
+
+## Checkout flow
+
+In this example we are using *invoice* as the *payment method*. It is the responsibility of the shop operator to collect the money. 
+
+In practice you might use a *payment provider* such as *Stripe* or *PayPal* to collect money from your customer during the checkout.
+
+Depending on the payment provider **and** the payment method the checkout process might vary.
+
+For some payment methods the payment is handled asynchronous. This means that the money is received by the payment provider after hours or days. As soon as the money has been received, the payment provider notifies the Merx shop via [hook](/reference/options/hooks/stripe-hooks).
+
+1. Customer enters personal data, selects payment method and submits the checkout form.
+2. Personal data is validated. When valid, the data is stored together with cart as a user session on server. ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post))
+3. *Optional:* Payment details are validated and payment process is handled on page (e.g. *credit card* via *Stripe*) **or** customer is redirected to payment provider (e.g. *PayPal*) to handle the payment process.
+4. User is redirected back to web shop. ([`/api/shop/success`](reference/api/routes/shop-success-get))
+6. Order page is created with data from the user session
+7. *Optional:* Order is marked as complete via [hook](/reference/options/hooks/stripe-hooks) (asynchronous payment).
 
 ----
 

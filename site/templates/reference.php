@@ -11,7 +11,7 @@ $headline = $page->headline()->or($page->title());
 $tocItems = new Collection();
 foreach ($page->children()->listed() as $item) {
 	$tocItems->append(new Obj([
-		'id'   => '#' . $item->id(),
+		'id' => '#' . $item->id(),
 		'text' => trim(strip_tags($item->title())),
 	]));
 }

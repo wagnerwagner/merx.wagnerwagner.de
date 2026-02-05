@@ -1,0 +1,33 @@
+Title: PayPal
+
+----
+
+Headline: PayPal payment method
+
+----
+
+Intro: Learn how to integrate PayPal as a payment service provider.
+
+----
+
+Text:
+
+Make sure you have set up the PayPal client ID and secret as described in [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
+
+If you followed the [Validate checkout guide](/guide/getting-started/validate-checkout) you just need to change the hidden `payment-method` field from `invoice` to `paypal`. That’s it.
+
+<code caption="/site/templates/checkout.php">
+```php
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+  <!-- other fields -->
+  <input type="hidden" name="payment_method" value="paypal">
+  <button>Submit order</button>
+</form>
+```
+</code>
+
+The customer is redirected to PayPal to complete the payment. After that the customer is redirected back to your website, where the payment is completed automatically in the background. In the end the customer sees their order page.
+
+----
+
+Uuid: nh5zwjagczpyluns

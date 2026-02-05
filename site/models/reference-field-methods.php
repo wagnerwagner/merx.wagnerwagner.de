@@ -27,7 +27,7 @@ class ReferenceFieldMethodsPage extends ReferencePageAbstract
 				'template' => 'reference-doc',
 				'num' => 0,
 				'content' => [
-					'title' => $key,
+					'title' => '$field->' . $key . '()',
 					'key' => $key,
 					'reflection' => $reflectionFunction,
 					'returnType' => $reflectionFunction->getReturnType(),

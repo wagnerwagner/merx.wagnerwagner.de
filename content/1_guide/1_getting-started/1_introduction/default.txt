@@ -6,22 +6,26 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Merx is a plugin for creating online shops with Kirby. Follow this guide step by step to learn how to create an online shop with Merx and Kirby.
 
 ----
 
 Text:
 
-## Checkout flow
+Merx provides powerful PHP and REST-like **APIs** that help you build custom online shops. Take a look at the [Reference](/reference), where all available classes, options, hooks, blueprints, and API routes are documented.
 
-1. Customer enters personal data and selects payment method
-    - Personal data is validated and stored together with cart in user session on server
-    - *Optional:* Payment details are validated on page
-    - *Optional:* User is redirected to payment provider
-2. *Optional:* Payment process is handled by payment provider
-    - User is redirected back to web shop
-3. Order page is created with data from the user session
-4. *Optional:* Later via hook: Order is marked as complete.
+To receive payments from your customers, you may want to use a **payment provider**. Merx includes built-in support for [**Stripe**](/guide/payment-methods/stripe-elements) and [**PayPal**](/guide/payment-methods/paypal). However, you do not have to use a third-party service. You can also configure Merx to accept orders without automated payment processing. In this case, you would need to ensure that your customers transfer the money directly to you, e.g., via **bank transfer**, a common method for B2B shops.
+
+
+## Starterkit
+
+If you are building an online shop from scratch, we recommend using the **[Starterkit template](https://github.com/wagnerwagner/merx-starterkit/tree/develop/v2)**.
+
+The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS. It is ideal for new users to explore many of Merx’s possibilities.
+
+## Adding Merx to an existing Kirby website
+
+Merx is also very well suited to add shop functionality to your existing Kirby website. Therefore you have to install Merx as a plugin in your Kirby site and transform your [product pages](/guide/getting-started/adding-products), add the [checkout flow](/guide/getting-started/create-checkout) and design the [order page](/guide/getting-started/displaying-order).
 
 ----
 

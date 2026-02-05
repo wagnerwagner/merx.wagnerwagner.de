@@ -36,7 +36,7 @@
 		<?php $casesPage = page('showcase'); ?>
 		<?php if ($casesPage): ?>
 			<aside class="o-showcase-home">
-				<h2 class="a-heading">
+				<h2 class="a-display">
 					<a href="<?= $casesPage->url() ?>">
 						Online shops made with Kirby, Merx and <?= snippet('a-icon', ['name' => 'heart', 'weight' => 700]) ?>
 					</a>

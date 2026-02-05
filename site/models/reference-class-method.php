@@ -14,23 +14,6 @@ use Wagnerwagner\Site\Types;
  */
 class ReferenceClassMethodPage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$className = A::last(Str::split($this->class(), '\\'));
-		$reflection = $this->reflection();
-
-		$title = (string)$this->name() . '()';
-		if ($reflection->isConstructor()) {
-			$title = 'new ' . $className . '()';
-		} else if ($reflection->isStatic()) {
-			$title = $className . '::' . $title;
-		} else {
-			$objectName = lcfirst($className);
-			$title = '$' . $objectName . '->' . $title;
-		}
-		return $this->name()->value($title);
-	}
-
 	public function class(): Type
 	{
 		/** @var ReferenceClassPage */

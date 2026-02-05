@@ -6,11 +6,15 @@ Headline:
 
 ----
 
-Shortdescription: 
+Intro: 
 
 ----
 
-Text: 
+Text: **@TODO**
+
+----
+
+Shortdescription: 
 
 ----
 

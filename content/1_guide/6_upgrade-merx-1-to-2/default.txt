@@ -31,10 +31,9 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 
 ## Namechanges
 
-### Merx methods
+### Options and hooks namespace
 
-`Merx::initializePayment` → [`Merx::initializeOrder`](reference/classes/merx/initialize-order)
-`Merx::completePayment ` → [`Merx::createOrder`](/reference/classes/merx/create-order)
+`ww.merx.[name]` → [`wagnerwagner.merx.[name]`](/reference/options)
 
 ### hooks
 
@@ -44,6 +43,11 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 `completePayment:after` → [`createOrder:after`](/reference/options/hooks/create-order-after)
 
 Apart from that, there are many more [new hooks](/reference/options/hooks).
+
+### Merx methods
+
+`Merx::initializePayment` → [`Merx::initializeOrder`](reference/classes/merx/initialize-order)
+`Merx::completePayment ` → [`Merx::createOrder`](/reference/classes/merx/create-order)
 
 ### formatPrice()
 
@@ -68,15 +72,19 @@ if (!function_exists('formatPrice')) {
 
 ### $orderPage->invoiceDate()
 
-`$orderPage->invoiceDate()` → [`$orderPage->created()`]
+`$orderPage->invoiceDate()` → `$orderPage->created()`
 
-## Payment methods
+### $orderPage->invoiceNumber()
 
-Payment method `credit-card-sca` is now `credit-card`.
+`$orderPage-> invoiceNumber()` → `$orderPage->orderNumber()`
+
+## Payment methods/Gateways
+
+Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-methods/stripe-elements).
 
 ## Merx messages
 
-`Merx::setMessage()`and `Merx::getMessage()` are no longer available.
+`Merx::setMessage()` and `Merx::getMessage()` are no longer available.
 
 ----
 

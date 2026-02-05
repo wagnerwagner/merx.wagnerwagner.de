@@ -1,6 +1,6 @@
 <?php
 
-use Kirby\Cms\Api;
+use Kirby\Api\Api;
 use Kirby\Cms\App;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
@@ -45,8 +45,8 @@ class ReferenceApiPage extends Page
 		// Loop through every API type directory and register it
 		// as a child page configuration.
 		foreach (Dir::dirs($root) as $type) {
-			$slug  = Str::kebab($type);
-			$root  = $this->root() . '/0_' . $slug;
+			$slug = Str::kebab($type);
+			$root = $this->root() . '/0_' . $slug;
 
 			try {
 				$content = Data::read($root . '/reference-api-type.txt');

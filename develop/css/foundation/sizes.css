@@ -16,6 +16,7 @@
 	--size-700: calc(40rem / 16);
 	--size-800: calc(56rem / 16);
 	--size-900: calc(80rem / 16);
+	--size-1000: calc(140rem / 16);
 
 	/* Grid */
 	--gap-inline: var(--size-500);
@@ -32,6 +33,7 @@
 
 	/* Z-index */
 	--z-index-main-wrapper: 20;
+	--z-index-dialog: 90;
 	--z-index-header: 100;
 
 	/* Border */

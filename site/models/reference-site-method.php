@@ -1,6 +1,5 @@
 <?php
 
-use Kirby\Content\Field;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use Wagnerwagner\Site\ReferencePageAbstract;
@@ -9,12 +8,6 @@ use Wagnerwagner\Site\Types;
 
 class ReferenceSiteMethodPage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$key = $this->key()->value();
-		return parent::title()->value('$site->' . $key . '()');
-	}
-
 	public function summary(): ?string
 	{
 		$nodes = array_filter(

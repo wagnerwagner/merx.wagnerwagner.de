@@ -1,0 +1,32 @@
+Title: Localization
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+## Localization vs. Internationalization
+
+**@TODO**
+
+## Add language to API request
+
+```js
+const lang = document.querySelector('html').lang;
+const response = await fetch('/api/shop/cart', {
+	headers: {
+		'x-language': lang,
+	},
+});
+```
+
+----
+
+Uuid: u24qavrriyshckrc

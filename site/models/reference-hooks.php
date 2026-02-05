@@ -8,28 +8,30 @@ use Kirby\Toolkit\Str;
 class ReferenceHooksPage extends Page
 {
 	public function children(): Pages
-  {
-    if ($this->children !== null) {
+	{
+		if ($this->children !== null) {
 			return $this->children;
 		}
 
-    $hooks = $this->kirby()->plugin('wagnerwagner/merx')->extends()['hooks'];
-    $children = [];
-    foreach ($hooks as $key => $hook) {
-			$slug = Str::slug(Str::replace(Str::camelToKebab($key), 'wagnerwagner.merx.', ''));
-      $children[] = [
-        'slug' => $slug,
-        'model' => 'reference-hook',
-        'template' => 'reference-doc',
-        'num' => 0,
-        'content' => [
-          'key' => $key,
-					'hook' => new ReflectionFunction($hook),
-        ],
-      ];
-    }
-    return $this->children = Pages::factory($children, $this)->sortBy('slug');
-  }
+		$hooks = $this->kirby()->plugin('wagnerwagner/merx')->extends()['hooks'];
+		$children = [];
+		foreach ($hooks as $key => $hook) {
+			if (Str::startsWith($key, 'wagnerwagner.merx.')) {
+				$slug = Str::slug(Str::replace(Str::camelToKebab($key), 'wagnerwagner.merx.', ''));
+				$children[] = [
+					'slug' => $slug,
+					'model' => 'reference-hook',
+					'template' => 'reference-doc',
+					'num' => 0,
+					'content' => [
+						'key' => $key,
+						'hook' => new ReflectionFunction($hook),
+					],
+				];
+			}
+		}
+		return $this->children = Pages::factory($children, $this)->sortBy('slug');
+	}
 
 	/**
 	 * Returns the final template
