@@ -21,7 +21,17 @@ foreach ($page->children()->listed() as $item) {
 	<?php snippet('o-header') ?>
 	<div class="o-main-wrapper">
 		<div>
-			<?php snippet('m-nav-sidebar', ['parent' => $secondaryParent, 'variant' => 'secondary']); ?>
+			<button class="a-button-hamburger" popovertarget="sidebar-navs">
+				<span></span>
+				<span></span>
+				<span></span>
+				<i>Reference</i>
+			</button>
+			<div class="m-nav-sidebars" id="sidebar-navs">
+				<div>
+					<?php snippet('m-nav-sidebar', ['parent' => $secondaryParent, 'variant' => 'secondary']); ?>
+				</div>
+			</div>
 			<main class="o-main" aria-describedby="main-heading">
 				<div class="o-main__header">
 					<h1 class="a-display" id="main-heading"><?= $headline ?></h1>

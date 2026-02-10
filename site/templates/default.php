@@ -9,13 +9,24 @@ if ($page->redirect()->isTrue()) {
 }
 
 $headline = $page->headline()->or($page->title());
+$parentPage = $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())->first();
 ?>
 <?php snippet('head') ?>
 <body>
 	<?php snippet('o-header') ?>
 	<div class="o-main-wrapper">
 		<div>
-			<?php snippet('m-nav-sidebar', ['parent' => $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())]); ?>
+			<button class="a-button-hamburger" popovertarget="sidebar-navs">
+				<span></span>
+				<span></span>
+				<span></span>
+				<i><?= $parentPage->title() ?></i>
+			</button>
+			<div class="m-nav-sidebars" id="sidebar-navs">
+				<div>
+					<?php snippet('m-nav-sidebar', ['parent' => $parentPage]); ?>
+				</div>
+			</div>
 			<main class="o-main" aria-describedby="main-heading">
 				<div class="o-main__header">
 					<h1 class="a-display" id="main-heading"><?= $headline ?></h1>

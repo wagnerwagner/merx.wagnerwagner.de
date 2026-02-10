@@ -4,8 +4,14 @@ use Kirby\Cms\Html;
 
 /** @var \Kirby\Cms\Site $site */
 ?>
-<nav class="m-nav-main">
-	<ul>
+<button class="a-button-hamburger" popovertarget="main-nav">
+	<span></span>
+	<span></span>
+	<span></span>
+	<i>Menu</i>
+</button>
+<nav class="m-nav-main" id="main-nav">
+	<ul class="m-nav-main__list">
 		<?php foreach($site->children()->listed() as $item): ?>
 		<li>
 			<?= Html::tag('a', $item->title(), [

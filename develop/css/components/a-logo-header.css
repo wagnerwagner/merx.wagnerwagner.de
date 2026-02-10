@@ -1,5 +1,7 @@
 .a-logo-header {
-	padding-inline: calc(var(--gap-inline) - 1rem / 16);
+	padding-inline: var(--size-400);
+	padding-block: var(--size-400);
 	display: grid;
 	align-items: center;
+	align-self: stretch;
 }

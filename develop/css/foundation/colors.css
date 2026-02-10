@@ -115,6 +115,7 @@
 	--color-background-primary-inverse: var(--color-gray-900);
 	--color-background-secondary-inverse: var(--color-gray-700);
 	--color-background-brand: hsl(from var(--color-brand) h calc(s - 40) calc(l + 65));
+	--color-background-brand-inverse: var(--color-brand);
 
 	--color-content-primary: var(--color-gray-900);
 	--color-content-secondary: var(--color-gray-600);
@@ -127,7 +128,7 @@
 
 	--color-border-primary: var(--color-gray-700);
 	--color-border-primary-inverse: var(--color-gray-200);
-	--color-border-secondary: var(--color-gray-150);
+	--color-border-secondary: var(--color-gray-300);
 	--color-border-secondary-inverse: var(--color-gray-500);
 	--color-border-tertiary: var(--color-white);
 	--color-border-tertiary-inverse: var(--color-gray-800);
@@ -137,6 +138,14 @@
 	--box-shadow: 0 1px 10px -calc(10rem / 16) hsl(0deg 0 0 / 0.1),
 	              0 1.5px 20px -calc(10rem / 16) hsl(0deg 0 0 / 0.1),
 	              0 2px 30px -calc(10rem / 16) hsl(0deg 0 0 / 0.1);
+
+	--background-root: fixed var(--color-background-primary) url('/assets/images/grid.png') center -1px repeat;
+	--background-color-backdrop: hsl(from var(--color-gray-400) h s l / 0);
+	--backdrop-filter: blur(4px) contrast(0.2) brightness(1.55);
+
+	@media (min-resolution: 2dppx) {
+		--background-root: fixed var(--color-background-primary) url('/assets/images/grid@2x.png') center -1px / calc(20rem / 16) repeat;
+	}
 
 	@media (prefers-color-scheme: dark) {
 		/** @todo */

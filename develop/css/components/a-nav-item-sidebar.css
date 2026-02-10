@@ -1,5 +1,5 @@
 .a-nav-item-sidebar {
-	--_padding-inline: calc(var(--gap-inline) - var(--border-size-small));
+	--_padding-inline: calc(var(--size-400) - var(--border-size-small));
 	--_border-size: var(--border-size-small);
 
 	text-decoration: none;

@@ -3,12 +3,23 @@
 	margin-inline: auto;
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 	padding-block: var(--size-800);
-	padding-inline: calc(var(--size-1000) - var(--border-size-small));
+	padding-inline: var(--size-400);
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
 	column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
 	row-gap: calc(var(--gap-inline) * 2);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
+
+	@media (min-width: 38em) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (min-width: 64em) {
+		grid-template-columns: repeat(3, 1fr);
+		padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
+	}
+	@media (min-width: 80em) {
+		padding-inline: calc(var(--size-1000) - var(--border-size-small));
+	}
 }
 
 .o-features__item {

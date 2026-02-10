@@ -9,7 +9,9 @@ class MSearch {
 		this.infoElement = element.querySelector('.m-search__info');
 
 		this.inputElement.addEventListener('input', () => {
-			this.infoElement.innerText = '';
+			if (this.infoElement) {
+				this.infoElement.innerText = '';
+			}
 			const query = this.inputElement.value;
 			if (query.length < 3) {
 				this.renderResults([]);
@@ -67,7 +69,7 @@ class MSearch {
 	}
 
 	async search(query) {
-		const response = await fetch(`/api/search?q=${query}`)
+		const response = await fetch(`/api/search?limit=20&q=${query}`)
 			.catch((error) => {
 				this.infoElement.innerText = error.message;
 			});
@@ -82,4 +84,4 @@ class MSearch {
 	}
 }
 
-document.querySelectorAll('.m-search').forEach((_) => new MSearch(_));
+document.querySelectorAll('.m-search[data-variant="combobox"]').forEach((_) => new MSearch(_));

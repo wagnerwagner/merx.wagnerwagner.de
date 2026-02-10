@@ -1,5 +1,7 @@
 /**
  * Each size should divide by 4.
+ * Breakpoints:
+ *  - on-screen nav: (min-width: 64em)
  */
 
 :root {
@@ -19,7 +21,7 @@
 	--size-1000: calc(140rem / 16);
 
 	/* Grid */
-	--gap-inline: var(--size-500);
+	--gap-inline: var(--size-200);
 	--gap-block: var(--size-500);
 	--gap-block-header: var(--size-700);
 	--gap-text-paragraph: var(--size-400);
@@ -35,17 +37,21 @@
 	--z-index-main-wrapper: 20;
 	--z-index-dialog: 90;
 	--z-index-header: 100;
+	--z-index-popover: 1000;
 
 	/* Border */
 	/* Use px values instead of rem */
 	--border-size-xsmall: 1px;
 	--border-size-small: 2px;
-	--border-size-medium: 4px;
+	--border-size-medium: 3px;
 	--border-radius-xsmall: 1px;
 	--border-radius-small: 2px;
 	--border-radius-medium: 4px;
 	--border-radius-large: 8px;
 
+	@media (min-width: 32em) {
+		--gap-inline: var(--size-500);
+	}
 	@media (min-width: 94em) {
 		--max-width-content: calc(1500rem / 16);
 	}

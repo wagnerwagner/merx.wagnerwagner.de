@@ -1,19 +1,68 @@
 .a-button {
+	--_padding-inline: var(--size-100);
+	--_padding-block: var(--size-100);
+	--_font: var(--font-label-medium);
+	--_border-size: var(--border-size-small);
+	--_border-color: var(--color-border-brand);
+	--_color: currentcolor;
+	--_background-color: transparent;
+
 	display: flex;
-	border: var(--border-size-small) solid var(--color-border-brand);
+	border: var(--_border-size) solid var(--_border-color);
 	text-decoration: none;
-	font: var(--font-label-medium);
-	padding-inline: var(--size-200);
-	padding-block: var(--size-100);
+	font: var(--_font);
+	color: var(--_color);
+	background-color: var(--_background-color);
+	padding-inline: var(--_padding-inline);
+	padding-block: var(--_padding-block);
 
 	&[data-size="large"] {
-		font: var(--font-label-large);
-		padding-inline: var(--size-200);
-		padding-block: var(--size-150);
+		--_font: var(--font-label-large);
+		--_padding-inline: var(--size-200);
+		--_padding-block: var(--size-150);
+	}
+
+	&[data-size="small"] {
+		--_font: var(--font-label-small);
+		--_padding-inline: var(--size-100);
+		--_padding-block: var(--size-100);
 	}
 
 	&[data-kind="secondary"] {
-		color: var(--color-content-secondary);
+		--_color: var(--color-content-secondary);
+	}
+
+	&[data-kind="tertiary"] {
+		--_border-color: transparent;
+		--_color: var(--color-content-tertiary);
+	}
+
+	&[data-shape="squared"] {
+		--_padding-inline: var(--size-100);
+
+		justify-content: center;
+		block-size: calc(1lh + var(--_padding-block) * 2 + var(--_border-size) * 2);
+		inline-size: calc(1lh + var(--_padding-block) * 2 + var(--_border-size) * 2);
+
+	}
+
+	&[data-variant="ghost"] {
+		--_border-color: transparent;
+
+		&[data-selected] {
+			--_color: var(--color-content-primary-inverse);
+			--_background-color: var(--color-background-brand-inverse);
+		}
+	}
+
+	&[data-variant="solid"] {
+		--_color: var(--color-content-primary-inverse);
+		--_background-color: var(--color-background-primary-inverse);
+	}
+
+	&[data-variant="icon"] {
+		--_padding-inline: var(--size-100);
+		--_border-color: transparent;
 	}
 
 	&[data-variant="text"] {
@@ -21,4 +70,4 @@
 		padding-inline: 0;
 		background-color: transparent;
 	}
-}
+	}

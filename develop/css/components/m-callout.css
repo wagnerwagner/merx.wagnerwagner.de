@@ -1,24 +1,26 @@
 .m-callout {
-	padding: var(--size-300);
+	padding: calc(var(--size-500) - var(--border-size-medium));
+	font: var(--font-paragraph-large);
+	font-weight: 500;
 	border-radius: var(--border-radius-small);
-	border: var(--border-size-small) solid var(--color-blue-400);
+	border: var(--border-size-medium) solid var(--color-blue-400);
 	background-color: var(--color-blue-50);
 
 	&[data-theme="tip"] {
-		border: var(--border-size-small) solid var(--color-green-400);
-		background-color: var(--color-green-20);
+		border-color: var(--color-green-500);
+		background-color: var(--color-green-50);
 	}
 	&[data-theme="important"] {
-		border: var(--border-size-small) solid var(--color-purple-400);
-		background-color: var(--color-purple-20);
+		border-color: var(--color-purple-500);
+		background-color: var(--color-purple-50);
 	}
 	&[data-theme="warning"] {
-		border: var(--border-size-small) solid var(--color-orange-400);
-		background-color: var(--color-orange-20);
+		border-color: var(--color-orange-500);
+		background-color: var(--color-orange-50);
 	}
 	&[data-theme="caution"] {
-		border: var(--border-size-small) solid var(--color-red-400);
-		background-color: var(--color-red-20);
+		border-color: var(--color-red-500);
+		background-color: var(--color-red-50);
 	}
 
 	.m-text > & {

@@ -81,9 +81,14 @@ Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, you have 
 ```
 </code>
 
+<callout theme="caution">
+When you create [html emails](https://getkirby.com/docs/guide/emails#formats__html-plain-text), always use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for fields with user generated content to prevent [XSS attacks](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
+</callout>
+
+
 ### Logging
 
-@TODO
+**@TODO**
 
 ----
 
