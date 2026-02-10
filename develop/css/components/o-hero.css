@@ -1,20 +1,31 @@
 .o-hero {
 	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
 	margin-inline: auto;
+	display: grid;
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+
+	@media (min-width: 64em) {
+		grid-template-columns: 1fr 1fr;
+		column-gap: calc(var(--size-500) - var(--border-size-small));
+	}
 }
 
 .o-hero__copy {
+	padding-inline: var(--size-400);
 	padding-block: var(--size-900);
-	padding-inline-start: calc(var(--size-1000) - var(--border-size-small));
-	padding-inline-end: calc(var(--size-400) - var(--border-size-small));
 	display: grid;
 	row-gap: var(--size-600);
 	align-items: start;
 	align-content: start;
+
+	@media (min-width: 64em) {
+		padding-inline-start: calc(var(--size-500) * 3 - var(--border-size-small));
+		padding-inline-end: calc(var(--size-400) - var(--border-size-small));
+	}
+	@media (min-width: 80em) {
+		padding-inline-start: calc(var(--size-1000) - var(--border-size-small));
+	}
 }
 
 .o-hero__buttons {

@@ -24,11 +24,15 @@ The invoice number is created automatically. By default it is a up-counting numb
 
 <h1>Invoice #<?= $page->invoiceNumber() ?></h1>
 
-<p>Name: <?= $page->given_name() ?> <?= $page->family_name() ?></p>
+<p>Name: <?= $page->given_name()->escape() ?> <?= $page->family_name()->escape() ?></p>
 
 <?php snippet('cart', ['cart' => $page->cart()]) ?>
 ```
 </code>
+
+<callout theme="caution">
+Always use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for fields with user generated content to prevent [XSS attacks](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
+</callout>
 
 ## Cart snippet
 

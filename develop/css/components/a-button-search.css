@@ -1,0 +1,10 @@
+.a-button-search {
+	border: 0;
+	padding-inline: var(--size-400);
+	padding-block: var(--size-400);
+	font: var(--font-label-medium);
+
+	&:has(~ .m-search-dialog[popover]:popover-open) {
+		color: var(--color-content-tertiary);
+	}
+}

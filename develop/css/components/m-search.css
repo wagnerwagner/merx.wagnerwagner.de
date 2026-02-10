@@ -1,16 +1,30 @@
 .m-search {
 	margin-inline: auto;
-	max-inline-size: calc(422rem / 16);
-	background-color: var(--color-background-primary);
+	max-inline-size: calc(502rem / 16);
+
+	&[data-variant="combobox"] {
+		background-color: var(--color-background-primary);
+	}
+}
+
+.m-search__field {
+	position: sticky;
+	inset-block-start: 0;
+	z-index: 2;
+	display: grid;
+	align-items: center;
+	justify-items: start;
+
+	> * {
+		grid-area: 1 / 1;
+	}
 
 	> input {
-		position: sticky;
-		inset-block-start: 0;
-		z-index: 2;
 		inline-size: 100%;
-		padding-inline: var(--gap-inline);
-		padding-block: calc(var(--size-200) - var(--border-size-small));
-		background-color: var(--color-background-primary);
+		padding-inline-start: var(--size-700);
+		padding-inline-end: var(--size-200);
+		padding-block: calc(var(--size-200) - var(--border-size-small) * 0.5);
+		background-color: var(--color-background-secondary);
 		border: var(--border-size-small) solid var(--color-border-primary);
 
 		&:focus-visible {
@@ -19,14 +33,21 @@
 	}
 }
 
+.m-search__submit {
+	padding-inline-start: var(--size-100);
+}
+
 .m-search__info {
-	padding-inline: var(--gap-inline);
-	padding-block: calc(var(--size-400) - var(--border-size-small));
+	padding-block: calc(var(--size-300) - var(--border-size-small));
 	font: var(--font-label-medium);
 	color: var(--color-content-secondary);
 
 	&:empty {
 		padding-block: 0;
+	}
+
+	.m-search[data-variant="combobox"] & {
+		padding-inline: var(--gap-inline);
 	}
 }
 
@@ -39,9 +60,7 @@
 	> li > a {
 		display: grid;
 		padding-block: var(--size-300);
-		padding-inline: var(--gap-inline);
 		text-decoration: none;
-		border-inline: var(--border-size-small) solid var(--color-border-secondary);
 		border-block: var(--border-size-small) solid var(--color-border-secondary);
 
 		> small {
@@ -51,18 +70,34 @@
 			font: var(--font-label-small);
 			color: var(--color-content-secondary);
 		}
-
 	}
-	> li > a:where(:hover, :focus-visible),
-	> li[aria-selected="true"] > a {
+	.m-search:not([data-variant="combobox"]) & {
+		> li > a:where(:hover, :focus-visible) {
+			> strong {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.m-search[data-variant="combobox"] & {
+		> li > a {
+			padding-inline: var(--gap-inline);
+			border-inline: var(--border-size-small) solid var(--color-border-secondary);
+		}
+		> li[aria-selected="true"] > a {
 			position: relative;
 			z-index: 1;
-			border-color: var(--color-background-secondary-inverse);
+			border-color: var(--color-background-brand-inverse);
 			color: var(--color-content-primary-inverse);
-			background-color: var(--color-background-secondary-inverse);
+			background-color: var(--color-background-brand-inverse);
 
 			> small {
 				color: var(--color-content-secondary-inverse);
 			}
+		}
+	}
+
+	.m-search__info + & {
+		margin-block-start: var(--size-500);
 	}
 }

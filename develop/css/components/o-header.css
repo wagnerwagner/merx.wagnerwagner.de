@@ -16,4 +16,9 @@
 	display: grid;
 	grid-template-columns: 1fr auto auto;
 	justify-items: start;
+	align-items: end;
+
+	@media (min-width: 64em) {
+		align-items: stretch;
+	}
 }

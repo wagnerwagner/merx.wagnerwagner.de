@@ -21,14 +21,16 @@
 
 		/* Anchor links */
 		> a[href^="#"] {
+			position: relative;
 			display: inline-flex;
 			align-items: baseline;
 			text-decoration: none;
 
 			&::before {
 				content: '#';
+				position: absolute;
+				inset-inline-start: -1.5ch;
 				display: block;
-				margin-inline-start: -1.5ch;
 				inline-size: 1.5ch;
 				font-feature-settings: "c2sc";
 				color: var(--color-content-tertiary);

@@ -7,20 +7,25 @@
 
 	> div {
 		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+		min-block-size: calc(100vh - var(--height-header));
 		margin-inline: auto;
 		border-inline: var(--border-size-small) solid var(--color-border-tertiary);
-		display: grid;
-		grid-template-columns:
-			calc(260rem / 16)
-			1fr;
-
 	}
-	&[data-layout="ref"] {
+
+	@media (min-width: 64em) {
 		> div {
+			display: grid;
 			grid-template-columns:
-				calc(280rem / 16)
-				calc(280rem / 16)
+				calc(260rem / 16)
 				1fr;
+		}
+
+		&[data-layout="ref"] {
+			> div {
+				grid-template-columns:
+					calc(2 * 280rem / 16)
+					1fr;
+			}
 		}
 	}
 }

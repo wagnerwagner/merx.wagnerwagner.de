@@ -3,15 +3,27 @@
 	margin-inline: auto;
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 	padding-block: var(--size-800);
-	padding-inline: calc(var(--size-1000) - var(--border-size-small));
+	padding-inline: var(--size-400);
 	display: grid;
-	row-gap: var(--size-400);
+	row-gap: var(--size-500);
 
 	> ul {
 		margin-block-start: var(--size-200);
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
 		list-style: none;
+		grid-template-columns: repeat(2, 1fr);
 		column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+		row-gap: var(--size-500);
+	}
+
+	@media (min-width: 64em) {
+		padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
+
+		> ul {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+	@media (min-width: 80em) {
+		padding-inline: calc(var(--size-1000) - var(--border-size-small));
 	}
 }

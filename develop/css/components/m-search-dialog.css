@@ -1,16 +1,13 @@
 .m-search-dialog {
-	position: fixed;
-	inset: 0;
 	inset-block-start: var(--height-header);
 	margin: 0;
 	z-index: var(--z-index-dialog);
 	width: auto;
 	height: auto;
 	padding-block-start: calc(var(--gap-block) - var(--border-size-small) * 0.5);
-	background-color: hsl(from var(--color-gray-100) h s l / 0.9);
-	/* background-color: transparent; */
-	backdrop-filter: blur(6px);
+	padding-inline: calc(var(--gap-inline) + var(--size-400));
 	display: none;
+	background-color: transparent;
 
 	> div {
 		overflow: auto;
@@ -20,5 +17,11 @@
 
 	&:popover-open {
 		display: block;
+	}
+
+	&::backdrop {
+		inset-block-start: var(--height-header);
+		background-color: var(--background-color-backdrop);
+		backdrop-filter: var(--backdrop-filter);
 	}
 }

@@ -11,10 +11,9 @@ use Kirby\Cms\Html;
 		</a>
 		<?php snippet('m-nav-main') ?>
 		<?= Html::tag('button', [snippet('a-icon', ['name' => 'search', 'weight' => 700], true)], [
-			'class' => 'a-nav-item-primary',
+			'class' => 'a-button-search',
 			'data-state' => page('search')->isOpen() ? 'open' : null,
 			'popovertarget' => 'dialog-search',
-			'popovertargetaction' => 'toggle',
 		]) ?>
 		<div class="m-search-dialog" id="dialog-search" popover="auto">
 			<div>
