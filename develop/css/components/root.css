@@ -24,6 +24,7 @@ body {
 	font: var(--font-paragraph-medium);
 	color: var(--color-content-primary);
 	display: grid;
+	grid-template-columns: minmax(0, 1fr);
 	grid-template-rows: auto minmax(calc(100vh - var(--height-header)), 1fr);
 	background: var(--background-root);
 

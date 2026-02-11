@@ -36,6 +36,14 @@
 		color: var(--color-content-tertiary);
 	}
 
+	&[popovertarget="sidebar-navs"] {
+		margin-inline-start: auto;
+		min-inline-size: calc(146rem / 16);
+		padding-block: var(--size-300);
+		justify-content: start;
+		color: var(--color-content-secondary);
+	}
+
 	@media (min-width: 64em) {
 		display: none;
 	}

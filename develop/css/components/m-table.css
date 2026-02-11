@@ -1,4 +1,5 @@
 .m-table {
+	max-inline-size: 100%;
 	overflow: auto;
 	background-color: var(--color-background-secondary);
 	border: var(--border-xsmall-secondary);
@@ -23,5 +24,7 @@
 	}
 }
 .o-reference > .m-text > .m-table {
-	margin-inline: calc(var(--size-300) * -1);
+	--_margin-inline: calc(min(var(--size-300), calc(var(--gap-inline) + var(--border-size-xsmall))) * -1);
+	margin-inline: var(--_margin-inline);
+	max-inline-size: calc(100% + var(--_margin-inline) * -2);
 }
