@@ -97,7 +97,7 @@
 		}
 	}
 
-	.m-search__info + & {
+	.m-search:not([data-variant="combobox"]) .m-search__info + & {
 		margin-block-start: var(--size-500);
 	}
 }
