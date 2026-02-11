@@ -2,4 +2,16 @@ Title: Releases
 
 ----
 
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text: 
+
+----
+
 Uuid: svrqxgba65udfh6t

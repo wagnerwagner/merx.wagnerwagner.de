@@ -1,0 +1,29 @@
+Title: Merx 2
+
+----
+
+Headline: 
+
+----
+
+Intro: 
+
+----
+
+Text:
+
+## Multi-currency support
+
+## Improved tax handling
+
+## Integrated API
+
+## Improved and new PHP classes
+
+## Improved payment gateways
+
+Customers can now start the payment flow in one browser (e.g. Instagram in-app browser), is redirected to the payment provider (e.g. PayPal), and is finally redirected from the payment provider to the standard browser of the operating system.
+
+----
+
+Uuid: sfagd7nqmatkir07

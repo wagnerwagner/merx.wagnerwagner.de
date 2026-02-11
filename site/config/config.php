@@ -13,7 +13,12 @@ return [
 		]
 	],
 	'wagnerwagner.merx.stripe.paymentIntentParameters' => [
-		'payment_method_types' => ['card'],
+		'payment_method_types' => ['card', 'ideal'],
+		'automatic_payment_methods' => ['enabled' => false],
+		'capture_method' => 'automatic_async',
+		'payment_method_options' => [
+			'card' => ['capture_method' => 'manual'],
+		],
 	],
 	'cache.site.search' => true,
 ];
