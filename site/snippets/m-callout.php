@@ -12,5 +12,7 @@ $theme = $theme ?? 'note';
 <div class="m-callout" <?= attr([
 	'data-theme' => $theme === 'note' ? null : $theme,
 ]) ?>>
-	<?= $html ?>
+	<div class="m-text" data-variant="callout">
+		<?= $html ?>
+	</div>
 </div>

@@ -39,7 +39,7 @@ return [
       {
         $virtualOrderPage->content()->update([
           'paymentComplete' => true,
-          'paidDate' => date('c'),
+          'datePaid' => date('c'),
         ]);
         return $virtualOrderPage;
       }

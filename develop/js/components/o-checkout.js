@@ -71,9 +71,15 @@ class OCheckout {
 	}
 
 	async completeStripePayment(redirectUrl, formData) {
+		const response = await fetch('/api/shop/stripe-client-secret')
+			.catch((error) => this.showError(error.message, this.formElement.querySelector('[type="submit"]')));
+
+		const { clientSecret } = await response.json();
+
 		const { error } = await this.stripe.confirmPayment({
 			// `Elements` instance that was used to create the Payment Element
 			elements: this.stripeElements,
+			clientSecret,
 			confirmParams: {
 				return_url: redirectUrl,
 				payment_method_data: {
@@ -98,17 +104,12 @@ class OCheckout {
 	}
 
 	async initStripe() {
-		const response = await fetch('/api/shop/stripe-client-secret')
-			.catch((error) => this.showError(error.message, this.formElement.querySelector('[type="submit"]')));
-		const { clientSecret } = await response.json();
-
 		/** @type {Stripe} */
 		this.stripe = window.Stripe(this.stripePublishableKey);
 
 		this.stripeElements = this.stripe.elements({
 			locale: document.querySelector('html').lang,
 			loader: 'never',
-			clientSecret,
 			appearance: {
 				theme: 'stripe',
 				labels: 'above',

@@ -72,7 +72,11 @@ if (!function_exists('formatPrice')) {
 
 ### $orderPage->invoiceDate()
 
-`$orderPage->invoiceDate()` → `$orderPage->created()`
+`$orderPage->invoiceDate()` → `$orderPage->dateCreated()`
+
+### $orderPage->paidDate()
+
+`$orderPage->paidDate()` → `$orderPage->datePaid()`
 
 ### $orderPage->invoiceNumber()
 

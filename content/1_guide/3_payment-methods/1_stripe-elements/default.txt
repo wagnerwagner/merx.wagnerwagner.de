@@ -16,24 +16,9 @@ Stripe Elements provides an interface component (iFrame) that shows several paym
 
 To see which payment methods will be shown to your customers, you can use [Stripe’s Payment Review](https://dashboard.stripe.com/settings/payment_methods/review).
 
-It is also possible to present only one payment method.
-[Show only specific payment methods](#optional-show-only-specific-payment-methods)
+It is also possible to present only [selected payment method](#optional-show-only-specific-payment-methods).
 
 For detailed information on Stripe Elements, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
-
-## Retrieve the client secret
-
-First, you need to retrieve the client secret of the payment intent. The payment intent is created server-side with the currency and the total of the cart. Use [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint to get the client secret of the payment intent. This secret will later be used to create the Stripe Elements.
-
-<code caption="/assets/js/checkout.js">
-```js
-(async () => {
-	const response = await fetch('/api/shop/stripe-client-secret');
-	const { clientSecret } = await response.json();
-})();
-```
-</code>
-
 
 ## Collect payment details
 
@@ -104,7 +89,6 @@ The Payment Element needs a place to live on your payment page. Create an empty 
 <code caption="/assets/js/checkout.js">
 ```js
 const elements = stripe.elements({
-	clientSecret: clientSecret,
 	locale: document.querySelector('html').lang,
 });
 
@@ -118,13 +102,23 @@ See [Elements Appearance API | Stripe Documentation](https://docs.stripe.com/ele
 
 ## Submit the payment to Stripe
 
-As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the user entered into the elements are submitted to and validated by Stripe. If you followed [Validate checkout](/guide/getting-started/validate-checkout), replace `window.location.href = json.redirectUrl;` with the following.
+As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the user entered into the elements are submitted to and validated by Stripe. 
+
+### Retrieve the client secret
+
+First, you need to retrieve the client secret of the payment intent. The payment intent is created server-side with the currency and the total of the cart. Use [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint to get the client secret of the payment intent. This secret is used to confirm the payment.
+
+If you followed [Validate checkout](/guide/getting-started/validate-checkout), replace `window.location.href = json.redirectUrl;` with the following.
 
 <code caption="/assets/js/checkout.js">
 ```js
-   const {error} = await stripe.confirmPayment({
+  const response = await fetch('/api/shop/stripe-client-secret');
+  const { clientSecret } = await response.json();
+
+  const {error} = await stripe.confirmPayment({
     // `Elements` instance that was used to create the Payment Element
     elements,
+    clientSecret,
     confirmParams: {
       return_url: json.redirectUrl,
     },
@@ -147,19 +141,31 @@ For some payment methods like *SEPA Direct Debit*, it can take up to 6 business 
 
 ## Optional: Show only specific payment methods
 
-By default Stripe shows the *best* payment methods. You can also define specific payment methods using the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option.
+By default Stripe shows the *best* payment methods. You can also define specific payment methods using the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option. 
 
 <code caption="/site/config/config.php">
 ```php
 return [
   'wagnerwagner.merx.stripe.paymentIntentParameters' => [
     'payment_method_types' => ['card', 'ideal'],
+    'automatic_payment_methods' => ['enabled' => false],
+    'capture_method' => 'automatic_async',
+    'payment_method_options' => [
+      'card' => ['capture_method' => 'manual'],
+    ],
   ],
 ];
 ```
 </code>
 
 See Stripe’s API reference [Create a PaymentIntent](https://docs.stripe.com/api/payment_intents/create) to see all parameters. `amount` and `currency` are automatically added to by Merx.
+
+Some payment methods [don’t allow manual capturing](https://docs.stripe.com/payments/capture-later) (e.g. *iDEAL*). If you want to use such payment methods, you need to set [`capture_method`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-capture_method) to `automatic_async`. You can also set capture method for each payment [using the `payment_method_options`](https://docs.stripe.com/payments/place-a-hold-on-a-payment-method#authorize-only)
+
+
+<callout>
+The default options and the options you set in the `config.php` are merged recursively, so you need to overwrite/disable `automatic_payment_methods`.
+</callout>
 
 ----
 

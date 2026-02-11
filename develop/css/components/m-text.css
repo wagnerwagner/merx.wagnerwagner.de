@@ -108,6 +108,10 @@
 	> * + :where(h4) {
 		margin-block-start: var(--size-600);
 	}
+
+	&[data-variant="callout"] {
+		font-weight: 500;
+	}
 }
 
 .a-display + .m-text {

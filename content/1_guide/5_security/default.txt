@@ -18,7 +18,8 @@ Order pages may contain sensitive personal data from your customers. Make sure t
 
 - Do not show personal information when it is not necessary.
 - Use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for all user generated data.
-- Make sure order page links don’t appear in a sitemap or similar list of pages.
+- Make sure order page links don’t appear in a **sitemap** or similar list of pages.
+- Make sure order pages are excluded from search results, when using [`$site->search()`](https://getkirby.com/docs/reference/objects/cms/site/search) or similar.
 - Add a robots meta tag to prevent search engines to crawl order pages.
 `<meta name="robots" content="noindex, follow">`
 - Add a robots.txt to disallow order pages. (Your /orders/ path can be different depending on your ordersPage option)
@@ -33,7 +34,6 @@ Disallow: /orders/
 ## Advanced
 
 - Prevent the use of `$orderPage->siblings()` or similar.
-- Make sure order pages are excluded from search results.
 - If you use Git: Make sure order pages are not included in your (public) git repository.
 
 ## Further considerations
