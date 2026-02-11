@@ -24,8 +24,11 @@ class MSearchDialog {
 		element.addEventListener('toggle', (event) => {
 			if (event.newState === 'open') {
 				inputElement?.focus();
-			} else {
-				inputElement.value = '';
+			}
+		});
+		element.addEventListener('click', (event) => {
+			if (event.target === element) {
+				this.element.hidePopover();
 			}
 		});
 	}

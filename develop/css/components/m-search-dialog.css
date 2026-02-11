@@ -1,11 +1,9 @@
 .m-search-dialog {
+	position: fixed;
 	inset-block-start: var(--height-header);
-	margin: 0;
-	z-index: var(--z-index-dialog);
 	width: auto;
 	height: auto;
 	padding-block-start: calc(var(--gap-block) - var(--border-size-small) * 0.5);
-	padding-inline: calc(var(--gap-inline) + var(--size-400));
 	display: none;
 	background-color: transparent;
 
@@ -13,6 +11,12 @@
 		overflow: auto;
 		max-block-size: 100%;
 		padding-block-end: var(--size-1000);
+		padding-inline: calc(var(--gap-inline) + var(--size-400));
+		pointer-events: none;
+
+		> * {
+			pointer-events: auto;
+		}
 	}
 
 	&:popover-open {
