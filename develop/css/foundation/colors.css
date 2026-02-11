@@ -119,7 +119,7 @@
 
 	--color-content-primary: var(--color-gray-900);
 	--color-content-secondary: var(--color-gray-600);
-	--color-content-tertiary: var(--color-gray-500);
+	--color-content-tertiary: var(--color-gray-400);
 	--color-content-primary-inverse: var(--color-white);
 	--color-content-secondary-inverse: var(--color-gray-200);
 	--color-content-tertiary-inverse: var(--color-gray-400);
@@ -128,7 +128,7 @@
 
 	--color-border-primary: var(--color-gray-700);
 	--color-border-primary-inverse: var(--color-gray-200);
-	--color-border-secondary: var(--color-gray-300);
+	--color-border-secondary: var(--color-gray-200);
 	--color-border-secondary-inverse: var(--color-gray-500);
 	--color-border-tertiary: var(--color-white);
 	--color-border-tertiary-inverse: var(--color-gray-800);

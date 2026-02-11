@@ -1,21 +1,15 @@
 .m-nav-sidebars {
-	@media (min-width: 64em) {
-		> div {
-			block-size: 100%;
-			padding-inline-start: var(--border-size-small);
-			display: grid;
-			grid-auto-flow: column;
-			grid-auto-columns: calc(280rem / 16);
-		}
-	}
+	@media not (min-width: 64em) {
+		--_inset-block-start: calc(var(--height-header) + calc(44rem / 16));
 
-	&:popover-open {
 		overflow: auto;
-		inset-block-start: calc(var(--height-header) + calc(52rem / 16) + var(--border-size-small));
-		inset-inline: calc(var(--gap-inline));
+		inset-block-start: calc(var(--_inset-block-start) + var(--border-size-small));
+		inset-inline-start: auto;
+		inset-inline-end: calc(var(--gap-inline));
 		max-inline-size: calc(100% - (var(--gap-inline) * 2));
+		min-inline-size: 50%;
 		border-inline-end: var(--border-size-small) solid var(--color-border-tertiary);
-		block-size: 100%;
+		block-size: calc(100% - var(--_inset-block-start));
 		background: var(--background-root);
 
 		&::before {
@@ -36,14 +30,24 @@
 			padding-inline-start: var(--border-size-small);
 			display: grid;
 			grid-auto-flow: column;
-			grid-auto-columns: min(66vw, calc(200rem / 16));
+			grid-auto-columns: 1fr;
+		}
+
+		&::backdrop {
+			border-block-start: var(--border-size-small) solid var(--color-border-tertiary);
+			inset-block-start: var(--_inset-block-start);
+			background-color: var(--background-color-backdrop);
+			backdrop-filter: var(--backdrop-filter);
 		}
 	}
 
-	&::backdrop {
-		border-block-start: var(--border-size-small) solid var(--color-border-tertiary);
-		inset-block-start: calc(var(--height-header) + calc(52rem / 16));
-		background-color: var(--background-color-backdrop);
-		backdrop-filter: var(--backdrop-filter);
+	@media (min-width: 64em) {
+		> div {
+			block-size: 100%;
+			padding-inline-start: var(--border-size-small);
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: calc(280rem / 16);
+		}
 	}
 }
