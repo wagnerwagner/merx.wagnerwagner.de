@@ -7,7 +7,7 @@
 	--_color: currentcolor;
 	--_background-color: var(--color-background-secondary);
 
-	display: flex;
+	display: inline-flex;
 	border: var(--_border-size) solid var(--_border-color);
 	text-decoration: none;
 	font: var(--_font);
