@@ -17,7 +17,7 @@ Text:
 Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Create a new page in the panel and select *Checkout* as template. By default the status of the page is *unlisted*.
 ### Create checkout form
 
-Add form fields for the data you need to collect from your customer. For the moment we use *invoice* as payment method.
+Add form fields for the data you need to collect from your customer. For the moment we use *invoice* as payment gateway.
 
 <code caption="/site/blueprints/checkout.php">
 ```php
@@ -27,7 +27,7 @@ Add form fields for the data you need to collect from your customer. For the mom
     Email
     <input type="email" name="email" autocomplete="email" required>
   </label>
-  <input type="hidden" name="payment-method" value="invoice">
+  <input type="hidden" name="payment_gateway" value="invoice">
   <button>Submit order</button>
 </form>
 …
