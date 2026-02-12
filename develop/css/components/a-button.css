@@ -5,7 +5,7 @@
 	--_border-size: var(--border-size-small);
 	--_border-color: var(--color-border-brand);
 	--_color: currentcolor;
-	--_background-color: transparent;
+	--_background-color: var(--color-background-secondary);
 
 	display: flex;
 	border: var(--_border-size) solid var(--_border-color);
