@@ -84,7 +84,7 @@ if (!function_exists('formatPrice')) {
 
 ## Payment methods/Gateways
 
-Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-methods/stripe-elements).
+Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-gateways/stripe-elements).
 
 ## Merx messages
 

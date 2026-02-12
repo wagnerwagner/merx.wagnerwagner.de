@@ -14,7 +14,7 @@ Text:
 
 Merx provides powerful PHP and REST-like **APIs** that help you build custom online shops. Take a look at the [Reference](/reference), where all available classes, options, hooks, blueprints, and API routes are documented.
 
-To receive payments from your customers, you may want to use a **payment provider**. Merx includes built-in support for [**Stripe**](/guide/payment-methods/stripe-elements) and [**PayPal**](/guide/payment-methods/paypal). However, you do not have to use a third-party service. You can also configure Merx to accept orders without automated payment processing. In this case, you would need to ensure that your customers transfer the money directly to you, e.g., via **bank transfer**, a common method for B2B shops.
+To receive payments from your customers, you may want to use a **payment provider**. Merx includes built-in support for [**Stripe**](/guide/payment-gateways/stripe-elements) and [**PayPal**](/guide/payment-gateways/paypal). However, you do not have to use a third-party service. You can also configure Merx to accept orders without automated payment processing. In this case, you would need to ensure that your customers transfer the money directly to you, e.g., via **bank transfer**, a common method for B2B shops.
 
 
 ## Starterkit

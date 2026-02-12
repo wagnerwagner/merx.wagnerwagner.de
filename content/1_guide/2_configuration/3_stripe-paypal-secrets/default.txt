@@ -43,7 +43,7 @@ Anyone can use your live mode secret API keys to make any API call on behalf of 
 
 [Kirby docs: env file](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
 
-Next, learn how to use these keys to create [Stripe](/guide/payment-methods/stripe-elements) or [PayPal](/guide/payment-methods/paypal) payments.
+Next, learn how to use these keys to create [Stripe](/guide/payment-gateways/stripe-elements) or [PayPal](/guide/payment-gateways/paypal) payments.
 
 ----
 

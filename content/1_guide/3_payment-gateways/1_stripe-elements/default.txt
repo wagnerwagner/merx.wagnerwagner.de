@@ -26,19 +26,18 @@ Learn how to create the Stripe Elements interface component, which is used to co
 
 ### Set up Stripe.js
 
-Add a hidden field called `payment-method` with the value `stripe-elements` to the checkout form. This is used by Merx to complete the order.
+Add a hidden field called `payment_gateway` with the value `stripe-elements` to the checkout form. This is used by Merx to complete the order.
 
-Add another hidden field with the publishable key. The publishable key is required to initialize Stripe Elements.
+Add the publishable key as a data attribute to the form element. The publishable key is required to initialize Stripe Elements.
 
 <code caption="/site/templates/checkout.php">
 ```php
 <?php
 $stripePublishableKey = option('wagnerwagner.merx.production') === true ? option('wagnerwagner.merx.stripe.live.publishable_key') : option('wagnerwagner.merx.stripe.test.publishable_key');
 ?>
-<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post" data-stripe-publishable-key="<?= $stripePublishableKey ?>">
 	<!-- Other form fields -->
-	<input type="hidden" name="payment-method" value="stripe-elements">
-	<input type="hidden" name="stripePublishableKey" value="<?= $stripePublishableKey ?>">
+	<input type="hidden" name="payment_gateway" value="stripe-elements">
 	<button>Submit order</button>
 </form>
 ```
@@ -63,7 +62,7 @@ To initialize the [Stripe JavaScript API](https://docs.stripe.com/js) you need t
 <code caption="/assets/js/checkout.js">
 ```js
 const checkoutForm = document.getElementById('checkout-form');
-const stripePublishableKey = checkoutForm.elements.stripePublishableKey.value;
+const stripePublishableKey = checkoutForm.dataset.stripePublishableKey;
 const stripe = Stripe(stripePublishableKey)
 ```
 </code>
@@ -74,7 +73,7 @@ The Payment Element needs a place to live on your payment page. Create an empty 
 
 <code caption="/site/templates/checkout.php">
 ```php
-<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
+<form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post" data-stripe-publishable-key="<?= $stripePublishableKey ?>">
 	<!-- Other form fields -->
 	<div id="payment-element">
 		<!-- Elements will create form elements here -->
@@ -135,7 +134,7 @@ If you followed [Validate checkout](/guide/getting-started/validate-checkout), r
 
 After completing the payment the customer is redirected to the [order page](/guide/getting-started/displaying-order).
 
-Most payment methods have an immediate payment confirmation. Therefore the `paymentComplete` field of the [`OrderPage`](/reference/classes/order-page) is set to true and the `paidDate` field is set to the current date by the `stripe-elements` gateway in the background.
+Most payment methods have an immediate payment confirmation. Therefore the `paymentComplete` field of the [`OrderPage`](/reference/classes/order-page) is set to true and the `datePaid` field is set to the current date by the `stripe-elements` gateway in the background.
 
 For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you when payments are confirmed.
 
