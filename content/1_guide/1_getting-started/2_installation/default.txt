@@ -79,7 +79,9 @@ The Starterkit is a complete online shop with commented blueprints, templates, J
 
 It is ideal for new users to explore many of Merx’s possibilities. If you want to create a simple store fast, this would also be a good option for you.
 
-[Preview →](https://starterkit.merx.wagnerwagner.de){.a-button} [Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest)
+[Preview →](https://starterkit.merx.wagnerwagner.de){.a-button} 
+
+[Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest)
 
 [Source Code on GitHub](https://github.com/wagnerwagner/merx-starterkit)
 

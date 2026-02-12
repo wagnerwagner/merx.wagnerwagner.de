@@ -6,15 +6,225 @@ Headline:
 
 ----
 
-Intro: 
+Intro: If you want to sell t-shirts, for example, you probably want to sell the shirts in a specific size. This cookbook explains how to sell variations of a product.
 
 ----
 
 Text:
 
-**@TODO**
+To manage product **stock** or to define **individual prices** for each *product variant*, you need to create an own page for each *product variant*.
 
-If you want to sell shoes you probably want to sell the shoes in a specific size. This cookbook shows you how to sell variations of your products.
+<code caption="Folder structure">
+```filesystem
+content/
+  t-shirt/
+    product.txt
+    1_medium/
+      product-variant.txt
+    2_large/
+      product-variant.txt
+```
+</code>
+
+## Product template
+
+On the product page, the user should be able to select the desired variant. Instead of the hidden input field from the [Adding products](/guide/getting-started/adding-products) there will be a `select` input field with all available variants. The value of each option is the `uuid` of the *product variant* page.
+
+<code caption="/site/templates/product.php">
+```php
+<?php
+/** @var Wagnerwagner\Merx\ProductPage $page */
+$variants = $page->children()->template('product-variant')->listed();
+?>
+<form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
+  <select name="page">
+    <?php foreach ($variants as $variant): ?>
+      <option value="<?= $variant->uuid() ?>"><?= $variant->title() ?></option>
+    <?php endforeach ?>
+  </select>
+</form>
+<?php foreach (
+```
+</code>
+
+Technically the `product-variant` page is a `product` page. To get all the methods form  Merx’ [`ProductPage`](/reference/classes/product-page) class, create model for `product-variant` and extend [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page).
+
+<code caption="/site/models/product-variant.php">
+```php
+<?php
+class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
+{}
+```
+</code>
+
+## Handling the price
+
+Different t-shirt sizes normally have all the same price. Instead of adding the same price to each product variant, we can overwrite the price method of the `product-variant` page model and use the price of the parent product page.
+
+<code caption="/site/models/product-variant.php">
+```php
+<?php
+class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
+{
+  public function price(null|string|\Wagnerwagner\Merx\PricingRule $pricingRule = null): ?\Wagnerwagner\Merx\Price
+  {
+    return $this->parent()->price($pricingRule);
+  }
+}
+```
+</code>
+
+You could also use the price of the parent product page only, when the price field of the product variant page is empty.
+
+```php
+return parent::price() === null ? $this->parent()->price($pricingRule) : parent::price();
+```
+
+## Extending product variant model
+
+You can further extend the product variant page model, for example you can create a full title from the parent product page and the variant page.
+
+<code caption="/site/models/product-variant.php">
+```php
+<?php
+class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
+{
+  // …
+  public function title(): Field
+  {
+    $fullTitle = $this->parent()->title() . ' – ' . $this->content()->title();
+    return parent::title()->value($fullTitle);
+  }
+}
+```
+</code>
+
+## Multiple variations
+
+When a product has multiple variations (e.g. *color* **and** *size*), things will get a bit more complicated on the front-end side. 
+
+The structure of the content folder might look like this. Each variant has an own `product-variant` page.
+
+<code caption="Folder structure">
+```filesystem
+content/
+  t-shirt/
+    product.txt
+    1_red-medium/
+      product-variant.txt
+    2_red-large/
+      product-variant.txt
+    3_red-medium/
+      product-variant.txt
+    4_red-large/
+      product-variant.txt
+```
+</code>
+
+Each variant should have fields for each attribute. In this example *color* and *size*.
+
+<code caption="/content/t-shirt/1_red-medium/product-variant.txt">
+```txt
+Color: Red
+
+\----
+
+Size: Large
+
+\----
+
+Uuid: 96satwnkbxtyk4w9
+```
+</code>
+
+### HTML
+
+The user will expect not one but two select fields. One for the color and one for the size.
+
+First create an array with all *colors* and all *sizes* using [`$pages->pluck()`](https://getkirby.com/docs/reference/objects/cms/pages/pluck) and use these arrays to create two select fields. Also add a hidden `page` input field. The value of this field will late be set using JavaScript.
+
+<code caption="/site/templates/product.php">
+```php
+<?php
+/** @var Wagnerwagner\Merx\ProductPage $page */
+$variants = $page->children()->template('product-variant')->listed();
+$sizes = array_unique($variants->pluck('size'));
+$colors = array_unique($variants->pluck('color'));
+?>
+<form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
+  <select name="color">
+    <?php foreach ($colors as $color): ?>
+      <option value="<?= $color ?>"><?= $color ?></option>
+    <?php endforeach ?>
+  </select>
+  <select name="size">
+    <?php foreach ($sizes as $size): ?>
+      <option value="<?= $size ?>"><?= $size ?></option>
+    <?php endforeach ?>
+  </select>
+  <input type="hidden" name="page" value="">
+</form>
+<?php foreach (
+```
+</code>
+
+To set the value of the hidden page field, you need a list of all page uuids and the respective attributes (*color* and *size*). Create this list and store it as JSON  in a `<script>` element.
+
+<code caption="/site/templates/product.php">
+```php
+<?php
+/** @var \Wagnerwagner\Merx\ProductPage $page */
+$variants = $page->children()->template('product-variant');
+$variantsArray = $variants->toArray(fn (ProductVariantPage $productVariantPage) => [
+  'uuid' => (string)$productVariantPage->uuid(),
+  'size' => (string)$productVariantPage->size(),
+  'color' => (string)$productVariantPage->color(),
+]);
+$sizes = array_unique($variants->pluck('size'));
+$colors = array_unique($variants->pluck('color'));
+?>
+<form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
+  <script id="variants">
+    <?= json_encode(array_values($variantsArray), JSON_UNESCAPED_SLASHES) ?>
+  </script>
+```
+</code>
+
+### JavaScript
+
+Now you have all the things you need to update the value of the hidden `page` input field. 
+
+1. Parse the JSON from the script element with the id `variants` 
+2. Create an event listener for each select field.
+3. Find the item with the selected attributes
+4. Set the value of the hidden `page` field with the uuid of the product variant.
+
+<code caption="script.js">
+```js
+// [1]
+const variants = JSON.parse(document.getElementById('variants').innerText);;
+
+function updatePageField() {
+  // [3]
+  const { color, size } = productForm.elements;
+  const variant = variants.find((item) => item.color === color.value && item.size === size.value);
+
+  // [4]
+  productForm.elements.page.value = variant?.uuid ?? null;
+}
+
+updatePageField();
+
+productForm.querySelectorAll('select').forEach((selectElement) => {
+  // [2]
+  selectElement.addEventListener('change', updatePageField);
+})
+```
+</code>
+
+<callout>
+You can use the same mechanism to update **product images**, showing the **available stock** or the **specific price**, when you have different prices per variant.
+</callout>
 
 ----
 
