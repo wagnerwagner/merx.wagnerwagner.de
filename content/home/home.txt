@@ -25,7 +25,7 @@ Features:
   text: "Since Merx is just a toolset, it doesn't dictate the fron­tend out­put. Use any frame­work you want or write your very own HTML/​​CSS/​​Javascript."
 - 
   headline: Infinite Payment Options
-  text: 'Merx (link: docs/getting-started/payment-methods text: sup­ports) Stripe (Credit Card, SEPA Di­rect Debit, Klarna, iDEAL) and Pay­pal out of the box. For every­thing else there are (link: cookbook/custom-payment-gateways text: cus­tom pay­ment gate­ways).'
+  text: 'Merx (link: /guide/payment-gateways text: sup­ports) Stripe (Credit Card, SEPA Di­rect Debit, Klarna, iDEAL) and Pay­pal out of the box. For every­thing else there are (link: /guide/payment-gateways/custom-payment-gateway text: cus­tom pay­ment gate­ways).'
 
 ----
 
