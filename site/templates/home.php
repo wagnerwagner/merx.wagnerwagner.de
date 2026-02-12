@@ -8,7 +8,7 @@
 				<h1 class="a-display"><?= $page->heroCopy() ?></h1>
 				<div class="o-hero__buttons">
 					<div>
-						<a class="a-button" data-size="large" href="https://starterkit.merx2.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</</a>
+						<a class="a-button" data-size="large" href="https://starterkit-merx2.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</</a>
 						<a class="a-button" data-kind="secondary" data-variant="text" href="https://github.com/wagnerwagner/merx-starterkit/tree/develop/v2" rel="noopener">Source Code</a>
 					</div>
 					<div>
