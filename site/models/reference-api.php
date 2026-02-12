@@ -151,11 +151,18 @@ class ReferenceApiPage extends Page
 			$object = new \Wagnerwagner\Merx\ProductList([$listItem, ['key' => 'table', 'title' => 'Table', 'price' => null]]);
 		}
 		if ($model === 'Cart') {
-			$object = new \Wagnerwagner\Merx\Cart([$listItem]);
+			$object = new \Wagnerwagner\Merx\ProductList([$listItem]);
 		}
 
 		if ($object === null) return null;
 
-		return $this->api()->resolve($object)->toArray();
+		$response = $this->api()->resolve($object)->toArray();
+
+		if ($model === 'Cart') {
+			// manually add checkout field
+			$response['checkout'] = ['url' => 'https://shop.text/checkout'];
+		}
+
+		return $response;
 	}
 }
