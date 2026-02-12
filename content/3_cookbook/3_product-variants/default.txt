@@ -59,7 +59,7 @@ class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
 
 ## Handling the price
 
-Different t-shirt sizes normally have all the same price. Instead of adding the same price to each product variant, we can overwrite the price method of the `product-variant` page model and use the price of the parent product page.
+Different t-shirt sizes normally have all the same price. Instead of adding the same price to each product variant, you can overwrite the price method of the `product-variant` page model and use the price of the parent product page.
 
 <code caption="/site/models/product-variant.php">
 ```php
