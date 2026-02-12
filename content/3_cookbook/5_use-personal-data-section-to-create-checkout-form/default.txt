@@ -12,6 +12,10 @@ Intro:
 
 Text:
 
+**@TODO**
+
+NOTE: does not work with Kirby 6.
+
 <code caption="/site/controllers/checkout.php">
 ```php
 <?php
