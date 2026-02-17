@@ -12,7 +12,7 @@
 						<a class="a-button" data-kind="secondary" data-variant="text" href="https://github.com/wagnerwagner/merx-starterkit/tree/develop/v2" rel="noopener">Source Code</a>
 					</div>
 					<div>
-						<a class="a-button" data-size="large" href="https://github.com/wagnerwagner/merx-starterkit/archive/refs/heads/develop/v2.zip" rel="noopener">Download&ensp;↓</</a>
+						<a class="a-button" data-size="large" href="https://github.com/wagnerwagner/merx/archive/refs/heads/develop/v2.zip" rel="noopener">Download&ensp;↓</</a>
 						<a class="a-button" data-kind="secondary" data-variant="text" href="https://github.com/wagnerwagner/merx/tree/develop/v2" rel="noopener">Source Code</a>
 					</div>
 				</div>
