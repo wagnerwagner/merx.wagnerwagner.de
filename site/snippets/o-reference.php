@@ -13,12 +13,21 @@ use Wagnerwagner\Site\Type;
 		</div>
 	<?php endif ?>
 
-	<?php if ($page->gitHubUrl()): ?>
-		<a class="a-type" href="<?= $page->gitHubUrl() ?>">
-			<?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
-			<?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
-		</a>
-	<?php endif ?>
+	<div class="m-stack" data-space="small" data-direction="inline">
+		<?php if ($targetUrl = $page->guide()->toUrl()): ?>
+			<a class="a-button" data-kind="secondary" data-size="small" href="<?= $targetUrl ?>">
+				<?php snippet('a-icon', ['name' => 'book', 'weight' => 450]) ?>
+				Read more
+			</a>
+		<?php endif ?>
+
+		<?php if ($page->gitHubUrl()): ?>
+			<a class="a-button" data-kind="tertiary" data-size="small" data-typography="code" href="<?= $page->gitHubUrl() ?>">
+				<?php snippet('a-icon', ['name' => 'code', 'weight' => 450]) ?>
+				<?= $page->relativeFilePath() ?><?= ($page->line()) ? '#L' . $page->line() : '' ?>
+			</a>
+		<?php endif ?>
+	</div>
 
 	<div class="m-text">
 		<?php if (is_string($page->call())): ?>

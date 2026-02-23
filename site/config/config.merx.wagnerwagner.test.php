@@ -2,6 +2,6 @@
 return [
 	'debug' => true,
 	'wagnerwagner.merx.production' => false,
-	'nova-links' => false,
+	'nova-links' => true,
 	'cache.site.search' => false,
 ];

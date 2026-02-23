@@ -1,5 +1,23 @@
 .m-stack {
-	> * + * {
-		margin-block-start: var(--gap-block);
+	--_space: var(--gap-block);
+
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: var(--_space);
+
+	&[data-direction="inline"] {
+		--_space: var(--gap-inline);
+		flex-direction: row;
+	}
+
+	&[data-space="small"] {
+		--_space: var(--size-400);
+	}
+	&[data-space="xsmall"] {
+		--_space: var(--size-300);
+	}
+	&[data-space="xxsmall"] {
+		--_space: var(--size-200);
 	}
 }

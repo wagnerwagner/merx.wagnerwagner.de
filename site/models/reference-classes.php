@@ -49,7 +49,7 @@ class ReferenceClassesPage extends Page
 			$root  = $this->root() . '/' . Str::kebab($namespace) . '/0_' . $slug;
 
 			try {
-				$content = Data::read($root . '/reference-class.txt');
+				$content = Data::read($root . '/reference-doc.txt');
 			} catch (Throwable) {
 				$content = [];
 			}

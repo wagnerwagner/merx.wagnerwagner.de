@@ -3,6 +3,7 @@
 namespace Wagnerwagner\Site;
 
 use Kirby\Cms\Page;
+use Kirby\Content\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
@@ -201,6 +202,17 @@ abstract class ReferencePageAbstract extends Page
 				'description' => $docBlockParam?->description,
 			];
 		});
+	}
+
+	public function guide(): Field
+	{
+		$see = array_values($this->docBlock()->getTagsByName('@see'))[0]->value ?? null;
+
+		if ($see) {
+			$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');
+		}
+
+		return $this->content()->get('guide')->or($see);
 	}
 }
 

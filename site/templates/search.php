@@ -20,7 +20,7 @@
 					<div class="m-search__field">
 						<input type="search" autofocus name="q" value="<?= esc($query, 'attr') ?>" required minlength="3" autocomplete="off">
 						<div class="m-search__submit">
-							<button class="a-button" data-variant="icon" data-kind="secondary" type="submit"><?= snippet('a-icon', ['name' => 'search', 'weight' => 700]) ?>
+							<button class="a-button" data-variant="ghost" data-shape="squared" data-kind="secondary" type="submit"><?= snippet('a-icon', ['name' => 'search', 'weight' => 700]) ?>
 								<span class="a-visually-hidden">Search</span>
 							</button>
 						</div>

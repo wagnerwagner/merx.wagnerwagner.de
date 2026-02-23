@@ -49,7 +49,7 @@ class ReferenceApiPage extends Page
 			$root = $this->root() . '/0_' . $slug;
 
 			try {
-				$content = Data::read($root . '/reference-api-type.txt');
+				$content = Data::read($root . '/reference-doc.txt');
 			} catch (Throwable) {
 				$content = [];
 			}
