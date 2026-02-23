@@ -53,7 +53,7 @@ class ReferenceBlueprintTypePage extends ReferencePageAbstract
 			$root = $this->root() . '/0_' . $slug;
 
 			try {
-				$content = Data::read($root . '/reference-blueprint.txt');
+				$content = Data::read($root . '/reference-doc.txt');
 			} catch (Throwable) {
 				$content = [];
 			}

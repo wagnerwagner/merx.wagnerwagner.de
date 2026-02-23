@@ -45,7 +45,7 @@
 	--line-height-label-xlarge: calc(26 / 18);
 	--line-height-label-large: calc(24 / 18);
 	--line-height-label-medium: calc(20 / 16);
-	--line-height-label-small: calc(16 / 14);
+	--line-height-label-small: calc(20 / 14);
 	--line-height-label-xsmall: calc(16 / 12);
 
 	--line-height-paragraph-xlarge: calc(28 / 23);
@@ -56,7 +56,7 @@
 
 	--line-height-code-large: calc(28 / 17);
 	--line-height-code-medium: calc(24 / 15);
-	--line-height-code-small: calc(20 / 13);
+	--line-height-code-small: calc(20 / 14);
 
 	/* Font */
 	--font-heading-xxlarge: 700 var(--font-size-heading-xxlarge)/var(--line-height-heading-xxlarge) var(--font-family);

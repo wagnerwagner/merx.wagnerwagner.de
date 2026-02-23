@@ -1,44 +1,44 @@
 /** a or code element */
 .a-type {
-	--_color-background: var(--color-background-tertiary);
-	--_color-border: hsl(from var(--_color-background) h calc(s - 5) calc(l - 7));
+	--_background-color: var(--color-background-tertiary);
+	--_border-color: hsl(from var(--_background-color) h calc(s - 5) calc(l - 7));
+	--_padding-inline: calc(var(--size-150) - var(--border-size-xsmall));
 
 	display: inline-flex;
-	gap: var(--size-50);
-	border-radius: var(--border-radius-small);
-	padding-inline: var(--size-100);
+	gap: var(--_padding-inline);
+	padding-inline: var(--_padding-inline);
 	font: var(--font-code-small);
-	border: var(--border-size-xsmall) solid var(--_color-border);
+	border: var(--border-size-xsmall) solid var(--_border-color);
 	border-radius: var(--border-radius-xsmall);
-	background-color: var(--_color-background);
+	background-color: var(--_background-color);
 
 	&:where([data-type="class"], [data-type="object"]) {
-		--_color-background: var(--color-green-200);
+		--_background-color: var(--color-green-200);
 	}
 	&:where([data-type="bool"]) {
-		--_color-background: var(--color-purple-150);
+		--_background-color: var(--color-purple-150);
 	}
 	&:where([data-type="null"]) {
-		--_color-background: var(--color-purple-100);
+		--_background-color: var(--color-purple-100);
 	}
 	&:where([data-type="int"]) {
-		--_color-background: var(--color-orange-150);
+		--_background-color: var(--color-orange-150);
 	}
 	&:where([data-type="float"], [data-type="number"]) {
-		--_color-background: var(--color-red-150);
+		--_background-color: var(--color-red-150);
 	}
 	&:where([data-type="string"]) {
-		--_color-background: var(--color-yellow-200);
+		--_background-color: var(--color-yellow-200);
 	}
 	&:where([data-type="array"], [data-type="callable"]) {
-		--_color-background: var(--color-turquoise-150);
+		--_background-color: var(--color-turquoise-150);
 	}
 
 	&:where(a) {
 		text-decoration: none;
 
 		&:where(:focus-visible, :hover) {
-			background-color: hsl(from var(--_color-background) h s calc(l - 3));
+			background-color: hsl(from var(--_background-color) h s calc(l - 3));
 		}
 	}
 }
