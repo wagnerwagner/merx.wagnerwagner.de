@@ -1,4 +1,6 @@
 .o-main-wrapper {
+	--_width-nav: calc(260rem / 16);
+
 	z-index: var(--z-index-main-wrapper);
 	inline-size: 100%;
 	padding-inline: var(--gap-inline);
@@ -16,14 +18,14 @@
 		> div {
 			display: grid;
 			grid-template-columns:
-				calc(260rem / 16)
+				var(--_width-nav)
 				1fr;
 		}
 
 		&[data-layout="ref"] {
 			> div {
 				grid-template-columns:
-					calc(2 * 280rem / 16)
+					calc(var(--_width-nav) * 2)
 					1fr;
 			}
 		}

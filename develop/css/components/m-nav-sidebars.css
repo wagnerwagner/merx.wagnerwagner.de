@@ -47,7 +47,7 @@
 			padding-inline-start: var(--border-size-small);
 			display: grid;
 			grid-auto-flow: column;
-			grid-auto-columns: calc(280rem / 16);
+			grid-auto-columns: 1fr;
 		}
 	}
 }
