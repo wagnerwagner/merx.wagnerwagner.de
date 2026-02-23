@@ -11,6 +11,12 @@
 	padding-block: var(--size-150);
 	padding-inline-end: var(--_padding-inline);
 
+	> small {
+		margin-block-start: var(--size-100);
+		font: var(--font-label-small);
+		color: var(--color-content-secondary);
+	}
+
 	&::before {
 		content: '';
 		grid-row: 1 / span 2;
@@ -34,11 +40,6 @@
 	}
 	&[data-variant="tertiary"] {
 		padding-block: calc(var(--size-250) - var(--border-size-small) * 0.5);
-		> small {
-			margin-block-start: var(--size-100);
-			font: var(--font-label-small);
-			color: var(--color-content-secondary);
-		}
 	}
 
 	&[data-state="open"] {
