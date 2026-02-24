@@ -68,7 +68,7 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 						</div>
 					</label>
 					<div class="form-checkout__payment-fields"></div>
-					<input type="hidden" name="payment-method" value="stripe-elements">
+					<input type="hidden" name="payment-gateway" value="stripe-elements">
 					<input type="hidden" name="stripePublishableKey" value="<?= option('wagnerwagner.merx.production') === true ? option('wagnerwagner.merx.stripe.live.publishable_key') : option('wagnerwagner.merx.stripe.test.publishable_key') ?>">
 
 					<label class="has-radio" data-name="legal">
