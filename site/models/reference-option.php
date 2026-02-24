@@ -15,41 +15,36 @@ class ReferenceOptionPage extends ReferencePageAbstract
 
 	public function type(): ?Type
 	{
-		return new Type(gettype($this->content()->defaultValue()->value()));
-	}
-
-	public function call(): string
-	{
-		$defaultValue = $this->defaultValue();
-		$defaultValue = $defaultValue === 'closure' ? 'function() {}' : $defaultValue;
-		return "'" . $this->key() . "'" . ' => ' . $defaultValue;
-	}
-
-	public function defaultValue(): ?string
-	{
-		$defaultValue = $this->content()->defaultValue()->value();
-		if (gettype($defaultValue) === 'array') {
-			$defaultValue = '[]';
-		} else if (gettype($defaultValue) === 'boolean') {
-			$defaultValue = $defaultValue ? 'true' : 'false';
-		} else if (gettype($defaultValue) === 'NULL') {
-			$defaultValue = 'null';
-		} else if (gettype($defaultValue) === 'string') {
-			$defaultValue = "'$defaultValue'";
-		} else if (gettype($defaultValue) === 'object') {
-			if (is_callable($defaultValue)) {
-				$defaultValue = "closure";
-			} else {
-				$defaultValue = "object";
-			}
-		}
-		return $defaultValue;
+		return new Type($this->content()->type()->value());
 	}
 
 	public function reflection(): ?Reflector
 	{
+		return $this->content()->reflection()->value();
+	}
+
+	public function call(): string
+	{
+		$type = (string)$this->type();
+		$value = $this->defaultValue();
+		if ($value === null) {
+			if ($type === 'function') {
+				$value = 'function () {}';
+			} else if ($type === 'array') {
+				$value = '[]';
+			}
+		}
+		return "'" . $this->key() . "'" . ' => ' . $value . ',';
+	}
+
+	public function defaultValue(): ?string
+	{
+		if ($this->content()->get('defaultValue')->exists()) {
+			return $this->content()->get('defaultValue');
+		}
 		return null;
 	}
+
 
 	/**
 	 * Returns the framework- or plugin-relative file path with the start line

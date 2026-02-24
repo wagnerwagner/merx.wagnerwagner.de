@@ -6,44 +6,39 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Some payment methods like SEPA Direct Debit can take up to 6 business days until the payment is confirmed. Learn how to use webhooks to get notified when the payment is succeeded.
 
 ----
 
 Text:
 
-**@TODO**
+When you set up Stripe webhook as described, the Stripe payments with delayed payment confirmations are marked as paid, as soon as Merx receives the hook.
 
-[stripe-hooks](/reference/options/hooks/stripe-hooks) API endpoint.
+## Create Stripe Webhook
 
-[Stripe Docs](https://docs.stripe.com/payments/payment-intents/verifying-status#webhooks)
+Go to [dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded](https://dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded) to create a new hook.
 
-\----
+Enter the Endpoint URL: [`https://[your-domain]/api/shop/hooks/stripe`](/reference/api/routes/shop-hooks-stripe-post).
 
-Create Stripe Webhook
+Copy the created Signing secret. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 
-Go to dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded.
+## Set the stripe.webhook_signing_secret option
 
-Enter the Endpoint URL. https://[your-domain]/api/merx/hooks/stripe.
+Add the Signing secret as [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) option.
 
-Copy the Signing secret. whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-Set the stripe.webhook_signing_secret option
-
-Set the stripe.webhook_signing_secret.
-
-site/config/env.php
+<code caption="/site/config/env.php">
+```php
 <?php
 return [
-        'ww.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
 ];
-We recommend to use config/env.php for your secret keys.
+</code>
 
-Test with delayed notification of payment success
+We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing sandbox keys.
 
-Test your integration with a payment method which has a delayed notification of payment success. For example, SEPA Direct Debit payments are marked as completed in an average of 7 to 8 business days.
+## Use other Stripe hooks
 
-See Stripe’s Documentation to learn more about how to test SEPA Direct Debit payments.
+You can create your own [`stripe-hooks`](/reference/options/hooks/stripe-hooks) hook, to handle other Stripe events via webhook. To learn more about Stripe webkooks you can read the [Stripe Docs](https://docs.stripe.com/payments/payment-intents/verifying-status#webhooks).
 
 ----
 

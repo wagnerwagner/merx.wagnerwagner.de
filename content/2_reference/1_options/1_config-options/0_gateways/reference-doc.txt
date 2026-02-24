@@ -1,0 +1,1 @@
+Guide: /guide/payment-gateways/custom-payment-gateway

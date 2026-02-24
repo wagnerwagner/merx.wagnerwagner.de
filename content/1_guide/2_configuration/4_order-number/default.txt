@@ -12,16 +12,19 @@ Intro: Merx creates a sequential number for each order page by default. If you w
 
 Text:
 
+Use the [`orderNumber`](/reference/options/config-options/order-number) option, to create your own logic for order numbers. The first argument of the function is of type [OrderPage](/reference/classes/order-page).
+
 <code caption="/site/config/config.php">
 ```php
 return [
-	'orderNumber' => function (OrderPage $virtualOrderPage): int
+	'wagnerwagner.merx.orderNumber' => function (OrderPage $virtualOrderPage): int
 	{
 		$lastOrder = $virtualOrderPage->siblings()->listed()->last();
 		return ($lastOrder?->orderNumber()->toInt() ?? 0) + 1;
 	},
 ];
 ```
+</code>
 
 ----
 

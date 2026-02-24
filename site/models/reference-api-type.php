@@ -54,7 +54,7 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 				if ($apiType === 'routes') {
 					$method = Str::upper($item['method'] ?? 'GET');
 					$slug = Str::slug($item['pattern'] . '-' . $method);
-					$root = $this->root() . '//0_' . $slug;
+					$root = $this->root() . '/0_' . $slug;
 					$content = [
 						'pattern' => $item['pattern'],
 						'auth' => $item['auth'],
@@ -63,7 +63,7 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 					];
 				} else if ($apiType === 'models') {
 					$slug = Str::slug(Str::kebab($key));
-					$root = $this->root() . '//0_' . $slug;
+					$root = $this->root() . '/0_' . $slug;
 					$fields = array_map(fn ($field) => (string)(new ReflectionFunction($field))->getReturnType(), $item['fields']);
 					$content = [
 						'class' => $key,
@@ -75,7 +75,7 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 
 				try {
 					/** Merge optional content overrides from the stored text file */
-					$content = [...Data::read($root . '/' . $template . '.txt'), $content];
+					$content = [...Data::read($root . '/' . $template . '.txt'), ...$content];
 				} catch (Throwable) {
 				}
 

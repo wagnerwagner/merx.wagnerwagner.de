@@ -6,11 +6,23 @@ Headline:
 
 ----
 
-Intro: 
+Intro: By default Merx is in *testing* mode.
 
 ----
 
-Text: **@TODO**
+Text:
+
+To switch from testing to production mode, set the [`production`](/reference/options/config-options/production) option to `true`.
+
+<code caption="/site/config/config.php">
+```php
+return [
+  'wagnerwagner.merx.production' => true,
+];
+```
+</code>
+
+When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You will also need a valid Merx 2 license and set it as a [`license`](/reference/options/config-options/license) option.
 
 ----
 
