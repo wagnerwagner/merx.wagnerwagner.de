@@ -68,7 +68,7 @@ Add the new fields to the checkout template.
     Organization (optional)
     <input type="text" name="organization" autocomplete="organization">
   </label>
-  <input type="hidden" name="payment_method" value="invoice">
+  <input type="hidden" name="payment_gateway" value="invoice">
   <button>Submit order</button>
 </form>
 …
