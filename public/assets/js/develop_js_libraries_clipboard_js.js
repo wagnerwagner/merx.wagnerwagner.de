@@ -25,7 +25,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 /*! clipboard-copy. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /* harmony default export */ __webpack_exports__["default"] = (clipboardCopy);
 function makeError() {
-  return new DOMException("The request is not allowed", "NotAllowedError");
+  return new DOMException('The request is not allowed', 'NotAllowedError');
 }
 function copyClipboardApi(_x) {
   return _copyClipboardApi.apply(this, arguments);
@@ -42,14 +42,14 @@ function copyExecCommand(_x2) {
 }
 function _copyExecCommand() {
   _copyExecCommand = _asyncToGenerator(function* (e) {
-    var o = document.createElement("span");
-    o.textContent = e, o.style.whiteSpace = "pre", o.style.webkitUserSelect = "auto", o.style.userSelect = "all", document.body.appendChild(o);
-    var t = window.getSelection(),
-      r = window.document.createRange();
+    var o = document.createElement('span');
+    o.textContent = e, o.style.whiteSpace = 'pre', o.style.webkitUserSelect = 'auto', o.style.userSelect = 'all', document.body.appendChild(o);
+    var t = window.getSelection();
+    var r = window.document.createRange();
     t.removeAllRanges(), r.selectNode(o), t.addRange(r);
     var n = !1;
     try {
-      n = window.document.execCommand("copy");
+      n = window.document.execCommand('copy');
     } finally {
       t.removeAllRanges(), window.document.body.removeChild(o);
     }
