@@ -20,7 +20,7 @@ If you followed the [Validate checkout guide](/guide/getting-started/validate-ch
 ```php
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
   <!-- other fields -->
-  <input type="hidden" name="payment_method" value="paypal">
+  <input type="hidden" name="payment_gateway" value="paypal">
   <button>Submit order</button>
 </form>
 ```
