@@ -31,7 +31,7 @@
 		--_background-color: var(--color-yellow-200);
 	}
 	&:where([data-type="array"], [data-type="callable"]) {
-		--_background-color: var(--color-turquoise-150);
+		--_background-color: var(--color-blue-150);
 	}
 
 	&:where(a) {

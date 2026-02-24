@@ -2,8 +2,10 @@
 
 use Kirby\Api\Api;
 use Kirby\Cms\App;
+use Kirby\Cms\Language;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
+use Kirby\Cms\Site;
 use Kirby\Data\Data;
 use Kirby\Filesystem\Dir;
 use Kirby\Toolkit\Str;
@@ -78,11 +80,14 @@ class ReferenceApiPage extends Page
 	 */
 	public function api(): Api
 	{
-		$kirby = $this->kirby();
+		$kirby = $this->kirby()->clone([], false);
 		$api = new Api([
-			'kirby' => new App(),
 			'collections' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['collections'],
-			'data' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['data'],
+			'data' => [...$kirby->plugin('wagnerwagner/merx')->extends()['api']['data'],
+				'kirby' => $kirby,
+				'site' => new Site(),
+				'language' => 'null',
+			],
 			'models' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['models'],
 			'routes' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['routes']($kirby),
 		]);
@@ -95,6 +100,10 @@ class ReferenceApiPage extends Page
 		array $requestData = []
 	): mixed
 	{
+		if ($path === 'shop/success') {
+			return null;
+		}
+
 		$requestData = array_merge_recursive($requestData, [
 			'query' => [
 				'pretty' => true,
@@ -119,7 +128,7 @@ class ReferenceApiPage extends Page
 			$requestData['body']['city'] = 'Ducktown';
 			$requestData['body']['country'] = 'DE';
 			$requestData['body']['legal'] = '1';
-			$requestData['body']['paymentMethod'] = 'invoice';
+			$requestData['body']['paymentGateway'] = 'invoice';
 			$requestData['body']['company'] = 'Example Inc.';
 		}
 

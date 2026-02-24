@@ -3,6 +3,8 @@
 /**
  * @var \Kirby\Cms\Page $page
  */
+
+$page = $page ?? page();
 ?>
 <div class="m-reference-children">
 	<ul>

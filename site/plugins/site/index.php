@@ -105,7 +105,7 @@ App::plugin('wagnerwagner/site', [
 			$quantity = $orderPage->cart()->findBy('id', 'merx-license')['quantity'];
 			$licenses = [];
 			while (count($licenses) < $quantity) {
-				$licenses[] = 'MERX-' . strtoupper(dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')) . '-' . dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')));
+				$licenses[] = 'MERX2-' . strtoupper(dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')) . '-' . dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')));
 			}
 			$orderPage = $orderPage->update([
 				'licenses' => A::join($licenses),

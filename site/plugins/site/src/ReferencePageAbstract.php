@@ -74,7 +74,7 @@ abstract class ReferencePageAbstract extends Page
 
 		$relativeFilePath = $this->relativeFilePath();
 
-		if ($relativeFilePath === null) {
+		if (empty($relativeFilePath)) {
 			return null;
 		}
 		$line = $this->line();
@@ -143,7 +143,8 @@ abstract class ReferencePageAbstract extends Page
 	public function docBlock(): ?PhpDocNode
 	{
 		$reflection = $this->reflection();
-		if ($reflection->getDocComment() === false) {
+		$docblock = $reflection && method_exists($reflection, 'getDocComment') ? $reflection->getDocComment() : null;
+		if ($docblock == null) {
 			return null;
 		}
 		$docblock = $reflection->getDocComment();
@@ -206,7 +207,7 @@ abstract class ReferencePageAbstract extends Page
 
 	public function guide(): Field
 	{
-		$see = array_values($this->docBlock()->getTagsByName('@see'))[0]->value ?? null;
+		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
 
 		if ($see) {
 			$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');

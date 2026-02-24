@@ -46,7 +46,7 @@ class ReferenceClassesPage extends Page
 			$name  = ucfirst(basename($class, '.php'));
 			$class = $namespace . '\\' . $name;
 			$slug  = Str::kebab($name);
-			$root  = $this->root() . '/' . Str::kebab($namespace) . '/0_' . $slug;
+			$root  = $this->root() . '/' . Str::kebab(Str::replace($namespace, 'Wagnerwagner\Merx', '')) . '/0_' . $slug;
 
 			try {
 				$content = Data::read($root . '/reference-doc.txt');

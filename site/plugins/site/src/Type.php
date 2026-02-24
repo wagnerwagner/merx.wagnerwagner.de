@@ -39,11 +39,19 @@ class Type {
 	public function getDataType(?Reflector $reflector = null): ?string
 	{
 		$type = Str::lower($this->type);
-		$type = $type === 'boolean' ? 'bool' : $type;
+		$type = in_array($type, ['boolean', 'true', 'false']) ? 'bool' : $type;
 		if (in_array($type, ['string', 'null', 'bool', 'int', 'float', 'array'])) {
 			return $type;
 		} else if ($reflector instanceof Reflector || Str::contains($type, '\\')) {
 			return 'class';
+		} else if (in_array($type, ['function'])) {
+			return 'callable';
+		} else if (is_string($type)) {
+			if (Str::startsWith($type, "'") && Str::endsWith($type, "'")) {
+				return 'string';
+			} else if (Str::endsWith($type, "()")) {
+				return 'callable';
+			}
 		}
 		return null;
 	}

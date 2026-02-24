@@ -12,8 +12,6 @@ Intro:
 
 Text:
 
-**@TODO**
-
 Use the [`gateways`](/reference/options/config-options/gateways) option to add your own payment gateway.
 
 `initializeOrder` and `createOrder` must return a [`OrderPage`](/reference/classes/order-page) object.
@@ -25,19 +23,19 @@ In `initializeOrder` you can set a redirect url. The user will be redirected to 
 return [
   'wagnerwagner.merx.gateways' => [
     'my-payment-provider' => [
-      'initializeOrder' => function(OrderPage $virtualOrderPage): OrderPage
+      'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage
       {
         $sum = $virtualOrderPage->cart()->total();
         // do something to get a redirect url
         $redirectUrl = 'https://mypaymentprovider.com/payment/mlDquvqMQK85M1Pw',
-        $virtualOrderPage->content()->update([
+        $virtualOrderPage->version()->update([
           'redirect' => $redirectUrl,
         ]);
         return $virtualOrderPage;
       },
-      'createOrder' => function(OrderPage $virtualOrderPage, array $data): OrderPage
+      'completePayment' => function(OrderPage $virtualOrderPage, array $data): OrderPage
       {
-        $virtualOrderPage->content()->update([
+        $virtualOrderPage->version()->update([
           'paymentComplete' => true,
           'datePaid' => date('c'),
         ]);
@@ -49,7 +47,7 @@ return [
 ```
 </code>
 
-Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->content()->update()`](https://getkirby.com/docs/reference/objects/content/content/update) to update the virtual page’s content.
+Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
 
 ----
 

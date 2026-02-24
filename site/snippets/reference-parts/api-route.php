@@ -1,10 +1,12 @@
-<h2>Example response</h2>
-<figure class="m-code">
-	<figcaption>https://shop.test/api/<?= $page->pattern() ?></figcaption>
-	<div class="m-code">
-		<pre><code class="language-json"><?= $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method()) ?></code></pre>
-	</div>
-</figure>
+<?php if ($apiRequest = $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method())): ?>
+	<h2>Example response</h2>
+	<figure class="m-code">
+		<figcaption>https://shop.test/api/<?= $page->pattern() ?></figcaption>
+		<div class="m-code">
+			<pre><code class="language-json"><?= $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method()) ?></code></pre>
+		</div>
+	</figure>
+<?php endif ?>
 
 <?php if ($resolvedApiModel = $page->parent()->parent()->resolveApiModel($page->class())): ?>
 	<h2>Example response</h2>

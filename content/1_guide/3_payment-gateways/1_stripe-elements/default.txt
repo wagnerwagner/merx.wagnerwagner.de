@@ -136,7 +136,7 @@ After completing the payment the customer is redirected to the [order page](/gui
 
 Most payment methods have an immediate payment confirmation. Therefore the `paymentComplete` field of the [`OrderPage`](/reference/classes/order-page) is set to true and the `datePaid` field is set to the current date by the `stripe-elements` gateway in the background.
 
-For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you when payments are confirmed.
+For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you, when payments are confirmed.
 
 ## Optional: Show only specific payment methods
 
@@ -163,7 +163,7 @@ Some payment methods [don’t allow manual capturing](https://docs.stripe.com/pa
 
 
 <callout>
-The default options and the options you set in the `config.php` are merged recursively, so you need to overwrite/disable `automatic_payment_methods`.
+The default options and the options you set in the `config.php` are merged recursively, therefore you need to overwrite/disable `automatic_payment_methods`.
 </callout>
 
 ----
