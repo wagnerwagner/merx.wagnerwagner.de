@@ -42,7 +42,7 @@ class Type {
 		$type = in_array($type, ['boolean', 'true', 'false']) ? 'bool' : $type;
 		if (in_array($type, ['string', 'null', 'bool', 'int', 'float', 'array'])) {
 			return $type;
-		} else if ($reflector instanceof Reflector || Str::contains($type, '\\')) {
+		} else if ($reflector instanceof Reflector || Str::contains($type, '\\') || ctype_upper(Str::substr($this->type, 0, 1))) {
 			return 'class';
 		} else if (in_array($type, ['function'])) {
 			return 'callable';
