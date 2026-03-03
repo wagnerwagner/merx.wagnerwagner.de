@@ -1,0 +1,63 @@
+Title: Volume-based pricing
+
+----
+
+Headline: 
+
+----
+
+Intro: Volume-based pricing is a pricing strategy in which the unit price decreases as the purchase quantity increases, incentivizing larger orders by offering tiered discounts tied to volume thresholds.
+
+----
+
+Text:
+
+To realize volume-based pricing you need to make the price of your product dynamic.
+
+## Create a custom product page model
+
+If you do not already have one, create your own product model, which extends the Merx’ [`ProductPage`](/reference/classes/product-page) class.
+
+First, use the [`price()`](/reference/classes/product-page/price) method of the parent [`ProductPage`](https://merx.wagnerwagner.test/reference/classes/product-page) class to get the [`$price`](/reference/classes/price) object. Then use this object to update the price using [`updatePrice()`](/reference/classes/price/update-price) or [`updateNetPrice()`](/reference/classes/price/update-net-price).
+
+In the following example, the price is reduced by 5% if there are more than 10 items of this product in the cart.
+
+<code caption="/site/models/product.php">
+```php
+<?php
+
+use Wagnerwagner\Merx\Price;
+use Wagnerwagner\Merx\PricingRule;
+
+class ProductPage extends Wagnerwagner\Merx\ProductPage
+{
+  public function price(null|string|PricingRule $pricingRule = null, null|float $quantity = null): ?Price
+  {
+    $price = parent::price($pricingRule, $quantity);
+    if ($quantity >= 10) {
+      $price = $price->updatePrice($price->price * 0.95);
+    }
+    return $price;
+  }
+}
+```
+</code>
+
+That is all you need to do, as the cart uses this price method and automatically passes the quantity of the current item.
+
+You can use the same price method, to show the reduced price on the product page.
+
+<code caption="/site/templates/product.php">
+```php
+<?php /** @var ProductPage $page */ ?>
+<p class="callout">
+If you buy more than 10 items, 
+the price per item is reduced to 
+<?= $page->price(quantity: 10) ?>.
+</p>
+```
+</code>
+
+----
+
+Uuid: 0wcfjw04omnnzrg8
