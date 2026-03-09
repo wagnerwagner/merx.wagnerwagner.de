@@ -45,6 +45,8 @@ class ProductPage extends Wagnerwagner\Merx\ProductPage
 
 That is all you need to do, as the cart uses this price method and automatically passes the quantity of the current item.
 
+## Display reduced price
+
 You can use the same price method, to show the reduced price on the product page.
 
 <code caption="/site/templates/product.php">
