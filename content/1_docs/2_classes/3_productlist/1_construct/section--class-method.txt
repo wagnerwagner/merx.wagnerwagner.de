@@ -22,7 +22,7 @@ Summary:
 
 ----
 
-Text: 
+Text:
 
 ### Example
 
@@ -37,3 +37,7 @@ $productList = new ProductList([
   ],
 ]);
 ```
+
+----
+
+Uuid: vFn57TOCh7gw5RhN
