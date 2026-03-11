@@ -1,3 +1,7 @@
+<?php
+
+use Kirby\Toolkit\Str;
+?>
 <?php snippet('head') ?>
 <body class="l-invoice">
   <header class="header">
@@ -80,6 +84,11 @@
       <?php endforeach; ?>
       </p>
     </div>
+    <?php if (Str::lower($page->country()->toString()) !== 'de'): ?>
+      <div class="invoice__notice">
+        <p>This invoice is issued under the <strong>reverse charge procedure</strong>. Therefore, <strong>no VAT is charged</strong>. The <strong>recipient of the supply is liable for the VAT</strong>. The VAT must be <strong>declared and paid by the recipient in accordance with the reverse charge mechanism</strong> (<a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006L0112#art_196" target="_blank" rel="noopener">Art. 196 VAT Directive</a>).</p>
+      </div>
+    <?php endif ?>
     <div class="invoice__seller">
       <p>
         Wagnerwagner GmbH<br>

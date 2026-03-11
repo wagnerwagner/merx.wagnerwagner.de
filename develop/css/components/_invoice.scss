@@ -100,6 +100,14 @@
 }
 
 
+.invoice__notice {
+  margin-top: rem(40);
+
+  > p {
+    margin: 0;
+  }
+}
+
 .invoice__seller {
   flex-basis: 100%;
   margin-top: rem(100);
