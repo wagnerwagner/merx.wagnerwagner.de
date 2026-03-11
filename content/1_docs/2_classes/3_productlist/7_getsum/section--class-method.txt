@@ -10,12 +10,16 @@ Methodname: getSum
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
+
+----
+
+Uuid: XNTOtTWXTKH0MlIR

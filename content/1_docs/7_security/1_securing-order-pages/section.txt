@@ -10,11 +10,11 @@ Text:
 
 ### Basic
 
-- Do not show personal information when it is not necessary.
-- Make sure order page links don’t appear in a sitemap or similar list of pages.
-- Add a robots meta tag to prevent search engines to crawl order pages. 
+- Do not show **personal information** when it is **not necessary**.
+- Make sure **order page links** don’t appear in a **sitemap** or similar list of pages.
+- Add a **robots meta tag** to prevent search engines to crawl order pages. 
 `<meta name="robots" content="noindex, follow">`
-- Add a `robots.txt` to disallow order pages. (Your `/orders/` path can be different depending on your [ordersPage option](/docs/options#orderspage))
+- Add a `robots.txt` to **disallow order pages**. (Your `/orders/` path can be different depending on your [ordersPage option](/docs/options#orderspage))
 ```
 User-agent: *
 Disallow: /orders/

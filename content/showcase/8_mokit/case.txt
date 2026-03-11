@@ -14,11 +14,14 @@ Byurl:
 
 ----
 
-Screenshot: - mokit.tools.jpg
+Screenshot: - file://6mixoEcoerRHpse7
 
 ----
 
-Special: 
+Special:
+
+- Simple design
+- Option to pick up the order
 
 ----
 

@@ -2,7 +2,7 @@ Title: $productList->append()
 
 ----
 
-ClassName: Wagnerwagner\Merx\ProductList
+Classname: Wagnerwagner\Merx\ProductList
 
 ----
 
@@ -10,12 +10,16 @@ Methodname: append
 
 ----
 
-Abstract:
+Abstract: 
 
 ----
 
-Summary:
+Summary: 
 
 ----
 
-Text:
+Text: 
+
+----
+
+Uuid: J3cwAIl4xxWXdAUx
