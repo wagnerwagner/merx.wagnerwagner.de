@@ -35,11 +35,11 @@ use Wagnerwagner\Merx\Merx;
         <h3>Billing Address</h3>
         <label data-name="company">
           <div>Company</div>
-          <input type="text" name="company" placeholder="Nice New Shoes Inc" autocomplete="organization">
+          <input type="text" name="company" required placeholder="Nice New Shoes Inc" autocomplete="organization">
         </label>
         <label data-name="name">
           <div>Full Name</div>
-          <input type="text" name="name" placeholder="Margret L Torreggiani" autocomplete="name">
+          <input type="text" name="name" required placeholder="Margret L Torreggiani" autocomplete="name">
         </label>
         <label data-name="street">
           <div>Street Address</div>
@@ -47,14 +47,14 @@ use Wagnerwagner\Merx\Merx;
         </label>
         <label class="is-1-3" data-name="postal_code">
           <div>Postal Code / ZIP</div>
-          <input type="text" name="postal_code" placeholder="4133" autocomplete="billing postal-code">
+          <input type="text" name="postal_code" required placeholder="4133" autocomplete="billing postal-code">
         </label>
         <label class="is-2-3" data-name="city">
           <div>City</div>
           <input type="text" name="city" required placeholder="Waterford" autocomplete="billing locality">
         </label>
         <label class="is-2-3" data-name="city">
-          <div>State/Province/Region</div>
+          <div>State/Province/Region (optional)</div>
           <input type="text" name="state" placeholder="Queensland" autocomplete="billing region">
         </label>
         <label data-name="country">
