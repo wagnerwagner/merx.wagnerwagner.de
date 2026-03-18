@@ -96,7 +96,7 @@ if (element) {
 
   inputElement.addEventListener('input', () => {
     if (inputElement.validity.valid) {
-      fetch(`/search-api?q=${inputElement.value}`).then(response => response.json()).then((data) => {
+      fetch(`/search-api?q=${inputElement.value}`).then((response) => response.json()).then((data) => {
         buildList(data);
       });
     } else {

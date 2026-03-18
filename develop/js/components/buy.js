@@ -10,7 +10,6 @@ const stripeStyle = {
   },
 };
 
-
 function setLoading() {
   const formCheckoutElement = element.querySelector('.form-checkout');
   formCheckoutElement.classList.add('is-loading');
@@ -27,7 +26,6 @@ function getErrorElement(message) {
   errorElement.textContent = message;
   return errorElement;
 }
-
 
 function showGlobalError(message) {
   const formCheckoutSubmit = element.querySelector('.form-checkout__submit');
@@ -91,7 +89,7 @@ function getClientSecret(_paymentMethod = 'card') {
   const { protocol, host } = window.location;
   const url = new URL('/merx-api/get-client-secret', `${protocol}//${host}`);
   url.searchParams.set('payment-method', _paymentMethod);
-  return fetch(url).then(response => response.json()).then(data => data.clientSecret).catch((exception) => {
+  return fetch(url).then((response) => response.json()).then((data) => data.clientSecret).catch((exception) => {
     console.error(exception);
     showGlobalError('Fatal Error: Could not get client secret.');
   });
@@ -178,7 +176,6 @@ function submit(formElement) {
   });
 }
 
-
 if (element) {
   const stripe = initStripe();
   const formElement = element.querySelector('.buy__form');
@@ -201,28 +198,25 @@ if (element) {
     });
   });
 
-
   formElement.addEventListener('submit', async (event) => {
     event.preventDefault();
     removeErrors();
     if (formElement.checkValidity()) {
       if (paymentMethod === 'credit-card-sca') {
         const clientSecret = await getClientSecret();
-        const { error } = await stripe.handleCardPayment(
-          clientSecret, stripe.card, {
-            payment_method_data: {
-              billing_details: {
-                email: formElement.email.value,
-                name: formElement.name.value,
-                address: {
-                  line1: formElement.street.value,
-                  city: formElement.city.value,
-                  country: formElement.country.value,
-                },
+        const { error } = await stripe.handleCardPayment(clientSecret, stripe.card, {
+          payment_method_data: {
+            billing_details: {
+              email: formElement.email.value,
+              name: formElement.name.value,
+              address: {
+                line1: formElement.street.value,
+                city: formElement.city.value,
+                country: formElement.country.value,
               },
             },
           },
-        );
+        });
         if (error) {
           const errorElement = getErrorElement(error.message);
           stripe.cardElement.parentElement.appendChild(errorElement);

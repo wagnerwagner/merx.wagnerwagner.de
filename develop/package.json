@@ -10,25 +10,25 @@
   "scripts": {
     "js": "npx webpack --config webpack.config.js",
     "js-dev": "npx webpack watch --config webpack.config.js --mode development",
-    "js-lint": "npx eslint --fix develop/js",
+    "js-lint": "npx eslint --fix js",
     "css": "npx sass --style=compressed --embed-sources css:../public/assets/css",
     "css-dev": "npx sass --watch --embed-sources css:../public/assets/css",
     "build": "npm run css; npm run js-lint; npm run js;"
   },
   "author": "tobias.wolf@wagnerwagner.de",
   "devDependencies": {
-    "@babel/core": "^7.20.2",
-    "@babel/preset-env": "^7.20.2",
-    "babel-loader": "^8.3.0",
-    "eslint": "^8.27.0",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-loader": "^8.4.1",
+    "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "sass": "^1.56.1",
-    "webpack": "^5.75.0",
+    "eslint-plugin-import": "^2.32.0",
+    "sass": "^1.98.0",
+    "webpack": "^5.105.4",
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "core-js": "^3.26.1",
-    "prismjs": "^1.29.0"
+    "core-js": "^3.49.0",
+    "prismjs": "^1.30.0"
   }
 }
