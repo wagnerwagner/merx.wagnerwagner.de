@@ -19,7 +19,7 @@ Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Cr
 
 Add form fields for the data you need to collect from your customer. For the moment we use *invoice* as payment gateway.
 
-<code caption="/site/blueprints/checkout.php">
+<code caption="/site/templates/checkout.php">
 ```php
 …
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
