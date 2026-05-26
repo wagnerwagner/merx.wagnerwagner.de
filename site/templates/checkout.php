@@ -35,32 +35,32 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 					<h3>Billing Address</h3>
 					<label data-name="company">
 						<div>Company</div>
-						<input type="text" name="company" placeholder="Nice New Shoes Inc" autocomplete="organization">
+						<input type="text" name="company" placeholder="Nice New Shoes Inc" autocomplete="organization" required>
 					</label>
 					<label data-name="name">
 						<div>Full Name</div>
-						<input type="text" name="name" placeholder="Margret L Torreggiani" autocomplete="name">
+						<input type="text" name="name" placeholder="Margret L Torreggiani" autocomplete="name" required>
 					</label>
 					<label data-name="street">
 						<div>Street Address</div>
-						<input type="text" name="street" required placeholder="50 Kintyre Street" autocomplete="billing street-address">
+						<input type="text" name="street" required placeholder="50 Kintyre Street" autocomplete="billing street-address" required>
 					</label>
 					<label class="is-1-3" data-name="postal_code">
 						<div>Postal Code / ZIP</div>
-						<input type="text" name="postal_code" placeholder="4133" autocomplete="billing postal-code">
+						<input type="text" name="postal_code" placeholder="4133" autocomplete="billing postal-code" required>
 					</label>
 					<label class="is-2-3" data-name="city">
 						<div>City</div>
-						<input type="text" name="city" required placeholder="Waterford" autocomplete="billing locality">
+						<input type="text" name="city" required placeholder="Waterford" autocomplete="billing locality" required>
 					</label>
 					<label class="is-2-3" data-name="city">
-						<div>State/Province/Region</div>
+						<div>State/Province/Region <small>(optional)</small></div>
 						<input type="text" name="state" placeholder="Queensland" autocomplete="billing region">
 					</label>
 					<label data-name="country">
 						<div>Country</div>
 						<div class="select-wrapper">
-							<select name="country" required autocomplete="country">
+							<select name="country" autocomplete="country" required>
 								<?php foreach(option('wagnerwagner.site.countryList') as $code => $name): ?>
 									<option value="<?= $code ?>" <?= $region === $code ? 'selected' : '' ?>><?= $name ?></option>
 								<?php endforeach; ?>
