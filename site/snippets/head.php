@@ -1,3 +1,7 @@
+<?php
+/** @var \Kirby\Cms\Page $page */
+/** @var \Kirby\Cms\Site $site */
+?>
 <!doctype html>
 <html lang="en">
 	<head>
@@ -21,5 +25,8 @@
 			<meta property="og:title" content="<?= $page->title() ?>">
 		<?php endif; ?>
 		<link rel="preload" href="<?= url('assets/images/icons.svg') ?>" as="image" type="image/svg+xml" fetchpriority="low">
+		<?php if (\Wagnerwagner\Site\Llms::isDocPage($page)): ?>
+			<link rel="alternate" type="text/markdown" href="<?= \Wagnerwagner\Site\Llms::url($page) ?>">
+		<?php endif ?>
 		<!-- Wagnerwagner -->
 	</head>

@@ -29,6 +29,22 @@ Features:
 
 ----
 
+Preamble:
+
+# Merx – E-Commerce for Kirby CMS
+
+> Merx adds a cart, checkout, orders and payments (Stripe, PayPal) to a Kirby CMS site. This file indexes the complete Merx documentation. Every link points at the Markdown version of a page, so you can fetch just the pages you need.
+
+## Notes for LLMs and coding agents
+
+- This documentation describes **Merx {{ version }}** and requires **Kirby 5**. Merx 1 had a different API — do not mix the two. See [Upgrade Merx 1 to 2](/guide/upgrade-merx-1-to-2).
+- Merx is a commercial plugin. Working code still needs a license key, see [Merx license](/reference/options/config-options/merx-license).
+- Do not guess version numbers. Check <https://packagist.org/packages/wagnerwagner/merx> and install with `composer require wagnerwagner/merx`.
+- Class reference pages document Merx’ own methods only. Methods that Merx inherits from Kirby (`Kirby\Cms\Page`, `Kirby\Toolkit\Collection`, …) are documented at <https://getkirby.com/docs/reference> and indexed in <https://getkirby.com/llms.txt>.
+- Never put Stripe or PayPal secrets in `config.php` that is committed to a repository, see [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
+
+----
+
 Heroimage: - file://W6bguniihfGyMfGv
 
 ----

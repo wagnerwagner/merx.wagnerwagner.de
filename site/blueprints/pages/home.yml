@@ -12,5 +12,9 @@ fields:
       text:
         type: textarea
         buttons: false
+  preamble:
+    type: textarea
+    buttons: false
+    font: mono
   heroImage:
     type: files

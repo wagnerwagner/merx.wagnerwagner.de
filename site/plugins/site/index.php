@@ -3,10 +3,12 @@
 use Kirby\Cms\App;
 use Kirby\Cms\Collection;
 use Kirby\Cms\Page;
+use Kirby\Http\Response;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 use Kirby\Toolkit\Obj;
+use Wagnerwagner\Site\Llms;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
@@ -122,6 +124,36 @@ App::plugin('wagnerwagner/site', [
 					'slug' => 'sitemap',
 					'template' => 'sitemap',
 				]);
+			},
+		],
+		[
+			/**
+			 * Index of the whole documentation for LLMs, linking every
+			 * page as Markdown.
+			 *
+			 * @see https://llmstxt.org
+			 */
+			'pattern' => 'llms.txt',
+			'action' => function () {
+				return new Response(Llms::index(), 'text/plain');
+			},
+		],
+		[
+			/**
+			 * Markdown representation of a documentation page, e.g.
+			 * /guide/getting-started/installation.md
+			 */
+			'pattern' => '(:all).md',
+			'action' => function (string $id) {
+				$page = Llms::find($id);
+
+				// Not a documentation page: let Kirby handle the
+				// request, which ends in the error page.
+				if ($page === null) {
+					return null;
+				}
+
+				return new Response(Llms::page($page), 'text/markdown');
 			},
 		],
 	],

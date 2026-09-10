@@ -107,6 +107,15 @@ abstract class ReferencePageAbstract extends Page
 	}
 
 	/**
+	 * Whether this reference documents something Merx inherits from
+	 * Kirby rather than declares itself.
+	 */
+	public function isInherited(): bool
+	{
+		return $this->detectNamespace() === 'Kirby';
+	}
+
+	/**
 	 * Detects the namespace (Kirby\\ or Wagnerwagner\\) from reflection when possible.
 	 * Returns the namespace prefix or empty string if detection is not possible.
 	 */
