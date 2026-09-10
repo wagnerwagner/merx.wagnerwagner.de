@@ -6,10 +6,8 @@
 	-webkit-hyphenate-limit-before: var(--hyphenate-limit);
 
 	@supports (hyphenate-limit-chars: 16 8 8) {
-		:root {
-			hyphens: auto;
-			hyphenate-limit-chars: calc(var(--hyphenate-limit) * 2) var(--hyphenate-limit) var(--hyphenate-limit)
-		}
+		hyphens: auto;
+		hyphenate-limit-chars: calc(var(--hyphenate-limit) * 2) var(--hyphenate-limit) var(--hyphenate-limit)
 	}
 }
 
