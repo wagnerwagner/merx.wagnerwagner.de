@@ -14,7 +14,7 @@ Text:
 
 During the checkout process, a new [`OrderPage`](/reference/classes/order-page) is created as a child of [`$site->ordersPage()`](/reference/options/site-methods/orders-page) with a random id.
 
-The invoice number is created automatically. By default it is a up-counting number.
+The invoice number is created automatically. By default it is an incrementing number.
 
 ## Create template
 

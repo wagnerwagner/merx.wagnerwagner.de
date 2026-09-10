@@ -29,7 +29,7 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 </code>
 
 
-## Namechanges
+## Name changes
 
 ### Options and hooks namespace
 

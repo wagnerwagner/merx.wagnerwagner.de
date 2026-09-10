@@ -19,7 +19,7 @@ The tax rule sets are defined in the [`taxRules`](/reference/options/config-opti
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
 | `name` | `string|function` | `null` | |
-| `rule` | `function` | `null|float` | Function returning a **positive floating number**. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as a argument. |
+| `rule` | `function` | `null|float` | Function returning a **positive floating number**. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as an argument. |
 
 ## Set up default tax rate
 
@@ -79,7 +79,7 @@ return [
 ```
 </code>
 
-Returning the correct tax rate for different countries could get very complicated. Stripe uses [*product tax codes*](https://docs.stripe.com/tax/tax-codes) (PTCs). In theory you could built something like that with Merx.
+Returning the correct tax rate for different countries could get very complicated. Stripe uses [*product tax codes*](https://docs.stripe.com/tax/tax-codes) (PTCs). In theory you could build something like that with Merx.
 
 ## Displaying the tax
 

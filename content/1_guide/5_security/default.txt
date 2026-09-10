@@ -6,13 +6,13 @@ Headline: Securing Order Pages
 
 ----
 
-Intro: This is a working draft for security advices when using Merx.
+Intro: This is a working draft for security advice when using Merx.
 
 ----
 
 Text:
 
-Order pages may contain sensitive personal data from your customers. Make sure to secure these personal information.
+Order pages may contain sensitive personal data from your customers. Make sure to secure this personal information.
 
 ## Basic
 
@@ -20,7 +20,7 @@ Order pages may contain sensitive personal data from your customers. Make sure t
 - Use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for all user generated data.
 - Make sure order page links don’t appear in a **sitemap** or similar list of pages.
 - Make sure order pages are excluded from search results, when using [`$site->search()`](https://getkirby.com/docs/reference/objects/cms/site/search) or similar.
-- Add a robots meta tag to prevent search engines to crawl order pages.
+- Add a robots meta tag to prevent search engines from crawling order pages.
 `<meta name="robots" content="noindex, follow">`
 - Add a robots.txt to disallow order pages. (Your /orders/ path can be different depending on your ordersPage option)
 
@@ -39,10 +39,10 @@ Disallow: /orders/
 ## Further considerations
 
 - Only show the order page with a valid hash as [suggested by @bruno](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/128).
-- Create a log entry each time a OrderPage is rendered. You could overwrite the OrderPage::render() method.
+- Create a log entry each time an OrderPage is rendered. You could overwrite the OrderPage::render() method.
 - Add a method to detect/prevent brute force attacks.
-- Only send one time, hashed order page links, which are only valid for a short period of time. (self destroying link)
-- ”Deactivate“/“Unplublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).
+- Only send one-time, hashed order page links, which are only valid for a short period of time. (self destroying link)
+- ”Deactivate“/“Unpublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).
 
 ## Further Reading
 
@@ -51,37 +51,6 @@ Disallow: /orders/
 ----
 
 Shortdescription: This is a working draft for security advices on using Merx.
-
-----
-
-Redirect: false
-
-----
-
-Sections:
-
-[
-    {
-        "content": {
-            "title": "Securing Order Pages",
-            "abstract": "Order pages may contain sensitive personal data from your customers. Make sure to secure these personal information.",
-            "text": "### Basic\n\n- Do not show personal information when it is not necessary.\n- Make sure order page links don’t appear in a sitemap or similar list of pages.\n- Add a robots meta tag to prevent search engines to crawl order pages. \n`<meta name=\"robots\" content=\"noindex, follow\">`\n- Add a `robots.txt` to disallow order pages. (Your `/orders/` path can be different depending on your [ordersPage option](/docs/options#orderspage))\n```\nUser-agent: *\nDisallow: /orders/\n```\n\n### Advanced\n\n- Prevent the use of `$orderPage->siblings()` or similar.\n- If you use a page search: Make sure order pages are not searchable.\n- If you use git: Make sure order pages are not included in your (public) git repository.\n\n### Further considerations\n\n- Only show the order page with a valid hash as [suggested by @bruno](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/128).\n- Create a log entry each time a OrderPage is rendered. You could overwrite the `OrderPage::render()` method.\n- Add a method to detect/prevent brute force attacks.\n- Only send one time, hashed order page links, which are only valid for a short period of time. (self destroying link)\n- ”Deactivate“/“Unplublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131)."
-        },
-        "id": "4d0b3757-2f99-4b16-94f0-6f57a0ff550b",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Further Reading",
-            "abstract": "",
-            "text": "- [Kirby Security Advices](https://getkirby.com/docs/guide/security)"
-        },
-        "id": "bce06c84-015e-46ff-bfb5-0708e94bf726",
-        "isHidden": false,
-        "type": "section"
-    }
-]
 
 ----
 

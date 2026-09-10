@@ -1,4 +1,4 @@
-Title: Sending mails
+Title: Sending emails
 
 ----
 
@@ -29,7 +29,7 @@ return [
         'from' => 'info@shop.test',
         'fromName' => $orderPage->site()->title(),
         'to' => [(string)$orderPage->email() => $name],
-        'subject' => 'Thank’s for your order!',
+        'subject' => 'Thanks for your order!',
         'body'=> 'Dear ' . $name . ', you have paid ' . $orderPage->total(),
       ]);
     },
@@ -63,7 +63,8 @@ return [
       kirby()->email('createOrder', [
         'to' => (string)$orderPage->email(),
         'fromName' => $orderPage->site()->title(),
-        'subject' => 'Thank’s for your order!',
+        'subject' => '
+ for your order!',
         'data' => [
           'orderPage' => $orderPage,
         ],

@@ -16,7 +16,7 @@ To make sure you get all the data you need from your customers, Merx uses Kirby�
 
 ## Define fields
 
-Set up the fields, that are required to fulfill orders. Therefore create a new personal data section. If you don’t create you own personal data section, the [default personal data section](/reference/blueprints/sections/personal-data) is used.
+Set up the fields, that are required to fulfill orders. Therefore create a new personal data section. If you don’t create your own personal data section, the [default personal data section](/reference/blueprints/sections/personal-data) is used.
 
 <code caption="/site/blueprints/sections/personal-data.yml">
 ```yaml
@@ -48,7 +48,7 @@ fields:
 Add the new fields to the checkout template.
 
 
-<code caption="/site/blueprints/checkout.php">
+<code caption="/site/templates/checkout.php">
 ```php
 …
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
@@ -128,12 +128,14 @@ checkoutForm.addEventListener('submit', async (event) => {
   });
   console.log(response);
 
-  if (response.redirected === true) {
+  /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
+  const json = await response.json();
+
+  if (json.status === 'redirect') {
     // [1] Redirect user to payment provider or directly to order page
-    window.location.href = response.url;
+    window.location.href = json.redirectUrl;
   } else {
     // [2] Handle validation errors
-    const json = await response.json();
     const errorDetails = json.details;
     console.log(errorDetails);
   }
@@ -177,7 +179,7 @@ checkoutForm.addEventListener('submit', async (event) => {
   // Disables all form fields to prevent multiple submissions
   [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', true));
 
-  // Send form data tot API endpoint
+  // Send form data to the API endpoint
   const response = await fetch(checkoutForm.action, {
     method: 'post',
     body: formData,
@@ -192,10 +194,10 @@ checkoutForm.addEventListener('submit', async (event) => {
   const json = await response.json();
 
   if (json.status === 'redirect') {
-    // Redirect user to payment provider or directly to order page
+    // [1] Redirect user to payment provider or directly to order page
     window.location.href = json.redirectUrl;
   } else {
-    // Handle validation errors
+    // [2] Handle validation errors
     try {
       if (json.key === 'error.merx.fieldsvalidation') {
         // Handle field errors
@@ -237,7 +239,7 @@ In practice you might use a *payment provider* such as *Stripe* or *PayPal* to c
 
 Depending on the payment provider **and** the payment gateway the checkout process might vary.
 
-For some payment gateways the payment is handled asynchronous. This means that the money is received by the payment provider after hours or days. As soon as the money has been received, the payment provider notifies the Merx shop via [hook](/reference/options/hooks/stripe-hooks).
+For some payment gateways the payment is handled asynchronously. This means that the money is received by the payment provider after hours or days. As soon as the money has been received, the payment provider notifies the Merx shop via [hook](/reference/options/hooks/stripe-hooks).
 
 1. Customer enters personal data, selects payment gateway and submits the checkout form.
 2. Personal data is validated. When valid, the data is stored together with cart as a user session on server. ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post))

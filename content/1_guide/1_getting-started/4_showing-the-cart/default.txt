@@ -12,7 +12,7 @@ Intro: Learn how to show the user’s cart using JavaScript.
 
 Text:
 
-We recommend to use JavaScript and the API to show the cart to the user. This makes it possible to cache all pages server-side and load the cart asynchronously.
+We recommend using JavaScript and the API to show the cart to the user. This makes it possible to cache all pages server-side and load the cart asynchronously.
 
 For this example we define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). There is a `getCart()` function, which gets the cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
 
