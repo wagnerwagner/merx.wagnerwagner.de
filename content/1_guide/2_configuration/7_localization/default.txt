@@ -16,6 +16,24 @@ Text:
 
 **@TODO**
 
+## Translation
+
+Merx comes with English and German error messages and some additional strings (see [Translations reference](/reference/options/translations)). If you want to translate or overwrite these messages you can do so by setting the translations keys in your languages file.
+
+<code caption="/site/languages/de.php">
+```php
+return [
+  'code' => 'de',
+  'direction' => 'ltr',
+  'locale' => 'de_DE',
+  'name' => 'Schwäbisch',
+  'translations' => [
+    'error.merx.emptycart' => 'Du hasch gar koine Produkte im Körble.',
+  ]
+];
+```
+</code>
+
 ## Add language to API request
 
 ```js
