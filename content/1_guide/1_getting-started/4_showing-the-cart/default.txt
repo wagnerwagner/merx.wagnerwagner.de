@@ -6,13 +6,13 @@ Headline:
 
 ----
 
-Intro: Learn how to show the user’s cart using JavaScript.
+Intro: Learn how to show the customer’s cart using JavaScript.
 
 ----
 
 Text:
 
-We recommend using JavaScript and the API to show the cart to the user. This makes it possible to cache all pages server-side and load the cart asynchronously.
+We recommend using JavaScript and the API to show the cart to the customer. This makes it possible to cache all pages server-side and load the cart asynchronously.
 
 For this example we define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). There is a `getCart()` function, which gets the cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
 
@@ -25,10 +25,13 @@ customElements.define('my-cart', class extends HTMLElement {
   endpoint = '/api/shop/cart';
 
   async fetchCart() {
-    const response = await fetch(this.endpoint);
+    const response = await fetch(this.endpoint, {
+      headers: {
+        'X-Language': document.documentElement.lang,
+      },
+    });
     const json = await response.json();
     this.data = json.data;
-    console.log(this.data);
   }
 
   async connectedCallback() {
@@ -37,20 +40,21 @@ customElements.define('my-cart', class extends HTMLElement {
   }
 
   render() {
-    const items = this.data?.products?.items ?? null;
+    const items = this.data?.products?.items ?? [];
+
     this.innerHTML = `
       <h2>Cart</h2>
-      ${items ? `
+      ${items.length === 0 ? '<p>Empty cart</p>' : `
         <ul>
           ${items.map(item => `
             <li>
               <strong>${item.title}</strong><br>
-              Price: ${item.price.price}
+              Price: ${item.price?.price ?? 'On request'}
             </li>
-        `).join('')}
-      ` : 'Empty cart'}
-      </ul>
-      <p>Total: ${this.data.total.price}</p>
+          `).join('')}
+        </ul>
+        <p>Total: ${this.data.total?.price ?? ''}</p>
+      `}
     `;
   }
 });
@@ -59,7 +63,7 @@ customElements.define('my-cart', class extends HTMLElement {
 
 Add the `<my-cart>` element to the header of your page.
 
-To check which fields are available see [Cart model API reference](/reference/api/models/cart)
+A product without a price returns `null` instead of a price object, which is what `isFromPrice` on the cart tells you about. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 
 ----
 

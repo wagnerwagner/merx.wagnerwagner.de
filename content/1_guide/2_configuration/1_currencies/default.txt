@@ -96,7 +96,7 @@ When no rule function is defined, the rule is considered as `true`.
 
 ## Add prices for products
 
-For each product you can define a **price** per **pricing rule**. If you use the [prices field](/reference/blueprints/fields/prices), there is a nice interface for the panel users, to define the correct prices for each pricing rule.
+For each product you can define a **price** per **pricing rule**. If you use the [prices field](/reference/blueprints/fields/prices), there is a nice interface for Panel users to define the correct prices for each pricing rule.
 
 <code caption="/content/products/1_bike/product.en.txt">
 ```kirby

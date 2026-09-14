@@ -6,44 +6,130 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Merx ships English and German. Everything a customer gets to see can be translated, and prices are formatted by the language’s locale.
 
 ----
 
 Text:
 
-## Localization vs. Internationalization
+Merx has three separate pieces that react to language, and they are configured in different places:
 
-**@TODO**
+- **Messages** — error messages and Panel labels, from Merx’ [translation strings](/reference/options/translations).
+- **Number formatting** — how `1045.12` becomes `€ 1,045.12` or `1.045,12 €`, from the locale.
+- **Currency** — which currency a price is in at all, from the [pricing rules](/guide/configuration/currencies).
 
-## Translation
+## Messages
 
-Merx comes with English and German error messages and some additional strings (see [Translations reference](/reference/options/translations)). If you want to translate or overwrite these messages you can do so by setting the translations keys in your languages file.
+Merx ships `en` and `de`. Every string is listed in the [translations reference](/reference/options/translations), together with what it says in both languages.
+
+The `error.merx.*` strings are the ones your customers see: they are the messages behind the errors the [API](/guide/api/concept) returns when an item cannot be added or the checkout form does not validate. The `field.*`, `page.*`, `section.*` and `tab.*` strings only appear in the Panel.
+
+### Overriding a string
+
+On a [multi-language site](https://getkirby.com/docs/guide/languages), put the strings into the language file. They are merged over Merx’ own and win.
 
 <code caption="/site/languages/de.php">
 ```php
+<?php
+
 return [
   'code' => 'de',
-  'direction' => 'ltr',
+  'name' => 'Deutsch',
   'locale' => 'de_DE',
-  'name' => 'Schwäbisch',
   'translations' => [
-    'error.merx.emptycart' => 'Du hasch gar koine Produkte im Körble.',
-  ]
+    'error.merx.emptycart' => 'Dein Warenkorb ist leer.',
+  ],
 ];
 ```
 </code>
 
-## Add language to API request
+Without languages, register the strings from a plugin.
 
+<code caption="/site/plugins/site/index.php">
+```php
+<?php
+
+Kirby\Cms\App::plugin(
+  name: 'site/site',
+  extends: [
+    'translations' => [
+      'en' => [
+        'error.merx.emptycart' => 'Your cart is empty.',
+      ],
+    ],
+  ],
+);
+```
+</code>
+
+<callout theme="warning">
+Plugins are loaded alphabetically and a later one replaces the strings of an earlier one. Merx is `wagnerwagner/merx`, so the plugin’s **directory name** has to sort after `merx` for its strings to win. A directory called `site` does.
+</callout>
+
+### Adding a language
+
+Merx falls back to English for any language it does not ship. To add one, register the full set of keys the same way — the [translations reference](/reference/options/translations) lists them all.
+
+## Number formatting
+
+[`Merx::formatCurrency()`](/reference/classes/merx/format-currency) and [`Merx::formatPercent()`](/reference/classes/merx/format-percent) format by locale, not by currency. A price in euros is written `€1,045.12` for an English visitor and `1.045,12 €` for a German one. Everything that prints a price goes through them, including [`$price->toString()`](/reference/classes/price/to-string) and [`$field->toFormattedPrice()`](/reference/options/field-methods/to-formatted-price).
+
+The locale comes from `LC_NUMERIC`. On a multi-language site Kirby sets it per language:
+
+<code caption="/site/languages/de.php">
+```php
+<?php
+
+return [
+  'code' => 'de',
+  'locale' => 'de_DE',
+];
+```
+</code>
+
+On a single-language site set Kirby’s [`locale`](https://getkirby.com/docs/reference/system/options/locale) option instead.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+  'locale' => 'de_DE',
+];
+```
+</code>
+
+Both methods also take a locale as an argument, for the cases where you need a different one than the visitor’s.
+
+<code caption="/site/templates/product.php">
+```php
+<?= Merx::formatCurrency(1045.12, 'EUR', 'de_DE') ?>
+```
+</code>
+
+## Currency
+
+The currency is **not** taken from the language. It comes from the pricing rule that applies to the request, which is where you decide what a language, a country or anything else should mean for your prices. See [Currencies](/guide/configuration/currencies).
+
+## Language in API requests
+
+The [API](/guide/api/concept) is not a page request, so Merx cannot infer the language from the URL. Send it with the request, either as an `X-Language` header or as a `language` query parameter.
+
+<code caption="script.js">
 ```js
-const lang = document.querySelector('html').lang;
 const response = await fetch('/api/shop/cart', {
-	headers: {
-		'x-language': lang,
-	},
+  headers: {
+    'X-Language': document.documentElement.lang,
+  },
 });
 ```
+</code>
+
+Without it, Merx answers in the default language — which means a customer can end up with an error message in a language they are not browsing in.
+
+----
+
+Shortdescription: How to translate Merx’ messages and format prices for your visitors’ language.
 
 ----
 

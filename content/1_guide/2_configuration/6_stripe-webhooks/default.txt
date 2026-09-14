@@ -14,7 +14,7 @@ Text:
 
 When you set up Stripe webhook as described, the Stripe payments with delayed payment confirmations are marked as paid, as soon as Merx receives the hook.
 
-## Create Stripe Webhook
+## Create a Stripe webhook
 
 Go to [dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded](https://dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded) to create a new hook.
 

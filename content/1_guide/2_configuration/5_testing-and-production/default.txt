@@ -1,4 +1,4 @@
-Title: Testing and Production
+Title: Testing and production
 
 ----
 
@@ -22,7 +22,7 @@ return [
 ```
 </code>
 
-When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You will also need a valid Merx 2 license and set it as a [`license`](/reference/options/config-options/license) option.
+When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You will also need a valid Merx license and set it as the [`license`](/reference/options/config-options/license) option.
 
 ----
 

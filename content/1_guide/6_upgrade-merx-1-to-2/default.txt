@@ -42,11 +42,15 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 `completePayment:before` → [`createOrder:before`](/reference/options/hooks/create-order-before)
 `completePayment:after` → [`createOrder:after`](/reference/options/hooks/create-order-after)
 
+The single `wagnerwagner.merx.cart` hook is gone. There is now one pair of hooks per cart operation, so a function that used to run on every cart change has to be registered on each of them.
+
+`cart` → [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after)
+
 Apart from that, there are many more [new hooks](/reference/options/hooks).
 
 ### Merx methods
 
-`Merx::initializePayment` → [`Merx::initializeOrder`](reference/classes/merx/initialize-order)
+`Merx::initializePayment` → [`Merx::initializeOrder`](/reference/classes/merx/initialize-order)
 `Merx::completePayment ` → [`Merx::createOrder`](/reference/classes/merx/create-order)
 
 ### formatPrice()
@@ -80,9 +84,44 @@ if (!function_exists('formatPrice')) {
 
 ### $orderPage->invoiceNumber()
 
-`$orderPage-> invoiceNumber()` → `$orderPage->orderNumber()`
+`$orderPage->invoiceNumber()` → `$orderPage->orderNumber()`
 
-## Payment methods/Gateways
+## Cart items
+
+### Adding to the cart
+
+`$cart->add()` took an `id` plus arbitrary keys at the top level. It now accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else, so any other key fails with `Unknown named parameter`.
+
+The identifier is `key` instead of `id`, the product page is `page`, and your own attributes belong in `data`. Leaving out `key` makes Merx use the page’s UUID.
+
+<code caption="Merx 1">
+```php
+$cart->add([
+  'id' => 'products/nice-shoes',
+  'color' => 'red',
+]);
+```
+</code>
+
+<code caption="Merx 2">
+```php
+$cart->add([
+  'key' => 'nice-shoes-red',
+  'page' => 'products/nice-shoes',
+  'data' => ['color' => 'red'],
+]);
+```
+</code>
+
+### Reading cart items
+
+Cart items were arrays. They are [`ListItem`](/reference/classes/list-item) objects now, in the cart as well as in [`$orderPage->cart()`](/reference/classes/order-page/cart).
+
+`$cartItem['id']` → `$item->page`
+`$cartItem['quantity']` → `$item->quantity`
+`$cartItem['price']` → `$item->price`
+
+## Payment methods and gateways
 
 Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-gateways/stripe-elements).
 

@@ -6,15 +6,166 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Every cart and checkout operation is available in PHP, for shops that render the cart server-side.
 
 ----
 
-Text: **@TODO**
+Text:
+
+The [API](/guide/api/concept) exists so your pages can stay cacheable. When that does not matter — a small catalog, no page cache, or a shop that has to work without JavaScript — you can do the same things in a template, a controller or a [route](https://getkirby.com/docs/guide/routing).
+
+Both work on the same cart. `$site->cart()` and the API read from and write to the same session, so you can mix them freely.
+
+| API route | PHP |
+| ---- | ---- |
+| `GET shop/cart` | [`$site->cart()`](/reference/options/site-methods/cart) |
+| `POST shop/cart` | [`$cart->add()`](/reference/classes/cart/add) |
+| `PATCH shop/cart` | [`$cart->updateItem()`](/reference/classes/cart/update-item) |
+| `DELETE shop/cart` | [`$cart->remove()`](/reference/classes/cart/remove) |
+| `POST shop/checkout` | [`$merx->initializeOrder()`](/reference/classes/merx/initialize-order) |
+| `GET shop/success` | [`$merx->createOrder()`](/reference/classes/merx/create-order) |
+
+## Showing the cart
+
+[`$site->cart()`](/reference/options/site-methods/cart) returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, so you can loop over it like any Kirby collection.
+
+<code caption="/site/snippets/cart.php">
+```php
+<?php $cart = $site->cart() ?>
+
+<?php if ($cart->count() === 0): ?>
+  <p>Your cart is empty.</p>
+<?php else: ?>
+  <ul>
+    <?php foreach ($cart as $item): ?>
+      <?php /** @var \Wagnerwagner\Merx\ListItem $item */ ?>
+      <li>
+        <?= $item->quantity() ?> × <?= html($item->title()) ?>
+        <?= $item->total() ?>
+      </li>
+    <?php endforeach ?>
+  </ul>
+  <p>Total: <?= $cart->total() ?></p>
+<?php endif ?>
+```
+</code>
+
+Because this snippet makes the page different for every visitor, the page that includes it can no longer be cached.
+
+## Changing the cart
+
+Merx has no route that adds an item and sends the visitor back to where they came from — the API answers with JSON, which is what a JavaScript client wants but not what a browser should be shown. Add a route of your own for that.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+  'routes' => [
+    [
+      'pattern' => 'cart/add',
+      'method' => 'POST',
+      'action' => function () {
+        $request = kirby()->request();
+
+        if (csrf((string)$request->get('csrf')) !== true) {
+          go('/', 303);
+        }
+
+        try {
+          cart()->add([
+            'page' => (string)$request->get('page'),
+            'quantity' => (float)$request->get('quantity', 1),
+          ]);
+        } catch (\Kirby\Exception\Exception $exception) {
+          // Show the message on the next page, e.g. via the session
+          kirby()->session()->set('cartError', $exception->getMessage());
+        }
+
+        go($request->get('redirect') ?? '/', 303);
+      },
+    ],
+  ],
+];
+```
+</code>
+
+The form posts to that route instead of the API endpoint and tells it where to go afterwards.
+
+<code caption="/site/templates/product.php">
+```php
+<?php /** @var \Wagnerwagner\Merx\ProductPage $page */ ?>
+
+<span class="price"><?= $page->price() ?></span>
+
+<form action="<?= url('cart/add') ?>" method="post">
+  <input type="hidden" name="csrf" value="<?= csrf() ?>">
+  <input type="hidden" name="page" value="<?= $page->uuid() ?>">
+  <input type="hidden" name="redirect" value="<?= $page->url() ?>">
+  <input type="number" name="quantity" min="1" value="1">
+  <button>Add to cart</button>
+</form>
+```
+</code>
+
+[`$cart->remove()`](/reference/classes/cart/remove) and [`$cart->updateItem()`](/reference/classes/cart/update-item) work the same way. Both take the item’s `key`, which is the page id unless you set one yourself.
+
+<code caption="/site/config/config.php">
+```php
+cart()->remove($request->get('key'));
+
+cart()->updateItem($request->get('key'), [
+  'quantity' => (float)$request->get('quantity'),
+]);
+```
+</code>
+
+<callout theme="caution">
+Never trust what the form sends. The API filters the request body before it reaches the cart; your own route has to do the same. Cast `quantity` to a number, and never pass the whole request body through — a `data` array that carries `maxQuantity` would lift the product’s own limit.
+</callout>
+
+## Checkout
+
+[`$merx->initializeOrder()`](/reference/classes/merx/initialize-order) validates the submitted data against the order blueprint, creates the virtual order page and starts the payment. It returns the URL the customer has to go to next — the payment provider for PayPal or Stripe, and `api/shop/success` for an invoice order.
+
+<code caption="/site/config/config.php">
+```php
+[
+  'pattern' => 'checkout',
+  'method' => 'POST',
+  'action' => function () {
+    $data = kirby()->request()->data();
+    $data['paymentGateway'] = $data['payment_gateway'] ?? 'invoice';
+
+    try {
+      go(merx()->initializeOrder($data), 303);
+    } catch (\Kirby\Exception\Exception $exception) {
+      kirby()->session()->set('checkoutErrors', $exception->getDetails());
+      go(site()->checkoutPage(), 303);
+    }
+  },
+],
+```
+</code>
+
+On a validation error the exception carries one entry per field in `getDetails()`, keyed by field name, so you can show the messages next to the inputs again.
+
+```php
+[
+  'email' => [
+    'label' => 'Email',
+    'message' => ['required' => 'Please enter something'],
+  ],
+]
+```
+
+`getKey()` returns the [translation key](/reference/options/translations) of the error, which is what you want when you display a message yourself instead of using `getMessage()`.
+
+You do not have to handle the return trip from the payment provider. `api/shop/success` completes the payment, empties the cart and redirects to the order page on its own.
 
 ----
 
-Shortdescription: 
+Shortdescription: Every cart and checkout operation is available in PHP, for shops that render the cart server-side.
 
 ----
 

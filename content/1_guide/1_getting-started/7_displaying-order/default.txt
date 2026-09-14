@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: Learn how to show the order information including cart and user data.
+Intro: Learn how to show the order information including cart and customer data.
 
 ----
 
@@ -14,7 +14,7 @@ Text:
 
 During the checkout process, a new [`OrderPage`](/reference/classes/order-page) is created as a child of [`$site->ordersPage()`](/reference/options/site-methods/orders-page) with a random id.
 
-The invoice number is created automatically. By default it is an incrementing number.
+The order number is created automatically. By default it is an incrementing number, and you can replace it with a numbering of your own through the [`orderNumber`](/reference/options/config-options/order-number) option.
 
 ## Create template
 
@@ -22,7 +22,7 @@ The invoice number is created automatically. By default it is an incrementing nu
 ```php
 <?php /** @var Wagnerwagner\Merx\OrderPage $page */ ?>
 
-<h1>Invoice #<?= $page->invoiceNumber() ?></h1>
+<h1>Order #<?= $page->orderNumber() ?></h1>
 
 <p>Name: <?= $page->given_name()->escape() ?> <?= $page->family_name()->escape() ?></p>
 

@@ -1,4 +1,4 @@
-Title: Stock Management
+Title: Stock management
 
 ----
 
@@ -110,8 +110,8 @@ return [
 
 [`createOrder:before`](/reference/options/hooks/create-order-before) is the second gate. It runs after the customer comes back from the payment provider, which is where the last of a product can disappear between two shoppers.
 
-<callout theme="important">
-Merx 1 used a `completePayment:before` hook and read cart items as arrays, `$cartItem['id']`. Neither exists any more: `completePayment()` has been replaced by [`createOrder()`](/reference/classes/merx/create-order), and [`$orderPage->cart()`](/reference/classes/order-page/cart) returns [`ListItem`](/reference/classes/list-item) objects with `$item->page` and `$item->quantity`.
+<callout>
+[`$orderPage->cart()`](/reference/classes/order-page/cart) returns [`ListItem`](/reference/classes/list-item) objects, so the product is `$item->page` and the amount ordered is `$item->quantity`.
 </callout>
 
 ## Reduce the stock once paid

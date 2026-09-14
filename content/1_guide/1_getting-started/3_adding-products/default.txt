@@ -57,7 +57,7 @@ productForm.addEventListener('submit', async (event) => {
 ```
 </code>
 
-Continue with [Showing the cart](/guide/getting-started/showing-the-cart) and learn how to use JavaScript to show the cart to the user.
+Continue with [Showing the cart](/guide/getting-started/showing-the-cart) and learn how to use JavaScript to show the cart to the customer.
 
 If you don’t want to use JavaScript continue with [Using the API with PHP](/guide/api/using-api-with-php).
 

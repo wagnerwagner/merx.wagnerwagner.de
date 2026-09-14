@@ -1,4 +1,4 @@
-Title: Order/invoice number
+Title: Order number
 
 ----
 
@@ -6,13 +6,13 @@ Headline:
 
 ----
 
-Intro: Merx creates a sequential number for each order page by default. If you want to create own order numbers you can do so via the config file.
+Intro: Merx creates a sequential number for each order page by default. If you want to create your own order numbers you can do so via the config file.
 
 ----
 
 Text:
 
-Use the [`orderNumber`](/reference/options/config-options/order-number) option, to create your own logic for order numbers. The first argument of the function is of type [OrderPage](/reference/classes/order-page).
+Use the [`orderNumber`](/reference/options/config-options/order-number) option to create your own logic for order numbers. The first argument of the function is of type [OrderPage](/reference/classes/order-page).
 
 <code caption="/site/config/config.php">
 ```php

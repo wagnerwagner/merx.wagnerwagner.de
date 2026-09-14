@@ -6,45 +6,69 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Build the checkout form from the order blueprint, so the form and its validation cannot drift apart.
 
 ----
 
 Text:
 
-**@TODO**
+The checkout form describes your customer fields twice: once as HTML inputs, and once as blueprint fields, which is what [`initializeOrder()`](/reference/classes/merx/initialize-order) validates the submission against. Add a field to one and forget the other, and you get either a field nobody validates or a validation error for an input the customer was never shown.
 
-NOTE: does not work with Kirby 6.
+You can read the blueprint at render time instead and build the form from it, so there is only one list of fields.
+
+## Read the section
+
+Merx keeps the customer fields of its order blueprint in a section called `personalData`. Your own `/site/blueprints/pages/order.yml` is what is actually loaded here, so this works as long as that blueprint extends [`layouts/order`](/reference/blueprints/layouts/order) or defines a section of the same name.
 
 <code caption="/site/controllers/checkout.php">
 ```php
 <?php
-return function (\Kirby\Cms\Site $site) {
-  $orderBlueprint = Kirby\Cms\Blueprint::factory('pages/order', null, $site);
-  $personalDataSection = $orderBlueprint->section('personalData');
+
+use Kirby\Cms\Blueprint;
+use Kirby\Cms\Site;
+
+return function (Site $site) {
+  $blueprint = Blueprint::factory('pages/order', null, $site);
+  $section = $blueprint?->section('personalData');
+
   return [
-     'fields' => $personalDataSection->toArray()['fields'],
+    'fields' => $section?->toArray()['fields'] ?? [],
   ];
-?>
+};
 ```
 </code>
+
+The result is keyed by field name, and every entry carries what an input needs: `name`, `type`, `label`, `required`, plus whatever `validate` rules the blueprint sets.
+
+## Render the fields
 
 <code caption="/site/templates/checkout.php">
 ```php
-<?php foreach ($fields as $field) : ?>
-  <?= snippet(['fields/' . $field['type'], 'fields/text'], compact('field')) ?>
-<?php endif ?>
+<form action="<?= url('api/shop/checkout') ?>" method="post">
+  <?php foreach ($fields as $field): ?>
+    <?= snippet(['fields/' . $field['type'], 'fields/text'], compact('field')) ?>
+  <?php endforeach ?>
+
+  <input type="hidden" name="payment_gateway" value="invoice">
+  <button>Submit order</button>
+</form>
 ```
 </code>
 
+[`snippet()`](https://getkirby.com/docs/reference/templates/helpers/snippet) takes a list of names and renders the first one that exists, so `fields/text` catches every field type you have not written a snippet for yet.
+
+## A field snippet
+
 <code caption="/site/snippets/fields/text.php">
 ```php
+<?php use Kirby\Toolkit\Html ?>
+
 <div>
   <label for="<?= $field['name'] ?>">
     <?= $field['label'] ?>
     <?php if ($field['required'] ?? false): ?>
       <abbr aria-hidden="true" title="<?= t('field.required') ?>">*</abbr>
-    <?php endif; ?>
+    <?php endif ?>
   </label>
   <input
     <?= Html::attr([
@@ -52,23 +76,31 @@ return function (\Kirby\Cms\Site $site) {
       'name' => $field['name'],
       'id' => $field['name'],
       'required' => $field['required'] ?? null,
-      'placeholder' => isset($field['placeholder']) ? $field['placeholder'] : null,
-      'value' => isset($field['default']) ? $field['default'] : null,
-      'autocomplete' => isset($field['autocomplete']) ? $field['autocomplete'] : null,
-      'max' => isset($field['validate']['max']) ? $field['validate']['max'] : null,
-      'maxLength' => isset($field['validate']['maxLength']) ? $field['validate']['maxLength'] : null,
-      'min' => isset($field['validate']['min']) ? $field['validate']['min'] : null,
-      'minLength' => isset($field['validate']['minLength']) ? $field['validate']['minLength'] : null,
+      'placeholder' => $field['placeholder'] ?? null,
+      'value' => $field['default'] ?? null,
+      'autocomplete' => $field['autocomplete'] ?? null,
+      'max' => $field['validate']['max'] ?? null,
+      'maxlength' => $field['validate']['maxLength'] ?? null,
+      'min' => $field['validate']['min'] ?? null,
+      'minlength' => $field['validate']['minLength'] ?? null,
     ]) ?>
   >
   <?php if (isset($field['help'])): ?>
-    <small>
-      <?= $field['help'] ?>
-    </small>
-  <?php endif; ?>
+    <small><?= $field['help'] ?></small>
+  <?php endif ?>
 </div>
 ```
 </code>
+
+Copy it to `fields/select`, `fields/checkbox` and so on wherever an input needs different markup.
+
+<callout theme="caution">
+This reads a Panel blueprint while rendering the front end, which is not what blueprints are for. It works in Kirby 5 and does not work in Kirby 6.
+</callout>
+
+----
+
+Shortdescription: Build the checkout form from the order blueprint, so the form and its validation cannot drift apart.
 
 ----
 

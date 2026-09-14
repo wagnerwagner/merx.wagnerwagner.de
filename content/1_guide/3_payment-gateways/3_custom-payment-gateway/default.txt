@@ -14,20 +14,27 @@ Text:
 
 Use the [`gateways`](/reference/options/config-options/gateways) option to add your own payment gateway.
 
-`initializeOrder` and `createOrder` must return a [`OrderPage`](/reference/classes/order-page) object.
+A gateway is a pair of functions. `initializePayment` starts the payment when the checkout is submitted, and `completePayment` finishes it once the provider sends the customer back. Both receive the [virtual order page](/guide/glossary) and must return an [`OrderPage`](/reference/classes/order-page) object.
 
-In `initializeOrder` you can set a redirect url. The user will be redirected to this url. If you don’t set `redirect` the user will be sent to [`/api/shop/success`](/reference/api/routes/shop-success-get).
+In `initializePayment` you can set a `redirect` URL. The customer will be sent there. If you don’t set `redirect` they go to [`/api/shop/success`](/reference/api/routes/shop-success-get) directly, which is what an invoice order does.
 
 <code caption="/site/config/config.php">
 ```php
+<?php
+
+use Kirby\Data\Yaml;
+use Wagnerwagner\Merx\OrderPage;
+use Wagnerwagner\Merx\PaymentDetails;
+
 return [
   'wagnerwagner.merx.gateways' => [
     'my-payment-provider' => [
       'initializePayment' => function(OrderPage $virtualOrderPage): OrderPage
       {
-        $sum = $virtualOrderPage->cart()->total();
-        // do something to get a redirect url
-        $redirectUrl = 'https://mypaymentprovider.com/payment/mlDquvqMQK85M1Pw',
+        // Ask your provider for a payment URL for the amount of
+        // $virtualOrderPage->cart()->total()
+        $redirectUrl = 'https://mypaymentprovider.com/payment/mlDquvqMQK85M1Pw';
+
         $virtualOrderPage->version()->update([
           'redirect' => $redirectUrl,
         ]);
@@ -38,6 +45,10 @@ return [
         $virtualOrderPage->version()->update([
           'paymentComplete' => true,
           'datePaid' => date('c'),
+          'paymentDetails' => Yaml::encode(PaymentDetails::create([
+            'provider' => 'my-payment-provider',
+            'id' => $data['transaction_id'] ?? null,
+          ])),
         ]);
         return $virtualOrderPage;
       }
@@ -48,6 +59,10 @@ return [
 </code>
 
 Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
+
+<callout theme="caution">
+Build the payment record with [`PaymentDetails::create()`](/reference/classes/payment-details/create) instead of storing your provider’s response as it is. A raw response carries the customer’s name, email and address, and order pages are plain content files.
+</callout>
 
 ----
 

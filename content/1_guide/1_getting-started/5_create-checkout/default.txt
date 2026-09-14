@@ -34,7 +34,7 @@ Add form fields for the data you need to collect from your customer. For the mom
 ```
 </code>
 
-As long as all user data is valid, the user is redirected directly to the order page, where the user sees the summary of their placed order.
+As long as all data is valid, the customer is redirected directly to the order page, where they see the summary of their order.
 
 When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout `](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error.
 

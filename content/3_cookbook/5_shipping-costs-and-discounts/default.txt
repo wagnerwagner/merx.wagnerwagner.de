@@ -1,4 +1,4 @@
-Title: Shipping Costs and Discounts
+Title: Shipping costs and discounts
 
 ----
 
@@ -38,11 +38,7 @@ Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the
 
 ## Recalculate whenever the cart changes
 
-Shipping and discounts depend on what is in the cart, so they have to be recalculated after every change. Merx 2 has no single cart hook; it has one pair of hooks per operation. Point the three `:after` hooks at the same function.
-
-<callout theme="important">
-Merx 1 had a single `wagnerwagner.merx.cart` hook. It no longer exists. Use [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after) instead, and see the [hooks reference](/reference/options/hooks) for the full list.
-</callout>
+Shipping and discounts depend on what is in the cart, so they have to be recalculated after every change. There is no single cart hook — there is one pair of hooks per operation. Point [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after) at the same function; the [hooks reference](/reference/options/hooks) has the full list.
 
 The function removes both items first and then adds back whatever currently applies. That keeps it idempotent, so it does not matter how often it runs. The static guard matters: the function changes the cart, which fires the very hooks that call it again.
 

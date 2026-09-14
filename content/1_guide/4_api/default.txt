@@ -6,11 +6,21 @@ Headline:
 
 ----
 
-Shortdescription: 
+Intro: The cart belongs to a single visitor. Merx keeps it out of your templates and behind a JSON API, so the rest of your shop stays cacheable.
 
 ----
 
-Text: 
+Shortdescription: The cart belongs to a single visitor. Merx keeps it out of your templates and behind a JSON API, so the rest of your shop stays cacheable.
+
+----
+
+Text:
+
+Your product and content pages render the same HTML for everybody. The cart does not — it is different for every visitor, and a template that renders it turns that page into a personal one which can no longer be cached or served from a CDN.
+
+Merx keeps the two apart. Pages stay static, and the cart is fetched at runtime from a small JSON API under `/api/shop`.
+
+You do not have to use it. Every cart operation is available in PHP as well, which is the better fit for a shop that does not cache its pages or does not want to rely on JavaScript.
 
 ----
 

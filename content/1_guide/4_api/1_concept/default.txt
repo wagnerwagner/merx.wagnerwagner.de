@@ -6,15 +6,129 @@ Headline:
 
 ----
 
-Intro: 
+Intro: How the Merx API is laid out, how it finds the visitor’s cart and how to shape its responses.
 
 ----
 
-Text: **@TODO**
+Text:
+
+## Endpoint
+
+Every Merx route lives under Kirby’s API path, followed by the Merx endpoint:
+
+```
+/api/shop/cart
+```
+
+`shop` is the default and can be changed with the [`api.endpoint`](/reference/options/config-options/api-endpoint) option. The `/api` prefix in front of it belongs to Kirby and is changed with Kirby’s own [`api.slug`](https://getkirby.com/docs/reference/system/options/api#custom-api-slug) option.
+
+| Method | Route | |
+| ---- | ---- | ---- |
+| `GET` | [`shop/cart`](/reference/api/routes/shop-cart-get) | Returns the visitor’s cart |
+| `POST` | [`shop/cart`](/reference/api/routes/shop-cart-post) | Adds an item |
+| `PATCH` | [`shop/cart`](/reference/api/routes/shop-cart-patch) | Updates the quantity or data of an item |
+| `DELETE` | [`shop/cart`](/reference/api/routes/shop-cart-delete) | Removes an item |
+| `POST` | [`shop/checkout`](/reference/api/routes/shop-checkout-post) | Validates the submitted data and starts the payment |
+| `GET` | [`shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) | Creates a Stripe PaymentIntent and returns its client secret |
+| `GET` | [`shop/success`](/reference/api/routes/shop-success-get) | Completes the payment after the provider redirects back |
+| `POST` | [`shop/hooks/stripe`](/reference/api/routes/shop-hooks-stripe-post) | Receives Stripe webhooks |
+
+## The cart lives in the session
+
+There is no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie.
+
+A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests; a request from another origin has to opt in.
+
+<code caption="script.js">
+```js
+await fetch('https://shop.example.com/api/shop/cart', {
+  credentials: 'include',
+});
+```
+</code>
+
+## Every route is public
+
+The rest of Kirby’s API requires an authenticated user. The Merx routes do not — a shop visitor is not a Kirby user — so they are registered with `auth: false` and anyone can call them.
+
+Merx guards the data it accepts: it refuses an item that would raise its own `maxQuantity`, and it drops the order fields it sets itself from whatever a client submits. Anything you add on top of that is yours to validate. See the [security guide](/guide/security).
+
+## Response format
+
+Every route answers with Kirby’s API envelope. The cart is in `data`.
+
+```json
+{
+  "code": 200,
+  "data": {
+    "quantity": 2
+  },
+  "status": "ok",
+  "type": "model"
+}
+```
+
+An error uses the same envelope with `"status": "error"` and carries a `key` next to the message. That key is the [translation key](/reference/options/translations) of the error, so you can show the visitor a message in their own language instead of the one the API happened to return.
+
+```json
+{
+  "code": 400,
+  "status": "error",
+  "message": "There are only 3 of “Shoes” left.",
+  "key": "error.merx.cart.maxQuantity",
+  "details": []
+}
+```
+
+## Choosing what comes back
+
+Responses are built by [API models](/reference/api/models). Two query parameters decide how much of a model you get.
+
+`view` picks one of the predefined field sets. The cart has `default` and `compact`.
+
+<code caption="Request">
+```
+GET /api/shop/cart?view=compact
+```
+</code>
+
+<code caption="Response">
+```json
+{"code":200,"data":{"quantity":2},"status":"ok","type":"model"}
+```
+</code>
+
+`select` lets you name the fields yourself.
+
+<code caption="Request">
+```
+GET /api/shop/cart?select=quantity,total
+```
+</code>
+
+A cart badge in your header only needs the number of items, so `view=compact` saves building the whole cart for it. Add `?pretty=true` while you are exploring to get readable JSON.
+
+To add your own fields to a model, see [Custom models](/guide/api/custom-models).
+
+## Language
+
+Merx sets Kirby’s translation for the request from either a `language` query parameter or an `X-Language` request header. Without one, error messages and formatted prices come back in the default language.
+
+<code caption="script.js">
+```js
+await fetch('/api/shop/cart', {
+  headers: {
+    'X-Language': document.documentElement.lang,
+  },
+});
+```
+</code>
+
+Read more in the [localization guide](/guide/configuration/localization).
 
 ----
 
-Shortdescription: 
+Shortdescription: How the Merx API is laid out, how it finds the visitor’s cart and how to shape its responses.
 
 ----
 

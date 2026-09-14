@@ -1,4 +1,4 @@
-Title: Product Variants
+Title: Product variants
 
 ----
 
@@ -28,7 +28,7 @@ content/
 
 ## Product template
 
-On the product page, the user should be able to select the desired variant. Instead of the hidden input field from the [Adding products](/guide/getting-started/adding-products) there will be a `select` input field with all available variants. The value of each option is the `uuid` of the *product variant* page.
+On the product page, the customer should be able to select the desired variant. Instead of the hidden input field from the [Adding products](/guide/getting-started/adding-products) there will be a `select` input field with all available variants. The value of each option is the `uuid` of the *product variant* page.
 
 <code caption="/site/templates/product.php">
 ```php
@@ -43,11 +43,10 @@ $variants = $page->children()->template('product-variant')->listed();
     <?php endforeach ?>
   </select>
 </form>
-<?php foreach (
 ```
 </code>
 
-Technically the `product-variant` page is a `product` page. To get all the methods form  Merx’ [`ProductPage`](/reference/classes/product-page) class, create model for `product-variant` and extend [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page).
+Technically the `product-variant` page is a `product` page. To get all the methods from Merx’ [`ProductPage`](/reference/classes/product-page) class, create a model for `product-variant` and extend [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page).
 
 <code caption="/site/models/product-variant.php">
 ```php
@@ -139,7 +138,7 @@ Uuid: 96satwnkbxtyk4w9
 
 ### HTML
 
-The user will expect not one but two select fields. One for the color and one for the size.
+The customer will expect not one but two select fields. One for the color and one for the size.
 
 First create an array with all *colors* and all *sizes* using [`$pages->pluck()`](https://getkirby.com/docs/reference/objects/cms/pages/pluck) and use these arrays to create two select fields. Also add a hidden `page` input field. The value of this field will late be set using JavaScript.
 
@@ -164,7 +163,6 @@ $colors = array_unique($variants->pluck('color'));
   </select>
   <input type="hidden" name="page" value="">
 </form>
-<?php foreach (
 ```
 </code>
 
@@ -243,8 +241,8 @@ $cart->add([
 
 The `key` identifies the item inside the cart, so every variant needs its own. Adding the same `key` twice adds up the quantities instead of creating a second line. Title, price and tax are read from the variant page, `data` is yours to fill.
 
-<callout theme="important">
-Merx 1 took an `id` plus arbitrary keys like `color` and `size` at the top level. Merx 2 accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) only, and anything else fails with `Unknown named parameter`. Put your own attributes into `data`.
+<callout theme="caution">
+[`$cart->add()`](/reference/classes/cart/add) accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else. A key like `color` or `size` at the top level fails with `Unknown named parameter` — your own attributes belong in `data`.
 </callout>
 
 ### A one-off price

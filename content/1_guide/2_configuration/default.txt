@@ -6,11 +6,19 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Merx works out of the box. What you configure is what makes it your shop: your currency, your tax rates, your payment keys.
 
 ----
 
-Text: 
+Text:
+
+Everything on the following pages is set in `/site/config/config.php` under the `wagnerwagner.merx.` prefix. The [config options reference](/reference/options/config-options) lists every option with its default value.
+
+Start with [currencies](/guide/configuration/currencies) and [taxes](/guide/configuration/taxes) — they decide what a price means and are used by everything else. [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets) connects your payment provider, and [testing and production](/guide/configuration/testing-and-production) is what you change last, when the shop goes live.
+
+<callout theme="caution">
+Never commit Stripe or PayPal secrets to a repository. [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets) shows where to keep them instead.
+</callout>
 
 ----
 

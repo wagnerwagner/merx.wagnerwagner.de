@@ -101,7 +101,7 @@ See [Elements Appearance API | Stripe Documentation](https://docs.stripe.com/ele
 
 ## Submit the payment to Stripe
 
-As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the user entered into the elements are submitted to and validated by Stripe. 
+As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the customer entered into the elements is submitted to and validated by Stripe. 
 
 ### Retrieve the client secret
 
@@ -138,7 +138,7 @@ Most payment methods have an immediate payment confirmation. Therefore the `paym
 
 For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you, when payments are confirmed.
 
-## Optional: Show only specific payment methods
+## Optional: show only specific payment methods
 
 By default Stripe shows the *best* payment methods. You can also define specific payment methods using the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option. 
 

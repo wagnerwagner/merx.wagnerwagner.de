@@ -2,17 +2,15 @@ Title: Security
 
 ----
 
-Headline: Securing Order Pages
+Headline: Securing order pages
 
 ----
 
-Intro: This is a working draft for security advice when using Merx.
+Intro: Order pages hold your customers’ personal data. These are the measures to take so that it stays private.
 
 ----
 
 Text:
-
-Order pages may contain sensitive personal data from your customers. Make sure to secure this personal information.
 
 ## Basic
 
@@ -44,13 +42,13 @@ Disallow: /orders/
 - Only send one-time, hashed order page links, which are only valid for a short period of time. (self destroying link)
 - ”Deactivate“/“Unpublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).
 
-## Further Reading
+## Further reading
 
 [Kirby Security Advices](https://getkirby.com/docs/guide/security)
 
 ----
 
-Shortdescription: This is a working draft for security advices on using Merx.
+Shortdescription: Order pages hold your customers’ personal data. These are the measures to take so that it stays private.
 
 ----
 
