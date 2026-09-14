@@ -68,11 +68,11 @@ return [
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
 			'name' => fn (): string => t('taxRule.default'),
-			'rule' => fn (?App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
+			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
 		],
 		'reduced' => [
 			'name' => fn (): string => t('taxRule.reduced'),
-			'rule' => fn (?App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
+			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
 		],
 	],
 ];
