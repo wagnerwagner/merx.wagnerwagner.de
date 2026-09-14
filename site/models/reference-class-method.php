@@ -214,22 +214,6 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 	}
 
 	/**
-	 * Returns the DocBlock description for the method's return value as an
-	 * HTML string with preserved line breaks.
-	 */
-	public function returnDescription(): ?string
-	{
-		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
-		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
-		if (count($returnTags) === 0) {
-			return null;
-		}
-
-		$description = trim($returnTags[0]->description);
-		return $description === '' ? null : $description;
-	}
-
-	/**
 	 * Returns an array describing every exception declared via @throws tags.
 	 */
 	public function exceptions(): array

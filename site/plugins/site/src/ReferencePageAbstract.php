@@ -215,6 +215,22 @@ abstract class ReferencePageAbstract extends Page
 		});
 	}
 
+	/**
+	 * Returns the description a `@return` tag carries after its type, or null
+	 * when the DocBlock has no `@return` tag or the tag is type-only.
+	 */
+	public function returnDescription(): ?string
+	{
+		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
+		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
+		if (count($returnTags) === 0) {
+			return null;
+		}
+
+		$description = trim($returnTags[0]->description);
+		return $description === '' ? null : $description;
+	}
+
 	public function guide(): Field
 	{
 		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
