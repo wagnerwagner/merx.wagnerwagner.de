@@ -37,7 +37,7 @@ Kirby reads three config files, each overriding the one before it:
 
 `env.php` wins over both others and is meant for exactly this. Keep it out of your repository, put it on each server by hand, and give every environment its own.
 
-<code caption="/site/config/env.php (development machine or test server)">
+<code caption="/site/config/env.php — development machine or test server">
 ```php
 <?php
 
@@ -51,7 +51,7 @@ return [
 ```
 </code>
 
-<code caption="/site/config/env.php (live server)">
+<code caption="/site/config/env.php — live server">
 ```php
 <?php
 

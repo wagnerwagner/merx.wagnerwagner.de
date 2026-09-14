@@ -25,6 +25,16 @@ class Markdown extends ParsedownExtra
 
 	protected function parseAttributes(string $input): array
 	{
+		// `loadHtml()` assumes ISO-8859-1 when the markup carries no encoding
+		// declaration, which would read an em dash or an umlaut in an attribute
+		// as Latin-1 and hand it back double encoded. Escaping the non-ascii
+		// characters first leaves DomDocument nothing to misread.
+		$input = mb_encode_numericentity(
+			$input,
+			[0x80, 0x10FFFF, 0, 0x1FFFFF],
+			'UTF-8'
+		);
+
 		$dom = new DomDocument();
 		$dom->loadHtml('<html ' . $input . '/>');
 		$attributes = [];
