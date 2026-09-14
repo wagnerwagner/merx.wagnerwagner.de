@@ -22,7 +22,7 @@ return [
 ```
 </code>
 
-When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You will also need a valid Merx license and set it as the [`license`](/reference/options/config-options/license) option.
+When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You’ll also need a valid Merx license and set it as the [`license`](/reference/options/config-options/license) option.
 
 ----
 

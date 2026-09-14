@@ -14,7 +14,7 @@ Text:
 
 The [API](/guide/api/concept) exists so your pages can stay cacheable. When that does not matter — a small catalog, no page cache, or a shop that has to work without JavaScript — you can do the same things in a template, a controller or a [route](https://getkirby.com/docs/guide/routing).
 
-Both work on the same cart. `$site->cart()` and the API read from and write to the same session, so you can mix them freely.
+Both work on the same cart. `$site->cart()` and the API read from and write to the same session, so we can mix them freely.
 
 | API route | PHP |
 | ---- | ---- |
@@ -54,7 +54,7 @@ Because this snippet makes the page different for every visitor, the page that i
 
 ## Changing the cart
 
-Merx has no route that adds an item and sends the visitor back to where they came from — the API answers with JSON, which is what a JavaScript client wants but not what a browser should be shown. Add a route of your own for that.
+Merx has no route that adds an item and sends the customer back to where they came from — the API answers with JSON, which is what a JavaScript client wants, but not what a browser should be shown. Let’s add a route of our own for that.
 
 <code caption="/site/config/config.php">
 ```php
@@ -121,7 +121,7 @@ cart()->updateItem($request->get('key'), [
 </code>
 
 <callout theme="caution">
-Never trust what the form sends. The API filters the request body before it reaches the cart; your own route has to do the same. Cast `quantity` to a number, and never pass the whole request body through — a `data` array that carries `maxQuantity` would lift the product’s own limit.
+Never trust what the form sends. The API filters the request body before it reaches the cart, and your own route has to do the same. Cast `quantity` to a number, and do not pass the whole request body through — a `data` array that carries `maxQuantity` would lift the product’s own limit.
 </callout>
 
 ## Checkout

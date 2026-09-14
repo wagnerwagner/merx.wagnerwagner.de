@@ -20,7 +20,7 @@ Invoice | - | `invoice`
 
 If you want to use another payment provider read the (link: /guide/payment-gateways/custom-payment-gateway text: Custom Payment Gateways) guide to learn how to create your own custom payment gateway.
 
-Learn how to connect your online shop with Stripe and/or PayPal by [setting up the secret keys](/guide/configuration/stripe-paypal-secrets). If you are not sure, which payment gateway you want to use, we recommend using Stripe Elements. Learn how to **[set up Stripe Elements](/guide/payment-gateways/stripe-elements)**.
+Learn how to connect your online shop with Stripe and/or PayPal by [setting up the secret keys](/guide/configuration/stripe-paypal-secrets). If you aren’t sure which payment gateway to use, we recommend Stripe Elements. Learn how to **[set up Stripe Elements](/guide/payment-gateways/stripe-elements)**.
 
 ----
 

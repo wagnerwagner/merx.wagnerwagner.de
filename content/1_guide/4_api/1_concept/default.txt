@@ -35,9 +35,9 @@ Every Merx route lives under Kirby’s API path, followed by the Merx endpoint:
 
 ## The cart lives in the session
 
-There is no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie.
+There’s no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie.
 
-A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests; a request from another origin has to opt in.
+A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests. A request from another origin has to opt in.
 
 <code caption="script.js">
 ```js
@@ -68,7 +68,7 @@ Every route answers with Kirby’s API envelope. The cart is in `data`.
 }
 ```
 
-An error uses the same envelope with `"status": "error"` and carries a `key` next to the message. That key is the [translation key](/reference/options/translations) of the error, so you can show the visitor a message in their own language instead of the one the API happened to return.
+An error uses the same envelope with `"status": "error"` and carries a `key` next to the message. That key is the [translation key](/reference/options/translations) of the error, so you can show the customer a message in their own language instead of the one the API happened to return.
 
 ```json
 {
@@ -106,7 +106,7 @@ GET /api/shop/cart?select=quantity,total
 ```
 </code>
 
-A cart badge in your header only needs the number of items, so `view=compact` saves building the whole cart for it. Add `?pretty=true` while you are exploring to get readable JSON.
+A cart badge in your header only needs the number of items, so `view=compact` saves building the whole cart for it. Add `?pretty=true` while you’re exploring to get readable JSON.
 
 To add your own fields to a model, see [Custom models](/guide/api/custom-models).
 

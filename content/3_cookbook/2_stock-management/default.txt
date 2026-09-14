@@ -6,13 +6,13 @@ Headline:
 
 ----
 
-Intro: Your granny knitted ten pairs of socks, so you cannot sell eleven. Merx caps the quantity per product itself; keeping the actual stock up to date is your part.
+Intro: Your granny knitted ten pairs of socks, so you can’t sell eleven. Merx caps the quantity per product itself; keeping the actual stock up to date is your part.
 
 ----
 
 Text:
 
-Merx already refuses to put more of a product into the cart than [`maxQuantity()`](/reference/classes/product-page/max-quantity) allows. Stock management is therefore two things: telling Merx what the limit is, and reducing it once an order has been paid.
+Merx already refuses to put more of a product into the cart than [`maxQuantity()`](/reference/classes/product-page/max-quantity) allows. Stock management is therefore two things: telling Merx what the limit is, and reducing it once an order has been paid. We will do both.
 
 ## Cap the quantity per product
 
@@ -116,7 +116,7 @@ return [
 
 ## Reduce the stock once paid
 
-The [`paymentCompleted`](/reference/options/hooks/payment-completed) hook fires exactly once, when the order flips to paid. That also covers payment methods which confirm hours later through a [Stripe webhook](/guide/configuration/stripe-webhooks), so it is the only place you have to write.
+The [`paymentCompleted`](/reference/options/hooks/payment-completed) hook fires exactly once, when the order flips to paid. That also covers payment methods which confirm hours later through a [Stripe webhook](/guide/configuration/stripe-webhooks), so it’s the only place you have to write.
 
 Writing to a page needs permissions the customer does not have, so wrap the update in [`impersonate()`](https://getkirby.com/docs/reference/objects/cms/app/impersonate).
 

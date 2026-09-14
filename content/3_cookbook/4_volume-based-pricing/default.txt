@@ -16,7 +16,7 @@ To realize volume-based pricing you need to make the price of your product dynam
 
 ## Create a custom product page model
 
-If you do not already have one, create your own product model, which extends the Merx’ [`ProductPage`](/reference/classes/product-page) class.
+If you don’t already have one, create your own product model that extends Merx’ [`ProductPage`](/reference/classes/product-page) class.
 
 First, use the [`price()`](/reference/classes/product-page/price) method of the parent [`ProductPage`](https://merx.wagnerwagner.test/reference/classes/product-page) class to get the [`$price`](/reference/classes/price) object. Then use this object to update the price using [`updatePrice()`](/reference/classes/price/update-price) or [`updateNetPrice()`](/reference/classes/price/update-net-price).
 
@@ -43,7 +43,7 @@ class ProductPage extends Wagnerwagner\Merx\ProductPage
 ```
 </code>
 
-That is all you need to do, as the cart uses this price method and automatically passes the quantity of the current item.
+That’s all you need to do — the cart uses this price method and passes the quantity of the current item automatically.
 
 ## Display reduced price
 

@@ -20,7 +20,7 @@ Your product and content pages render the same HTML for everybody. The cart does
 
 Merx keeps the two apart. Pages stay static, and the cart is fetched at runtime from a small JSON API under `/api/shop`.
 
-You do not have to use it. Every cart operation is available in PHP as well, which is the better fit for a shop that does not cache its pages or does not want to rely on JavaScript.
+You don’t have to use it. Every cart operation is available in PHP as well, which is the better fit for a shop that does not cache its pages, or does not want to rely on JavaScript.
 
 ----
 

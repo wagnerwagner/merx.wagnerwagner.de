@@ -16,7 +16,7 @@ Stripe Elements provides an interface component (iFrame) that shows several paym
 
 To see which payment methods will be shown to your customers, you can use [Stripe’s Payment Review](https://dashboard.stripe.com/settings/payment_methods/review).
 
-It is also possible to present only [selected payment method](#optional-show-only-specific-payment-methods).
+You can also show only [selected payment methods](#optional-show-only-specific-payment-methods).
 
 For detailed information on Stripe Elements, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
 
@@ -45,7 +45,7 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true ? option
 
 Add the `stripe.js` to the head of your HTML file. E.g. in a `head` snippet.
 
-Stripe recommends to include Stripe.js on each page of your site to leverage “Stripe’s advanced fraud functionality”. To accept payments, however, it is sufficient to integrate Stripe on the checkout page.
+Stripe recommends including Stripe.js on every page of your site to leverage “Stripe’s advanced fraud functionality”. To accept payments, though, the checkout page is enough.
 
 To learn more, see [Including Stripe.js | Stripe JS Reference](https://docs.stripe.com/js/including).
 

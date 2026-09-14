@@ -14,7 +14,7 @@ Text:
 
 During the checkout process, a new [`OrderPage`](/reference/classes/order-page) is created as a child of [`$site->ordersPage()`](/reference/options/site-methods/orders-page) with a random id.
 
-The order number is created automatically. By default it is an incrementing number, and you can replace it with a numbering of your own through the [`orderNumber`](/reference/options/config-options/order-number) option.
+The order number is created automatically. By default it’s an incrementing number, and you can replace it with a numbering of your own through the [`orderNumber`](/reference/options/config-options/order-number) option.
 
 ## Create template
 

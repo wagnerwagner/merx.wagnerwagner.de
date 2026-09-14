@@ -43,7 +43,7 @@ return [
 
 To use the default tax rate you need to set the `taxRule` field to `default`.
 
-When using the panel, you can use the [tax-rule field](/reference/blueprints/fields/tax-rule) in your product page blueprint.
+When using the Panel, you can use the [tax-rule field](/reference/blueprints/fields/tax-rule) in your product page blueprint.
 
 <code caption="/content/products/1_bike/product.en.txt">
 ```kirby

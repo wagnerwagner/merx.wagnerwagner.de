@@ -18,7 +18,7 @@ There are different options to add Merx to your existing Kirby website. If you a
 
 ## Requirements
 
-Merx does not have any special requirements. As long as Kirby 5 is running fine, Merx also will be working.
+Merx does not have any special requirements. As long as Kirby 5 runs fine, so does Merx.
 [System requirements of Kirby](https://getkirby.com/docs/reference/system/requirements)
 
 ## Download Merx
@@ -77,7 +77,7 @@ kirby plugin:install https://github.com/wagnerwagner/merx.git
 
 The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS.
 
-It is a good way to explore many of Merx’ possibilities. If you want to create a simple store fast, this would also be a good option for you.
+It’s a good way to explore what Merx can do, and a good starting point if you want a simple store fast.
 
 [Preview →](https://starterkit.merx.wagnerwagner.de){.a-button} 
 

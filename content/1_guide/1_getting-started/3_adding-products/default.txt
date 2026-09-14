@@ -14,13 +14,13 @@ Text:
 
 ## Create new page
 
-Merx comes with a [product blueprint](/reference/blueprints/pages/product). Create a new page in the panel and select *Product* as template. Set a price for your product.
+Merx comes with a [product blueprint](/reference/blueprints/pages/product). Create a new page in the Panel and select *Product* as template. Set a price for your product.
 
 ## Template
 
 By default the page model of *product* templates is [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page). If you want to, you can create your own page model and extend the default [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page) model.
 
-You are completely free to build your very own template that fits to your product. Most likely you want to display the price of the product and a button to add the product to the cart. You can use [`$page->price()`](/reference/classes/product-page/price) to display the formatted price, with currency symbol.
+You’re completely free to build your own template for your product. Most likely you’ll want to show the price and a button to add the product to the cart. [`$page->price()`](/reference/classes/product-page/price) gives you the formatted price, with currency symbol.
 
 <code caption="/site/templates/product.php">
 ```php
@@ -40,7 +40,7 @@ You are completely free to build your very own template that fits to your produc
 
 ## Add the product to the cart
 
-Submitting the product form will create a POST request to the [Merx API endpoint](/reference/api/routes/shop-cart-post) and responds as JSON. Use JavaScript to interfere the submit event and log the response data to the console for now.
+Submitting the product form sends a POST request to the [Merx API endpoint](/reference/api/routes/shop-cart-post), which answers with JSON. Let’s intercept the submit event and log the response to the console for now.
 
 <code caption="script.js">
 ```js

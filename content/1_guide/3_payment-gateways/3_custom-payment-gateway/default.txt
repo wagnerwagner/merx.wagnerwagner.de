@@ -16,7 +16,7 @@ Use the [`gateways`](/reference/options/config-options/gateways) option to add y
 
 A gateway is a pair of functions. `initializePayment` starts the payment when the checkout is submitted, and `completePayment` finishes it once the provider sends the customer back. Both receive the [virtual order page](/guide/glossary) and must return an [`OrderPage`](/reference/classes/order-page) object.
 
-In `initializePayment` you can set a `redirect` URL. The customer will be sent there. If you don’t set `redirect` they go to [`/api/shop/success`](/reference/api/routes/shop-success-get) directly, which is what an invoice order does.
+In `initializePayment` you can set a `redirect` URL. The customer will be sent there. If you don’t set `redirect`, they go to [`/api/shop/success`](/reference/api/routes/shop-success-get) directly, which is what an invoice order does.
 
 <code caption="/site/config/config.php">
 ```php
@@ -58,7 +58,7 @@ return [
 ```
 </code>
 
-Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can't use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
+Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can’t use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
 
 <callout theme="caution">
 Build the payment record with [`PaymentDetails::create()`](/reference/classes/payment-details/create) instead of storing your provider’s response as it is. A raw response carries the customer’s name, email and address, and order pages are plain content files.

@@ -12,7 +12,7 @@ Intro: A wishlist is a list of products that is not meant to be ordered. Merx’
 
 Text:
 
-[`Cart`](/reference/classes/cart) extends [`ProductList`](/reference/classes/product-list). Both hold the same [`ListItem`](/reference/classes/list-item) objects and share methods like [`total()`](/reference/classes/product-list/total) and [`quantity()`](/reference/classes/cart/quantity). The difference is that `Cart` stores itself in the visitor’s session and can be ordered, while `ProductList` leaves storage to you. That makes `ProductList` a good starting point for a wishlist.
+[`Cart`](/reference/classes/cart) extends [`ProductList`](/reference/classes/product-list). Both hold the same [`ListItem`](/reference/classes/list-item) objects and share methods like [`total()`](/reference/classes/product-list/total) and [`quantity()`](/reference/classes/cart/quantity). The difference is that `Cart` stores itself in the visitor’s session and can be ordered, while `ProductList` leaves storage to you. That makes `ProductList` a good starting point for a wishlist, so let’s build one on it.
 
 ## Create a list
 

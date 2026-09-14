@@ -115,7 +115,7 @@ When the validation fails, the API returns a JSON with one or more error message
 
 ## Use JavaScript to handle form submit
 
-Use JavaScript to interfere the submit event of the checkout form. Use the validation details to show the error messages to the customer.
+Again we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
 
 <code caption="/assets/js/checkout.js">
 ```js
@@ -233,7 +233,7 @@ You should add some kind of loading indication, so that the customer knows that 
 
 ## Checkout flow
 
-In this example we are using *invoice* as the *payment gateway*. It is the responsibility of the shop operator to collect the money. 
+We’re using *invoice* as the *payment gateway* here, which means it’s up to you as the shop operator to collect the money. 
 
 In practice you might use a *payment provider* such as *Stripe* or *PayPal* to collect money from your customer during the checkout.
 

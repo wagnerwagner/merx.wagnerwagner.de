@@ -14,7 +14,7 @@ Text:
 
 We recommend using JavaScript and the API to show the cart to the customer. This makes it possible to cache all pages server-side and load the cart asynchronously.
 
-For this example we define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). There is a `getCart()` function, which gets the cart data from the API endpoint. And a `render()` function, which renders the cart as a list.
+Let’s define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) for it. It has a `fetchCart()` function, which gets the cart data from the API endpoint, and a `render()` function, which renders the cart as a list.
 
 <code caption="script.js">
 ```js
@@ -63,7 +63,7 @@ customElements.define('my-cart', class extends HTMLElement {
 
 Add the `<my-cart>` element to the header of your page.
 
-A product without a price returns `null` instead of a price object, which is what `isFromPrice` on the cart tells you about. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
+A product without a price returns `null` instead of a price object — that’s what `isFromPrice` on the cart tells you about. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 
 ----
 

@@ -14,7 +14,7 @@ Text:
 
 Every entry in the cart is a [`ListItem`](/reference/classes/list-item) with a `type`. Products use the default type `product`, and shipping costs and discounts use a type of their own. The allowed types are `credit`, `custom`, `discount`, `product`, `promotion` and `shipping`.
 
-Because shipping is just another list item, it needs no content page and no blueprint. It is part of [`$cart->total()`](/reference/classes/cart/total) like everything else, and [`filterByType()`](/reference/classes/cart/filter-by-type) keeps it out of your product listing.
+Because shipping is just another list item, it needs no content page and no blueprint of its own. It’s part of [`$cart->total()`](/reference/classes/cart/total) like everything else, and [`filterByType()`](/reference/classes/cart/filter-by-type) keeps it out of your product listing.
 
 ## Add shipping as a list item
 

@@ -14,14 +14,14 @@ Text:
 
 Merx provides powerful PHP and REST-like **APIs** that help you build custom online shops. Take a look at the [Reference](/reference), where all available classes, options, hooks, blueprints, and API routes are documented.
 
-To receive payments from your customers, you may want to use a **payment provider**. Merx includes built-in support for [**Stripe**](/guide/payment-gateways/stripe-elements) and [**PayPal**](/guide/payment-gateways/paypal). However, you do not have to use a third-party service. You can also configure Merx to accept orders without automated payment processing. In this case, you would need to ensure that your customers transfer the money directly to you, e.g., via **bank transfer**, a common method for B2B shops.
+To receive payments from your customers, you may want to use a **payment provider**. Merx includes built-in support for [**Stripe**](/guide/payment-gateways/stripe-elements) and [**PayPal**](/guide/payment-gateways/paypal). You don’t have to use a third-party service, though. Merx can accept orders without automated payment processing, and then it’s up to you to make sure your customers transfer the money directly — via **bank transfer**, for example, which is common in B2B shops.
 
 
 ## Starterkit
 
 If you are building an online shop from scratch, we recommend using the **[Starterkit template](https://github.com/wagnerwagner/merx-starterkit/tree/develop/v2)**.
 
-The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS. It is a good way to explore many of Merx’ possibilities.
+The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS. It’s a good way to explore what Merx can do.
 
 ## Adding Merx to an existing Kirby website
 

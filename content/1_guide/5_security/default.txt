@@ -32,7 +32,7 @@ Disallow: /orders/
 ## Advanced
 
 - Prevent the use of `$orderPage->siblings()` or similar.
-- If you use Git: Make sure order pages are not included in your (public) git repository.
+- If you use Git: make sure order pages are not included in your (public) Git repository.
 
 ## Further considerations
 
