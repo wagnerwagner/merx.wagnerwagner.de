@@ -6,61 +6,85 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Add your own fields to what the API returns, without touching Merx.
 
 ----
 
 Text:
 
-[API models reference](/reference/api/models)
+[API models](/reference/api/models) decide which fields a cart, a list item or a price turns into when the API renders it. You can add fields of your own, and since Kirby reads extensions straight from the config, no plugin is involved.
 
-By default the API returns one thumbnail image per list item. Let’s assume you want to show two thumbs in your cart. Therefore you can add a new `thumbs` field to the [ListItem model](/reference/api/models/list-item).
+By default a list item carries a single thumbnail. Let’s say you want two, so the cart can show a hover image. Add a `thumbs` field to the [ListItem model](/reference/api/models/list-item).
 
-<code caption="/site/plugins/site/index.php">
+<code caption="/site/config/config.php">
 ```php
 <?php
 
-use Kirby\Cms\App;
 use Kirby\Cms\File;
-use Kirby\Cms\Files;
 use Wagnerwagner\Merx\ListItem;
 
-App::plugin(
-  name: 'site/site',
-  extends: [
+return [
+  'extensions' => [
     'api' => [
       'models' => [
         'ListItem' => [
           'fields' => [
             'thumbs' => function (ListItem $listItem): ?array {
-              if (!$listItem->page) return null;
+              $thumbs = $listItem->page?->thumbs()->toFiles();
 
-              /** @var \Kirby\Cms\Files $thumbs */
-              $thumbs = $listItem->page->thumbs() instanceof Files ? $listItem->page->thumbs() : $listItem->page->thumbs()->toFile();
+              if ($thumbs === null || $thumbs->count() === 0) {
+                return null;
+              }
 
-              return $thumbs ? $thumbs->toArray(fn (File $thumb) =>[
+              // array_values, because toArray() keeps the file ids as keys
+              // and those would serialise as a JSON object, not a list
+              return array_values($thumbs->toArray(fn (File $thumb): array => [
                 'alt' => (string)$thumb->alt(),
-                'src' => $thumb->thumb('thumb')->url(),
-                'srcset' => $thumb->srcset('thumb'),
-              ]) : null;
+                'src' => $thumb->resize(600)->url(),
+                'srcset' => $thumb->srcset([300, 600, 1200]),
+              ]));
             },
           ],
           'views' => [
-            'default' => [
-              'thumbs',
-            ],
-          ]
+            'default' => ['thumbs'],
+          ],
         ],
       ],
-    ]
+    ],
   ],
-);
+];
 ```
 </code>
 
-<callout theme="warning">
-To overwrite Merx defaults, the custom plugin must be loaded after Merx. The plugins are loaded alphabetically. Because *s* comes after *m* a plugin named *site* would work.
-</callout>
+The field is a function that receives the object the model wraps — a [`ListItem`](/reference/classes/list-item) here — and returns whatever should end up in the JSON.
+
+What you add is merged into Merx’ model rather than replacing it. `thumbs` joins the fields the model already has, and naming it under `views.default` appends it to that view instead of becoming the whole view, so everything Merx returns keeps coming back.
+
+## Fetching the field
+
+Because `thumbs` is in the default view, it comes back with every cart request that does not ask for something narrower.
+
+<code caption="Response">
+```json
+{
+  "key": "shoes",
+  "title": "Shoes",
+  "thumbs": [
+    {
+      "alt": "Nice shoes from the side",
+      "src": "https://example.com/media/…/shoes-600x.jpg",
+      "srcset": "https://example.com/media/…/shoes-300x.jpg 300w, …"
+    }
+  ]
+}
+```
+</code>
+
+Leave it out of `views` if you would rather not pay for it on every request, and ask for it explicitly instead. See [Concept](/guide/api/concept#choosing-what-comes-back) for `view` and `select`.
+
+----
+
+Shortdescription: Add your own fields to what the API returns, without touching Merx.
 
 ----
 
