@@ -140,29 +140,22 @@ Writing to a page needs permissions the customer does not have, so wrap the upda
 
 ## Show the message
 
-The exceptions surface wherever you call Merx. In a checkout controller, catch them and hand the message to your template.
+The checkout form posts to [`/api/shop/checkout`](/reference/api/routes/shop-checkout-post), so the exception never reaches a controller — it comes back as JSON, with the status code you threw it with.
 
-<code caption="/site/controllers/checkout.php">
-```php
-<?php
-
-use Kirby\Exception\Exception;
-
-return function () {
-  $error = null;
-
-  if (kirby()->request()->method() === 'POST') {
-    try {
-      go(merx()->initializeOrder(kirby()->request()->data()));
-    } catch (Exception $ex) {
-      $error = $ex->getMessage(); // e.g. “Only 3 of “Knitted socks” left.”
-    }
-  }
-
-  return compact('error');
-};
+<code caption="Response">
+```json
+{
+  "status": "error",
+  "code": 400,
+  "key": "error.stock.insufficient",
+  "message": "Only 3 of “Knitted socks” left."
+}
 ```
 </code>
+
+Note the prefix: the `stock.insufficient` you threw arrives as `error.stock.insufficient`.
+
+The checkout JavaScript in [Validate checkout](/guide/getting-started/validate-checkout) already handles it. Anything whose key is not `error.merx.fieldsvalidation` is shown as a general message above the submit button — which is where a stock error belongs, since it is about the cart rather than one field.
 
 <callout>
 Reserving stock while a payment is in flight is a different problem, and one Merx does not solve for you. If you sell single items, consider unpublishing the product in `createOrder:before` and publishing it again if the payment fails.
