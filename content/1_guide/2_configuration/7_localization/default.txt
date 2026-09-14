@@ -26,7 +26,32 @@ The `error.merx.*` strings are the ones your customers see: they are the message
 
 ### Overriding a string
 
-On a [multi-language site](https://getkirby.com/docs/guide/languages), put the strings into the language file. They are merged over Merx’ own and win.
+Register the strings under `extensions` in your config, keyed by language code. This works on any site, with or without languages, and needs no plugin of its own.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+  'extensions' => [
+    'translations' => [
+      'en' => [
+        'error.merx.emptycart' => 'Your cart is empty.',
+      ],
+      'de' => [
+        'error.merx.emptycart' => 'Dein Warenkorb ist leer.',
+      ],
+    ],
+  ],
+];
+```
+</code>
+
+<callout>
+Defining extensions in the config needs [Kirby 5.5](https://github.com/getkirby/kirby/releases/tag/5.5.0) or later. On an older Kirby, the same array goes into a plugin instead — and there the **directory name** has to sort after `merx`, because plugins are loaded alphabetically and a later one replaces the strings of an earlier one.
+</callout>
+
+On a [multi-language site](https://getkirby.com/docs/guide/languages) you can also keep the strings in the language file, next to the language definition itself.
 
 <code caption="/site/languages/de.php">
 ```php
@@ -43,28 +68,7 @@ return [
 ```
 </code>
 
-Without languages, register the strings from a plugin.
-
-<code caption="/site/plugins/site/index.php">
-```php
-<?php
-
-Kirby\Cms\App::plugin(
-  name: 'site/site',
-  extends: [
-    'translations' => [
-      'en' => [
-        'error.merx.emptycart' => 'Your cart is empty.',
-      ],
-    ],
-  ],
-);
-```
-</code>
-
-<callout theme="warning">
-Plugins are loaded alphabetically and a later one replaces the strings of an earlier one. Merx is `wagnerwagner/merx`, so the plugin’s **directory name** has to sort after `merx` for its strings to win. A directory called `site` does.
-</callout>
+Pick one of the two. A string set in both places is taken from the language file, and anything you leave alone still comes from Merx.
 
 ### Adding a language
 
