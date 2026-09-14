@@ -1,5 +1,7 @@
 <?php
 
+use Kirby\Cms\App;
+
 return [
 	'github-repositories' => [
 		'merx' => 'https://github.com/wagnerwagner/merx',
@@ -10,7 +12,19 @@ return [
 	'wagnerwagner.merx.pricingRules' => [
 		'default' => [
 			'currency' => 'EUR',
+			'taxIncluded' => false,
 		]
+	],
+	'wagnerwagner.merx.taxRules' => [
+		'default' => [
+			'rule' => function (?App $kirby): float {
+				$region = $kirby->session()->get('region');
+				if (strtolower($region) === 'de') {
+					return 0.19;
+				}
+				return 0;
+			},
+		],
 	],
 	'wagnerwagner.merx.stripe.paymentIntentParameters' => [
 		'payment_method_types' => ['card', 'ideal'],
