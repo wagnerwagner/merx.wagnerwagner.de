@@ -41,13 +41,26 @@ while the reference does not.
 What belongs in the guide is the part reflection cannot produce: why something
 works the way it does, which of several ways is the right one, and the traps.
 
+### Except where repetition is the point
+
+This rule is about prose a reader moves *through*. It does not apply to
+surfaces a reader looks something up *in*.
+
+The glossary is the clearest case. Somebody meets the word "pricing rule" and
+wants to know what it means; an entry missing because the term has its own page
+is a glossary that failed at its one job. It is an index, and completeness is
+the feature — modelled on <https://getkirby.com/docs/glossary>, which likewise
+defines Page, Template and Route even though each has a whole guide behind it.
+
+Keep entries to one to three sentences and let each link onward once. Short and
+complete, not short by omission.
+
 ### Signs a page has drifted
 
 - A table where the rows are implementation details rather than decisions
 - A section that ends up being a worse copy of a reference page
 - Enumerating what a function does internally instead of what to do with it
 - Explaining an option nobody has to touch
-- A glossary entry for a term that has its own page
 
 ## Tone
 
