@@ -14,11 +14,7 @@ Text:
 
 PayPal is a redirect gateway. Merx creates an order at PayPal, sends the customer there to approve it, and captures the money when they come back. None of that happens on your site, so unlike [Stripe Elements](/guide/payment-gateways/stripe-elements) there’s no JavaScript to load and no payment form to build.
 
-## Set up your keys
-
-Merx talks to the [PayPal Orders v2 API](https://developer.paypal.com/docs/api/orders/v2/) and needs a client ID and a secret, which you set up in [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
-
-There are two pairs, and you don’t choose between them yourself. The [`production`](/reference/options/config-options/production) option does: while it’s `false`, Merx uses the `paypal.sandbox.*` keys and PayPal’s sandbox API, and when you set it to `true` it switches to the `paypal.live.*` keys and the live API. See [Testing and production](/guide/configuration/testing-and-production).
+Set up the client ID and secret as described in [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets). Merx uses the sandbox keys while [`production`](/reference/options/config-options/production) is `false` and the live ones afterwards.
 
 ## Send the order to PayPal
 
@@ -34,22 +30,11 @@ If you followed the [validate checkout guide](/guide/getting-started/validate-ch
 ```
 </code>
 
-## What happens
-
-1. The checkout is submitted. Merx validates the customer’s data against your order blueprint, exactly as it does for an invoice order.
-2. Merx creates an order at PayPal for the cart total and stores its id on the [virtual order page](/guide/glossary).
-3. The customer is redirected to PayPal and approves the payment there.
-4. PayPal sends them back to [`/api/shop/success`](/reference/api/routes/shop-success-get), adding a `PayerID` to the URL.
-5. Merx captures the payment, writes the [order page](/reference/classes/order-page) and empties the cart.
-6. The customer lands on their order page.
-
-Steps 2 and 5 are the gateway’s two halves, and everything in between is PayPal’s. Your shop never sees the customer’s payment details.
+Merx creates the order at PayPal, redirects the customer there to approve it, and captures the payment when PayPal sends them back to [`/api/shop/success`](/reference/api/routes/shop-success-get). Then the [order page](/reference/classes/order-page) is written, the cart is emptied and the customer lands on their order.
 
 ## Test with a sandbox account
 
-A sandbox payment is a real run through all six steps against PayPal’s test environment, so it’s worth doing before you go live.
-
-Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/applications/sandbox) to get a sandbox client ID and secret, and use one of the sandbox personal accounts under **Testing Tools → Sandbox Accounts** to pay with. Keep [`production`](/reference/options/config-options/production) at `false` and Merx will use them.
+Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/applications/sandbox) for the sandbox keys, and pay with one of the sandbox personal accounts under **Testing Tools → Sandbox Accounts**.
 
 <callout theme="caution">
 A sandbox account only works against the sandbox API, and a live account only against the live one. If a payment fails with `error.merx.paypalError` right after you go live, check that the `paypal.live.*` keys are really live keys.
@@ -57,9 +42,7 @@ A sandbox account only works against the sandbox API, and a live account only ag
 
 ## Change what the customer sees at PayPal
 
-Merx sends PayPal a set of defaults: your site title as the brand name, `PAY_NOW` so the button at PayPal says *Pay Now* rather than *Continue*, and `NO_SHIPPING`, because Merx already collected the address in your own checkout.
-
-Override any of them with the [`paypal.applicationContext`](/reference/options/config-options/paypal-application-context) option. What you set is merged over the defaults, so you only name what you want to change.
+Merx sends your site title as the brand name, `PAY_NOW` so the button says *Pay Now*, and `NO_SHIPPING`, because the address was already collected in your checkout. Override any of them with [`paypal.applicationContext`](/reference/options/config-options/paypal-application-context), which is merged over those defaults.
 
 <code caption="/site/config/config.php">
 ```php
@@ -74,15 +57,15 @@ return [
 ```
 </code>
 
-The [`experience_context`](https://developer.paypal.com/docs/api/orders/v2/#orders_create) section of PayPal’s own documentation lists every key. Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that carries the session token, and a payment that comes back anywhere else cannot be completed.
+Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that carries the session token, and a payment that comes back anywhere else cannot be completed.
 
 ## When the payment does not complete
 
-**The customer cancels at PayPal.** They come back without a `PayerID`, Merx raises [`error.merx.paymentCanceled`](/reference/options/translations/error-merx-paymentcanceled) and sends them to your checkout page with the cart still filled.
+**The customer cancels at PayPal.** Merx raises [`error.merx.paymentCanceled`](/reference/options/translations/error-merx-paymentcanceled) and sends them back to your checkout page with the cart still filled.
 
-**PayPal declines the capture.** Merx raises [`error.merx.paypalError`](/reference/options/translations/error-merx-paypalerror). No order page is written.
+**PayPal declines the capture.** Merx raises [`error.merx.paypalError`](/reference/options/translations/error-merx-paypalerror) and no order page is written.
 
-**The capture stays pending.** PayPal answers `COMPLETED` for the order but leaves a capture in `PENDING`, which happens with some funding sources. Merx writes the order page and records the payment, but does **not** mark it as paid: `paymentComplete` stays off. The page is listed like any other order, so the *Payment* tab is the only place the difference shows.
+**The capture stays pending.** With some funding sources PayPal reports the order as `COMPLETED` but leaves the capture in `PENDING`. Merx writes the order page but does **not** mark it as paid.
 
 <callout theme="caution">
 There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
@@ -90,36 +73,6 @@ There is no PayPal webhook. A pending capture that settles later is not reported
 
 Merx also refuses a PayPal order that has been captured once already, so a customer who reloads the return URL cannot pay twice or complete somebody else’s order.
 
-## What ends up on the order
-
-Merx stores only what is needed to find the transaction again — provider, id, status, amount, currency, date, the capture id and whether it was live. The payer’s name, email and address from PayPal’s response are deliberately not kept, because [order pages](/guide/security) are plain content files.
-
-[`$orderPage->paymentProviderUrl()`](/reference/classes/order-page/payment-provider-url) builds the link to the payment in the PayPal dashboard, which the Panel shows as a button on the order.
-
-## Run something when an order is paid
-
-Use [`createOrder:after`](/reference/options/hooks/create-order-after). It fires once the order page exists, which is where you would send a confirmation mail or reduce your stock.
-
-<code caption="/site/config/config.php">
-```php
-<?php
-
-use Wagnerwagner\Merx\OrderPage;
-
-return [
-  'hooks' => [
-    'wagnerwagner.merx.createOrder:after' => function (OrderPage $orderPage): void {
-      if ($orderPage->paymentComplete()->toBool() !== true) {
-        return;
-      }
-      // The order is paid
-    },
-  ],
-];
-```
-</code>
-
-The guard matters: as the pending case above shows, an order page is written whether or not the money arrived.
 
 ----
 

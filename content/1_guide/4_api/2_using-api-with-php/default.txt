@@ -126,42 +126,9 @@ Never trust what the form sends. The API filters the request body before it reac
 
 ## Checkout
 
-[`$merx->initializeOrder()`](/reference/classes/merx/initialize-order) validates the submitted data against the order blueprint, creates the virtual order page and starts the payment. It returns the URL the customer has to go to next — the payment provider for PayPal or Stripe, and `api/shop/success` for an invoice order.
+The checkout needs no route of your own. [`/api/shop/checkout`](/reference/api/routes/shop-checkout-post) answers a browser with a redirect and a JavaScript client with JSON, so the plain form from [Create checkout](/guide/getting-started/create-checkout) already works without JavaScript.
 
-<code caption="/site/config/config.php">
-```php
-[
-  'pattern' => 'checkout',
-  'method' => 'POST',
-  'action' => function () {
-    $data = kirby()->request()->data();
-    $data['paymentGateway'] = $data['payment_gateway'] ?? 'invoice';
-
-    try {
-      go(merx()->initializeOrder($data), 303);
-    } catch (\Kirby\Exception\Exception $exception) {
-      kirby()->session()->set('checkoutErrors', $exception->getDetails());
-      go(site()->checkoutPage(), 303);
-    }
-  },
-],
-```
-</code>
-
-On a validation error the exception carries one entry per field in `getDetails()`, keyed by field name, so you can show the messages next to the inputs again.
-
-```php
-[
-  'email' => [
-    'label' => 'Email',
-    'message' => ['required' => 'Please enter something'],
-  ],
-]
-```
-
-`getKey()` returns the [translation key](/reference/options/translations) of the error, which is what you want when you display a message yourself instead of using `getMessage()`.
-
-You do not have to handle the return trip from the payment provider. `api/shop/success` completes the payment, empties the cart and redirects to the order page on its own.
+The same is true for the way back: `api/shop/success` completes the payment, empties the cart and redirects to the order page on its own.
 
 ----
 

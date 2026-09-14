@@ -6,47 +6,13 @@ Headline:
 
 ----
 
-Intro: The words this documentation uses, and what they mean in Merx.
+Intro: A few words this documentation uses in a specific way.
 
 ----
 
 Text:
 
-## Cart
-
-The list of what a visitor intends to buy. A [`Cart`](/reference/classes/cart) is a collection of *list items*, stored in the visitor’s session and identified by the session cookie — there is no cart id in the URL. Each visitor has exactly one, reachable as [`$site->cart()`](/reference/options/site-methods/cart).
-
-## List item
-
-One line in a cart. A [`ListItem`](/reference/classes/list-item) has a `key`, a `quantity`, a [`Price`](/reference/classes/price) and a `type` — one of `credit`, `custom`, `discount`, `product`, `promotion` or `shipping`. Most list items point at a *product* page, but they do not have to: an item can carry its own title and price, which is how shipping costs and discounts are added.
-
-## Product
-
-Something a customer can buy. Usually a Kirby page with the `product` template and the [`ProductPage`](/reference/classes/product-page) model, which is where its price and stock live so an editor can change them in the Panel.
-
-## Price
-
-A number, positive or negative, together with a tax rate and a currency. Merx never treats a price as a bare float — the [`Price`](/reference/classes/price) class keeps the three together, so a total always knows which currency it is in and how much of it is tax. Which price applies to a product is decided by the *pricing rules*.
-
-## Pricing rule
-
-A rule in the [`pricingRules`](/reference/options/config-options/pricing-rules) option that decides which currency and which price a request gets: a function that returns `true` or `false`, plus the currency and whether prices include tax. The first matching rule wins. See [Currencies](/guide/configuration/currencies).
-
-## Tax rule
-
-A rule in the [`taxRules`](/reference/options/config-options/tax-rules) option that returns a tax rate as a float, for example `0.19`. Each product names the tax rule that applies to it. See [Taxes](/guide/configuration/taxes).
-
-## Discount
-
-A list item with a negative price and the type `discount`. It is part of the cart total like everything else, which is why a discount needs no special handling — it is simply an item that costs less than nothing. See [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts).
-
-## Coupon
-
-A code a customer enters to get a *discount*. Merx has no coupon feature: you check the code yourself and add a discount item to the cart when it is valid.
-
-## Wishlist
-
-A list of products a customer wants to keep for later. It is a [`ProductList`](/reference/classes/product-list) — the same collection the cart is built on — that you store yourself instead of in the cart session. See [Wishlist](/cookbook/wishlist).
+Everything Merx ships is listed in the [reference](/reference). These are the terms that are easy to mix up.
 
 ## Payment provider
 
@@ -56,35 +22,29 @@ An external service that handles the payment. For example PayPal or Stripe.
 
 ## Payment gateway
 
-The connection between Merx and a *payment provider*: a pair of functions, one that starts a payment and one that completes it once the provider reports back. Merx ships `invoice`, `paypal` and `stripe-elements`, and you can add your own with the [`gateways`](/reference/options/config-options/gateways) option.
-
-Which gateway handles an order is decided per order, by the `paymentGateway` field the checkout form submits. See [Payment gateways](/guide/payment-gateways).
+The connection between Merx and a payment provider: one function that starts a payment and one that completes it. Merx ships `invoice`, `paypal` and `stripe-elements`, and the checkout form picks one per order with its `paymentGateway` field. See [Payment gateways](/guide/payment-gateways).
 
 ## Payment method
 
-What the customer actually pays with: credit card, SEPA direct debit, iDEAL, PayPal balance, invoice. One *gateway* can offer many — Stripe Elements shows whichever methods you enabled in your Stripe account, without any change on the Merx side.
-
-The order stores the gateway it went through and the provider’s transaction in `paymentDetails`; the individual method is not stored separately.
-
-## Order page
-
-A Kirby page holding one order: the customer’s data and a copy of their cart at the moment they ordered. Merx creates it under [`$site->ordersPage()`](/reference/options/site-methods/orders-page) with the `order` template and the [`OrderPage`](/reference/classes/order-page) model.
-
-Because it holds personal data, it needs protecting — see [Security](/guide/security).
+What the customer actually pays with — credit card, SEPA direct debit, iDEAL, PayPal balance, invoice. One gateway can offer many: [Stripe Elements](/guide/payment-gateways/stripe-elements) shows whichever methods you enabled in your Stripe account.
 
 ## Virtual order page
 
-The same order page before it exists on disk. Merx builds it when the checkout is submitted, validates it against the order blueprint and keeps it in the session while the customer is away at the payment provider. Only a completed payment turns it into a real page.
+An [`OrderPage`](/reference/classes/order-page) that does not exist on disk yet. Merx builds it when the checkout is submitted and keeps it in the session while the customer is at the payment provider; only a completed payment turns it into a real page.
 
-That’s what a custom *payment gateway* receives, and why it has to be changed with [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) rather than `$page->update()`.
+This is what a [custom payment gateway](/guide/payment-gateways/custom-payment-gateway) receives, and why it has to be changed with [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) rather than `$page->update()`.
 
-## Order number
+## Discount
 
-The sequential number Merx gives each order, used as the order page’s title. Generated by the [`orderNumber`](/reference/options/config-options/order-number) option, which you can replace with a numbering of your own. See [Order/invoice number](/guide/configuration/order-number).
+A cart item with a negative price and the type `discount`. It is part of the total like any other item, which is why discounts need no special handling. See [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts).
+
+## Coupon
+
+A code a customer enters to get a discount. Merx has no coupon feature — you check the code yourself and add a discount item to the cart when it is valid.
 
 ----
 
-Shortdescription: The words this documentation uses, and what they mean in Merx.
+Shortdescription: A few words this documentation uses in a specific way.
 
 ----
 

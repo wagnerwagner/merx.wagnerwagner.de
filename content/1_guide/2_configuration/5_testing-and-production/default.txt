@@ -26,18 +26,10 @@ return [
 
 ## What the switch changes
 
-| | testing | production |
-| ---- | ---- | ---- |
-| Stripe secret key | `stripe.test.secret_key` | `stripe.live.secret_key` |
-| PayPal credentials | `paypal.sandbox.*` | `paypal.live.*` |
-| PayPal API | sandbox host | live host |
-| Recorded on the order | `livemode: false` | `livemode: true` |
-| [`$orderPage->paymentProviderUrl()`](/reference/classes/order-page/payment-provider-url) | Stripe test mode, PayPal sandbox | the live dashboards |
+`production` swaps the test keys for the live ones. Nothing else moves — blueprints, [pricing rules](/guide/configuration/currencies), [tax rules](/guide/configuration/taxes), hooks and templates behave the same either way, so a shop that works in testing works in production.
 
-Nothing else moves. Blueprints, [pricing rules](/guide/configuration/currencies), [tax rules](/guide/configuration/taxes), hooks and templates behave the same either way, so a shop that works in testing works in production.
-
-<callout theme="caution">
-One key is missing from that table on purpose. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same `production` option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
+<callout theme="important">
+One key is the exception. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
 </callout>
 
 ## Test before you switch
