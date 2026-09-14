@@ -47,10 +47,6 @@ return [
 ```
 </code>
 
-<callout>
-Defining extensions in the config needs [Kirby 5.5](https://github.com/getkirby/kirby/releases/tag/5.5.0) or later. On an older Kirby, the same array goes into a plugin instead — and there the **directory name** has to sort after `merx`, because plugins are loaded alphabetically and a later one replaces the strings of an earlier one.
-</callout>
-
 On a [multi-language site](https://getkirby.com/docs/guide/languages) you can also keep the strings in the language file, next to the language definition itself.
 
 <code caption="/site/languages/de.php">

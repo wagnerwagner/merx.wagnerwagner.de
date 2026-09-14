@@ -18,7 +18,7 @@ There are different options to add Merx to your existing Kirby website. If you a
 
 ## Requirements
 
-Merx does not have any special requirements. As long as Kirby 5 runs fine, so does Merx.
+Merx needs **Kirby 5.5** or later and **PHP 8.2** or later. Beyond that it has no special requirements — as long as Kirby runs fine, so does Merx.
 [System requirements of Kirby](https://getkirby.com/docs/reference/system/requirements)
 
 ## Download Merx
