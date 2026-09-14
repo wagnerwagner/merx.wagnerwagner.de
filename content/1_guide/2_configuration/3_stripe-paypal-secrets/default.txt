@@ -6,56 +6,73 @@ Headline:
 
 ----
 
-Intro: If you want to use Stripe or PayPal as a payment provider, you need to set the respective keys. These keys form the connection between your online shop and the payment provider.
+Intro: Set up your PayPal/Stripe keys.
 
 ----
 
 Text:
 
-## Set Stripe/PayPal secrets
+Create a Stripe and/or PayPal account and read the [Stripe](https://docs.stripe.com/keys) and [PayPal](https://developer.paypal.com/api/rest/#link-getclientidandclientsecret) documentation on how to get the keys.
 
-Create a PayPal and/or Stripe account. Read the [Stripe](https://docs.stripe.com/keys) and/or [PayPal](https://developer.paypal.com/api/rest/#link-getclientidandclientsecret) documentation on how to get the keys.
+Each provider gives you two sets, one for testing and one for real payments. Merx wants both, under their own option names, and picks between them by the [`production`](/reference/options/config-options/production) option — see [Testing and production](/guide/configuration/testing-and-production).
 
+### Stripe
+
+- [`stripe.test.publishable_key`](/reference/options/config-options/stripe-test-publishable-key) and [`stripe.live.publishable_key`](/reference/options/config-options/stripe-live-publishable-key) identify your account in the browser. They aren’t secret — the publishable key goes into your checkout template, see [Stripe Elements](/guide/payment-gateways/stripe-elements).
+- [`stripe.test.secret_key`](/reference/options/config-options/stripe-test-secret-key) and [`stripe.live.secret_key`](/reference/options/config-options/stripe-live-secret-key) are what actually charge money. Server only.
+- [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) verifies that a webhook really came from Stripe. There’s only one, so it holds the test secret while you’re testing and the live one afterwards. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
+
+### PayPal
+
+- [`paypal.sandbox.clientID`](/reference/options/config-options/paypal-sandbox-client-id) and [`paypal.live.clientID`](/reference/options/config-options/paypal-live-client-id) identify your PayPal app.
+- [`paypal.sandbox.secret`](/reference/options/config-options/paypal-sandbox-secret) and [`paypal.live.secret`](/reference/options/config-options/paypal-live-secret) go with them. Server only.
+
+## Where to put them
+
+Kirby reads three config files, each overriding the one before it:
+
+```
+/site/config/config.php  →  config.[your-domain].php  →  env.php
+```
+
+`env.php` wins over both others and is meant for exactly this. Keep it out of your repository, put it on each server by hand, and give every environment its own.
 
 <code caption="/site/config/env.php">
 ```php
 <?php
 
 return [
-	'wagnerwagner.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
-	'wagnerwagner.merx.stripe.test.secret_key' => 'sk_test_xxx…',
-	'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
-	'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
-	'wagnerwagner.merx.paypal.sandbox.clientID' => 'xxx…',
-	'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
-	'wagnerwagner.merx.paypal.live.clientID' => 'xxx…',
-	'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
+  'wagnerwagner.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
+  'wagnerwagner.merx.stripe.test.secret_key' => 'sk_test_xxx…',
+  'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
+  'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
+  'wagnerwagner.merx.paypal.sandbox.clientID' => 'xxx…',
+  'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
+  'wagnerwagner.merx.paypal.live.clientID' => 'xxx…',
+  'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
 ];
 ```
 </code>
 
+That way your development machine only ever holds the test and sandbox keys, and the live keys exist on the production server and nowhere else.
 
-We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing only the sandbox/test keys.
+<code caption="/.gitignore">
+```
+/site/config/env.php
+```
+</code>
 
 <callout theme="caution">
-Anyone can use your live mode secret API keys to make any API call on behalf of your account, such as creating a charge or performing a refund. Keep your keys safe.
+Anyone who has your live secret key can charge cards and issue refunds on your account. Never commit it, never send it through a chat or a ticket, and if it does end up somewhere it should not, roll it in the provider’s dashboard rather than hoping nobody noticed.
 </callout>
 
-[Kirby docs: env file](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
+[Kirby docs: multi-environment setup](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
 
 Next, learn how to use these keys to create [Stripe](/guide/payment-gateways/stripe-elements) or [PayPal](/guide/payment-gateways/paypal) payments.
 
 ----
 
 Shortdescription: Set up your PayPal/Stripe keys.
-
-----
-
-Redirect: 0
-
-----
-
-Sections: 
 
 ----
 

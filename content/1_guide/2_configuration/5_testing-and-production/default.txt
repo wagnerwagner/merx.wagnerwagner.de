@@ -12,17 +12,75 @@ Intro: By default Merx is in *testing* mode.
 
 Text:
 
-To switch from testing to production mode, set the [`production`](/reference/options/config-options/production) option to `true`.
+Merx has one switch for the whole shop. While [`production`](/reference/options/config-options/production) is `false`, every payment runs against the test environment of your payment provider and no money moves. Setting it to `true` is what turns the shop into a real one.
 
 <code caption="/site/config/config.php">
 ```php
+<?php
+
 return [
   'wagnerwagner.merx.production' => true,
 ];
 ```
 </code>
 
-When switching to production mode, the *live* keys of the [PayPal/Stripe secrets](/guide/configuration/stripe-paypal-secrets) are used. You’ll also need a valid Merx license and set it as the [`license`](/reference/options/config-options/license) option.
+## What the switch changes
+
+| | testing | production |
+| ---- | ---- | ---- |
+| Stripe secret key | `stripe.test.secret_key` | `stripe.live.secret_key` |
+| PayPal credentials | `paypal.sandbox.*` | `paypal.live.*` |
+| PayPal API | sandbox host | live host |
+| Recorded on the order | `livemode: false` | `livemode: true` |
+| [`$orderPage->paymentProviderUrl()`](/reference/classes/order-page/payment-provider-url) | Stripe test mode, PayPal sandbox | the live dashboards |
+
+Nothing else moves. Blueprints, [pricing rules](/guide/configuration/currencies), [tax rules](/guide/configuration/taxes), hooks and templates behave the same either way, so a shop that works in testing works in production.
+
+<callout theme="caution">
+One key is missing from that table on purpose. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same `production` option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
+</callout>
+
+## Test before you switch
+
+A test payment goes through the same gateway, the same hooks and the same [order page](/guide/getting-started/displaying-order) as a real one. It’s worth running one per gateway you offer.
+
+- **Stripe** takes its [test cards](https://docs.stripe.com/testing) — `4242 4242 4242 4242` with any future expiry succeeds, and there are numbers for declines and for authentication prompts.
+- **PayPal** needs a sandbox account from the [developer dashboard](https://developer.paypal.com/dashboard/applications/sandbox) to pay with. See the [PayPal guide](/guide/payment-gateways/paypal).
+- **Invoice** involves no provider at all, so it behaves identically in both modes.
+
+Check that the order page is written, the order number is what you expect, and your confirmation mail arrives.
+
+## Going live
+
+`production` is the last thing you change, not the first. Before you flip it:
+
+1. Put the live keys on the server, in `/site/config/env.php` — the live Stripe secret and publishable key, the live PayPal client ID and secret. See [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
+2. Set `production` to `true` **on the server only**, so your local install keeps using the test keys.
+3. Create the Stripe webhook again on the live side and replace [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) with the live one. There’s only one of those options, and a test secret rejects every live webhook. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
+4. Set your [`license`](/reference/options/config-options/license) key.
+5. Make sure order pages are not reachable by search engines or listed anywhere. See [Security](/guide/security).
+
+Then buy something from your own shop with a real card, check that it arrives in the Stripe or PayPal dashboard, and refund it.
+
+## License
+
+Merx is commercial software, and a shop in production needs a license. Set it with the [`license`](/reference/options/config-options/license) option and the Panel will show it under the plugin.
+
+<code caption="/site/config/env.php">
+```php
+<?php
+
+return [
+  'wagnerwagner.merx.license' => 'MERX2-XXXXXXX-XXXXXXX',
+];
+```
+</code>
+
+You can [buy a license](/buy) for each domain you run Merx on.
+
+----
+
+Shortdescription: What the production switch changes, how to test a payment before you flip it, and what to do when you go live.
 
 ----
 
