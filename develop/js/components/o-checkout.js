@@ -133,7 +133,7 @@ class OCheckout {
 				},
 			},
 		});
-		paymentElement.mount('.form-checkout__payment-fields');
+		paymentElement.mount('.m-form-checkout__payment-fields');
 	}
 }
 

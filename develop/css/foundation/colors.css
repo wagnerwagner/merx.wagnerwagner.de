@@ -4,6 +4,7 @@
 	/* Color Primitives */
 	--color-white: hsl(0, 0%, 100%);
 	--color-gray-20: hsl(0, 0%, 97.5%);
+	--color-gray-50: hsl(0, 0%, 95%);
 	--color-gray-100: hsl(0, 0%, 92%);
 	--color-gray-150: hsl(0, 0%, 89%);
 	--color-gray-200: hsl(0, 0%, 83%);

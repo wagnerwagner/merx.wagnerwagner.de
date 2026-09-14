@@ -1,0 +1,27 @@
+.m-form-checkout {
+	display: grid;
+	padding: calc(var(--size-500) - var(--border-size-medium));
+	font: var(--font-paragraph-large);
+	border-radius: var(--border-radius-small);
+	border: var(--border-size-medium) solid var(--color-gray-100);
+	background-color: var(--color-gray-50);
+	row-gap: var(--size-600);
+
+	> div {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		row-gap: var(--size-300);
+		column-gap: var(--gap-inline);
+
+		> * {
+			grid-column-end: span 6
+		}
+
+		> *[data-span="2"] {
+			grid-column-end: span 2;
+		}
+		> *[data-span="4"] {
+			grid-column-end: span 4;
+		}
+	}
+}

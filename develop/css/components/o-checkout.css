@@ -9,6 +9,20 @@
 .o-checkout__box {
 	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
 	margin-inline: auto;
-	padding-inline: var(--gap-inline);
+	padding-inline: calc(var(--gap-inline) * 4);
 	border-inline: var(--border-small-tertiary);
+}
+
+.o-checkout__abstract {
+	padding-block: calc(var(--gap-block) * 2);
+	font: var(--font-paragraph-xlarge);
+}
+
+.o-checkout__form {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	column-gap: calc(var(--gap-inline) * 2);
+}
+.o-checkout__cart {
+	grid-row-end: span 2;
 }
