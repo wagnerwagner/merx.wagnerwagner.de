@@ -49,21 +49,13 @@ class ReferenceClassPage extends ReferencePageAbstract
 			$content = $pages->find($slug)?->content()->toArray() ?? [];
 
 			$name = $method->getName();
-			$className = A::last(Str::split($this->class(), '\\'));
-			$reflection = new ReflectionMethod($this->class()->value(), $name);
-
-			$title = (string)$name . '()';
-			if ($reflection->isConstructor()) {
-				$title = 'new ' . $className . '()';
-			} else if ($reflection->isStatic()) {
-				$title = $className . '::' . $title;
-			} else {
-				$objectName = lcfirst($className);
-				$title = '$' . $objectName . '->' . $title;
-			}
 
 			$content = array_merge($content, [
-				'title' => $title,
+				'title' => $this->methodTitle(
+					$name,
+					isStatic: $method->isStatic(),
+					isConstructor: $method->isConstructor(),
+				),
 				'name' => $name,
 			]);
 
@@ -87,6 +79,32 @@ class ReferenceClassPage extends ReferencePageAbstract
 			];
 		}
 
+		// Methods that are handled by `__call()` are invisible to reflection.
+		// They are declared as `@method` tags in the class DocBlock instead.
+		foreach ($this->docBlock()?->getMethodTagValues() ?? [] as $tag) {
+			$slug = Str::kebab($tag->methodName);
+
+			// A real method of the same name is documented already
+			if (in_array($slug, array_column($children, 'slug'), true) === true) {
+				continue;
+			}
+
+			$content = $pages->find($slug)?->content()->toArray() ?? [];
+			$content = array_merge($content, [
+				'title' => $this->methodTitle($tag->methodName, isStatic: $tag->isStatic),
+				'name' => $tag->methodName,
+			]);
+
+			$children[] = [
+				'slug'     => $slug,
+				'model'    => 'reference-class-method',
+				'template' => 'reference-doc',
+				'parent'   => $this,
+				'content'  => $content,
+				'num'      => 1,
+			];
+		}
+
 		// Create the actual class methods as children pages collection
 		return $this->children = Pages::factory($children, $this)->sortBy(
 			'isMagic',
@@ -95,6 +113,28 @@ class ReferenceClassPage extends ReferencePageAbstract
 			'asc',
 			SORT_NATURAL
 		);
+	}
+
+	/**
+	 * Returns how a method of this class is called,
+	 * e.g. `$orderPage->cart()`, `Cart::fromSession()` or `new Cart()`.
+	 */
+	protected function methodTitle(
+		string $name,
+		bool $isStatic = false,
+		bool $isConstructor = false
+	): string {
+		$className = A::last(Str::split($this->class(), '\\'));
+
+		if ($isConstructor === true) {
+			return 'new ' . $className . '()';
+		}
+
+		if ($isStatic === true) {
+			return $className . '::' . $name . '()';
+		}
+
+		return '$' . lcfirst($className) . '->' . $name . '()';
 	}
 
 	public function summary(): ?string

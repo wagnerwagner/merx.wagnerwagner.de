@@ -157,7 +157,8 @@ abstract class ReferencePageAbstract extends Page
 			return null;
 		}
 		$docblock = $reflection->getDocComment();
-		$config = new ParserConfig(usedAttributes: []);
+		// line attributes let `@method` tags be traced back to their source line
+		$config = new ParserConfig(usedAttributes: ['lines' => true]);
 		$lexer = new Lexer($config);
 		$constExpr = new ConstExprParser($config);
 		$type = new TypeParser($config, $constExpr);
