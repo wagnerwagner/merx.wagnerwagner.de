@@ -14,15 +14,15 @@ Text:
 
 Create a Stripe and/or PayPal account and read the [Stripe](https://docs.stripe.com/keys) and [PayPal](https://developer.paypal.com/api/rest/#link-getclientidandclientsecret) documentation on how to get the keys.
 
-Each provider gives you two sets, one for testing and one for real payments. Merx wants both, under their own option names, and picks between them by the [`production`](/reference/options/config-options/production) option — see [Testing and production](/guide/configuration/testing-and-production).
+Each provider gives you two sets of keys, one for testing and one for real payments. Merx knows both under their own option names and picks between them with the [`production`](/reference/options/config-options/production) option, so a server only ever needs the set it actually uses — see [Testing and production](/guide/configuration/testing-and-production).
 
-### Stripe
+## Stripe keys
 
 - [`stripe.test.publishable_key`](/reference/options/config-options/stripe-test-publishable-key) and [`stripe.live.publishable_key`](/reference/options/config-options/stripe-live-publishable-key) identify your account in the browser. They aren’t secret — the publishable key goes into your checkout template, see [Stripe Elements](/guide/payment-gateways/stripe-elements).
 - [`stripe.test.secret_key`](/reference/options/config-options/stripe-test-secret-key) and [`stripe.live.secret_key`](/reference/options/config-options/stripe-live-secret-key) are what actually charge money. Server only.
 - [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) verifies that a webhook really came from Stripe. There’s only one, so it holds the test secret while you’re testing and the live one afterwards. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
 
-### PayPal
+## PayPal keys
 
 - [`paypal.sandbox.clientID`](/reference/options/config-options/paypal-sandbox-client-id) and [`paypal.live.clientID`](/reference/options/config-options/paypal-live-client-id) identify your PayPal app.
 - [`paypal.sandbox.secret`](/reference/options/config-options/paypal-sandbox-secret) and [`paypal.live.secret`](/reference/options/config-options/paypal-live-secret) go with them. Server only.
@@ -37,24 +37,39 @@ Kirby reads three config files, each overriding the one before it:
 
 `env.php` wins over both others and is meant for exactly this. Keep it out of your repository, put it on each server by hand, and give every environment its own.
 
-<code caption="/site/config/env.php">
+<code caption="/site/config/env.php (development machine or test server)">
 ```php
 <?php
 
 return [
   'wagnerwagner.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
   'wagnerwagner.merx.stripe.test.secret_key' => 'sk_test_xxx…',
-  'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
-  'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
+  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_xxx…',
   'wagnerwagner.merx.paypal.sandbox.clientID' => 'xxx…',
   'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
+];
+```
+</code>
+
+<code caption="/site/config/env.php (live server)">
+```php
+<?php
+
+return [
+  'wagnerwagner.merx.production' => true,
+  'wagnerwagner.merx.license' => 'MERX2-XXXXXXX-XXXXXXX',
+  'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
+  'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
+  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_xxx…',
   'wagnerwagner.merx.paypal.live.clientID' => 'xxx…',
   'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
 ];
 ```
 </code>
 
-That way your development machine only ever holds the test and sandbox keys, and the live keys exist on the production server and nowhere else.
+[`production`](/reference/options/config-options/production) belongs in the same file, because a live server with live keys but without it reads the *test* keys — which are not there — and every payment fails. Keeping it here rather than in `config.php` is also what stops your development machine from charging real cards.
+
+The signing secret appears in both, with a different value: there is one option for it, and the webhook you create in Stripe’s test mode has a different secret from the live one.
 
 <code caption="/.gitignore">
 ```
