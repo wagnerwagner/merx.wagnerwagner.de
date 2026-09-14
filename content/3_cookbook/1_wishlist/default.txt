@@ -6,60 +6,120 @@ Headline:
 
 ----
 
-Intro: 
+Intro: A wishlist is a list of products that is not meant to be ordered. Merx’ ProductList class gives you the same list of products as the cart, without the session handling and the checkout of Cart.
 
 ----
 
 Text:
 
-**@TODO**
+[`Cart`](/reference/classes/cart) extends [`ProductList`](/reference/classes/product-list). Both hold the same [`ListItem`](/reference/classes/list-item) objects and share methods like [`total()`](/reference/classes/product-list/total) and [`quantity()`](/reference/classes/cart/quantity). The difference is that `Cart` stores itself in the user’s session and can be ordered, while `ProductList` leaves storage to you. That makes `ProductList` a good starting point for a wishlist.
 
-Using (link: docs/classes/productlist text: `productList`) to create a wishlist.
+## Create a list
+
+<code caption="/site/controllers/wishlist.php">
+```php
+<?php
+
+use Wagnerwagner\Merx\ProductList;
+
+return function () {
+  $wishlist = new ProductList();
+
+  return [
+    'wishlist' => $wishlist,
+  ];
+};
+```
+</code>
+
+## Add products
+
+[`add()`](/reference/classes/product-list/add) takes the id or the UUID of a [product page](/guide/getting-started/adding-products), an array, or a [`ListItem`](/reference/classes/list-item) object.
+
+```php
+// id of a product page
+$wishlist->add('products/nice-shoes');
+
+// UUID of a product page
+$wishlist->add('page://L1cJEiOOQI3VzljV');
+
+// array, to keep your own data alongside the product
+$wishlist->add([
+  'key' => 'nice-shoes',
+  'page' => 'products/nice-shoes',
+  'data' => [
+    'added' => date('c'),
+  ],
+]);
+```
+
+<callout theme="important">
+Merx 1 identified items by `id`. In Merx 2 the identifier is `key`, the product page is `page`, and everything else you want to store on the item belongs in `data`. When you leave out `key`, Merx uses the page’s UUID.
+</callout>
+
+## Store the list
+
+`ProductList` does not persist itself. Assuming you have no user accounts, the user’s session is the simplest place to keep the list. Store it the same way the cart does, with [`toSessionArray()`](/reference/classes/list-item) per item.
+
+<code caption="/site/plugins/wishlist/index.php">
+```php
+<?php
+
+use Wagnerwagner\Merx\ListItem;
+use Wagnerwagner\Merx\ProductList;
+
+function wishlist(): ProductList
+{
+  $data = kirby()->session()->get('wishlist', []);
+
+  return new ProductList($data);
+}
+
+function saveWishlist(ProductList $wishlist): void
+{
+  kirby()->session()->set(
+    'wishlist',
+    $wishlist->toArray(fn (ListItem $item) => $item->toSessionArray()),
+  );
+}
+```
+</code>
+
+Passing the stored array back into `new ProductList()` turns every entry into a `ListItem` object again. Only the page reference is stored, not the price, so prices are read from the product page again on every request. A product that got more expensive while it sat on the wishlist shows its current price.
+
+## Show the list
+
+<code caption="/site/templates/wishlist.php">
+```php
+<?php /** @var \Wagnerwagner\Merx\ProductList $wishlist */ ?>
+<ul>
+  <?php foreach ($wishlist as $item): ?>
+    <li>
+      <a href="<?= $item->page?->url() ?>"><?= $item->title ?></a>
+      <?= $item->price ?>
+      <?php if ($added = $item->data['added'] ?? null): ?>
+        <small>added <?= date('j M Y', strtotime($added)) ?></small>
+      <?php endif ?>
+    </li>
+  <?php endforeach ?>
+</ul>
+<p>Total: <?= $wishlist->total() ?></p>
+```
+</code>
+
+## Move the list into the cart
+
+Because both classes hold the same items, moving a wishlist into the [cart](/reference/classes/cart) is a loop over [`add()`](/reference/classes/cart/add).
+
+```php
+foreach (wishlist() as $item) {
+  $site->cart()->add($item);
+}
+```
 
 ----
 
 Shortdescription: How you can use productList to create a wishlist.
-
-----
-
-Redirect: false
-
-----
-
-Sections:
-
-[
-    {
-        "content": {
-            "title": "Create new list",
-            "abstract": "",
-            "text": "```php\nuse Wagnerwagner\\Merx;\n\n$productList = new ProductList();\n```"
-        },
-        "id": "66a3e0b8-2894-42e7-a119-926c3ba21c4f",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Add product",
-            "abstract": "",
-            "text": "```php\n$productList->append([\n  'id' => 'nice-shoes',\n  'added' => date('c'),\n]);\n```\n\nMake sure `id` is a valid product page id."
-        },
-        "id": "4080d28e-4bcd-424e-ac01-86868c3f2ca9",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Save list",
-            "abstract": "",
-            "text": "You may want to save the users wish list. Let’s assume you don’t have a user management so you have to save the list into the users session.\n\n```php\nkirby()->session()->set('wishlist', $productList->toArray());\n```"
-        },
-        "id": "de12a7ea-279f-45a1-b6fc-68c196f6c41e",
-        "isHidden": false,
-        "type": "section"
-    }
-]
 
 ----
 

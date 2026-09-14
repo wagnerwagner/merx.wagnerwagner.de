@@ -6,53 +6,145 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Shipping costs and discounts are list items with their own type, not product pages. A hook keeps them in sync whenever the cart changes.
 
 ----
 
 Text:
 
-**@TODO**
+Every entry in the cart is a [`ListItem`](/reference/classes/list-item) with a `type`. Products use the default type `product`, and shipping costs and discounts use a type of their own. The allowed types are `credit`, `custom`, `discount`, `product`, `promotion` and `shipping`.
 
-With Merx 1.1 there is a new hook called [`wagnerwagner.merx.cart`](/docs/hooks/cart) which gives you the capability to manipulate the cart. You can add new products (e.g. *Shipping*). You could even change the price of products in the cart with [$cart->updateItem()](docs/classes/cart/updateitem).
+Because shipping is just another list item, it needs no content page and no blueprint. It is part of [`$cart->total()`](/reference/classes/cart/total) like everything else, and [`filterByType()`](/reference/classes/cart/filter-by-type) keeps it out of your product listing.
 
-Find the source code of a full working example on Github:
-[Source Code](https://github.com/wagnerwagner/merx-examples/tree/shipping-costs)
+## Add shipping as a list item
 
-----
+Build the item with [`new ListItem()`](/reference/classes/list-item/__construct) and give it a [`Price`](/reference/classes/price) of its own. A negative price makes it a discount.
 
-Shortdescription: How to use a hook to manipulate the cart.
+```php
+use Wagnerwagner\Merx\ListItem;
+use Wagnerwagner\Merx\Price;
 
-----
+$cart->add(new ListItem(
+  key: 'shipping',
+  title: 'Shipping',
+  price: new Price(price: 7.99, tax: 0.19, currency: $cart->currency()),
+  type: 'shipping',
+));
+```
 
-Redirect: false
+<callout theme="caution">
+Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the `Price`. The cart compares the currency of every incoming item against its own and silently drops a price that does not match, which leaves you with a shipping item that costs nothing.
+</callout>
 
-----
+## Recalculate whenever the cart changes
 
-Sections:
+Shipping and discounts depend on what is in the cart, so they have to be recalculated after every change. Merx 2 has no single cart hook; it has one pair of hooks per operation. Point the three `:after` hooks at the same function.
 
-[
-    {
-        "content": {
-            "title": "Create Products",
-            "abstract": "Shipping Costs or Discounts are handled as own products. It’s up to you how you will output and style these things on the frontend.",
-            "text": "(filename: content/shipping/product.txt)\n\n```\nTitle: Shippping\n\n----\n\nPrice: 7.99\n\n----\n\nTax: 7\n\n```\n\n(filename: content/discount/product.txt)\n\n```\nTitle: Discount\n\n----\n\nPrice: -10\n\n----\n\nTax: 0\n```\n\nYou probably noted that the price of *Discount* is negative. This is possible since Merx&nbsp;1.1. Merx will still check if the whole cart has a negative sum, if so an exception will be thrown."
-        },
-        "id": "9bc4ec2e-4f86-43e1-b09f-11eb68d09732",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Create cart hook",
-            "abstract": "",
-            "text": "Use the [`wagnerwagner.merx.cart`](/docs/hooks/cart) hook to manipulate the user’s cart.\n\nIn this example Shipping is added if the sum of the cart is lower than 50.\nWhen you have five or more Knitted Socks you will get a discount of 10.\n\n(filename: site/config.php)\n\n``` php\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.cart' => function ($cart) {\n      if ($cart->count() > 0) {\n        $cart->remove('shipping');\n        $cart->remove('discount');\n        if ($cart->getSum() < 50) {\n          $cart->add([\n            'id' => 'shipping',\n          ]);\n        }\n        if ($cart->get('knitted-socks')['quantity'] >= 5) {\n          $cart->add([\n            'id' => 'discount',\n          ]);\n        }\n      }\n    }\n  ],\n];\n```"
-        },
-        "id": "642fcf5f-e118-4a44-b247-e4bc1bd131ea",
-        "isHidden": false,
-        "type": "section"
+<callout theme="important">
+Merx 1 had a single `wagnerwagner.merx.cart` hook. It no longer exists. Use [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after) instead, and see the [hooks reference](/reference/options/hooks) for the full list.
+</callout>
+
+The function removes both items first and then adds back whatever currently applies. That keeps it idempotent, so it does not matter how often it runs. The static guard matters: the function changes the cart, which fires the very hooks that call it again.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+use Wagnerwagner\Merx\Cart;
+use Wagnerwagner\Merx\ListItem;
+use Wagnerwagner\Merx\Price;
+
+function updateCartExtras(Cart $cart): void
+{
+  static $isUpdating = false;
+
+  // Adding and removing items fires these hooks again.
+  if ($isUpdating === true) {
+    return;
+  }
+
+  $isUpdating = true;
+
+  $cart->remove('shipping');
+  $cart->remove('discount');
+
+  if ($cart->quantity('product') > 0) {
+    // Free shipping from 50 onwards.
+    if ($cart->total()->toFloat() < 50) {
+      $cart->add(new ListItem(
+        key: 'shipping',
+        title: 'Shipping',
+        price: new Price(price: 7.99, tax: 0.19, currency: $cart->currency()),
+        type: 'shipping',
+      ));
     }
-]
+
+    // 10 off when five or more products are in the cart.
+    if ($cart->quantity('product') >= 5) {
+      $cart->add(new ListItem(
+        key: 'discount',
+        title: 'Discount',
+        price: new Price(price: -10, currency: $cart->currency()),
+        type: 'discount',
+      ));
+    }
+  }
+
+  $isUpdating = false;
+}
+
+return [
+  'hooks' => [
+    'wagnerwagner.merx.cart.add:after' => fn (Cart $cart) => updateCartExtras($cart),
+    'wagnerwagner.merx.cart.remove:after' => fn (Cart $cart) => updateCartExtras($cart),
+    'wagnerwagner.merx.cart.updateItem:after' => fn (Cart $cart) => updateCartExtras($cart),
+  ],
+];
+```
+</code>
+
+Removing the last product empties the cart completely, because `quantity('product')` is then `0` and neither item is added back.
+
+## Keep them out of the product list
+
+[`filterByType()`](/reference/classes/cart/filter-by-type) returns only the items of one type, which is what you want when you render the cart.
+
+<code caption="/site/snippets/cart.php">
+```php
+<?php /** @var \Wagnerwagner\Merx\Cart $cart */ ?>
+<ul>
+  <?php foreach ($cart->filterByType('product') as $item): ?>
+    <li><?= $item->quantity ?> × <?= $item->title ?> <?= $item->total() ?></li>
+  <?php endforeach ?>
+</ul>
+
+<?php foreach ($cart->filterByType('shipping') as $item): ?>
+  <p><?= $item->title ?>: <?= $item->total() ?></p>
+<?php endforeach ?>
+
+<?php foreach ($cart->filterByType('discount') as $item): ?>
+  <p><?= $item->title ?>: <?= $item->total() ?></p>
+<?php endforeach ?>
+
+<p>Total: <?= $cart->total() ?></p>
+```
+</code>
+
+## Discounts and the total
+
+A discount is a list item with a negative price, and Merx does not stop you from discounting more than the cart is worth. It does refuse to order such a cart: [`isOrderable()`](/reference/classes/cart/is-orderable) is `false` as soon as the total is no longer greater than zero. Check it before you send the customer to the checkout.
+
+```php
+<?php if ($cart->isOrderable() === false): ?>
+  <p>This cart cannot be ordered.</p>
+<?php endif ?>
+```
+
+For how tax is applied to a price, see the [taxes](/guide/configuration/taxes) guide.
+
+----
+
+Shortdescription: How to use hooks to add shipping costs and discounts to the cart.
 
 ----
 

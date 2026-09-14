@@ -6,63 +6,171 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Your granny knitted ten pairs of socks, so you cannot sell eleven. Merx caps the quantity per product itself; keeping the actual stock up to date is your part.
 
 ----
 
 Text:
 
-**@TODO**
+Merx already refuses to put more of a product into the cart than [`maxQuantity()`](/reference/classes/product-page/max-quantity) allows. Stock management is therefore two things: telling Merx what the limit is, and reducing it once an order has been paid.
 
-Let’s assume your granny knitted 10 pairs of knitted socks. So you can’t sell 11 pairs. Learn how to manage your inventory.
+## Cap the quantity per product
 
-You can find the source code of a full working example on Github:
-(link: https://github.com/wagnerwagner/merx-examples/tree/stock-management text: Source Code)
+Add a `maxQuantity` field to the product page and Merx enforces it on every [`add()`](/reference/classes/cart/add) and [`updateItem()`](/reference/classes/cart/update-item).
+
+<code caption="/content/products/knitted-socks/product.txt">
+```kirby
+Title: Knitted socks
+
+\----
+
+Price: 14.99
+
+\----
+
+Maxquantity: 10
+```
+</code>
+
+Going over the limit throws with [`error.merx.cart.maxQuantity`](/reference/options/translations/error-merx-cart-maxquantity), which reads *“There are only 10 of “Knitted socks” left.”* — so the API returns a usable message without any work on your side. A `maxQuantity` field on the site applies to every product that does not set its own.
+
+## Drive the cap from your stock
+
+A fixed `maxQuantity` does not shrink as you sell. Keep the real number in a `stock` field instead and let the cap follow it, by overriding [`maxQuantity()`](/reference/classes/product-page/max-quantity) in your own product model.
+
+<code caption="/site/models/product.php">
+```php
+<?php
+
+class ProductPage extends \Wagnerwagner\Merx\ProductPage
+{
+  public function maxQuantity(): ?float
+  {
+    return $this->stock()->isEmpty() ? null : $this->stock()->toFloat();
+  }
+}
+```
+</code>
+
+Returning `null` means *no limit*, so products without a `stock` field stay unrestricted. With three pairs left, adding a fourth now fails with Merx’ own message.
+
+## Check again at checkout
+
+A cart lives in the customer’s session and can sit there for days while stock runs out elsewhere. Check once more before the payment starts, with the [`initializeOrder:before`](/reference/options/hooks/initialize-order-before) hook.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+use Kirby\Exception\Exception;
+use Wagnerwagner\Merx\Cart;
+use Wagnerwagner\Merx\OrderPage;
+use Wagnerwagner\Merx\ProductList;
+
+function checkStock(ProductList $cart): void
+{
+  foreach ($cart->filterByType('product') as $item) {
+    if ($item->page === null) {
+      continue;
+    }
+
+    $stock = $item->page->stock();
+
+    // A product without a stock field is unlimited.
+    if ($stock->isEmpty()) {
+      continue;
+    }
+
+    if ($stock->toFloat() < $item->quantity) {
+      throw new Exception(
+        key: 'stock.insufficient',
+        httpCode: 400,
+        fallback: 'Only {stock} of “{title}” left.',
+        data: [
+          'stock' => $stock->toFloat(),
+          'title' => (string)$item->page->title(),
+        ],
+      );
+    }
+  }
+}
+
+return [
+  'hooks' => [
+    'wagnerwagner.merx.initializeOrder:before' => function (Cart $cart, array $data): void {
+      checkStock($cart);
+    },
+    'wagnerwagner.merx.createOrder:before' => function (OrderPage $virtualOrderPage, array $gateway, array $data): void {
+      checkStock($virtualOrderPage->cart());
+    },
+  ],
+];
+```
+</code>
+
+[`createOrder:before`](/reference/options/hooks/create-order-before) is the second gate. It runs after the customer comes back from the payment provider, which is where the last of a product can disappear between two shoppers.
+
+<callout theme="important">
+Merx 1 used a `completePayment:before` hook and read cart items as arrays, `$cartItem['id']`. Neither exists any more: `completePayment()` has been replaced by [`createOrder()`](/reference/classes/merx/create-order), and [`$orderPage->cart()`](/reference/classes/order-page/cart) returns [`ListItem`](/reference/classes/list-item) objects with `$item->page` and `$item->quantity`.
+</callout>
+
+## Reduce the stock once paid
+
+The [`paymentCompleted`](/reference/options/hooks/payment-completed) hook fires exactly once, when the order flips to paid. That also covers payment methods which confirm hours later through a [Stripe webhook](/guide/configuration/stripe-webhooks), so it is the only place you have to write.
+
+Writing to a page needs permissions the customer does not have, so wrap the update in [`impersonate()`](https://getkirby.com/docs/reference/objects/cms/app/impersonate).
+
+<code caption="/site/config/config.php">
+```php
+'wagnerwagner.merx.paymentCompleted' => function (OrderPage $orderPage): void {
+  kirby()->impersonate('kirby', function () use ($orderPage): void {
+    foreach ($orderPage->cart()->filterByType('product') as $item) {
+      if ($item->page === null || $item->page->stock()->isEmpty()) {
+        continue;
+      }
+
+      $item->page->update([
+        'stock' => $item->page->stock()->toFloat() - $item->quantity,
+      ]);
+    }
+  });
+},
+```
+</code>
+
+## Show the message
+
+The exceptions surface wherever you call Merx. In a checkout controller, catch them and hand the message to your template.
+
+<code caption="/site/controllers/checkout.php">
+```php
+<?php
+
+use Kirby\Exception\Exception;
+
+return function () {
+  $error = null;
+
+  if (kirby()->request()->method() === 'POST') {
+    try {
+      go(merx()->initializeOrder(kirby()->request()->data()));
+    } catch (Exception $ex) {
+      $error = $ex->getMessage(); // e.g. “Only 3 of “Knitted socks” left.”
+    }
+  }
+
+  return compact('error');
+};
+```
+</code>
+
+<callout>
+Reserving stock while a payment is in flight is a different problem, and one Merx does not solve for you. If you sell single items, consider unpublishing the product in `createOrder:before` and publishing it again if the payment fails.
+</callout>
 
 ----
 
 Shortdescription: Learn how to manage inventory.
-
-----
-
-Redirect: false
-
-----
-
-Sections:
-
-[
-    {
-        "content": {
-            "title": "Add stock field to product page",
-            "abstract": "",
-            "text": "(filename: content/knitted-socks/product.txt)\n\n```txt\nTitle: Knitted socks\n----\nPrice: 14.99\n----\nTax: 19\n----\nStock: 10\n```"
-        },
-        "id": "2ff3e15b-92de-4a77-9f85-8bbdb67dd941",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Check if stock is sufficient",
-            "abstract": "Use hooks to throw exception if the stock is not sufficient.",
-            "text": "Check the availability of the products with the (link: docs/hooks#initializeOrderbefore text: `initializeOrder:before`) and (link: docs/hooks#completepaymentbefore text: `completePayment:before`) hooks. For each item in the cart check if the available stock is smaller than the quantity of the cart item. If that’s the case an exception is thrown.\n\nIn this example we use Kirby’s helpful `Exception` class to throw a nice error message.\n\n(filename: site/config/config.php)\n\n```php\n<?php\nuse Kirby\\Exception\\Exception;\n\nfunction checkStock($cart) {\n  foreach($cart as $cartItem) {\n    $cartItemPage = page($cartItem['id']);\n    $availableStock = $cartItemPage->stock()->toInt();\n    if ($availableStock < (int)$cartItem['quantity']) {\n      throw new Exception([\n        'httpCode' => 400,\n        'fallback' => '“{productTitle}” is out of stock',\n        'data' => [\n          'productTitle' => $cartItemPage->title(),\n        ],\n      ]);\n    }\n  }\n}\n\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.initializeOrder:before' => function ($data, $cart) {\n      checkStock($cart);\n    },\n    'wagnerwagner.merx.completePayment:before' => function ($virtualOrderPage) {\n      checkStock($virtualOrderPage->cart());\n    },\n  ],\n];\n```\n\nIt’s up to you were you print the exception / error message. For example you can use a checkout controller like this.\n\n(filename: site/controllers/checkout.php)\n\n``` php\n<?php\nif (kirby()->request()->method() === 'POST') {\n  try {\n    $data = $_POST;\n    $redirect = merx()->initializeOrder($data);\n    go($redirect);\n  } catch (Exception $ex) {\n    echo $ex->getMessage(); // e.g. “Knitted socks” is out of stock.\n  }\n}\n```\n\nMerx comes with a default success template which prints the exceptions of the (link: docs/classes/merx#completepayment text: `completePayment`) method. You can/should use your own success template to handle `completePayment` exceptions.\n\n(filename: site/plugins/merx/templates/success.php)\n\n``` php\n<?php\ntry {\n  $orderPage = merx()->completePayment($_GET);\n  go($orderPage->url());\n} catch (Exception $ex) {\n  echo $ex->getMessage();\n}\n```"
-        },
-        "id": "c6861bef-261d-4398-a5ed-5048ce518488",
-        "isHidden": false,
-        "type": "section"
-    },
-    {
-        "content": {
-            "title": "Update stock",
-            "abstract": "Use the (link: docs/hooks#completepaymentafter text: `completePayment:after`) hook to update the stocks.",
-            "text": "(filename: site/config/config.php)\n\n```php\nreturn [\n  'hooks' => [\n    …\n    'wagnerwagner.merx.completePayment:after' => function ($orderPage) {\n      foreach($orderPage->cart() as $cartItem) {\n        $cartItemPage = page($cartItem['id']);\n        $newStock = $cartItemPage->stock()->toInt() - (int)$cartItem['quantity'];\n        $cartItemPage->update([\n          'stock' => (int)$newStock,\n        ]);\n      }\n    },\n  ],\n];\n```"
-        },
-        "id": "e06eb0a7-9f93-4b16-aab7-4773a5ff8250",
-        "isHidden": false,
-        "type": "section"
-    }
-]
 
 ----
 
