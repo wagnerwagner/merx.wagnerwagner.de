@@ -1,1 +1,0 @@
-Guide: /guide/configuration/stripe-webhooks
