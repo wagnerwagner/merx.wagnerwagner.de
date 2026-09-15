@@ -9,7 +9,9 @@
 		"css": "npx postcss develop/css/*.css --dir public/assets/css -m --env production",
 		"css-dev": "npx postcss develop/css/*.css --dir public/assets/css -m -w --env development",
 		"svg": "./scripts/build-svg-sprite.sh",
-		"build": "npm run css; npm run js-lint; npm run js; npm run svg;"
+		"build": "npm run css; npm run js-lint; npm run js; npm run svg;",
+		"start-local-dev-server": "local-dev-server up",
+		"stop-local-dev-server": "local-dev-server down"
 	},
 	"author": "tobias.wolf@wagnerwagner.de",
 	"devDependencies": {
@@ -22,9 +24,17 @@
 		"eslint": "^8.56.0",
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-plugin-import": "^2.29.1",
+		"local-dev-server": "file:../local-dev-server",
 		"postcss": "^8.4.35",
 		"postcss-cli": "^10.1.0",
 		"postcss-import": "^15.1.0",
 		"postcss-nesting": "^11.3.0"
+	},
+	"config": {
+		"localDevServer": {
+			"domain": "merx.wagnerwagner.test",
+			"php": "8.5",
+			"docroot": "public"
+		}
 	}
 }
