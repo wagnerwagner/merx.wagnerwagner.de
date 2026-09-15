@@ -40,6 +40,10 @@ A list item with a negative price and the type `discount`. It is part of the car
 
 See *payment gateway*.
 
+## Invoice number
+
+Merx numbers an order once, and that number is the *order number*. There is no second numbering and no invoice document — the Panel simply labels the order number “Invoice Number” on an order, and an invoice you generate yourself carries the same number. See [Order number](/guide/configuration/order-number).
+
 ## List item
 
 One line in a cart. A [`ListItem`](/reference/classes/list-item) has a `key`, a `quantity`, a price and a `type` — one of `credit`, `custom`, `discount`, `product`, `promotion` or `shipping`. Most point at a product page, but an item can also carry its own title and price.
