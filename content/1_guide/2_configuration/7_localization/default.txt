@@ -12,11 +12,13 @@ Intro: Merx ships English and German. Everything a customer gets to see can be t
 
 Text:
 
-Merx has three separate pieces that react to language, and they are configured in different places:
+Translating a shop means replacing its words. Localizing it means everything else that changes with where a customer is: how a number is written, which currency a price is in, how much tax is on it. A German customer and an Austrian one read the same German sentences, and still need different prices.
 
-- **Messages** — error messages and Panel labels, from Merx’ [translation strings](/reference/options/translations).
-- **Number formatting** — how `1045.12` becomes `€ 1,045.12` or `1.045,12 €`, from the locale.
-- **Currency** — which currency a price is in at all, from the [pricing rules](/guide/configuration/currencies).
+Merx keeps those apart, and they are set in three different places:
+
+- **Messages** — error messages and Panel labels, from Merx’ [translation strings](/reference/options/translations). This is the translation part.
+- **Number formatting** — how `1045.12` becomes `€ 1,045.12` or `1.045,12 €`, from the locale of the language.
+- **Currency and tax** — which currency a price is in and which rate applies, from the [pricing rules](/guide/configuration/currencies) and [tax rules](/guide/configuration/taxes). Both usually follow the country rather than the language, so they have guides of their own.
 
 ## Messages
 
@@ -107,9 +109,9 @@ Both methods also take a locale as an argument, for the cases where you need a d
 ```
 </code>
 
-## Currency
+## Currency and tax
 
-The currency is **not** taken from the language. It comes from the pricing rule that applies to the request, which is where you decide what a language, a country or anything else should mean for your prices. See [Currencies](/guide/configuration/currencies).
+Neither is taken from the language. The currency comes from the [pricing rule](/guide/configuration/currencies) that applies to the request and the rate from the [tax rule](/guide/configuration/taxes) of the product — and those rules are where you decide what a language, a country or anything else should mean for your prices.
 
 ## Language in API requests
 

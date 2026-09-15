@@ -28,7 +28,15 @@ The [API reference](/reference/api/routes) lists every route with its parameters
 
 There’s no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie.
 
-A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests. A request from another origin has to opt in.
+A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests. 
+
+<code caption="script.js">
+```js
+await fetch('/api/shop/cart');
+```
+</code>
+
+A request from another origin has to opt in.
 
 <code caption="script.js">
 ```js
@@ -37,12 +45,6 @@ await fetch('https://shop.example.com/api/shop/cart', {
 });
 ```
 </code>
-
-## Every route is public
-
-The rest of Kirby’s API requires an authenticated user. The Merx routes do not — a shop visitor is not a Kirby user — so they are registered with `auth: false` and anyone can call them.
-
-Merx guards the data it accepts: it refuses an item that would raise its own `maxQuantity`, and it drops the order fields it sets itself from whatever a client submits. Anything you add on top of that is yours to validate. See the [security guide](/guide/security).
 
 ## Response format
 
