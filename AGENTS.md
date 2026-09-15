@@ -55,6 +55,22 @@ defines Page, Template and Route even though each has a whole guide behind it.
 Keep entries to one to three sentences and let each link onward once. Short and
 complete, not short by omission.
 
+### The shortest path first, extending it last
+
+Order a page by what the reader is trying to do. The plain way of getting
+the thing working comes first, and everything about bending it to your own
+needs comes after — at the end of the page, not woven into the middle.
+
+Somebody arriving at a page wants to be finished with it. Opening with the
+model they could subclass, the option they could override or the edge case
+they could hit makes an easy task read like a hard one, and they have to
+wade through choices before they have anything running. The same material at
+the bottom reads as "and when you need more, here is where to look".
+
+So: page blueprint before your own page model, the default before the
+option, the common case before the exception. `displaying-order` shows the
+shape — template, then snippet, then "Your own order model".
+
 ### Signs a page has drifted
 
 - A table where the rows are implementation details rather than decisions

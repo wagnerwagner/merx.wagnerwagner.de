@@ -40,6 +40,20 @@ Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.c
 A sandbox account only works against the sandbox API, and a live account only against the live one. If a payment fails with `error.merx.paypalError` right after you go live, check that the `paypal.live.*` keys are really live keys.
 </callout>
 
+## When the payment does not complete
+
+**The customer cancels at PayPal.** Merx raises [`error.merx.paymentCanceled`](/reference/options/translations/error-merx-paymentcanceled) and sends them back to your checkout page with the cart still filled.
+
+**PayPal declines the capture.** Merx raises [`error.merx.paypalError`](/reference/options/translations/error-merx-paypalerror) and no order page is written.
+
+**The capture stays pending.** With some funding sources PayPal reports the order as `COMPLETED` but leaves the capture in `PENDING`. Merx writes the order page but does **not** mark it as paid.
+
+<callout theme="caution">
+There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
+</callout>
+
+Merx also refuses a PayPal order that has been captured once already, so a customer who reloads the return URL cannot pay twice or complete somebody else’s order.
+
 ## Change what the customer sees at PayPal
 
 Merx sends your site title as the brand name, `PAY_NOW` so the button says *Pay Now*, and `NO_SHIPPING`, because the address was already collected in your checkout. Override any of them with [`paypal.applicationContext`](/reference/options/config-options/paypal-application-context), which is merged over those defaults.
@@ -78,21 +92,6 @@ What the option returns replaces Merx’ own purchase unit rather than adding to
 <callout theme="caution">
 PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus the discount has to match the amount exactly.
 </callout>
-
-## When the payment does not complete
-
-**The customer cancels at PayPal.** Merx raises [`error.merx.paymentCanceled`](/reference/options/translations/error-merx-paymentcanceled) and sends them back to your checkout page with the cart still filled.
-
-**PayPal declines the capture.** Merx raises [`error.merx.paypalError`](/reference/options/translations/error-merx-paypalerror) and no order page is written.
-
-**The capture stays pending.** With some funding sources PayPal reports the order as `COMPLETED` but leaves the capture in `PENDING`. Merx writes the order page but does **not** mark it as paid.
-
-<callout theme="caution">
-There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
-</callout>
-
-Merx also refuses a PayPal order that has been captured once already, so a customer who reloads the return URL cannot pay twice or complete somebody else’s order.
-
 
 ----
 
