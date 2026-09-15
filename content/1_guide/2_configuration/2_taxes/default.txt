@@ -92,6 +92,35 @@ The tax rate is applied to the price of the product. You can use [`$page->tax()`
 ```
 </code>
 
+## A cart with more than one tax rate
+
+A cart that mixes rates — books at 7 %, everything else at 19 % — has no single rate, and [`$cart->total()`](/reference/classes/cart/total) says so: `tax->rate` is `null` and `tax->price` is the sum of the individual tax amounts.
+
+<code caption="A cart with one book at 7 % and one pair of shoes at 19 %">
+```php
+$cart->total();            // €129.70
+$cart->total()->tax;       // €19.70
+$cart->total()->tax->rate; // null, because the items do not share a rate
+```
+</code>
+
+So anything that prints the rate of a total has to cope with `null`. Use [`$cart->taxRates()`](/reference/classes/cart/tax-rates) for the breakdown instead. It returns one [`Tax`](/reference/classes/tax) per rate, lowest first, each carrying the total tax at that rate — which is what an invoice has to show anyway.
+
+<code caption="/site/snippets/cart.php">
+```php
+<?php foreach ($cart->taxRates() as $tax): ?>
+  <tr>
+    <th colspan="3">incl. <?= $tax->rate() ?> VAT</th>
+    <td><?= $tax ?></td>
+  </tr>
+<?php endforeach ?>
+<!-- incl. 7% VAT   €0.70 -->
+<!-- incl. 19% VAT  €19.00 -->
+```
+</code>
+
+With a single rate the loop runs once, so the same snippet works for both kinds of shop.
+
 ----
 
 Uuid: gsaaq236wrxhtg1y

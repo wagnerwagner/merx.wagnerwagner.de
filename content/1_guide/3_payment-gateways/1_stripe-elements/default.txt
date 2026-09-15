@@ -132,6 +132,10 @@ If you followed [Validate checkout](/guide/getting-started/validate-checkout), r
 ```
 </code>
 
+<callout theme="caution">
+Fetch the client secret when the customer submits, as above, and not earlier. The payment intent is created with the cart total of that moment, and the cart stays editable until the checkout — a secret fetched on page load pays for a cart the customer has since changed. Merx refuses such a payment with [`error.merx.amountMismatch`](/reference/options/translations/error-merx-amountmismatch) rather than shipping goods nobody paid for, so if you do cache the secret, fetch a new one whenever the cart changes.
+</callout>
+
 After completing the payment the customer is redirected to the [order page](/guide/getting-started/displaying-order).
 
 Most payment methods have an immediate payment confirmation. Therefore the `paymentComplete` field of the [`OrderPage`](/reference/classes/order-page) is set to true and the `datePaid` field is set to the current date by the `stripe-elements` gateway in the background.

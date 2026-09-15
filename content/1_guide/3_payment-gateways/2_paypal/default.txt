@@ -59,6 +59,26 @@ return [
 
 Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that carries the session token, and a payment that comes back anywhere else cannot be completed.
 
+## Show the cart at PayPal
+
+By default PayPal shows one line with your site title and the cart total. [`$cart->payPalPurchaseUnits()`](/reference/classes/cart/pay-pal-purchase-units) builds the same order with every item listed instead, which is what the [`paypal.purchaseUnits`](/reference/options/config-options/paypal-purchase-units) option expects.
+
+<code caption="/site/config/config.php">
+```php
+<?php
+
+return [
+  'wagnerwagner.merx.paypal.purchaseUnits' => fn (): array => site()->cart()->payPalPurchaseUnits(),
+];
+```
+</code>
+
+What the option returns replaces Merx’ own purchase unit rather than adding to it — PayPal charges the sum of all units, so returning a second complete one would have the customer approve the total twice. Merx only adds the `custom_id` that binds the order to the payment.
+
+<callout theme="caution">
+PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus the discount has to match the amount exactly.
+</callout>
+
 ## When the payment does not complete
 
 **The customer cancels at PayPal.** Merx raises [`error.merx.paymentCanceled`](/reference/options/translations/error-merx-paymentcanceled) and sends them back to your checkout page with the cart still filled.

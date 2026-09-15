@@ -18,6 +18,8 @@ A gateway is a pair of functions. `initializePayment` starts the payment when th
 
 In `initializePayment` you can set a `redirect` URL. The customer will be sent there. If you don’t set `redirect`, they go to [`/api/shop/success`](/reference/api/routes/shop-success-get) directly, which is what an invoice order does.
 
+Whatever return address you hand your provider has to be [`Merx::returnUrl()`](/reference/classes/merx/return-url). It carries a one-time nonce that ties the return to the checkout that started it — `/api/shop/success` completes a payment on a `GET`, and without that check a link on any page could complete a pending payment of somebody who approved it at the provider but never came back. A return that arrives without the nonce is refused with [`error.merx.invalidReturn`](/reference/options/translations/error-merx-invalidreturn).
+
 <code caption="/site/config/config.php">
 ```php
 <?php
