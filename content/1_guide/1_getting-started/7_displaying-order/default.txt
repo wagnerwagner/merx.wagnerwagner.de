@@ -16,26 +16,6 @@ During the checkout process, a new [`OrderPage`](/reference/classes/order-page) 
 
 The order number is created automatically. By default it’s an incrementing number, and you can replace it with a numbering of your own through the [`orderNumber`](/reference/options/config-options/order-number) option.
 
-## Your own order model
-
-By default an order page uses [`Wagnerwagner\Merx\OrderPage`](/reference/classes/order-page). Extend it in `/site/models/order.php` to give your templates methods of their own — Kirby derives the class name from the file name, so it has to be `OrderPage`.
-
-<code caption="/site/models/order.php">
-```php
-<?php
-
-class OrderPage extends \Wagnerwagner\Merx\OrderPage
-{
-  public function fullName(): string
-  {
-    return trim($this->given_name() . ' ' . $this->family_name());
-  }
-}
-```
-</code>
-
-Kirby loads models after plugins, so yours wins without any registration.
-
 ## Create template
 
 <code caption="/site/templates/order.php">
@@ -96,6 +76,26 @@ To display the summary of the items ordered, you can use a [snippet](https://get
 </table>
 ```
 </code>
+
+## Your own order model
+
+By default an order page uses [`Wagnerwagner\Merx\OrderPage`](/reference/classes/order-page). Extend it in `/site/models/order.php` to give your templates methods of their own — Kirby derives the class name from the file name, so it has to be `OrderPage`.
+
+<code caption="/site/models/order.php">
+```php
+<?php
+
+class OrderPage extends \Wagnerwagner\Merx\OrderPage
+{
+  public function fullName(): string
+  {
+    return trim($this->given_name() . ' ' . $this->family_name());
+  }
+}
+```
+</code>
+
+Kirby loads models after plugins, so yours wins without any registration.
 
 ----
 
