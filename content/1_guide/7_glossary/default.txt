@@ -42,7 +42,7 @@ See *payment gateway*.
 
 ## Invoice number
 
-Merx numbers an order once, and that number is the *order number*. There is no second numbering and no invoice document — the Panel simply labels the order number “Invoice Number” on an order, and an invoice you generate yourself carries the same number. See [Order number](/guide/configuration/order-number).
+Merx numbers an order once, and that number is the *order number*. There is no separate invoice numbering and no invoice document, so an invoice you generate yourself carries the order number. See [Order number](/guide/configuration/order-number).
 
 ## List item
 
