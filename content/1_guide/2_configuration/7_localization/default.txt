@@ -12,9 +12,9 @@ Intro: Merx ships English and German. Everything a customer gets to see can be t
 
 Text:
 
-Translating a shop means replacing its words. Localizing it means everything else that changes with where a customer is: how a number is written, which currency a price is in, how much tax is on it. A German customer and an Austrian one read the same German sentences, and still need different prices.
+Translating a shop means replacing its words. Localizing it means everything else that changes with where a customer is: how a number is written, which currency a price is in, how much tax is on it. A German customer and an Austrian one read the same German sentences, and still need different prices and different tax.
 
-Merx keeps those apart, and they are set in three different places:
+Merx keeps those apart, and they’re set in three different places:
 
 - **Messages** — error messages and Panel labels, from Merx’ [translation strings](/reference/options/translations). This is the translation part.
 - **Number formatting** — how `1045.12` becomes `€ 1,045.12` or `1.045,12 €`, from the locale of the language.
@@ -24,7 +24,7 @@ Merx keeps those apart, and they are set in three different places:
 
 Merx ships `en` and `de`. Every string is listed in the [translations reference](/reference/options/translations), together with what it says in both languages.
 
-The `error.merx.*` strings are the ones your customers see: they are the messages behind the errors the [API](/guide/api/concept) returns when an item cannot be added or the checkout form does not validate. The `field.*`, `page.*`, `section.*` and `tab.*` strings only appear in the Panel.
+The `error.merx.*` strings are the ones your customers see: they’re the messages behind the errors the [API](/guide/api/concept) returns when an item can’t be added or the checkout form doesn’t validate. The `field.*`, `page.*`, `section.*` and `tab.*` strings only appear in the Panel.
 
 ### Overriding a string
 
@@ -127,7 +127,7 @@ const response = await fetch('/api/shop/cart', {
 ```
 </code>
 
-Without it, Merx answers in the default language — which means a customer can end up with an error message in a language they are not browsing in.
+Without it, Merx answers in Kirby’s fallback language (English) — which means a customer can end up with an error message in a language they aren’t browsing in.
 
 ----
 

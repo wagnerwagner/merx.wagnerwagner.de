@@ -54,6 +54,7 @@ customElements.define('my-cart', class extends HTMLElement {
           `).join('')}
         </ul>
         <p>Total: ${this.data.total?.price ?? ''}</p>
+        ${this.data.checkout ? `<a href="${this.data.checkout.url}">${this.data.checkout.title}</a>` : ''}
       `}
     `;
   }
@@ -63,7 +64,7 @@ customElements.define('my-cart', class extends HTMLElement {
 
 Add the `<my-cart>` element to the header of your page.
 
-A product without a price returns `null` instead of a price object — that’s what `isFromPrice` on the cart tells you about. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
+A product without a price returns `null` instead of a price object — that’s what `isFromPrice` on the cart tells you about. `checkout` is `null` until a page with the checkout template exists, which is the [next step](/guide/getting-started/create-checkout), so the link is only rendered once there is one. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 
 ----
 

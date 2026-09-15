@@ -28,6 +28,10 @@ A code a customer enters to get a discount. Merx has no coupon feature — you c
 
 A three-letter ISO code such as `EUR`, carried by every [`Price`](/reference/classes/price). It comes from the pricing rule that applies to the request, not from the language. See [Currencies](/guide/configuration/currencies).
 
+## Customer
+
+Somebody who is ordering or has ordered. This documentation switches to the word at the checkout: before that a *visitor* has a cart, from the checkout on a customer has an order.
+
 ## Discount
 
 A list item with a negative price and the type `discount`. It is part of the cart total like any other item, which is why discounts need no special handling. See [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts).
@@ -90,9 +94,17 @@ A complete example shop with commented blueprints, templates, JavaScript and CSS
 
 A rule in the [`taxRules`](/reference/options/config-options/tax-rules) option that returns a tax rate as a float, for example `0.19`. Each product names the tax rule that applies to it. See [Taxes](/guide/configuration/taxes).
 
+## User
+
+A Kirby account, and only that — somebody who logs into the Panel. Shoppers are never users: they are *visitors* and *customers*. The distinction matters because `$kirby->user()` is a Panel account and is `null` for everybody in your shop.
+
 ## Virtual order page
 
 An order page that does not exist on disk yet. Merx builds it when the checkout is submitted and keeps it in the session while the customer is at the payment provider; only a completed payment turns it into a real page. It is what a [custom payment gateway](/guide/payment-gateways/custom-payment-gateway) receives.
+
+## Visitor
+
+Somebody browsing the shop, with or without a cart. They have no account and are identified only by their session cookie. They become a *customer* when they order.
 
 ## Wishlist
 
