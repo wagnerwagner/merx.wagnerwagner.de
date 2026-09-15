@@ -100,7 +100,9 @@ abstract class ReferencePageAbstract extends Page
 		if (option('nova-links') === true) {
 			$absoluteFilePath = $this->absoluteFilePath();
 			if ($absoluteFilePath !== null) {
-				// return 'cursor://file/' . $absoluteFilePath . ':' . $line ?? 1;
+				if ($projectPath = option('project.path')) {
+					$absoluteFilePath = Str::replace($absoluteFilePath, '/var/www/html/', $projectPath);
+				}
 				return 'nova://open?path=' . $absoluteFilePath . '&line=' . $line ?? 1;
 			}
 		}
