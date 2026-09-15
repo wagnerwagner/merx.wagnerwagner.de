@@ -2,7 +2,7 @@ Title: Panel blueprints
 
 ----
 
-Shortdescription: 
+Shortdescription: The Panel blueprints Merx ships, to use as they are or to extend.
 
 ----
 

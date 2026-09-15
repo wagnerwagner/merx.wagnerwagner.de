@@ -3,3 +3,7 @@ Title: Site methods
 ----
 
 Uuid: w6dmqunpv1opjavj
+
+----
+
+Shortdescription: Methods Merx adds to the `$site` object.

@@ -1,0 +1,1 @@
+Shortdescription: Structure field for one price per pricing rule.

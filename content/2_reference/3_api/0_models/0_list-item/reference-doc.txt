@@ -1,0 +1,1 @@
+Shortdescription: How a single cart line is rendered by the API: key, title, quantity, price and your own data.

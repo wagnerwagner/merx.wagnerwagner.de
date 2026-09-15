@@ -26,6 +26,11 @@ class ReferenceTranslationsPage extends ReferencePageAbstract
 				'content' => [
 					'title' => $key,
 					'key' => $key,
+					// The English string is the description: it says what the
+					// message reads, which is what someone looking up the key
+					// wants to know. `summary()` stays empty so the page itself
+					// does not repeat what its translation table already shows.
+					'shortdescription' => $value,
 				],
 			];
 		}

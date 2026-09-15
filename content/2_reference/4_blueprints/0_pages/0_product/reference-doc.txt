@@ -1,0 +1,1 @@
+Shortdescription: Page blueprint for a product, with its price and tax rule.

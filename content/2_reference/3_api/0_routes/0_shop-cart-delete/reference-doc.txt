@@ -1,0 +1,1 @@
+Shortdescription: Removes an item from the cart.

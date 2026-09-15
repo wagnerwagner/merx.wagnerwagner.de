@@ -1,0 +1,1 @@
+Shortdescription: Page blueprint for the checkout page.

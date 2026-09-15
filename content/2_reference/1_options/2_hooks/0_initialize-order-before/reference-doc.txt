@@ -1,0 +1,1 @@
+Shortdescription: Runs when the checkout is submitted, before the data is validated. The last point at which you can refuse an order.

@@ -3,3 +3,7 @@ Title: Translations
 ----
 
 Uuid: PxaQaxA6U8TUm5Go
+
+----
+
+Shortdescription: Every string Merx can show, in English and German. Override them to change the wording or add a language.

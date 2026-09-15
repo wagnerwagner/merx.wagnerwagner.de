@@ -31,3 +31,7 @@ Customers can now start the payment flow in one browser (e.g. Instagram in-app b
 ----
 
 Uuid: sfagd7nqmatkir07
+
+----
+
+Shortdescription: What is new in Merx 2.

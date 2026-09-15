@@ -1,0 +1,1 @@
+Shortdescription: Runs once an item has been removed and the cart has been saved.

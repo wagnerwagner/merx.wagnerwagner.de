@@ -1,1 +1,5 @@
 Guide: /guide/configuration/testing-and-production
+
+----
+
+Shortdescription: Whether the shop uses the live keys of your payment providers.

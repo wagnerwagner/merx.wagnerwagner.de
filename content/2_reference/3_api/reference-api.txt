@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Shortdescription: 
+Shortdescription: The JSON API the cart and the checkout are driven through.
 
 ----
 

@@ -1,0 +1,1 @@
+Shortdescription: How a cart is rendered by the API: its products, totals, tax rates and checkout page.

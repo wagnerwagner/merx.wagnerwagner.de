@@ -6,8 +6,7 @@ Headline:
 
 ----
 
-Intro: 
-
+Intro: What changed between Merx 1 and Merx 2, and what you have to rewrite.
 ----
 
 Text:
@@ -128,6 +127,10 @@ Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `id
 ## Merx messages
 
 `Merx::setMessage()` and `Merx::getMessage()` are no longer available.
+
+----
+
+Shortdescription: What changed between Merx 1 and Merx 2, and what you have to rewrite.
 
 ----
 

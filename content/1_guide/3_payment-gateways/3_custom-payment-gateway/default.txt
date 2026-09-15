@@ -6,8 +6,7 @@ Headline:
 
 ----
 
-Intro: 
-
+Intro: Connect a payment provider Merx does not ship with.
 ----
 
 Text:
@@ -65,6 +64,10 @@ Be careful. `$virtualOrderPage` is just virtual and not yet written to the conte
 <callout theme="caution">
 Build the payment record with [`PaymentDetails::create()`](/reference/classes/payment-details/create) instead of storing your provider’s response as it is. A raw response carries the customer’s name, email and address, and order pages are plain content files.
 </callout>
+
+----
+
+Shortdescription: Connect a payment provider Merx does not ship with.
 
 ----
 

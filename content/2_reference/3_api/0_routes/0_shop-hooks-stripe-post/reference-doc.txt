@@ -1,1 +1,5 @@
 Guide: /guide/configuration/stripe-webhooks
+
+----
+
+Shortdescription: Receives Stripe webhooks and marks delayed payments as paid.

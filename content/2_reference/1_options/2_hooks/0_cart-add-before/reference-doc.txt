@@ -1,0 +1,1 @@
+Shortdescription: Runs before an item is added to the cart. The item is still whatever the caller passed.

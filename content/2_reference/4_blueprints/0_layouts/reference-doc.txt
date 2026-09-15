@@ -1,0 +1,1 @@
+Shortdescription: Blueprint layouts you can extend in your own page blueprints.

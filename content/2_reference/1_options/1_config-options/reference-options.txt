@@ -3,3 +3,7 @@ Title: Config options
 ----
 
 Uuid: 5pbe4ptimuwxhmr8
+
+----
+
+Shortdescription: Everything Merx reads from your config file, with its default value and type.

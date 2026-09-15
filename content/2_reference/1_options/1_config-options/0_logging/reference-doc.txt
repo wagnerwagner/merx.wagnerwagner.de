@@ -1,0 +1,1 @@
+Shortdescription: Whether Merx writes errors to Kirby’s log directory.

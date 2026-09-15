@@ -1,1 +1,5 @@
 Guide: /guide/configuration/currencies
+
+----
+
+Shortdescription: Which currency and which price a request gets.

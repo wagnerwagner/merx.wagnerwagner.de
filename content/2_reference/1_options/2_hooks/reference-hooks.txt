@@ -3,3 +3,7 @@ Title: Hooks
 ----
 
 Uuid: yhIQU3K8eTbdmO2Z
+
+----
+
+Shortdescription: The points in the cart and checkout where Merx lets you run your own code.

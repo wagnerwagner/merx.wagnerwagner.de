@@ -1,1 +1,5 @@
 Guide: /guide/configuration/stripe-paypal-secrets
+
+----
+
+Shortdescription: PayPal secret used once the shop is in production. Server only.

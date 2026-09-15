@@ -1,0 +1,1 @@
+Shortdescription: Your Merx license key. The Panel shows it under the plugin.

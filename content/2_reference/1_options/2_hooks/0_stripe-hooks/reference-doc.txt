@@ -1,0 +1,5 @@
+Guide: /guide/configuration/stripe-webhooks
+
+----
+
+Shortdescription: Runs for every Stripe webhook event Merx does not handle itself.

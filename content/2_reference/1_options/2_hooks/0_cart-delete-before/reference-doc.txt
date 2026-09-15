@@ -1,0 +1,1 @@
+Shortdescription: Runs before the whole cart is dropped from the session.

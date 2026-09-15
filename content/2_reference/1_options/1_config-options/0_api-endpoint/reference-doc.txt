@@ -1,0 +1,1 @@
+Shortdescription: Path segment the Merx API routes live under, below Kirby’s own `/api`.

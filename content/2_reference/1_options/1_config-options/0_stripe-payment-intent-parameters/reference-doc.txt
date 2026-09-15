@@ -1,0 +1,1 @@
+Shortdescription: Passed to Stripe when the payment intent is created, for example to limit the payment methods offered.

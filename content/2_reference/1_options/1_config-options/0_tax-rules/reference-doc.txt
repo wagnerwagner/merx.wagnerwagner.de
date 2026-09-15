@@ -1,1 +1,5 @@
 Guide: /guide/configuration/taxes
+
+----
+
+Shortdescription: The tax rate that applies to a product.

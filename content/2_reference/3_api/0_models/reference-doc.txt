@@ -1,0 +1,1 @@
+Shortdescription: How Merx’ objects are turned into JSON, and which fields you can ask for.

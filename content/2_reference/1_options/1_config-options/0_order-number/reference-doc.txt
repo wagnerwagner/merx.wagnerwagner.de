@@ -1,1 +1,5 @@
 Guide: /guide/configuration/order-number
+
+----
+
+Shortdescription: Builds the number each order page is titled with.

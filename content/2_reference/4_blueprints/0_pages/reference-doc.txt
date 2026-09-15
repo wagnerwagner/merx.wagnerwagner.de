@@ -1,0 +1,1 @@
+Shortdescription: Page blueprints for products, the checkout and orders.

@@ -1,0 +1,1 @@
+Shortdescription: How a tax amount is rendered by the API: the amount and the rate it came from.

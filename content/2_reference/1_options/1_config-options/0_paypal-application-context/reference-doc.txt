@@ -1,0 +1,1 @@
+Shortdescription: What the customer sees at PayPal: brand name, locale, whether PayPal asks for an address.

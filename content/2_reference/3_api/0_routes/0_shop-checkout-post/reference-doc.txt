@@ -1,0 +1,5 @@
+Guide: /guide/getting-started/create-checkout
+
+----
+
+Shortdescription: Validates the submitted data and starts the payment.

@@ -1,1 +1,5 @@
 Guide: /guide/configuration/stripe-paypal-secrets
+
+----
+
+Shortdescription: PayPal client ID used while the shop is in testing.
