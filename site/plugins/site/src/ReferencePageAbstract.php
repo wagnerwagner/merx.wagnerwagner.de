@@ -23,6 +23,24 @@ use PHPStan\PhpDocParser\ParserConfig;
 abstract class ReferencePageAbstract extends Page
 {
 	/**
+	 * One line saying what this reference is about, shown above the page and
+	 * used as its description in `llms.txt`.
+	 *
+	 * References which reflect a DocBlock override this with the summary they
+	 * find there. The rest carry it as content: written by hand for options,
+	 * hooks, routes and blueprints, set by the model for the generated ones.
+	 *
+	 * Returning `null` rather than the empty field keeps the `is_string()`
+	 * checks in `Llms` and `o-reference.php` working.
+	 */
+	public function summary(): ?string
+	{
+		$summary = $this->content()->get('shortdescription')->value();
+
+		return empty($summary) === true ? null : $summary;
+	}
+
+	/**
 	 * Returns the reflection object for this reference, or null if not applicable.
 	 */
 	public function reflection(): ?Reflector

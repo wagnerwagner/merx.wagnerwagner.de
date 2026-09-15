@@ -4,6 +4,16 @@ use Wagnerwagner\Site\ReferencePageAbstract;
 
 class ReferenceTranslationPage extends ReferencePageAbstract
 {
+	/**
+	 * The translation table below lists the string in every language, so
+	 * repeating the English one above it would say the same thing twice. It
+	 * stays the page’s description in `llms.txt`, where there is no table.
+	 */
+	public function summary(): ?string
+	{
+		return null;
+	}
+
 	public function translationStrings(): array
 	{
 		$translationKey = $this->key()->value();
