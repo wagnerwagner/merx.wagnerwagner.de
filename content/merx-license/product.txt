@@ -2,15 +2,11 @@ Title: Merx License
 
 ----
 
-Price: 105.91
+Price: 279
 
 ----
 
-Tax: 19
-
-----
-
-Priceisnet: true
+Taxrule: default
 
 ----
 
