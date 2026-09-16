@@ -11,7 +11,11 @@ Intro: What changed between Merx 1 and Merx 2, and what you have to rewrite.
 
 Text:
 
-## Update order page model
+Merx 2 renames a lot and moves a few things to a different place entirely. Work through the sections below in order; each one is independent.
+
+## Order page model
+
+The abstract model is gone. Extend the class instead.
 
 <code caption="/site/models/order.php (Merx 1)">
 ```php
@@ -27,36 +31,64 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 ```
 </code>
 
+## Options
 
-## Name changes
-
-### Options and hooks namespace
+Every option moved namespace.
 
 `ww.merx.[name]` → [`wagnerwagner.merx.[name]`](/reference/options)
 
-### hooks
+Three are gone. `currency` and `currencySymbol` are replaced by [pricing rules](/guide/configuration/currencies), which set the currency per rule instead of once for the whole shop. `successPage` is replaced by the [API](/guide/api/concept) — see *The success page* below.
+
+Everything else is new, including [`license`](/reference/options/config-options/license), which a production shop needs. The [config options reference](/reference/options/config-options) lists them all.
+
+## Products
+
+A product carried its tax rate as a percentage. It now names a tax rule, and the rate lives in the config.
+
+<code caption="/content/products/1_bike/product.txt (Merx 1)">
+```kirby
+Price: 2000
+
+\----
+
+Tax: 19
+```
+</code>
+
+<code caption="/content/products/1_bike/product.txt (Merx 2)">
+```kirby
+Price: 2000
+
+\----
+
+Taxrule: default
+```
+</code>
+
+The rule itself goes into [`taxRules`](/reference/options/config-options/tax-rules). See [Taxes](/guide/configuration/taxes).
+
+## Hooks
 
 `initializePayment:before` → [`initializeOrder:before`](/reference/options/hooks/initialize-order-before)
 `initializePayment:after` → [`initializeOrder:after`](/reference/options/hooks/initialize-order-after)
 `completePayment:before` → [`createOrder:before`](/reference/options/hooks/create-order-before)
 `completePayment:after` → [`createOrder:after`](/reference/options/hooks/create-order-after)
 
-The single `wagnerwagner.merx.cart` hook is gone. There is now one pair of hooks per cart operation, so a function that used to run on every cart change has to be registered on each of them.
+The single `ww.merx.cart` hook is gone. It fired whenever a cart was built; there is now one pair of hooks per operation.
 
 `cart` → [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after)
 
 Apart from that, there are many more [new hooks](/reference/options/hooks).
 
-### Merx methods
+## Merx methods
 
 `Merx::initializePayment` → [`Merx::initializeOrder`](/reference/classes/merx/initialize-order)
-`Merx::completePayment ` → [`Merx::createOrder`](/reference/classes/merx/create-order)
+`Merx::completePayment` → [`Merx::createOrder`](/reference/classes/merx/create-order)
+`Merx::formatPrice` → [`Merx::formatCurrency`](/reference/classes/merx/format-currency)
 
-### formatPrice()
+`Merx::calculateNet`, `Merx::getFieldError`, `Merx::setMessage` and `Merx::getMessage` are gone without a replacement. Net prices are part of [`Price`](/reference/classes/price) now, and field errors come back from the [checkout endpoint](/reference/api/routes/shop-checkout-post) as JSON.
 
-`formatPrice` or `Merx::formatPrice` → [`Merx::formatCurrency`](/reference/classes/merx/format-currency)
-
-You can create your own helper function.
+`formatCurrency` takes a currency, where `formatPrice` used the global option. You can wrap it.
 
 <code caption="/site/config/config.php">
 ```php
@@ -69,27 +101,19 @@ if (!function_exists('formatPrice')) {
 ```
 </code>
 
-### $cart->getTaxRates()
+## Cart and items
 
-`$cart->getTaxRates()` → [`$cart->taxRates()`](/reference/classes/list-items/tax-rates)
+`$cart->append()` → [`$cart->add()`](/reference/classes/cart/add)
+`$cart->update([…])` → [`$cart->updateItem($key, […])`](/reference/classes/cart/update-item), one item at a time
+`$cart->getSum()` → [`$cart->total()`](/reference/classes/cart/total)
+`$cart->getTax()` → `$cart->total()->tax`
+`$cart->getTaxRates()` → [`$cart->taxRates()`](/reference/classes/cart/tax-rates)
 
-### $orderPage->invoiceDate()
-
-`$orderPage->invoiceDate()` → `$orderPage->dateCreated()`
-
-### $orderPage->paidDate()
-
-`$orderPage->paidDate()` → `$orderPage->datePaid()`
-
-### $orderPage->invoiceNumber()
-
-`$orderPage->invoiceNumber()` → `$orderPage->orderNumber()`
-
-## Cart items
+`getFormattedItems()` is gone. Items format themselves — see *Reading cart items* below.
 
 ### Adding to the cart
 
-`$cart->add()` took an `id` plus arbitrary keys at the top level. It now accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else, so any other key fails with `Unknown named parameter`.
+`add()` took an `id` plus arbitrary keys at the top level. It now accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else, so any other key fails with `Unknown named parameter`.
 
 The identifier is `key` instead of `id`, the product page is `page`, and your own attributes belong in `data`. Leaving out `key` makes Merx use the page’s UUID.
 
@@ -120,13 +144,36 @@ Cart items were arrays. They are [`ListItem`](/reference/classes/list-item) obje
 `$cartItem['quantity']` → `$item->quantity`
 `$cartItem['price']` → `$item->price`
 
+## Order page
+
+`$orderPage->invoiceNumber()` → [`$orderPage->orderNumber()`](/reference/options/config-options/order-number)
+`$orderPage->invoiceDate()` → `$orderPage->dateCreated()`
+`$orderPage->payedDate()` and `paidDate()` → `$orderPage->datePaid()`
+`$orderPage->formattedSum()` → [`$orderPage->total()`](/reference/classes/order-page/total)
+
+The order number is stored on the page now. Merx 1 derived it from the page’s sorting number, so it changed when the order was re-sorted. You can replace how it is built with the [`orderNumber`](/reference/options/config-options/order-number) option.
+
+## The success page
+
+Merx 1 created a virtual success page and sent the customer there. There is none in Merx 2.
+
+The provider returns the customer to [`/api/shop/success`](/reference/api/routes/shop-success-get), which completes the payment, writes the order page and redirects to it. Delete the `successPage` option and the template that went with it.
+
+## Error messages
+
+Three translation keys were renamed along with the methods.
+
+`error.merx.initializePayment` → [`error.merx.initializeOrder`](/reference/options/translations/error-merx-initializeorder)
+`error.merx.completePayment` → [`error.merx.createOrder`](/reference/options/translations/error-merx-createorder)
+`error.merx.noPaymentMethod` → [`error.merx.noPaymentGateway`](/reference/options/translations/error-merx-nopaymentgateway)
+
+If you overrode any of them, the [translations reference](/reference/options/translations) lists every string Merx ships today.
+
 ## Payment methods and gateways
 
 Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-gateways/stripe-elements).
 
-## Merx messages
-
-`Merx::setMessage()` and `Merx::getMessage()` are no longer available.
+The field that selects one is `paymentGateway`, not `paymentMethod`.
 
 ----
 
