@@ -161,7 +161,7 @@ Merx does not migrate the orders you already have. Rename their fields yourself,
 `Paiddate` → `Datepaid`
 `Paymentmethod` → `Paymentgateway`
 
-Every entry in `Items` needs a `page` and a `type`, where Merx 1 wrote `id` and `template`. For anything you sell, the type is `product`.
+Every entry in `Items` needs a `type` — `product` for anything you sell. Merx 1 wrote `template` instead.
 
 And because the order number is a field now, an order without `Ordernumber` stays untitled.
 
