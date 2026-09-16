@@ -153,6 +153,16 @@ Cart items were arrays. They are [`ListItem`](/reference/classes/list-item) obje
 
 The order number is stored on the page now. Merx 1 derived it from the page’s sorting number, so it changed when the order was re-sorted. You can replace how it is built with the [`orderNumber`](/reference/options/config-options/order-number) option.
 
+### Existing orders
+
+Merx does not migrate the orders you already have. Rename their fields yourself, or leave them as they are if you only keep them for the record.
+
+`Invoicedate` → `Datecreated`
+`Paiddate` → `Datepaid`
+`Paymentmethod` → `Paymentgateway`
+
+Every entry in `Items` needs a `key` and a `page` where Merx 1 wrote a single `id`. And because the order number is a field now, an order without `Ordernumber` stays untitled.
+
 ## The success page
 
 Merx 1 created a virtual success page and sent the customer there. There is none in Merx 2.
