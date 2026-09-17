@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="<?= hashedUrl('assets/css/index.css') ?>">
 		<script src="<?= hashedUrl('assets/js/index.js') ?>" defer></script>
 		<?php if ($page->intendedTemplate()->name() === 'checkout'): ?>
-			<script src="https://js.stripe.com/clover/stripe.js"></script>
+			<script src="https://js.stripe.com/dahlia/stripe.js"></script>
 		<?php endif ?>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<?php if (in_array($page->intendedTemplate()->name(), ['order'])): ?>

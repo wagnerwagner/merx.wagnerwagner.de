@@ -17,18 +17,17 @@ return [
 	],
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
-			'rule' => function (?App $kirby): float {
+			'rule' => function (?App $kirby): ?float {
 				$region = $kirby->session()->get('region');
 				if (strtolower($region) === 'de') {
 					return 0.19;
 				}
-				return 0;
+				return null;
 			},
 		],
 	],
 	'wagnerwagner.merx.stripe.paymentIntentParameters' => [
-		'payment_method_types' => ['card', 'ideal'],
-		'automatic_payment_methods' => ['enabled' => false],
+		'automatic_payment_methods' => null,
 		'capture_method' => 'automatic_async',
 		'payment_method_options' => [
 			'card' => ['capture_method' => 'manual'],

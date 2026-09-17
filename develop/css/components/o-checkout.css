@@ -11,6 +11,7 @@
 	margin-inline: auto;
 	padding-inline: calc(var(--gap-inline) * 4);
 	border-inline: var(--border-small-tertiary);
+	padding-block-end: var(--size-900);
 }
 
 .o-checkout__abstract {

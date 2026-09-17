@@ -1,6 +1,64 @@
 /** @typedef {import('@stripe/stripe-js').Stripe} Stripe */
 
 class OCheckout {
+	stripeElementsAppearance = {
+		"theme": "flat",
+		"labels": "above",
+		"disableAnimations": true,
+		"variables": {
+			"fontFamily": "'TT Norms M', 'TT Norms', Avenir, sans-serif",
+			"borderRadius": "2px",
+			"inputColorBorder": "hsl(0, 0%, 33%)",
+			"tabLogoSelectedColor": "dark",
+			"colorBackground": "#fff",
+			"fontSizeSm": "1rem",
+			"fontSizeLg": "1.125rem",
+			"fontSizeXl": "1.4375rem",
+			"fontLineHeight": "1.25",
+			"fontWeightMedium": "500",
+			"fontSize2Xl": "1.4375rem",
+			"fontSize2Xs": "0.75rem",
+			"fontWeightNormal": "450",
+			"colorText": "hsl(0, 0%, 13%)",
+			"colorPrimary": "hsl(0, 0%, 13%)",
+			"colorDanger": "hsl(0, 60%, 60%)",
+			"colorSuccess": "hsl(103, 64%, 22%)",
+			"colorWarning": "hsl(60, 80%, 60%)",
+			"colorTextSecondary": "hsl(0, 0%, 40%)",
+			"colorTextPlaceholder": "hsl(0, 0%, 60%)",
+			"iconColor": "var(--colorPrimary)",
+			"gridColumnSpacing": "1.25rem",
+			"gridRowSpacing": "0.75rem",
+			"accordionItemSpacing": "0.75rem",
+		},
+		"rules": {
+			".Input": {
+				"border": "1px solid hsl(0, 0%, 60%)",
+				"padding": "0.5rem 0.4375rem",
+			},
+			".Tab--selected, .Tab--selected:focus": {
+				"border": "none",
+				"boxShadow": "none",
+			},
+			".Tab:focus": {
+				"boxShadow": "none",
+				"outline": "2px solid Highlight",
+				"outlineOffset": "2px",
+			},
+			".Input:focus": {
+				"boxShadow": "none",
+				"outline": "2px solid Highlight",
+				"outlineOffset": "2px",
+			},
+			".Tab": {
+				"padding": "0.5rem 0.75rem",
+			},
+			".TabLabel": {
+				"paddingTop": "0.5rem",
+			},
+		},
+	}
+
 	/** @param {HTMLElement} element */
 	constructor(element) {
 		this.element = element;
@@ -17,6 +75,9 @@ class OCheckout {
 			const response = await fetch(this.formElement.action, {
 				method: 'post',
 				body: formData,
+				headers: {
+					'Accept': 'application/json',
+				},
 			});
 			const json = await response.json();
 
@@ -34,7 +95,9 @@ class OCheckout {
 			}
 		});
 
-		this.initStripe();
+		this.initStripe().catch((error) => {
+			this.showError(error.message, this.formElement.querySelector('[type="submit"]'));
+		});
 	}
 
 	handleFieldErrors(json) {
@@ -65,9 +128,9 @@ class OCheckout {
 		});
 	}
 
-	showError(errorMessage, elementBefore) {
+	showError(/** @type {string} */ errorMessage, /** @type {HTMLElement} */ elementBefore) {
 		// Display general error message before submit button
-		this.formElement.insertBefore(this.createErrorElement(errorMessage), elementBefore);
+		elementBefore.parentElement.insertBefore(this.createErrorElement(errorMessage), elementBefore);
 	}
 
 	async completeStripePayment(redirectUrl, formData) {
@@ -110,17 +173,15 @@ class OCheckout {
 			locale: document.querySelector('html').lang,
 			loader: 'never',
 			clientSecret,
-			appearance: {
-				theme: 'stripe',
-				labels: 'above',
-				disableAnimations: true,
-				variables: {
-					borderRadius: 0,
+			fonts: [
+				{
+					cssSrc: 'https://merx.wagnerwagner.test/assets/css/fonts.css',
 				},
-			},
+			],
+			appearance: this.stripeElementsAppearance,
 		});
 
-		// @see https:docs.stripe.com/js/element/payment_element
+		// @see https://docs.stripe.com/js/element/payment_element
 		const paymentElement = this.stripeElements.create('payment', {
 			layout: {
 				type: 'tabs',

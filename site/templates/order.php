@@ -8,16 +8,8 @@ use Kirby\Toolkit\Str;
  */
 ?>
 <?php snippet('head') ?>
-<body class="l-invoice">
-	<header class="header">
-		<div class="center">
-			<h1>
-				<a href="<?= $site->url() ?>">
-					<img src="<?= url('assets/images/logo.svg') ?>" alt="<?= $site->title() ?>">
-				</a>
-			</h1>
-		</div>
-	</header>
+<body>
+	<?php snippet('o-header') ?>
 	<main class="invoice" aria-label="Invoice">
 		<header class="invoice__header">
 			<h1>Invoice</h1>

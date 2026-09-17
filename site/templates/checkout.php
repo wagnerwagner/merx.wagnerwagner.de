@@ -24,7 +24,9 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 							<button type="button" data-action="increase" aria-label="increase quantity">+</button>
 						</div>
 						<div class="m-cart__sum"><?= $cart->total()->toString() ?></div>
-						<div class="m-cart__tax">+ Vat (<?= $cart->total()->tax->rate() ?>) <?= $cart->tax() ?></div>
+						<?php if ($cart->total()->tax): ?>
+							<div class="m-cart__tax">+ Vat (<?= $cart->total()->tax->rate() ?>) <?= $cart->tax() ?></div>
+						<?php endif ?>
 						<div class="m-cart__total"><?= $cart->total()->toString('price') ?></div>
 					</div>
 				</div>
@@ -50,19 +52,19 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 						</label>
 						<label class="m-field">
 							<div>Street Address</div>
-							<input type="text" name="street" required placeholder="50 Kintyre Street" autocomplete="billing street-address" required>
+							<input type="text" name="street" required placeholder="50 Kintyre Street" autocomplete="address-line1 billing" required>
 						</label>
 						<label class="m-field" data-span=2>
 							<div>Postal Code / ZIP</div>
-							<input type="text" name="postal_code" placeholder="4133" autocomplete="billing postal-code" required>
+							<input type="text" name="postal_code" placeholder="4133" autocomplete="postal-code billing" required>
 						</label>
 						<label class="m-field" data-span=4>
 							<div>City</div>
-							<input type="text" name="city" required placeholder="Waterford" autocomplete="billing locality" required>
+							<input type="text" name="city" required placeholder="Waterford" autocomplete="address-level1 billing" required>
 						</label>
 						<label class="m-field">
 							<div>State/Province/Region <small>(optional)</small></div>
-							<input type="text" name="state" placeholder="Queensland" autocomplete="billing region">
+							<input type="text" name="state" placeholder="Queensland" autocomplete="address-level2 billing">
 						</label>
 						<label class="m-field">
 							<div>Country</div>
