@@ -60,11 +60,11 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 						</label>
 						<label class="m-field" data-span=4>
 							<div>City</div>
-							<input type="text" name="city" required placeholder="Waterford" autocomplete="address-level1 billing" required>
+							<input type="text" name="city" required placeholder="Waterford" autocomplete="address-level2 billing" required>
 						</label>
 						<label class="m-field">
 							<div>State/Province/Region <small>(optional)</small></div>
-							<input type="text" name="state" placeholder="Queensland" autocomplete="address-level2 billing">
+							<input type="text" name="state" placeholder="Queensland" autocomplete="address-level1 billing">
 						</label>
 						<label class="m-field">
 							<div>Country</div>
