@@ -175,7 +175,7 @@ class OCheckout {
 			clientSecret,
 			fonts: [
 				{
-					cssSrc: 'https://merx.wagnerwagner.test/assets/css/fonts.css',
+					cssSrc: '/assets/css/fonts.css',
 				},
 			],
 			appearance: this.stripeElementsAppearance,
