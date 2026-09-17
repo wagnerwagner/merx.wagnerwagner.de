@@ -372,7 +372,7 @@ class Llms
 	 */
 	private static function guide(ReferencePageAbstract $page): ?string
 	{
-		$guide = trim((string)$page->guide()->value());
+		$guide = trim((string)$page->guide()?->value());
 
 		if ($guide === '') {
 			return null;

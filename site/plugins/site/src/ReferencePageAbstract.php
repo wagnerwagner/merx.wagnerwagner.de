@@ -251,13 +251,13 @@ abstract class ReferencePageAbstract extends Page
 		return $description === '' ? null : $description;
 	}
 
-	public function guide(): Field
+	public function guide(): ?Field
 	{
 		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
 
-		if ($see) {
-			$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');
-		}
+		if ($see === null || !Str::startsWith($see, 'https://')) return null;
+
+		$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');
 
 		return $this->content()->get('guide')->or($see);
 	}
