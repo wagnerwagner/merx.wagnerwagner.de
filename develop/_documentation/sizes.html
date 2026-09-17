@@ -9,19 +9,26 @@
 			.sizes {
 				display: grid;
 				font: var(--font-label-xsmall);
-				gap: 2rem;
+				gap: 1rem;
 			}
 			.size {
 				display: flex;
 				flex-direction: column;
-				gap: 0.5rem;
+				gap: 0.2rem;
 				text-wrap-style: balance;
+				color: var(--color-content-tertiary);
+				transition-duration: 200ms;
+				transition-property: color;
 
 				&::before {
 					content: '';
 					background: var(--color-black);
 					inline-size: var(--size);
 					block-size: calc(4rem / 16);
+				}
+
+				&:hover {
+					color: var(--color-content-primary);
 				}
 			}
 		</style>
@@ -83,7 +90,7 @@
 				const rootStyles = getComputedStyle(document.documentElement);
 
 				sortedCssSizeVars.forEach((sizeName) => {
-					const size = rootStyles.getPropertyValue(sizeName).trim()
+					const size = rootStyles.getPropertyValue(sizeName).trim().replace('calc(', '').replace('rem / 16)', 'px');
 					sizesElement.appendChild(Object.assign(document.createElement('div'), {
 						textContent: `${sizeName} – ${size}`,
 						className: 'size',
