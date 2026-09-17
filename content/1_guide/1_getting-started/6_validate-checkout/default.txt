@@ -125,6 +125,9 @@ checkoutForm.addEventListener('submit', async (event) => {
   const response = await fetch(checkoutForm.action, {
     method: 'post',
     body: new FormData(checkoutForm),
+    headers: {
+      'Accept': 'application/json',
+    }
   });
   console.log(response);
 
