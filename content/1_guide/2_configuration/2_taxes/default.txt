@@ -14,11 +14,11 @@ Text:
 
 The tax rule sets are defined in the [`taxRules`](/reference/options/config-options/tax-rules) option. Each tax rule is defined by a key and an array with following items.
 
-## Options per pricing rule
+## Options per tax rule
 
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
-| `name` | `string|function` | `null` | |
+| `name` | `string|function` | Key of the rule | |
 | `rule` | `function` | `null|float` | Function returning a **positive floating number**. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as an argument. |
 
 ## Set up default tax rate
@@ -67,11 +67,11 @@ Use the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object t
 return [
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
-			'name' => fn (): string => t('taxRule.default'),
+			'name' => fn (): string => t('taxRule.default', 'Standard rate'),
 			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
 		],
 		'reduced' => [
-			'name' => fn (): string => t('taxRule.reduced'),
+			'name' => fn (): string => t('taxRule.reduced', 'Reduced rate'),
 			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
 		],
 	],

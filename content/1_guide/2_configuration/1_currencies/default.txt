@@ -18,7 +18,7 @@ Currencies are defined in the [`pricingRules`](/reference/options/config-options
 
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
-| `name` | `string|function` | `null` | |
+| `name` | `string|function` | Key of the rule | |
 | `currency` | `string` | `'EUR'` | Three-letter ISO currency code | 
 | `rule` | `function` | `true` | Function returning true or false. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as an argument. | 
 | `taxIncluded` | `bool` | `true` | Whether price is including tax or not |
@@ -56,7 +56,7 @@ return [
 		'en' => [
 			'name' => 'US dollar',
 			'currency' => 'USD',
-			'rule' => fn (?App $kirby): bool => $kirby->languageCode() === 'us',
+			'rule' => fn (?\Kirby\Cms\App $kirby): bool => $kirby->languageCode() === 'en',
 			'taxIncluded' => false,
 		],
 		'default' => [
@@ -93,6 +93,8 @@ return [
 </code>
 
 When no rule function is defined, the rule is considered as `true`.
+
+Merx checks the rules in the order you define them and uses the first one that returns `true`. The `default` rule is always checked last, so it’s the fallback wherever you put it.
 
 ## Add prices for products
 
