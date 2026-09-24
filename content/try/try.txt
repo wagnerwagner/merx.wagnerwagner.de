@@ -1,0 +1,49 @@
+Title: Try
+
+----
+
+Headline: Try Merx
+
+----
+
+Intro: Test Merx for as long as you like, on your computer or on a staging server. You only need a license once your shop goes public.
+
+----
+
+Starterkit: A complete shop to explore and build on: products, cart, checkout and order pages, with commented blueprints, templates, JavaScript and CSS. Browse the demo shop, switch between Germany, International and USA to see currency and prices change, and go through the checkout in test mode.
+
+----
+
+Plugin: Merx is a plugin, so it fits into the site you already have. Your templates, blueprints and frontend stay yours, and Merx adds the cart, the checkout and the orders. Install it with Composer, as a Git submodule or as a download.
+
+----
+
+Showcase: Chocolate makers, jewelers, photographers and fashion labels sell with Merx.
+
+----
+
+Faq:
+
+- 
+  question: How long can I try Merx?
+  answer: 'As long as you need. Merx is free on your own computer and on a staging server that only a restricted group of people can reach. You need a (link: buy text: license) once the shop is public.'
+- 
+  question: Do I need a license for every shop?
+  answer: 'Yes, one license per website. Merx is a Kirby plugin, so the site also needs a (link: https://getkirby.com/buy text: Kirby license).'
+- 
+  question: Can I test payments without real money?
+  answer: 'Yes. Until you switch on production, every payment runs against the test environments of Stripe and PayPal, and no money moves. See (link: guide/configuration/testing-and-production text: Testing and production).'
+- 
+  question: Which Kirby version do I need?
+  answer: >
+    Merx 2 needs Kirby 5.5 and PHP 8.2 or
+    later. Beyond that, if Kirby runs, Merx
+    runs.
+
+----
+
+Shortdescription: 
+
+----
+
+Uuid: EXfKKjyUTQNmnKhe

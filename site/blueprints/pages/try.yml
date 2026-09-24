@@ -1,0 +1,43 @@
+title: Try
+icon: flash
+
+columns:
+  - width: 2/3
+    sections:
+      fields:
+        type: fields
+        fields:
+          headline:
+            type: text
+          intro:
+            type: textarea
+            buttons: false
+            font: monospace
+          starterkit:
+            label: Starterkit
+            type: textarea
+            font: monospace
+          plugin:
+            label: Your own Kirby site
+            type: textarea
+            font: monospace
+          showcase:
+            label: Showcase
+            type: textarea
+            font: monospace
+            help: Shown above four random shops from the showcase.
+          faq:
+            label: Frequently asked questions
+            type: structure
+            fields:
+              question:
+                type: text
+                required: true
+              answer:
+                type: textarea
+                font: monospace
+                required: true
+  - width: 1/3
+    sections:
+      files:
+        type: files

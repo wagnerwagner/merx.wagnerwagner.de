@@ -64,6 +64,7 @@
 @import 'components/o-release.css';
 @import 'components/o-search-results.css';
 @import 'components/o-showcase-home.css';
+@import 'components/o-try.css';
 
 /* Templates */
 @import 'components/root.css';

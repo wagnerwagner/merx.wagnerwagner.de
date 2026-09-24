@@ -2883,6 +2883,160 @@ nav.m-nav-sidebar {
 		padding-inline: calc(var(--size-1000) - var(--border-size-small));
 }
 	}
+.o-try {
+	z-index: var(--z-index-main-wrapper);
+	inline-size: 100%;
+	padding-inline: var(--gap-inline);
+	-webkit-border-after: var(--border-small-tertiary);
+	        border-block-end: var(--border-small-tertiary);
+	background: inherit;
+
+	/* Every section shares the bordered column of the home page */
+}
+.o-try > * {
+		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+		margin-inline: auto;
+		padding-block: var(--size-800);
+		padding-inline: var(--size-400);
+		border-inline: var(--border-small-tertiary);
+		-webkit-border-after: var(--border-small-tertiary);
+		        border-block-end: var(--border-small-tertiary);
+	}
+@media (min-width: 64em) {
+.o-try > * {
+			padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
+	}
+		}
+@media (min-width: 80em) {
+.o-try > * {
+			padding-inline: calc(var(--size-1000) - var(--border-size-small));
+	}
+		}
+.o-try > :last-child {
+		-webkit-border-after: none;
+		        border-block-end: none;
+	}
+.o-try__header {
+	padding-block: var(--size-900) var(--size-800);
+	display: grid;
+	row-gap: var(--size-500);
+}
+.o-try__header > .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+.o-try__options {
+	display: grid;
+	-moz-column-gap: var(--size-800);
+	     column-gap: var(--size-800);
+	row-gap: var(--size-900);
+}
+@media (min-width: 64em) {
+.o-try__options {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+	}
+.o-try__option {
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	justify-items: start;
+	row-gap: var(--size-400);
+}
+.o-try__option > .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+/* Screenshot and code box share one height, so the headings line up */
+.o-try__visual {
+	inline-size: 100%;
+	aspect-ratio: 860 / 478;
+	-webkit-margin-after: var(--size-300);
+	        margin-block-end: var(--size-300);
+	overflow: hidden;
+	border-radius: var(--border-radius-small);
+}
+.o-try__visual:where(a) {
+		display: block;
+		border: var(--border-small-tertiary);
+	}
+.o-try__visual:where(a) > img {
+			display: block;
+			inline-size: 100%;
+			block-size: 100%;
+			-o-object-fit: cover;
+			   object-fit: cover;
+			-o-object-position: top;
+			   object-position: top;
+		}
+.o-try__visual.m-code {
+		display: grid;
+		grid-template-rows: auto 1fr;
+
+		/* One column: as high as the commands need */
+	}
+@media (max-width: 63.99em) {
+.o-try__visual.m-code {
+			aspect-ratio: auto;
+	}
+		}
+/* Prism wraps the `pre` in a `.code-toolbar` */
+.o-try__visual.m-code > :last-child {
+			align-self: center;
+		}
+.o-try__visual.m-code pre {
+			white-space: pre-wrap;
+			overflow-wrap: anywhere;
+		}
+.o-try__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	-moz-column-gap: var(--size-500);
+	     column-gap: var(--size-500);
+	row-gap: var(--size-300);
+}
+.o-try__showcase {
+	display: grid;
+	row-gap: var(--size-500);
+}
+.o-try__showcase > .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+.o-try__showcase > ul {
+		-webkit-margin-before: var(--size-200);
+		        margin-block-start: var(--size-200);
+		display: grid;
+		list-style: none;
+		grid-template-columns: repeat(2, 1fr);
+		-moz-column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+		     column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+		row-gap: var(--size-500);
+	}
+@media (min-width: 64em) {
+.o-try__showcase > ul {
+			grid-template-columns: repeat(4, 1fr);
+	}
+		}
+.o-try__faq {
+	display: grid;
+	justify-items: start;
+	row-gap: var(--size-700);
+}
+.o-try__faq > dl {
+		display: grid;
+		-moz-column-gap: var(--size-800);
+		     column-gap: var(--size-800);
+		row-gap: var(--size-600);
+	}
+@media (min-width: 64em) {
+.o-try__faq > dl {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+		}
+.o-try__faq > dl > div {
+			display: grid;
+			align-content: start;
+			row-gap: var(--size-200);
+			max-inline-size: var(--max-width-text);
+		}
 /* Templates */
 :root {
 	font-family: var(--font-family);

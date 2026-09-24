@@ -1,0 +1,153 @@
+.o-try {
+	z-index: var(--z-index-main-wrapper);
+	inline-size: 100%;
+	padding-inline: var(--gap-inline);
+	border-block-end: var(--border-small-tertiary);
+	background: inherit;
+
+	/* Every section shares the bordered column of the home page */
+	> * {
+		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+		margin-inline: auto;
+		padding-block: var(--size-800);
+		padding-inline: var(--size-400);
+		border-inline: var(--border-small-tertiary);
+		border-block-end: var(--border-small-tertiary);
+
+		@media (min-width: 64em) {
+			padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
+		}
+		@media (min-width: 80em) {
+			padding-inline: calc(var(--size-1000) - var(--border-size-small));
+		}
+	}
+
+	> :last-child {
+		border-block-end: none;
+	}
+}
+
+.o-try__header {
+	padding-block: var(--size-900) var(--size-800);
+	display: grid;
+	row-gap: var(--size-500);
+
+	> .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+}
+
+.o-try__options {
+	display: grid;
+	column-gap: var(--size-800);
+	row-gap: var(--size-900);
+
+	@media (min-width: 64em) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.o-try__option {
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	justify-items: start;
+	row-gap: var(--size-400);
+
+	> .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+}
+
+/* Screenshot and code box share one height, so the headings line up */
+.o-try__visual {
+	inline-size: 100%;
+	aspect-ratio: 860 / 478;
+	margin-block-end: var(--size-300);
+	overflow: hidden;
+	border-radius: var(--border-radius-small);
+
+	&:where(a) {
+		display: block;
+		border: var(--border-small-tertiary);
+
+		> img {
+			display: block;
+			inline-size: 100%;
+			block-size: 100%;
+			object-fit: cover;
+			object-position: top;
+		}
+	}
+
+	&.m-code {
+		display: grid;
+		grid-template-rows: auto 1fr;
+
+		/* One column: as high as the commands need */
+		@media (max-width: 63.99em) {
+			aspect-ratio: auto;
+		}
+
+		/* Prism wraps the `pre` in a `.code-toolbar` */
+		> :last-child {
+			align-self: center;
+		}
+		pre {
+			white-space: pre-wrap;
+			overflow-wrap: anywhere;
+		}
+	}
+}
+
+.o-try__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: var(--size-500);
+	row-gap: var(--size-300);
+}
+
+.o-try__showcase {
+	display: grid;
+	row-gap: var(--size-500);
+
+	> .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+
+	> ul {
+		margin-block-start: var(--size-200);
+		display: grid;
+		list-style: none;
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+		row-gap: var(--size-500);
+
+		@media (min-width: 64em) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+}
+
+.o-try__faq {
+	display: grid;
+	justify-items: start;
+	row-gap: var(--size-700);
+
+	> dl {
+		display: grid;
+		column-gap: var(--size-800);
+		row-gap: var(--size-600);
+
+		@media (min-width: 64em) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		> div {
+			display: grid;
+			align-content: start;
+			row-gap: var(--size-200);
+			max-inline-size: var(--max-width-text);
+		}
+	}
+}

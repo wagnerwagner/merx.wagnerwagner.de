@@ -2,10 +2,13 @@
 
 use Kirby\Cms\Url;
 
+/** @var bool $teaser Links to the case page instead of the shop, in a smaller crop */
+$teaser ??= $page->isHomePage();
+
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 $width = 336;
 $height = $width * 0.7 * 1.5;
-if ($page->isHomePage()) {
+if ($teaser) {
 	$link = $item->url();
 	$width = 352;
 	$height = $width * 0.75;
