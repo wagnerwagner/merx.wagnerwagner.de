@@ -1,0 +1,108 @@
+.o-release {
+	z-index: var(--z-index-main-wrapper);
+	inline-size: 100%;
+	padding-inline: var(--gap-inline);
+	border-block-end: var(--border-small-tertiary);
+	background: inherit;
+
+	/* Every section shares the bordered column of the home page */
+	> * {
+		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
+		margin-inline: auto;
+		padding-block: var(--size-800);
+		padding-inline: var(--size-400);
+		border-inline: var(--border-small-tertiary);
+		border-block-end: var(--border-small-tertiary);
+
+		@media (min-width: 64em) {
+			padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
+		}
+		@media (min-width: 80em) {
+			padding-inline: calc(var(--size-1000) - var(--border-size-small));
+		}
+	}
+
+	> :last-child {
+		border-block-end: none;
+	}
+}
+
+.o-release__hero {
+	padding-block: var(--size-900);
+	display: grid;
+	justify-items: start;
+	row-gap: var(--size-600);
+
+	> .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+}
+
+.o-release__title {
+	margin-inline-start: -0.04em;
+	font-weight: 700;
+	font-size: calc(80rem / 16);
+	line-height: 1;
+	letter-spacing: -0.02em;
+	font-variant-alternates: var(--font-variant-alternates-display);
+	color: var(--color-brand);
+
+	@media (min-width: 64em) {
+		font-size: calc(140rem / 16);
+	}
+
+	+ .a-display {
+		margin-block-start: calc(var(--size-400) * -1);
+	}
+}
+
+.o-release__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: var(--size-500);
+	row-gap: var(--size-300);
+}
+
+.o-release__grid {
+	display: grid;
+	column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+	row-gap: var(--size-800);
+
+	@media (min-width: 38em) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (min-width: 64em) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.o-release__more {
+	display: grid;
+	row-gap: var(--size-500);
+
+	> .m-text > ul {
+		@media (min-width: 38em) {
+			columns: 2;
+			column-gap: calc(var(--gap-inline) * 3);
+		}
+		@media (min-width: 64em) {
+			columns: 3;
+		}
+
+		> li {
+			break-inside: avoid;
+		}
+	}
+}
+
+.o-release__outro {
+	padding-block: var(--size-900);
+	display: grid;
+	justify-items: start;
+	row-gap: var(--size-600);
+
+	> .m-text {
+		max-inline-size: var(--max-width-text);
+	}
+}

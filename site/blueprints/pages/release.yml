@@ -1,0 +1,68 @@
+title: Release
+icon: star
+
+columns:
+  - width: 2/3
+    sections:
+      fields:
+        type: fields
+        fields:
+          headline:
+            type: text
+            help: Tagline below the title.
+          intro:
+            type: textarea
+            buttons: false
+            font: monospace
+          # Blocks, not a structure: structure fields are saved as YAML,
+          # which strips the indentation of the code in `visual`.
+          features:
+            type: blocks
+            help: Features without a visual are set side by side in a grid.
+            fieldsets:
+              feature:
+                name: Feature
+                icon: star
+                preview: fields
+                wysiwyg: true
+                label: "{{ label }}"
+                fields:
+                  label:
+                    type: text
+                    width: 1/2
+                    required: true
+                    help: Short name, also used as anchor.
+                  headline:
+                    type: text
+                    width: 1/2
+                    required: true
+                  text:
+                    type: textarea
+                    font: monospace
+                    required: true
+                  link:
+                    type: link
+                    options:
+                      - page
+                      - url
+                    width: 1/2
+                  linkText:
+                    type: text
+                    width: 1/2
+                    help: Default is the title of the linked page.
+                  visual:
+                    type: textarea
+                    font: monospace
+                    help: Code box or image, shown next to the text.
+          more:
+            label: And much more
+            type: textarea
+            font: monospace
+          outro:
+            label: Get started
+            type: textarea
+            font: monospace
+  - width: 1/3
+    sections:
+      files:
+        type: files

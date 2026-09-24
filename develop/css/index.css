@@ -39,6 +39,7 @@
 @import 'components/m-nav-sidebar.css';
 @import 'components/m-nav-sidebars.css';
 @import 'components/m-reference-children.css';
+@import 'components/m-release-feature.css';
 @import 'components/m-search-dialog.css';
 @import 'components/m-search.css';
 @import 'components/m-showcase-item.css';
@@ -59,6 +60,7 @@
 @import 'components/o-main-wrapper.css';
 @import 'components/o-main.css';
 @import 'components/o-reference.css';
+@import 'components/o-release.css';
 @import 'components/o-search-results.css';
 @import 'components/o-showcase-home.css';
 

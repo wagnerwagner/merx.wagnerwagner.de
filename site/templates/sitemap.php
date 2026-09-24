@@ -2,7 +2,7 @@
 header('Content-Type: application/xml; charset=UTF-8');
 
 $ignoreTemplates = array('sitemap', 'error', 'merx-license', 'orders', 'order', 'section', 'section--class-method');
-$ignoreSlug = array('error', 'merx-license', 'success', 'privacy', 'license');
+$ignoreSlug = array('error', 'merx-license', 'success', 'privacy', 'license', 'releases');
 
 echo '<?xml version="1.0" encoding="utf-8"?>';
 ?>
