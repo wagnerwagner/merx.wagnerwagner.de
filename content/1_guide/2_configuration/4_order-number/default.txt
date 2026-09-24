@@ -26,6 +26,10 @@ return [
 ```
 </code>
 
+Merx calls the function for one order at a time, and order pages sort in the order they were created. So the last listed sibling is always the newest order, even when two customers check out at the same moment.
+
+Since each number counts on from the newest order, removing that order from the file system — a test order, say — hands its number out again.
+
 ----
 
 Uuid: ccfrus9sz3m3sovf
