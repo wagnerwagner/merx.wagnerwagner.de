@@ -1,20 +1,25 @@
 .m-form-checkout {
 	display: grid;
-	padding: calc(var(--size-500) - var(--border-size-medium));
+	row-gap: var(--size-700);
 	font: var(--font-paragraph-large);
-	border-radius: var(--border-radius-small);
-	border: var(--border-size-medium) solid var(--color-gray-100);
-	background-color: var(--color-gray-50);
-	row-gap: var(--size-600);
 
-	> div {
+	> fieldset {
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
-		row-gap: var(--size-300);
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		row-gap: var(--size-400);
 		column-gap: var(--gap-inline);
+		min-inline-size: 0;
+		margin: 0;
+		padding: 0;
+		border: none;
 
 		> * {
-			grid-column-end: span 6
+			grid-column-end: span 6;
+		}
+
+		> legend {
+			margin-block-end: var(--size-400);
+			padding: 0;
 		}
 
 		> *[data-span="2"] {
@@ -24,4 +29,18 @@
 			grid-column-end: span 4;
 		}
 	}
+}
+
+.m-form-checkout__payment-fields {
+	min-block-size: calc(120rem / 16);
+}
+
+.m-form-checkout__submit {
+	display: flex;
+	justify-content: end;
+}
+
+.m-form-checkout__error {
+	font: var(--font-paragraph-small);
+	color: var(--color-red-600);
 }

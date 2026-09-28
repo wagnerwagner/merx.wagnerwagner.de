@@ -1,7 +1,102 @@
 .m-cart {
-	padding: calc(var(--size-500) - var(--border-size-medium));
-	font: var(--font-paragraph-large);
+	display: grid;
+	row-gap: var(--size-500);
+	padding: var(--size-500);
+	font: var(--font-paragraph-medium);
+	font-variant-numeric: tabular-nums;
 	border-radius: var(--border-radius-small);
-	border: var(--border-size-medium) solid var(--color-green-300);
-	background-color: var(--color-green-50)
+	border: var(--border-xsmall-secondary);
+	background-color: var(--color-background-secondary);
+}
+
+.m-cart__item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--size-400);
+
+	> div:first-child {
+		display: grid;
+		row-gap: var(--size-50);
+	}
+
+	strong {
+		font: var(--font-label-large);
+	}
+	small {
+		font: var(--font-paragraph-small);
+		color: var(--color-content-secondary);
+	}
+}
+
+.m-cart__quantity {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+
+	> output {
+		min-inline-size: 3ch;
+		text-align: center;
+		font: var(--font-label-large);
+	}
+
+	> button {
+		display: grid;
+		place-items: center;
+		inline-size: calc(32rem / 16);
+		block-size: calc(32rem / 16);
+		padding: 0;
+		font: var(--font-label-large);
+		line-height: 1;
+		border: var(--border-xsmall-secondary);
+		border-radius: var(--border-radius-small);
+		background-color: var(--color-background-primary);
+		cursor: pointer;
+
+		&:where(:hover, :focus-visible):not(:disabled) {
+			border-color: var(--color-border-primary);
+		}
+		&:disabled {
+			color: var(--color-content-tertiary);
+			cursor: default;
+		}
+	}
+}
+
+.m-cart__totals {
+	display: grid;
+	row-gap: var(--size-200);
+	padding-block-start: var(--size-400);
+	border-block-start: var(--border-xsmall-secondary);
+	transition: opacity var(--duration-medium);
+
+	> div {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--size-400);
+	}
+
+	dt {
+		color: var(--color-content-secondary);
+	}
+
+	[data-busy] > & {
+		opacity: 0.4;
+	}
+}
+
+.m-cart__total {
+	margin-block-start: var(--size-200);
+	padding-block-start: var(--size-300);
+	border-block-start: var(--border-xsmall-secondary);
+	font: var(--font-heading-xsmall);
+
+	> dt {
+		color: inherit;
+	}
+}
+
+.m-cart__note {
+	font: var(--font-paragraph-small);
+	color: var(--color-content-secondary);
 }

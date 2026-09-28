@@ -33,4 +33,24 @@
 	> small {
 		font: var(--font-paragraph-small);
 	}
+
+	&[data-type="checkbox"] {
+		flex-direction: row;
+		align-items: baseline;
+		column-gap: var(--size-300);
+
+		> input {
+			flex-shrink: 0;
+			inline-size: 1em;
+			block-size: 1em;
+			padding: 0;
+			border: none;
+			background: none;
+			appearance: auto;
+			accent-color: var(--color-brand);
+		}
+		> div {
+			font: var(--font-paragraph-medium);
+		}
+	}
 }

@@ -4,9 +4,9 @@ Title: Buy
 
 Abstract:
 
-Here’s the deal.
+Here is the deal.
 
-You can test as long as you want – on your local or your online dev server. But, to make real payments you need to buy a license. Since this is a Kirby plugin you also need a (link: https://getkirby.com text: Kirby License).
+Test Merx for as long as you like, on your computer or on a staging server. Once your shop is public, its website needs a Merx license, and a (link: https://getkirby.com/buy text: Kirby license) as well.
 
 ----
 
