@@ -3,19 +3,31 @@ fields:
   email:
     type: email
     required: true
+    translate: false
+    disabled: true
   company:
     type: text
     required: true
+    translate: false
+    disabled: true
   street:
     type: text
     required: true
+    translate: false
+    disabled: true
   postal_code:
     label: Postal code
     type: text
     required: true
+    translate: false
+    disabled: true
   city:
     type: text
     required: true
+    translate: false
+    disabled: true
   country:
     type: text
     required: true
+    translate: false
+    disabled: true
