@@ -19,7 +19,7 @@ return [
 		'default' => [
 			'rule' => function (?App $kirby): ?float {
 				$region = $kirby->session()->get('region');
-				if (strtolower($region) === 'de') {
+				if (strtolower((string)$region) === 'de') {
 					return 0.19;
 				}
 				return null;
