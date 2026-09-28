@@ -25,6 +25,22 @@ class ReferenceSiteMethodPage extends ReferencePageAbstract
 		return null;
 	}
 
+	public function description(): ?string
+	{
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
+		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text, 2)[1] ?? '';
+			return empty($text) ? null : trim($text);
+		}
+
+		return null;
+	}
+
 	public function reflection(): ?ReflectionFunction
 	{
 		return $this->content()->get('reflection')?->value();
