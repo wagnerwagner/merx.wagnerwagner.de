@@ -67,28 +67,34 @@ use Wagnerwagner\Merx\Cart;
 use Wagnerwagner\Merx\OrderPage;
 use Wagnerwagner\Merx\ProductList;
 
+function quantitiesPerProduct(ProductList $cart): array
+{
+  $quantities = [];
+
+  foreach ($cart->filterByType('product') as $item) {
+    // A product without a stock field is unlimited.
+    if ($item->page?->stock()->isNotEmpty()) {
+      $uuid = (string)$item->page->uuid();
+      $quantities[$uuid] = ($quantities[$uuid] ?? 0) + $item->quantity;
+    }
+  }
+
+  return $quantities;
+}
+
 function checkStock(ProductList $cart): void
 {
-  foreach ($cart->filterByType('product') as $item) {
-    if ($item->page === null) {
-      continue;
-    }
+  foreach (quantitiesPerProduct($cart) as $uuid => $quantity) {
+    $page = page($uuid);
 
-    $stock = $item->page->stock();
-
-    // A product without a stock field is unlimited.
-    if ($stock->isEmpty()) {
-      continue;
-    }
-
-    if ($stock->toFloat() < $item->quantity) {
+    if ($page->stock()->toFloat() < $quantity) {
       throw new Exception(
         key: 'stock.insufficient',
         httpCode: 400,
         fallback: 'Only {stock} of “{title}” left.',
         data: [
-          'stock' => $stock->toFloat(),
-          'title' => (string)$item->page->title(),
+          'stock' => $page->stock()->toFloat(),
+          'title' => (string)$page->title(),
         ],
       );
     }
@@ -108,6 +114,8 @@ return [
 ```
 </code>
 
+`quantitiesPerProduct()` adds up the lines of each product first. A [personalized product](/cookbook/personalized-products) gets one line per name, and `maxQuantity()` checks every line on its own, so ten pairs for Anna and ten for Ben get past the cart and stop here.
+
 [`createOrder:before`](/reference/options/hooks/create-order-before) is the second gate. It runs after the customer comes back from the payment provider, which is where the last of a product can disappear between two shoppers.
 
 <callout>
@@ -124,19 +132,18 @@ Writing to a page needs permissions the customer does not have, so wrap the upda
 ```php
 'wagnerwagner.merx.paymentCompleted' => function (OrderPage $orderPage): void {
   kirby()->impersonate('kirby', function () use ($orderPage): void {
-    foreach ($orderPage->cart()->filterByType('product') as $item) {
-      if ($item->page === null || $item->page->stock()->isEmpty()) {
-        continue;
-      }
-
-      $item->page->update([
-        'stock' => $item->page->stock()->toFloat() - $item->quantity,
+    foreach (quantitiesPerProduct($orderPage->cart()) as $uuid => $quantity) {
+      $page = page($uuid);
+      $page->update([
+        'stock' => $page->stock()->toFloat() - $quantity,
       ]);
     }
   });
 },
 ```
 </code>
+
+Update every product once, on a page you have just looked up. [`update()`](https://getkirby.com/docs/guide/templates/php-api#immutable-objects) leaves the old object behind, and updating that one again throws and removes the page’s content from disk.
 
 ## Show the message
 
