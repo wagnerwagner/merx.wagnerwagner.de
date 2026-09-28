@@ -114,6 +114,54 @@ App::plugin('wagnerwagner/site', [
 			]);
 			sendConfirmationMail($orderPage);
 		},
+		/**
+		 * VAT follows the region in the session (see `taxRules` in the config),
+		 * so the billing country has to be the one the cart was priced for.
+		 */
+		'wagnerwagner.merx.initializeOrder:before' => function (array $data) {
+			$country = Str::upper((string)($data['country'] ?? ''));
+			$region = Str::upper((string)kirby()->session()->get('region'));
+
+			// A missing country is left to the blueprint, which reports it
+			// together with the other required fields
+			if ($country !== '' && $country !== $region) {
+				// Merx passes on a `Kirby\Exception\Exception` as it is, other
+				// exceptions become a generic error
+				throw new Kirby\Exception\Exception(
+					key: 'site.checkout.country',
+					fallback: 'Your billing country changed. Please check the price and submit your order again.',
+					httpCode: 400,
+				);
+			}
+		},
+	],
+	'api' => [
+		'routes' => [
+			[
+				/**
+				 * Sets the billing country, which decides the VAT, and
+				 * returns the cart priced for it
+				 */
+				'pattern' => 'checkout/region',
+				'method' => 'POST',
+				'auth' => false,
+				'action' => function () {
+					/** @var \Kirby\Api\Api $this */
+					$country = Str::upper((string)$this->requestBody('country'));
+
+					if (array_key_exists($country, option('wagnerwagner.site.countryList')) === false) {
+						throw new Kirby\Exception\InvalidArgumentException(
+							key: 'site.checkout.unknownCountry',
+							fallback: 'Please choose a country from the list.',
+						);
+					}
+
+					$this->kirby()->session()->set('region', $country);
+
+					return $this->cart();
+				},
+			],
+		],
 	],
 	'components'	 => include __DIR__ . '/extensions/components.php',
 	'routes' => [

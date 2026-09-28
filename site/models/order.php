@@ -5,21 +5,6 @@ use Kirby\Toolkit\Str;
 
 class OrderPage extends Wagnerwagner\Merx\OrderPage
 {
-	public function errors(): array
-	{
-		$errors = parent::errors();
-		if ($this->company()->isEmpty() && $this->name()->isEmpty()) {
-			$additionalErrors['company'] = [
-				'label' => 'Company',
-				'message' => [
-					'required' => 'Please enter either Full Name or Company.'
-				],
-			];
-			$errors = array_merge($errors, $additionalErrors);
-		}
-		return $errors;
-	}
-
 	/**
 	 * Name of the payment method the customer paid with, e.g. `Apple Pay (Visa)`
 	 *

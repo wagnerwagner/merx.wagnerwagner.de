@@ -1,0 +1,21 @@
+type: fields
+fields:
+  email:
+    type: email
+    required: true
+  company:
+    type: text
+    required: true
+  street:
+    type: text
+    required: true
+  postal_code:
+    label: Postal code
+    type: text
+    required: true
+  city:
+    type: text
+    required: true
+  country:
+    type: text
+    required: true

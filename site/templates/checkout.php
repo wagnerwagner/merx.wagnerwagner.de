@@ -75,12 +75,11 @@ $license = $cart->findBy('key', 'merx-license');
 					<legend class="a-heading" data-size="small">Billing address</legend>
 					<label class="m-field">
 						<div>Company</div>
-						<input type="text" name="company" placeholder="Nice New Shoes Inc" autocomplete="organization">
+						<input type="text" name="company" placeholder="Nice New Shoes Inc" autocomplete="organization" required>
 					</label>
 					<label class="m-field">
-						<div>Full name</div>
+						<div>Full name <small>(optional)</small></div>
 						<input type="text" name="name" placeholder="Margret L Torreggiani" autocomplete="name">
-						<small>Company, full name or both – as it should appear on the invoice.</small>
 					</label>
 					<label class="m-field">
 						<div>Street address</div>
