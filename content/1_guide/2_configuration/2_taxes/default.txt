@@ -41,9 +41,7 @@ return [
 
 ## Set tax rate for each product
 
-To use the default tax rate you need to set the `taxRule` field to `default`.
-
-When using the Panel, you can use the [tax-rule field](/reference/blueprints/fields/tax-rule) in your product page blueprint.
+A product names its tax rule in the `taxRule` field. Without one, it uses the `default` rule.
 
 <code caption="/content/products/1_bike/product.en.txt">
 ```kirby
@@ -51,9 +49,11 @@ Title: Bike
 
 \----
 
-Taxrule: default
+Taxrule: reduced
 ```
 </code>
+
+To let Panel users pick the rule, add a `taxRule` field with `type: taxrules` to your product blueprint. It lists the rules from your config, and stays hidden while there is only one.
 
 
 ## Different tax rates for different countries

@@ -1,1 +1,0 @@
-Shortdescription: Select field for the tax rule that applies to a product.

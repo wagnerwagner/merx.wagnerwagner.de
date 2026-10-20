@@ -1,1 +1,1 @@
-Shortdescription: Blueprint fields for prices, tax rules and order items.
+Shortdescription: Blueprint fields for prices and order items.
