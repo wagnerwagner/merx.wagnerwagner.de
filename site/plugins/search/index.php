@@ -10,7 +10,9 @@ use Kirby\Toolkit\Config;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\Str;
 
-class SearchResults extends Collection {}
+class SearchResults extends Collection
+{
+}
 
 App::plugin(
 	name: 'site/search',
@@ -114,7 +116,7 @@ App::plugin(
 			],
 		],
 		'hooks' => [
-			'page.*:after' => function (?Page $newPage) {
+			'page.*:after' => function (Page|null $newPage) {
 				if ($newPage ?? false) {
 					$newPage->kirby()->cache('site.search')->flush();
 				}

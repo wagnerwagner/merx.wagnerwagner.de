@@ -4,23 +4,15 @@ use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
-use Wagnerwagner\Site\ReferencePageAbstract;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
+use Wagnerwagner\Site\ReferencePageAbstract;
 
 /**
  * @method static \Kirby\Content\Field class()
  */
 class ReferenceClassPage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$class = $this->class();
-		$parts = explode('\\', $class);
-		$title = end($parts);
-		return $this->class()->value($title);
-	}
-
 	/**
 	 * Returns (and caches) the public class methods as child pages.
 	 *
@@ -115,6 +107,28 @@ class ReferenceClassPage extends ReferencePageAbstract
 		);
 	}
 
+	public function description(): string|null
+	{
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
+		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text)[1] ?? '';
+			return empty($text) ? null : trim($text);
+		}
+
+		return null;
+	}
+
+	public function line(): int|null
+	{
+		// return null to return file path without line number
+		return null;
+	}
+
 	/**
 	 * Returns how a method of this class is called,
 	 * e.g. `$orderPage->cart()`, `Cart::fromSession()` or `new Cart()`.
@@ -137,7 +151,12 @@ class ReferenceClassPage extends ReferencePageAbstract
 		return '$' . lcfirst($className) . '->' . $name . '()';
 	}
 
-	public function summary(): ?string
+	public function reflection(): ReflectionClass
+	{
+		return new ReflectionClass($this->class()->value());
+	}
+
+	public function summary(): string|null
 	{
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
@@ -154,30 +173,11 @@ class ReferenceClassPage extends ReferencePageAbstract
 		return null;
 	}
 
-	public function reflection(): ReflectionClass
+	public function title(): Field
 	{
-		return new ReflectionClass($this->class()->value());
-	}
-
-  public function line(): ?int
-  {
-    // return null to return file path without line number
-    return null;
-  }
-
-	public function description(): ?string
-	{
-		$nodes = array_filter(
-			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
-		);
-		$node = $nodes[0] ?? null;
-
-		if ($node instanceof PhpDocTextNode) {
-			$text = explode(PHP_EOL . PHP_EOL, $node->text)[1] ?? '';
-			return empty($text) ? null : trim($text);
-		}
-
-		return null;
+		$class = $this->class();
+		$parts = explode('\\', $class);
+		$title = end($parts);
+		return $this->class()->value($title);
 	}
 }

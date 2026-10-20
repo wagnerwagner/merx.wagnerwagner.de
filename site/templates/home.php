@@ -26,12 +26,12 @@
 			<?php endif; ?>
 		</div>
 		<div class="o-features">
-			<?php foreach($page->features()->toStructure() as $item): ?>
+			<?php foreach ($page->features()->toStructure() as $item): ?>
 				<div class="o-features__item">
 					<h2 class="a-heading" data-size="small"><?= $item->headline() ?></h2>
 					<?= $item->text()->kt() ?>
 				</div>
-			<?php endforeach;?>
+			<?php endforeach; ?>
 		</div>
 		<?php $casesPage = page('showcase'); ?>
 		<?php if ($casesPage): ?>

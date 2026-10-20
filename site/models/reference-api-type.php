@@ -9,12 +9,6 @@ use Wagnerwagner\Site\ReferencePageAbstract;
 
 class ReferenceApiTypePage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$type = $this->type();
-		return $this->type()->value(ucfirst($type));
-	}
-
 	/**
 	 * Builds the child collection for a specific API type (routes/models)
 	 * by reading the plugin extension definition and caching the result.
@@ -34,70 +28,77 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 	 * Returns the page configuration array for every registered API item
 	 * (either routes or models), preparing it for `Pages::factory()`.
 	 */
-	protected function childrenFactory(): array {
-			$children = [];
+	protected function childrenFactory(): array
+	{
+		$children = [];
 
-			/** e.g. "routes" or "models" */
-			$apiType = $this->slug();
-			$items = [];
-			$model = '';
-			$template = 'reference-doc';
+		/** e.g. "routes" or "models" */
+		$apiType = $this->slug();
+		$items = [];
+		$model = '';
+		$template = 'reference-doc';
+		if ($apiType === 'routes') {
+			$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['routes']($this->kirby());
+			$model = 'reference-api-route';
+		}
+		if ($apiType === 'models') {
+			$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['models'];
+			$model = 'reference-api-model';
+		}
+		foreach ($items as $key => $item) {
 			if ($apiType === 'routes') {
-				$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['routes']($this->kirby());
-				$model = 'reference-api-route';
-			}
-			if ($apiType === 'models') {
-				$items = $this->kirby()->plugin('wagnerwagner/merx')->extends()['api']['models'];
-				$model = 'reference-api-model';
-			}
-			foreach ($items as $key => $item) {
-				if ($apiType === 'routes') {
-					$method = Str::upper($item['method'] ?? 'GET');
-					$slug = Str::slug($item['pattern'] . '-' . $method);
-					$root = $this->root() . '/0_' . $slug;
-					$content = [
-						'pattern' => $item['pattern'],
-						'auth' => $item['auth'],
-						'method' => $method,
-						'reflection' => new ReflectionFunction($item['action']),
-					];
-				} else if ($apiType === 'models') {
-					$slug = Str::slug(Str::kebab($key));
-					$root = $this->root() . '/0_' . $slug;
-					$fields = array_map(fn ($field) => (string)(new ReflectionFunction($field))->getReturnType(), $item['fields']);
-					$content = [
-						'class' => $key,
-						'fields' => Yaml::encode($fields),
-						'type' => $item['type'],
-						'views' => Yaml::encode($item['views']),
-					];
-				}
-
-				try {
-					/** Merge optional content overrides from the stored text file */
-					$content = [...Data::read($root . '/' . $template . '.txt'), ...$content];
-				} catch (Throwable) {
-				}
-
-				$children[] = [
-					'slug' => $slug,
-					'root' => $root,
-					'model' => $model,
-					'template' => $template,
-					'num' => 0,
-					'content' => $content
+				$method = Str::upper($item['method'] ?? 'GET');
+				$slug = Str::slug($item['pattern'] . '-' . $method);
+				$root = $this->root() . '/0_' . $slug;
+				$content = [
+					'pattern' => $item['pattern'],
+					'auth' => $item['auth'],
+					'method' => $method,
+					'reflection' => new ReflectionFunction($item['action']),
+				];
+			} elseif ($apiType === 'models') {
+				$slug = Str::slug(Str::kebab($key));
+				$root = $this->root() . '/0_' . $slug;
+				$fields = array_map(fn ($field) => (string)(new ReflectionFunction($field))->getReturnType(), $item['fields']);
+				$content = [
+					'class' => $key,
+					'fields' => Yaml::encode($fields),
+					'type' => $item['type'],
+					'views' => Yaml::encode($item['views']),
 				];
 			}
 
-			return $children;
+			try {
+				/** Merge optional content overrides from the stored text file */
+				$content = [...Data::read($root . '/' . $template . '.txt'), ...$content];
+			} catch (Throwable) {
+			}
+
+			$children[] = [
+				'slug' => $slug,
+				'root' => $root,
+				'model' => $model,
+				'template' => $template,
+				'num' => 0,
+				'content' => $content
+			];
 		}
+
+		return $children;
+	}
 
 	/**
 	 * Returns the plugin-relative file path for API definitions
 	 * (e.g. `index.php`).
 	 */
-	public function relativeFilePath(): ?string
+	public function relativeFilePath(): string|null
 	{
 		return 'api/' . $this->slug();
+	}
+
+	public function title(): Field
+	{
+		$type = $this->type();
+		return $this->type()->value(ucfirst($type));
 	}
 }

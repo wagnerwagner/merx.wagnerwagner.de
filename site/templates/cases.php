@@ -14,12 +14,12 @@ if ($page->redirect()->isTrue()) {
 				</h1>
 			</div>
 			<div class="o-cases__grid">
-				<?php foreach($page->children()->listed() as $item): ?>
+				<?php foreach ($page->children()->listed() as $item): ?>
 					<?php snippet('m-case', compact('item')); ?>
 				<?php endforeach; ?>
 			</div>
 			<ul>
-				<?php foreach($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
+				<?php foreach ($page->children()->unlisted()->shuffle()->limit(6) as $item): ?>
 					<?php snippet('case-list-item', compact('item')) ?>
 				<?php endforeach; ?>
 			</ul>

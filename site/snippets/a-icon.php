@@ -2,11 +2,12 @@
 
 /** @var string $name */
 /** @var ?int $weight */
-
 $name ??= null;
 $weight ??= 400;
 
-if ($name === null) return null;
+if ($name === null) {
+return null;
+}
 
 $iconName = $name . '-' . $weight;
 ?>

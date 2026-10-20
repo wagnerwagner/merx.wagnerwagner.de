@@ -7,30 +7,6 @@ use Wagnerwagner\Site\Types;
 
 class ReferenceHookPage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$key = $this->key()->value();
-		return parent::title()->value(Str::replace($key, 'wagnerwagner.merx.', ''));
-	}
-
-	public function key(): Field
-	{
-		return $this->content()->get('key');
-	}
-
-	public function returnTypes(): ?Types
-	{
-		if (!$this->reflection()->hasReturnType()) {
-			return null;
-		}
-		return new Types([$this->reflection()->getReturnType()]);
-	}
-
-	public function reflection(): ?Reflector
-	{
-		return $this->content()->hook()->value();
-	}
-
 	public function call(): string
 	{
 		$parameters = array_map(function ($param) {
@@ -46,7 +22,30 @@ class ReferenceHookPage extends ReferencePageAbstract
 			return $string;
 		}, $this->params() ?? []);
 
-		return "'" . $this->key() . "' => function (" . implode(', ', $parameters) . "): " . $this->returnTypes() . ' {}';
+		return "'" . $this->key() . "' => function (" . implode(', ', $parameters) . '): ' . $this->returnTypes() . ' {}';
+	}
+
+	public function key(): Field
+	{
+		return $this->content()->get('key');
+	}
+
+	public function reflection(): Reflector|null
+	{
+		return $this->content()->hook()->value();
+	}
+
+	public function returnTypes(): Types|null
+	{
+		if (!$this->reflection()->hasReturnType()) {
+			return null;
+		}
+		return new Types([$this->reflection()->getReturnType()]);
+	}
+
+	public function title(): Field
+	{
+		$key = $this->key()->value();
+		return parent::title()->value(Str::replace($key, 'wagnerwagner.merx.', ''));
 	}
 }
-

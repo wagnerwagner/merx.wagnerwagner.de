@@ -9,7 +9,7 @@ class ReferenceTranslationPage extends ReferencePageAbstract
 	 * repeating the English one above it would say the same thing twice. It
 	 * stays the page’s description in `llms.txt`, where there is no table.
 	 */
-	public function summary(): ?string
+	public function summary(): string|null
 	{
 		return null;
 	}

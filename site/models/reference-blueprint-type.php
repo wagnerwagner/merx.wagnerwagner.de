@@ -4,18 +4,10 @@ use Kirby\Cms\Pages;
 use Kirby\Content\Field;
 use Kirby\Data\Data;
 use Kirby\Filesystem\Dir;
-use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\ReferencePageAbstract;
 
 class ReferenceBlueprintTypePage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$type = $this->type();
-		return $this->type()->value(ucfirst($type));
-	}
-
-
 	/**
 	 * Builds the child collection for a blueprint type by reading the
 	 * plugin's blueprint directory and caching the result.
@@ -81,8 +73,14 @@ class ReferenceBlueprintTypePage extends ReferencePageAbstract
 	 * Returns the plugin-relative file path for blueprint types
 	 * (e.g. `blueprints/fields`).
 	 */
-	public function relativeFilePath(): ?string
+	public function relativeFilePath(): string|null
 	{
 		return 'blueprints/' . $this->slug();
+	}
+
+	public function title(): Field
+	{
+		$type = $this->type();
+		return $this->type()->value(ucfirst($type));
 	}
 }

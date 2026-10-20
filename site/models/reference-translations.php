@@ -38,6 +38,15 @@ class ReferenceTranslationsPage extends ReferencePageAbstract
 	}
 
 	/**
+	 * Returns the plugin-relative file path for translations
+	 * (e.g. `translations/en.php`).
+	 */
+	public function relativeFilePath(): string|null
+	{
+		return 'translations/';
+	}
+
+	/**
 	 * Returns the final template
 	 */
 	public function template(): Template
@@ -54,14 +63,4 @@ class ReferenceTranslationsPage extends ReferencePageAbstract
 
 		return $this->template = $this->kirby()->template('reference-doc');
 	}
-
-	/**
-	 * Returns the plugin-relative file path for translations
-	 * (e.g. `translations/en.php`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		return 'translations/';
-	}
 }
-

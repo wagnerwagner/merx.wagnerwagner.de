@@ -7,22 +7,6 @@ use Wagnerwagner\Site\Type;
 
 class ReferenceOptionPage extends ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$key = $this->key()->value();
-		return parent::title()->value(Str::replace($key, 'wagnerwagner.merx.', ''));
-	}
-
-	public function type(): ?Type
-	{
-		return new Type($this->content()->type()->value());
-	}
-
-	public function reflection(): ?Reflector
-	{
-		return $this->content()->reflection()->value();
-	}
-
 	public function call(): string
 	{
 		$type = (string)$this->type();
@@ -30,14 +14,14 @@ class ReferenceOptionPage extends ReferencePageAbstract
 		if ($value === null) {
 			if ($type === 'function') {
 				$value = 'function () {}';
-			} else if ($type === 'array') {
+			} elseif ($type === 'array') {
 				$value = '[]';
 			}
 		}
 		return "'" . $this->key() . "'" . ' => ' . $value . ',';
 	}
 
-	public function defaultValue(): ?string
+	public function defaultValue(): string|null
 	{
 		if ($this->content()->get('defaultValue')->exists()) {
 			return $this->content()->get('defaultValue');
@@ -45,26 +29,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 		return null;
 	}
 
-
-	/**
-	 * Returns the framework- or plugin-relative file path with the start line
-	 * appended as an anchor (e.g. `config/config.php#L6`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
-		$configFile = $root . 'config/config.php';
-
-		if (file_exists($configFile) === false) {
-			return null;
-		}
-
-		$relativeFilePath = Str::replace($configFile, $root, '');
-
-		return $relativeFilePath;
-	}
-
-	public function line(): ?int
+	public function line(): int|null
 	{
 		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
 		$configFile = $root . 'config/config.php';
@@ -92,5 +57,38 @@ class ReferenceOptionPage extends ReferencePageAbstract
 
 		return $lineNumber;
 	}
-}
 
+	public function reflection(): Reflector|null
+	{
+		return $this->content()->reflection()->value();
+	}
+
+	/**
+	 * Returns the framework- or plugin-relative file path with the start line
+	 * appended as an anchor (e.g. `config/config.php#L6`).
+	 */
+	public function relativeFilePath(): string|null
+	{
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
+		$configFile = $root . 'config/config.php';
+
+		if (file_exists($configFile) === false) {
+			return null;
+		}
+
+		$relativeFilePath = Str::replace($configFile, $root, '');
+
+		return $relativeFilePath;
+	}
+
+	public function title(): Field
+	{
+		$key = $this->key()->value();
+		return parent::title()->value(Str::replace($key, 'wagnerwagner.merx.', ''));
+	}
+
+	public function type(): Type|null
+	{
+		return new Type($this->content()->type()->value());
+	}
+}

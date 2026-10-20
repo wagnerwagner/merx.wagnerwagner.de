@@ -2,7 +2,8 @@
 use Wagnerwagner\Site\Types;
 
 if (!function_exists('formatViewFields')) {
-	function formatViewFields($fields) {
+	function formatViewFields($fields)
+	{
 		$result = [];
 		foreach ($fields as $key => $value) {
 			if (is_array($value)) {
@@ -14,7 +15,7 @@ if (!function_exists('formatViewFields')) {
 			}
 		}
 		return implode(', ', $result);
-	};
+	}
 }
 ?>
 <h2>Fields</h2>

@@ -2,7 +2,7 @@
 /**
  * these countries are supported by PayPal
  * https://developer.paypal.com/docs/integration/direct/rest/country-codes/#
-*/
+ */
 $countryList = [
 	'AD' => 'Andorra',
 	'AE' => 'United Arab Emirates',

@@ -23,31 +23,10 @@ class Markdown extends ParsedownExtra
 		$this->setBreaksEnabled(true);
 	}
 
-	protected function parseAttributes(string $input): array
-	{
-		// `loadHtml()` assumes ISO-8859-1 when the markup carries no encoding
-		// declaration, which would read an em dash or an umlaut in an attribute
-		// as Latin-1 and hand it back double encoded. Escaping the non-ascii
-		// characters first leaves DomDocument nothing to misread.
-		$input = mb_encode_numericentity(
-			$input,
-			[0x80, 0x10FFFF, 0, 0x1FFFFF],
-			'UTF-8'
-		);
-
-		$dom = new DomDocument();
-		$dom->loadHtml('<html ' . $input . '/>');
-		$attributes = [];
-		foreach ($dom->documentElement->attributes as $name => $attr) {
-			$attributes[$name] = $attr->value;
-		}
-		return $attributes;
-	}
-
 	/**
 	 * Parse Kirby's text boxes
 	 */
-	protected function blockBox(array $Line, null|array $Block = null)
+	protected function blockBox(array $Line, array|null $Block = null)
 	{
 		if (preg_match('!<(callout|code)(.*?)>!', $Line['text'], $matches)) {
 
@@ -76,6 +55,31 @@ class Markdown extends ParsedownExtra
 	}
 
 	/**
+	 * Finalize the boxes
+	 */
+	protected function blockBoxComplete($Block)
+	{
+		$html = $Block['box']['html'] ?? '';
+		$html = kt($html);
+		$theme = $Block['box']['attrs']['theme'] ?? null;
+		$caption = $Block['box']['attrs']['caption'] ?? null;
+
+		$moleculeName = 'm-' . $Block['box']['type'];
+
+		$html = snippet($moleculeName, [
+			'theme' => $theme,
+			'caption' => $caption,
+			'html' => $html,
+		], true);
+
+		return [
+			'element' => [
+				'rawHtml' => $html,
+			]
+		];
+	}
+
+	/**
 	 * Add lines to the boxes
 	 */
 	protected function blockBoxContinue(array $Line, array $Block)
@@ -99,29 +103,19 @@ class Markdown extends ParsedownExtra
 		return $Block;
 	}
 
-	/**
-	 * Finalize the boxes
-	 */
-	protected function blockBoxComplete($Block)
+	protected function blockFencedCodeComplete($Block)
 	{
-		$html = $Block['box']['html'] ?? '';
-		$html = kt($html);
-		$theme = $Block['box']['attrs']['theme'] ?? null;
-		$caption = $Block['box']['attrs']['caption'] ?? null;
-
-		$moleculeName = 'm-' . $Block['box']['type'];
-
-		$html = snippet($moleculeName, [
-			'theme' => $theme,
-			'caption' => $caption,
-			'html' => $html,
-		], true);
-
-		return [
+		$Block = [
 			'element' => [
-				'rawHtml' => $html,
-			]
+				'name' => 'div',
+				'attributes' => [
+					'class' => 'm-code',
+				],
+				'elements' => [$Block['element']],
+			],
 		];
+
+		return $Block;
 	}
 
 	protected function blockHeader($Line)
@@ -187,22 +181,6 @@ class Markdown extends ParsedownExtra
 		return $Block;
 	}
 
-	protected function blockFencedCodeComplete($Block)
-	{
-		$Block = [
-			'element' => [
-				'name' => 'div',
-				'attributes' => [
-					'class' => 'm-code',
-				],
-				'elements' => [$Block['element']],
-			],
-		];
-
-		return $Block;
-	}
-
-
 	/**
 	 * Highlight data types in inline code
 	 */
@@ -231,5 +209,26 @@ class Markdown extends ParsedownExtra
 				'rawHtml' => (new Types($text))->toHtml()
 			]
 		];
+	}
+
+	protected function parseAttributes(string $input): array
+	{
+		// `loadHtml()` assumes ISO-8859-1 when the markup carries no encoding
+		// declaration, which would read an em dash or an umlaut in an attribute
+		// as Latin-1 and hand it back double encoded. Escaping the non-ascii
+		// characters first leaves DomDocument nothing to misread.
+		$input = mb_encode_numericentity(
+			$input,
+			[0x80, 0x10FFFF, 0, 0x1FFFFF],
+			'UTF-8'
+		);
+
+		$dom = new DomDocument();
+		$dom->loadHtml('<html ' . $input . '/>');
+		$attributes = [];
+		foreach ($dom->documentElement->attributes as $name => $attr) {
+			$attributes[$name] = $attr->value;
+		}
+		return $attributes;
 	}
 }

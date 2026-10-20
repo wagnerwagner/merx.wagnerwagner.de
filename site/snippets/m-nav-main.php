@@ -12,7 +12,7 @@ use Kirby\Cms\Html;
 </button>
 <nav class="m-nav-main" id="main-nav">
 	<ul class="m-nav-main__list">
-		<?php foreach($site->children()->listed() as $item): ?>
+		<?php foreach ($site->children()->listed() as $item): ?>
 		<li>
 			<?= Html::tag('a', $item->title(), [
 				'href' => $item->url(),

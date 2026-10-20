@@ -6,7 +6,7 @@
  * @var string $html
  * @var string $caption filepath
  */
-$caption = $caption ?? null;
+$caption ??= null;
 ?>
 <figure class="m-code">
 	<?php if ($caption): ?>

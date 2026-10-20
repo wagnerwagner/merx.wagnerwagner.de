@@ -10,10 +10,11 @@ use Reflector;
 /**
  * @extends \Kirby\Toolkit\Collection<\Wagnerwagner\Site\Type>
  */
-class Types extends Collection {
+class Types extends Collection
+{
 	public array $data = [];
 
-	public function __construct(array|string $types, ?Reflector $reflector = null)
+	public function __construct(array|string $types, Reflector|null $reflector = null)
 	{
 		if (is_string($types)) {
 			// Every inline code span in the documentation comes through here, and
@@ -32,6 +33,11 @@ class Types extends Collection {
 		$this->data = array_map(fn ($type) => new Type($type, $reflector), $types);
 	}
 
+	public function __toString(): string
+	{
+		return implode('|', $this->data);
+	}
+
 	/**
 	 * Whether a string is shaped like a PHP type, and may therefore be split
 	 * on `|` and have a leading `?` expanded.
@@ -45,7 +51,7 @@ class Types extends Collection {
 		return preg_match('!^[?\\\\A-Za-z0-9_\[\]|<>, ]+$!', $types) === 1;
 	}
 
-	public function toHtml(bool $codeBlock = true, ?string $baseUrl = null, ?bool $api = null, $short = false): string
+	public function toHtml(bool $codeBlock = true, string|null $baseUrl = null, bool|null $api = null, $short = false): string
 	{
 		if ($this->count() === 0) {
 			return Html::tag('code', 'mixed');
@@ -54,10 +60,5 @@ class Types extends Collection {
 		$seperator = ' <span class="a-separator" aria-hidden="true">|</span><span class="a-visually-hidden">or</span> ';
 
 		return implode($seperator, array_map(fn (Type $type) => $type->toHtml($codeBlock, $baseUrl, $api, $short), $this->data));
-	}
-
-	public function __toString(): string
-	{
-		return implode('|', $this->data);
 	}
 }

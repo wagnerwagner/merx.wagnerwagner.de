@@ -7,11 +7,13 @@ use Kirby\Cms\Html;
 $parent ??= null;
 $variant ??= null;
 
-if ($parent === null) return null;
+if ($parent === null) {
+return null;
+}
 ?>
 <nav class="m-nav-sidebar" <?= attr(['data-variant' => $variant]) ?>>
 	<ul>
-	<?php foreach($parent->children()->listed() as $item): ?>
+	<?php foreach ($parent->children()->listed() as $item): ?>
 		<li>
 			<?php if ($variant === 'tertiary'): ?>
 				<?php
@@ -32,7 +34,7 @@ if ($parent === null) return null;
 					'data-variant' => 'category',
 				]) ?>
 				<ul>
-					<?php foreach($item->children()->listed() as $item): ?>
+					<?php foreach ($item->children()->listed() as $item): ?>
 						<li>
 							<?= Html::tag('a', $item->title(), [
 								'href' => $item->url(),

@@ -37,7 +37,7 @@ class ReferenceSiteMethodsPage extends ReferencePageAbstract
 		return $this->children = Pages::factory($children, $this)->sortBy('slug');
 	}
 
-		/**
+	/**
 	 * Returns the final template
 	 */
 	public function template(): Template

@@ -6,13 +6,6 @@ use Wagnerwagner\Site\Types;
 
 class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 {
-	public function title(): Field
-	{
-		$pattern = $this->pattern();
-		$method = $this->method();
-		return parent::title()->value($method . ' ' . $pattern);
-	}
-
 	public function apiModelBaseUrl(): string
 	{
 		return url($this->parent()->parent()->id() . '/models/');
@@ -25,14 +18,14 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 
 		$call = "fetch('/api/$pattern', {\n";
 		$call .= "	method: '$method',\n";
-		$call .= "});";
+		$call .= '});';
 
 		return $call;
 	}
 
-	public function reflection(): ?Reflector
+	public function exceptions(): array
 	{
-		return $this->content()->reflection()->value();
+		return [];
 	}
 
 	public function params(): array
@@ -40,7 +33,17 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		return $this->reflection()->getParameters();
 	}
 
-	public function returnTypes(): ?Types
+	public function reflection(): Reflector|null
+	{
+		return $this->content()->reflection()->value();
+	}
+
+	public function returnType(): Type|null
+	{
+		return $this->returnTypes()->first();
+	}
+
+	public function returnTypes(): Types|null
 	{
 		if (!$this->reflection()->hasReturnType()) {
 			return new Types(['void']);
@@ -48,13 +51,10 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		return new Types([$this->reflection()->getReturnType()]);
 	}
 
-	public function returnType(): ?Type
+	public function title(): Field
 	{
-		return $this->returnTypes()->first();
-	}
-
-	public function exceptions(): array
-	{
-		return [];
+		$pattern = $this->pattern();
+		$method = $this->method();
+		return parent::title()->value($method . ' ' . $pattern);
 	}
 }

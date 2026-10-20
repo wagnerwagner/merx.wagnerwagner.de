@@ -2,7 +2,6 @@
 
 /** @var \Kirby\Cms\Page|DefaultPage $page */
 /** @var \Kirby\Cms\Site $site */
-
 if ($page->redirect()->isTrue()) {
 	$page->children()->listed()->first()?->go();
 }

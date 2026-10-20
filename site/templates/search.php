@@ -30,7 +30,7 @@
 					<?php endif ?>
 					<?php if ($data): ?>
 						<ul class="m-search__results">
-						<?php foreach($data as $item): ?>
+						<?php foreach ($data as $item): ?>
 							<li>
 								<a href="<?= $item['url'] ?>">
 									<strong><?= $item['title'] ?></strong>

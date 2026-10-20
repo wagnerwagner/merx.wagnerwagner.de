@@ -30,11 +30,11 @@ class ReferenceOptionsPage extends ReferencePageAbstract
 
 			if (is_string($defaultValue)) {
 				$content['defaultValue'] = "'" . (string)$defaultValue . "'";
-			} else if (is_bool($defaultValue)) {
+			} elseif (is_bool($defaultValue)) {
 				$content['defaultValue'] = $defaultValue ? 'true' : 'false';
-			} else if (is_array($defaultValue) && count($defaultValue) === 0) {
+			} elseif (is_array($defaultValue) && count($defaultValue) === 0) {
 				$content['defaultValue'] = '[]';
-			} else if (is_callable($defaultValue)) {
+			} elseif (is_callable($defaultValue)) {
 				$content['reflection'] = new ReflectionFunction($defaultValue);
 			}
 
@@ -47,6 +47,22 @@ class ReferenceOptionsPage extends ReferencePageAbstract
 			];
 		}
 		return $this->children = Pages::factory($children, $this)->sortBy('slug');
+	}
+
+	/**
+	 * Returns the plugin-relative file path for options
+	 * (e.g. `config/config.php`).
+	 */
+	public function relativeFilePath(): string|null
+	{
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
+		$configFile = $root . 'config/config.php';
+
+		if (file_exists($configFile) === false) {
+			return null;
+		}
+
+		return 'config/config.php';
 	}
 
 	/**
@@ -66,21 +82,4 @@ class ReferenceOptionsPage extends ReferencePageAbstract
 
 		return $this->template = $this->kirby()->template('reference-doc');
 	}
-
-	/**
-	 * Returns the plugin-relative file path for options
-	 * (e.g. `config/config.php`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
-		$configFile = $root . 'config/config.php';
-
-		if (file_exists($configFile) === false) {
-			return null;
-		}
-
-		return 'config/config.php';
-	}
 }
-

@@ -39,10 +39,10 @@ App::plugin('tobiaswolf/server-timing', [
 		'route:after' => function () {
 			serverTimingEnd('route');
 		},
-		'page.render:before' => function() {
+		'page.render:before' => function () {
 			serverTimingStart('page.render');
 		},
-		'page.render:after' => function() {
+		'page.render:after' => function () {
 			serverTimingEnd('page.render');
 
 			$sums = Config::get('tobiaswolf.server-timing.data.sum') ?? [];

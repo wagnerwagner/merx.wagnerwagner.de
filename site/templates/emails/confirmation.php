@@ -26,7 +26,7 @@ Payment Method:
 
 
 Purchase
-<?php foreach($cart as $item): ?>
+<?php foreach ($cart as $item): ?>
 <?= $item['title'] ?> | Quantity: <?= $item['quantity'] ?> | Price: <?= formatPrice($item['price'] - $item['tax']) ?> | Sum <?= formatPrice($item['sum'] - $item['sumTax']) ?>
 <?php endforeach; ?>
 

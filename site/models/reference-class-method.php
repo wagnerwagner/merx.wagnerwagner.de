@@ -1,6 +1,5 @@
 <?php
 
-use Kirby\Content\Field;
 use Kirby\Filesystem\F;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
@@ -18,6 +17,33 @@ use Wagnerwagner\Site\Types;
  */
 class ReferenceClassMethodPage extends ReferencePageAbstract
 {
+	/**
+	 * Returns a string representation of the method signature including types,
+	 * defaults and return type.
+	 */
+	public function call(): string
+	{
+		$parameters = array_map(function ($param) {
+			$string = '';
+			if (count($param['types']) > 0) {
+				$string .= $param['types'] . ' ';
+			}
+			$string .= $param['name'];
+			if ($param['defaultValue']) {
+				$string .= ' = ' . $param['defaultValue'];
+
+			}
+			return $string;
+		}, $this->params() ?? []);
+		$call = substr($this->title(), 0, -2) . '(' . implode(', ', $parameters) . ')';
+
+		if ($this->returnTypes()) {
+			$call .= ': ' . $this->returnTypes();
+		}
+
+		return $call;
+	}
+
 	public function class(): Type
 	{
 		/** @var ReferenceClassPage */
@@ -37,53 +63,42 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		return new Type($reflection->getDeclaringClass()->getName());
 	}
 
-	public function reflection(): ?ReflectionMethod
+	public function description(): string|null
 	{
-		$class = (string)$this->class();
-		$name  = (string)$this->name();
-
-		// Methods declared via `@method` have nothing to reflect
-		if (method_exists($class, $name) === false) {
-			return null;
+		if ($tag = $this->methodTag()) {
+			$text = explode(PHP_EOL . PHP_EOL, trim($tag->description))[1] ?? '';
+			return empty($text) ? null : trim($text);
 		}
 
-		return new ReflectionMethod($class, $name);
-	}
-
-	/**
-	 * Returns the `@method` tag this page is built from.
-	 *
-	 * Methods that are handled by `__call()` are invisible to reflection and
-	 * are declared as `@method` tags in the DocBlock of their class instead.
-	 */
-	public function methodTag(): ?MethodTagValueNode
-	{
-		/** @var ReferenceClassPage */
-		$parent = $this->parent();
-		$name   = (string)$this->name();
-
-		return A::find(
-			$parent->docBlock()?->getMethodTagValues() ?? [],
-			fn (MethodTagValueNode $tag) => $tag->methodName === $name
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
 		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text)[1] ?? '';
+			return empty($text) ? null : trim($text);
+		}
+
+		return null;
 	}
 
 	/**
-	 * `@method` tags live in the DocBlock of their class, so their source
-	 * link points at the class file.
+	 * Returns an array describing every exception declared via @throws tags.
 	 */
-	public function relativeFilePath(): ?string
+	public function exceptions(): array
 	{
-		if ($this->methodTag() === null) {
-			return parent::relativeFilePath();
-		}
+		/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode[] */
+		$throws = $this->docBlock()?->getThrowsTagValues() ?? [];
 
-		/** @var ReferenceClassPage */
-		$parent = $this->parent();
-		return $parent->relativeFilePath();
+		return array_map(fn ($tag) => [
+			'type' => new Type($tag->type),
+			'description' => $tag->description,
+		], $throws);
 	}
 
-	public function line(): ?int
+	public function line(): int|null
 	{
 		$tag = $this->methodTag();
 
@@ -112,48 +127,31 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		return substr_count($contents, "\n", 0, $offset) + $tagLine;
 	}
 
-	public function summary(): ?string
+	/**
+	 * Returns the `@method` tag this page is built from.
+	 *
+	 * Methods that are handled by `__call()` are invisible to reflection and
+	 * are declared as `@method` tags in the DocBlock of their class instead.
+	 */
+	public function methodTag(): MethodTagValueNode|null
 	{
-		if ($tag = $this->methodTag()) {
-			$text = explode(PHP_EOL . PHP_EOL, trim($tag->description))[0];
-			$text = trim(str_replace(PHP_EOL, ' ', $text));
-			return $text === '' ? null : $text;
-		}
+		/** @var ReferenceClassPage */
+		$parent = $this->parent();
+		$name   = (string)$this->name();
 
-		$nodes = array_filter(
-			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+		return A::find(
+			$parent->docBlock()?->getMethodTagValues() ?? [],
+			fn (MethodTagValueNode $tag) => $tag->methodName === $name
 		);
-		$node = $nodes[0] ?? null;
-
-		if ($node instanceof PhpDocTextNode) {
-			$text = explode(PHP_EOL . PHP_EOL, $node->text)[0];
-			$text = str_replace(PHP_EOL, ' ', $text);
-			return trim($text);
-		}
-
-		return null;
 	}
 
-	public function description(): ?string
+	/**
+	 * Turns a DocBlock type expression into the pipe-separated list
+	 * `Types` expects.
+	 */
+	protected static function normalizeTypes(string $types): string
 	{
-		if ($tag = $this->methodTag()) {
-			$text = explode(PHP_EOL . PHP_EOL, trim($tag->description))[1] ?? '';
-			return empty($text) ? null : trim($text);
-		}
-
-		$nodes = array_filter(
-			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
-		);
-		$node = $nodes[0] ?? null;
-
-		if ($node instanceof PhpDocTextNode) {
-			$text = explode(PHP_EOL . PHP_EOL, $node->text)[1] ?? '';
-			return empty($text) ? null : trim($text);
-		}
-
-		return null;
+		return Str::replace($types, ['(', ')', ' | '], ['', '', '|']);
 	}
 
 	/**
@@ -162,7 +160,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 	 * For `@method` tags they are read from the tag, as there are no
 	 * reflected parameters to fall back to.
 	 */
-	public function params(): ?array
+	public function params(): array|null
 	{
 		$tag = $this->methodTag();
 
@@ -178,7 +176,35 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		]);
 	}
 
-	public function returnTypes(): ?Types
+	public function reflection(): ReflectionMethod|null
+	{
+		$class = (string)$this->class();
+		$name  = (string)$this->name();
+
+		// Methods declared via `@method` have nothing to reflect
+		if (method_exists($class, $name) === false) {
+			return null;
+		}
+
+		return new ReflectionMethod($class, $name);
+	}
+
+	/**
+	 * `@method` tags live in the DocBlock of their class, so their source
+	 * link points at the class file.
+	 */
+	public function relativeFilePath(): string|null
+	{
+		if ($this->methodTag() === null) {
+			return parent::relativeFilePath();
+		}
+
+		/** @var ReferenceClassPage */
+		$parent = $this->parent();
+		return $parent->relativeFilePath();
+	}
+
+	public function returnTypes(): Types|null
 	{
 		$tag = $this->methodTag();
 
@@ -204,53 +230,26 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 		return null;
 	}
 
-	/**
-	 * Turns a DocBlock type expression into the pipe-separated list
-	 * `Types` expects.
-	 */
-	protected static function normalizeTypes(string $types): string
+	public function summary(): string|null
 	{
-		return Str::replace($types, ['(', ')', ' | '], ['', '', '|']);
-	}
-
-	/**
-	 * Returns an array describing every exception declared via @throws tags.
-	 */
-	public function exceptions(): array
-	{
-		/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode[] */
-		$throws = $this->docBlock()?->getThrowsTagValues() ?? [];
-
-		return array_map(fn ($tag) => [
-			'type' => new Type($tag->type),
-			'description' => $tag->description,
-		], $throws);
-	}
-
-	/**
-	 * Returns a string representation of the method signature including types,
-	 * defaults and return type.
-	 */
-	public function call(): string
-	{
-		$parameters = array_map(function ($param) {
-			$string = '';
-			if (count($param['types']) > 0) {
-				$string .= $param['types'] . ' ';
-			}
-			$string .= $param['name'];
-			if ($param['defaultValue']) {
-				$string .= ' = ' . $param['defaultValue'];
-
-			}
-			return $string;
-		}, $this->params() ?? []);
-		$call = substr($this->title(), 0, -2) . '(' . implode(', ', $parameters) . ')';
-
-		if ($this->returnTypes()) {
-			$call .= ': ' . $this->returnTypes();
+		if ($tag = $this->methodTag()) {
+			$text = explode(PHP_EOL . PHP_EOL, trim($tag->description))[0];
+			$text = trim(str_replace(PHP_EOL, ' ', $text));
+			return $text === '' ? null : $text;
 		}
 
-		return $call;
+		$nodes = array_filter(
+			$this->docBlock()->children ?? [],
+			fn (Node $node) => $node instanceof PhpDocTextNode
+		);
+		$node = $nodes[0] ?? null;
+
+		if ($node instanceof PhpDocTextNode) {
+			$text = explode(PHP_EOL . PHP_EOL, $node->text)[0];
+			$text = str_replace(PHP_EOL, ' ', $text);
+			return trim($text);
+		}
+
+		return null;
 	}
 }

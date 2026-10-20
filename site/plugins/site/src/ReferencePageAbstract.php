@@ -7,67 +7,22 @@ use Kirby\Content\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Str;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use Reflector;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionParameter;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPStan\PhpDocParser\ParserConfig;
-
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionParameter;
+use Reflector;
 
 abstract class ReferencePageAbstract extends Page
 {
-	/**
-	 * One line saying what this reference is about, shown above the page and
-	 * used as its description in `llms.txt`.
-	 *
-	 * References which reflect a DocBlock override this with the summary they
-	 * find there. The rest carry it as content: written by hand for options,
-	 * hooks, routes and blueprints, set by the model for the generated ones.
-	 *
-	 * Returning `null` rather than the empty field keeps the `is_string()`
-	 * checks in `Llms` and `o-reference.php` working.
-	 */
-	public function summary(): ?string
-	{
-		$summary = $this->content()->get('shortdescription')->value();
-
-		return empty($summary) === true ? null : $summary;
-	}
-
-	/**
-	 * Returns the reflection object for this reference, or null if not applicable.
-	 */
-	public function reflection(): ?Reflector
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the framework- or plugin-relative file path with the start line
-	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
-	 */
-	public function relativeFilePath(): ?string
-	{
-		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
-		if ($this->detectNamespace() === 'Kirby') {
-			$root = $this->kirby()->root('kirby') . '/';
-		}
-		$relativeFilePath = Str::replace($this->reflection()?->getFileName() ?? '', $root, '');
-		return $relativeFilePath;
-	}
-
-	public function line(): ?int
-	{
-		return $this->reflection()?->getStartLine() ?? null;
-	}
-
-	private function absoluteFilePath(): ?string
+	private function absoluteFilePath(): string|null
 	{
 		$relativeFilePath = $this->relativeFilePath();
 		if ($relativeFilePath === null) {
@@ -82,11 +37,65 @@ abstract class ReferencePageAbstract extends Page
 	}
 
 	/**
+	 * Detects the namespace (Kirby\\ or Wagnerwagner\\) from reflection when possible.
+	 * Returns the namespace prefix or empty string if detection is not possible.
+	 */
+	protected function detectNamespace(): string|null
+	{
+		$reflection = $this->reflection();
+
+		// For ReflectionMethod, get the declaring class
+		if ($reflection instanceof ReflectionMethod) {
+			$className = $reflection->getDeclaringClass()->getName();
+			if (Str::startsWith($className, 'Kirby\\')) {
+				return 'Kirby';
+			}
+			if (Str::startsWith($className, 'Wagnerwagner\\')) {
+				return 'Wagnerwagner';
+			}
+		}
+
+		// For ReflectionClass, get the class name directly
+		if ($reflection instanceof ReflectionClass) {
+			$className = $reflection->getName();
+			if (Str::startsWith($className, 'Kirby\\')) {
+				return 'Kirby';
+			}
+			if (Str::startsWith($className, 'Wagnerwagner\\')) {
+				return 'Wagnerwagner';
+			}
+		}
+
+		// For other reflection types or when detection fails, default to empty
+		// (which will cause gitHubUrl to default to merx)
+		return null;
+	}
+
+	public function docBlock(): PhpDocNode|null
+	{
+		$reflection = $this->reflection();
+		$docblock = $reflection && method_exists($reflection, 'getDocComment') ? $reflection->getDocComment() : null;
+		if ($docblock == null) {
+			return null;
+		}
+		$docblock = $reflection->getDocComment();
+		// line attributes let `@method` tags be traced back to their source line
+		$config = new ParserConfig(usedAttributes: ['lines' => true]);
+		$lexer = new Lexer($config);
+		$constExpr = new ConstExprParser($config);
+		$type = new TypeParser($config, $constExpr);
+		$phpDoc = new PhpDocParser($config, $type, $constExpr);
+		$tokens = new TokenIterator($lexer->tokenize($docblock));
+		$node = $phpDoc->parse($tokens);
+		return $node;
+	}
+
+	/**
 	 * Returns the versioned GitHub URL that points directly to the
 	 * reflected definition.
 	 * E.g. https://github.com/wagnerwagner/merx/blob/2.0.0-alpha.3/src/ListItems.php#L32
 	 */
-	public function gitHubUrl(): ?string
+	public function gitHubUrl(): string|null
 	{
 		$namespace = $this->detectNamespace();
 
@@ -110,7 +119,7 @@ abstract class ReferencePageAbstract extends Page
 		if ($namespace === 'Kirby') {
 			$gitHubRoot = option('github-repositories.kirby');
 			$version = $this->kirby()->version();
-		} else if ($namespace === 'Wagnerwagner') {
+		} elseif ($namespace === 'Wagnerwagner') {
 			$gitHubRoot = option('github-repositories.merx');
 			$version = $this->kirby()->plugin('wagnerwagner/merx')->version();
 		} else {
@@ -126,6 +135,19 @@ abstract class ReferencePageAbstract extends Page
 		return $gitHubRoot . '/blob/' . $version . '/' . $relativeFilePath;
 	}
 
+	public function guide(): Field|null
+	{
+		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
+
+		if ($see === null || !Str::startsWith($see, 'https://')) {
+			return null;
+		}
+
+		$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');
+
+		return $this->content()->get('guide')->or($see);
+	}
+
 	/**
 	 * Whether this reference documents something Merx inherits from
 	 * Kirby rather than declares itself.
@@ -135,64 +157,16 @@ abstract class ReferencePageAbstract extends Page
 		return $this->detectNamespace() === 'Kirby';
 	}
 
-	/**
-	 * Detects the namespace (Kirby\\ or Wagnerwagner\\) from reflection when possible.
-	 * Returns the namespace prefix or empty string if detection is not possible.
-	 */
-	protected function detectNamespace(): ?string
+	public function line(): int|null
 	{
-		$reflection = $this->reflection();
-
-		// For ReflectionMethod, get the declaring class
-		if ($reflection instanceof ReflectionMethod) {
-			$className = $reflection->getDeclaringClass()->getName();
-			if (Str::startsWith($className, 'Kirby\\')) {
-				return 'Kirby';
-			} else if (Str::startsWith($className, 'Wagnerwagner\\')) {
-				return 'Wagnerwagner';
-			}
-		}
-
-		// For ReflectionClass, get the class name directly
-		if ($reflection instanceof ReflectionClass) {
-			$className = $reflection->getName();
-			if (Str::startsWith($className, 'Kirby\\')) {
-				return 'Kirby';
-			} else if (Str::startsWith($className, 'Wagnerwagner\\')) {
-				return 'Wagnerwagner';
-			}
-		}
-
-		// For other reflection types or when detection fails, default to empty
-		// (which will cause gitHubUrl to default to merx)
-		return null;
-	}
-
-
-	public function docBlock(): ?PhpDocNode
-	{
-		$reflection = $this->reflection();
-		$docblock = $reflection && method_exists($reflection, 'getDocComment') ? $reflection->getDocComment() : null;
-		if ($docblock == null) {
-			return null;
-		}
-		$docblock = $reflection->getDocComment();
-		// line attributes let `@method` tags be traced back to their source line
-		$config = new ParserConfig(usedAttributes: ['lines' => true]);
-		$lexer = new Lexer($config);
-		$constExpr = new ConstExprParser($config);
-		$type = new TypeParser($config, $constExpr);
-		$phpDoc = new PhpDocParser($config, $type, $constExpr);
-		$tokens = new TokenIterator($lexer->tokenize($docblock));
-		$node = $phpDoc->parse($tokens);
-		return $node;
+		return $this->reflection()?->getStartLine() ?? null;
 	}
 
 	/**
 	 * Returns parameter metadata (name, types, default value, description)
 	 * sourced from reflection and DocBlocks.
 	 */
-	public function params(): ?array
+	public function params(): array|null
 	{
 		$reflection = $this->reflection();
 
@@ -201,24 +175,25 @@ abstract class ReferencePageAbstract extends Page
 		}
 
 		return A::map($reflection->getParameters(), function (ReflectionParameter $param) use ($reflection) {
-			/** @var ?\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode */
+			/** @var ?ParamTagValueNode */
 			$docBlockParam = A::find(
 				$this->docBlock()?->getParamTagValues() ?? [],
-				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name);
+				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name
+			);
 
 			$defaultValue = null;
 			if ($param->isDefaultValueAvailable()) {
 				$defaultValue = $param->getDefaultValue();
 				if (gettype($defaultValue) === 'array') {
 					$defaultValue = '[]';
-				} else if (gettype($defaultValue) === 'boolean') {
+				} elseif (gettype($defaultValue) === 'boolean') {
 					$defaultValue = $defaultValue ? 'true' : 'false';
-				} else if (gettype($defaultValue) === 'NULL') {
+				} elseif (gettype($defaultValue) === 'NULL') {
 					$defaultValue = 'null';
-				} else if (gettype($defaultValue) === 'string') {
+				} elseif (gettype($defaultValue) === 'string') {
 					$defaultValue = "'$defaultValue'";
 				}
-			};
+			}
 			$name = '$' . $param->getName();
 			$types = $docBlockParam->type->types ?? null;
 			if ($types === null && $param->getType() !== null) {
@@ -236,12 +211,34 @@ abstract class ReferencePageAbstract extends Page
 	}
 
 	/**
+	 * Returns the reflection object for this reference, or null if not applicable.
+	 */
+	public function reflection(): Reflector|null
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the framework- or plugin-relative file path with the start line
+	 * appended as an anchor (e.g. `src/ListItems.php#L32`).
+	 */
+	public function relativeFilePath(): string|null
+	{
+		$root = $this->kirby()->plugin('wagnerwagner/merx')->root() . '/';
+		if ($this->detectNamespace() === 'Kirby') {
+			$root = $this->kirby()->root('kirby') . '/';
+		}
+		$relativeFilePath = Str::replace($this->reflection()?->getFileName() ?? '', $root, '');
+		return $relativeFilePath;
+	}
+
+	/**
 	 * Returns the description a `@return` tag carries after its type, or null
 	 * when the DocBlock has no `@return` tag or the tag is type-only.
 	 */
-	public function returnDescription(): ?string
+	public function returnDescription(): string|null
 	{
-		/** @var \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode[] */
+		/** @var ReturnTagValueNode[] */
 		$returnTags = $this->docBlock()?->getReturnTagValues() ?? [];
 		if (count($returnTags) === 0) {
 			return null;
@@ -251,15 +248,21 @@ abstract class ReferencePageAbstract extends Page
 		return $description === '' ? null : $description;
 	}
 
-	public function guide(): ?Field
+	/**
+	 * One line saying what this reference is about, shown above the page and
+	 * used as its description in `llms.txt`.
+	 *
+	 * References which reflect a DocBlock override this with the summary they
+	 * find there. The rest carry it as content: written by hand for options,
+	 * hooks, routes and blueprints, set by the model for the generated ones.
+	 *
+	 * Returning `null` rather than the empty field keeps the `is_string()`
+	 * checks in `Llms` and `o-reference.php` working.
+	 */
+	public function summary(): string|null
 	{
-		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
+		$summary = $this->content()->get('shortdescription')->value();
 
-		if ($see === null || !Str::startsWith($see, 'https://')) return null;
-
-		$see = Str::replace($see, 'https://merx.wagnerwagner.de', '');
-
-		return $this->content()->get('guide')->or($see);
+		return empty($summary) === true ? null : $summary;
 	}
 }
-

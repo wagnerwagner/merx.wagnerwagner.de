@@ -41,7 +41,7 @@ class ReferenceFieldMethodsPage extends ReferencePageAbstract
 		);
 	}
 
-		/**
+	/**
 	 * Returns the final template
 	 */
 	public function template(): Template

@@ -1,8 +1,6 @@
 <?php
 
 use Kirby\Api\Api;
-use Kirby\Cms\App;
-use Kirby\Cms\Language;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
 use Kirby\Cms\Site;
@@ -12,6 +10,65 @@ use Kirby\Toolkit\Str;
 
 class ReferenceApiPage extends Page
 {
+	/**
+	 * API for example requests
+	 */
+	public function api(): Api
+	{
+		$kirby = $this->kirby()->clone([], false);
+		$api = new Api([
+			'collections' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['collections'],
+			'data' => [...$kirby->plugin('wagnerwagner/merx')->extends()['api']['data'],
+				'kirby' => $kirby,
+				'site' => new Site(),
+				'language' => 'null',
+			],
+			'models' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['models'],
+			'routes' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['routes']($kirby),
+		]);
+		return $api;
+	}
+
+	public function apiRequest(
+		string $path,
+		string $method = 'GET',
+		array $requestData = []
+	): mixed {
+		if ($path === 'shop/success') {
+			return null;
+		}
+
+		$requestData = array_merge_recursive($requestData, [
+			'query' => [
+				'pretty' => true,
+			],
+		]);
+
+		if (in_array($method, ['POST', 'PATCH', 'DELETE'])) {
+			$requestData['body']['key'] = 'shoes';
+		}
+
+		if ($path === 'shop/cart') {
+			return json_encode([
+				'code' => 200,
+				'data' => $this->resolveApiModel('ProductList'),
+				'status' => 'ok',
+				'type' => 'model'
+			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		}
+		if ($path === 'shop/checkout') {
+			$requestData['body']['email'] = 'example@example.com';
+			$requestData['body']['street'] = 'Milkyway';
+			$requestData['body']['city'] = 'Ducktown';
+			$requestData['body']['country'] = 'DE';
+			$requestData['body']['legal'] = '1';
+			$requestData['body']['paymentGateway'] = 'invoice';
+			$requestData['body']['company'] = 'Example Inc.';
+		}
+
+		return $this->api()->render(path: $path, method: $method, requestData: $requestData);
+	}
+
 	/**
 	 * Builds the children collection from the plugin's `api` directory
 	 * and caches it on the page instance.
@@ -75,67 +132,7 @@ class ReferenceApiPage extends Page
 		return $children;
 	}
 
-	/**
-	 * API for example requests
-	 */
-	public function api(): Api
-	{
-		$kirby = $this->kirby()->clone([], false);
-		$api = new Api([
-			'collections' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['collections'],
-			'data' => [...$kirby->plugin('wagnerwagner/merx')->extends()['api']['data'],
-				'kirby' => $kirby,
-				'site' => new Site(),
-				'language' => 'null',
-			],
-			'models' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['models'],
-			'routes' => $kirby->plugin('wagnerwagner/merx')->extends()['api']['routes']($kirby),
-		]);
-		return $api;
-	}
-
-	public function apiRequest(
-		string $path,
-		string $method = 'GET',
-		array $requestData = []
-	): mixed
-	{
-		if ($path === 'shop/success') {
-			return null;
-		}
-
-		$requestData = array_merge_recursive($requestData, [
-			'query' => [
-				'pretty' => true,
-			],
-		]);
-
-		if (in_array($method, ['POST', 'PATCH', 'DELETE'])) {
-			$requestData['body']['key'] = 'shoes';
-		}
-
-		if ($path === 'shop/cart') {
-			return json_encode([
-				'code' => 200,
-				'data' => $this->resolveApiModel('ProductList'),
-				'status' => 'ok',
-				'type' => 'model'
-			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-		}
-		if ($path === 'shop/checkout') {
-			$requestData['body']['email'] = 'example@example.com';
-			$requestData['body']['street'] = 'Milkyway';
-			$requestData['body']['city'] = 'Ducktown';
-			$requestData['body']['country'] = 'DE';
-			$requestData['body']['legal'] = '1';
-			$requestData['body']['paymentGateway'] = 'invoice';
-			$requestData['body']['company'] = 'Example Inc.';
-		}
-
-		return $this->api()->render(path: $path, method: $method, requestData: $requestData);
-	}
-
-	public function resolveApiModel(string $model): ?array
+	public function resolveApiModel(string $model): array|null
 	{
 		$object = null;
 		$tax = new \Wagnerwagner\Merx\Tax(priceNet: 45, rate: 0.19, currency: 'EUR');
@@ -163,7 +160,9 @@ class ReferenceApiPage extends Page
 			$object = new \Wagnerwagner\Merx\ProductList([$listItem]);
 		}
 
-		if ($object === null) return null;
+		if ($object === null) {
+			return null;
+		}
 
 		$response = $this->api()->resolve($object)->toArray();
 

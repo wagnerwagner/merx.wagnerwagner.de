@@ -4,7 +4,6 @@ use Kirby\Cms\Pagination;
 use Kirby\Toolkit\A;
 
 /** @var Pagination $pagination */
-
 $range = 6;
 $currentPage = $pagination->page();
 $pagesCount = $pagination->pages();

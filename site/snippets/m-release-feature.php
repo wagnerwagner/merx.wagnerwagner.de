@@ -7,7 +7,6 @@ use Kirby\Toolkit\Str;
  *
  * @var \Kirby\Cms\Block $feature
  */
-
 $content = $feature->content();
 $id = Str::slug($content->get('label'));
 $link = $content->get('link');

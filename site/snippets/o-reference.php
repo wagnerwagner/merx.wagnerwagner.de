@@ -3,6 +3,7 @@
 /** @var \Kirby\Cms\App $kirby */
 
 use Wagnerwagner\Site\Type;
+
 ?>
 <main class="o-reference" aria-label="<?= $page->title() ?>">
 	<h1 class="a-display"><?= $page->headline()->isNotEmpty() ? $page->headline() : $page->title() ?></h1>

@@ -5,9 +5,9 @@ use Kirby\Cms\Collection;
 use Kirby\Cms\Page;
 use Kirby\Http\Response;
 use Kirby\Toolkit\A;
-use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 use Kirby\Toolkit\Obj;
+use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Llms;
 
 @include_once __DIR__ . '/vendor/autoload.php';
@@ -35,7 +35,8 @@ function classLink(string $class, bool $codeBlock = true): string
 	]);
 }
 
-function niceExcerpt($string, $query) {
+function niceExcerpt($string, $query)
+{
 	$start = stripos($string, $query) - 100;
 	$start = $start < 0 ? 0 : $start;
 	if ($start > 0) {
@@ -49,7 +50,8 @@ function niceExcerpt($string, $query) {
 }
 
 
-function sendConfirmationMail(OrderPage $orderPage) {
+function sendConfirmationMail(OrderPage $orderPage)
+{
 	kirby()->email([
 		'from' => option('merx-email'),
 		'to' => (string)$orderPage->email(),
@@ -67,8 +69,7 @@ App::plugin('wagnerwagner/site', [
 		'countryList' => $countryList,
 	],
 	'pageMethods' => [
-		'seoTitle' => function (): string
-		{
+		'seoTitle' => function (): string {
 			if ($this->isHomePage()) {
 				return $this->title();
 			}
@@ -76,8 +77,7 @@ App::plugin('wagnerwagner/site', [
 		}
 	],
 	'siteMethods' => [
-		'prettySearch' => function ($query = ''): Kirby\Cms\Pages
-		{
+		'prettySearch' => function ($query = ''): Kirby\Cms\Pages {
 			$sitesToSearch = $this->find('docs', 'cookbooks')->index()->listed()->filterBy('intendedTemplate', '!=', 'order');
 			$result = $sitesToSearch->search($query);
 			$result->map(function ($page) use ($query) {
@@ -88,13 +88,13 @@ App::plugin('wagnerwagner/site', [
 				$excerpt = $pageResults->first();
 				if ($pageResults->findByKey('excerpt')) {
 					$excerpt = $pageResults->findByKey('excerpt');
-				} else if ($pageResults->findByKey('text')) {
+				} elseif ($pageResults->findByKey('text')) {
 					$excerpt = $pageResults->findByKey('text');
 				}
 				$excerpt = niceExcerpt(HTML::decode(kirbytext($excerpt)), $query);
 				if ($excerpt !== (string)$page->title()) {
 					$page->content()->update([
-						'excerpt' => preg_replace('/'.$query.'/i', '<b>${0}</b>', $excerpt),
+						'excerpt' => preg_replace('/' . $query . '/i', '<b>${0}</b>', $excerpt),
 					]);
 				}
 				return $page;
@@ -103,7 +103,7 @@ App::plugin('wagnerwagner/site', [
 		}
 	],
 	'hooks' => [
-		'wagnerwagner.merx.completePayment:after' => function($orderPage) use ($licenseBase) {
+		'wagnerwagner.merx.completePayment:after' => function ($orderPage) use ($licenseBase) {
 			$quantity = $orderPage->cart()->findBy('id', 'merx-license')['quantity'];
 			$licenses = [];
 			while (count($licenses) < $quantity) {
@@ -209,8 +209,7 @@ App::plugin('wagnerwagner/site', [
 		/**
 		 * Extract headlines from the field value and return a collection of them
 		 */
-		'toToc' => function (\Kirby\Content\Field $field, string $headline = 'h2'): Collection
-		{
+		'toToc' => function (\Kirby\Content\Field $field, string $headline = 'h2'): Collection {
 			$value = $field->value() ?? '';
 
 			// Make sure not to include sceencast boxes
