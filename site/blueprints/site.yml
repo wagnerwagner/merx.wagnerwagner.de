@@ -1,24 +1,21 @@
 title: Site
 
-sections:
+fields:
   mainnav:
-    type: pages
+    type: pagelist
     status: listed
   orders:
-    extends: sections/orders
+    extends: fields/orders
   pages:
-    type: pages
+    type: pagelist
     status: unlisted
-  meta:
-    type: fields
-    fields:
-      metaTitle:
-        type: text
-      metaDescription:
-        type: text
-      openGraphImage:
-        type: files
-        multiple: false
-        required: true
-      legalLinks:
-        type: pages
+  metaTitle:
+    type: text
+  metaDescription:
+    type: text
+  openGraphImage:
+    type: filepicker
+    multiple: false
+    required: true
+  legalLinks:
+    type: pagepicker
