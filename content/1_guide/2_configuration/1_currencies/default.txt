@@ -98,7 +98,7 @@ Merx checks the rules in the order you define them and uses the first one that r
 
 ## Add prices for products
 
-For each product you can define a **price** per **pricing rule**. If you use the [prices field](/reference/blueprints/fields/prices), there’s a nice interface for Panel users to define the correct prices for each pricing rule.
+A product has one **price** per **pricing rule**. The `price` field of the [product blueprint](/reference/blueprints/pages/product) is a single number with one rule, and has a row per rule with several. It stores the prices as a list.
 
 <code caption="/content/products/1_bike/product.en.txt">
 ```kirby
@@ -106,16 +106,22 @@ Title: Bike
 
 \----
 
-Prices:
+Price:
 
-- 
+-
   price: 2000
   pricingrule: default
-- 
+-
   price: 2100
   pricingrule: en
 ```
 </code>
+
+A plain number is the price of the `default` rule, so a shop with one currency can write `Price: 2000`.
+
+A product without a price for a rule has no price for the visitors that rule applies to. Merx does not fall back to the `default` price, which would show them a price in another currency.
+
+In a product blueprint of your own, add the field with `type: prices`.
 
 ## Showing the price
 
