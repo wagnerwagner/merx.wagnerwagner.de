@@ -1,5 +1,0 @@
-Guide: /guide/getting-started/validate-checkout
-
-----
-
-Shortdescription: Fields holding the customer’s data, and what the checkout form is validated against.

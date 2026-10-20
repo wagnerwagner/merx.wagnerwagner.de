@@ -1,1 +1,0 @@
-Shortdescription: Fields of an order: dates, order number, cart and totals.

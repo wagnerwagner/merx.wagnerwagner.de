@@ -165,6 +165,22 @@ Every entry in `Items` needs a `type` — `product` for anything you sell. Merx 
 
 And because the order number is a field now, an order without `Ordernumber` stays untitled.
 
+## Blueprints
+
+Kirby 6 replaced sections with fields, and so did Merx.
+
+`sections/order` → [`fields/order`](/reference/blueprints/fields/order), a field group
+`sections/orders` → [`fields/orders`](/reference/blueprints/fields/orders), a `pagelist` field
+`sections/payment` → [`fields/payment`](/reference/blueprints/fields/payment), a field group
+
+Where you extend one of them, change the name and move it from `sections:` to `fields:`. Under `sections:`, Kirby shows an error in its place.
+
+<callout theme="important">
+If you replaced one of them with a file of your own, such as `/site/blueprints/sections/orders.yml`, move it to `/site/blueprints/fields/` and turn it into a field: `type: fields` becomes `type: group`, `type: pages` becomes `type: pagelist` and `headline` becomes `label`. A file left in `sections/` is ignored without an error.
+</callout>
+
+[`layouts/order`](/reference/blueprints/layouts/order) also has a Personal data tab now. It shows [`fields/personal-data`](/reference/blueprints/fields/personal-data), and that is where your customer fields go — see [Validate checkout](/guide/getting-started/validate-checkout). Kirby’s [Sections become fields](https://getkirby.com/releases/6/blueprints#sections-become-fields) covers your other blueprints.
+
 ## The success page
 
 Merx 1 created a virtual success page and sent the customer there. There is none in Merx 2.

@@ -1,1 +1,0 @@
-Shortdescription: Blueprint sections for order data, payment data and the customer’s details.
