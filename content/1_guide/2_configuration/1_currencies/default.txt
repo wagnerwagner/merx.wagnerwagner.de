@@ -98,7 +98,7 @@ Merx checks the rules in the order you define them and uses the first one that r
 
 ## Add prices for products
 
-A product has one **price** per **pricing rule**. The `price` field of the [product blueprint](/reference/blueprints/pages/product) is a single number with one rule, and has a row per rule with several. It stores the prices as a list.
+A product has one **price** per **pricing rule**. The `price` field of the [product blueprint](/reference/blueprints/pages/product) is a single number with one rule, and has a row per rule with several. Each input says whether its price includes tax, as set by the rule’s `taxIncluded`. The field stores the prices as a list.
 
 <code caption="/content/products/1_bike/product.en.txt">
 ```kirby

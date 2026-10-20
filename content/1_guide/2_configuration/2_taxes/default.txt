@@ -53,7 +53,7 @@ Taxrule: reduced
 ```
 </code>
 
-To let Panel users pick the rule, add a `taxRule` field with `type: taxrules` to your product blueprint. It lists the rules from your config, and stays hidden while there is only one.
+The `taxRule` field of the [product blueprint](/reference/blueprints/pages/product) lists the rules from your config, and stays hidden while there is only one. In a product blueprint of your own, add the field with `type: taxrules`.
 
 
 ## Different tax rates for different countries
