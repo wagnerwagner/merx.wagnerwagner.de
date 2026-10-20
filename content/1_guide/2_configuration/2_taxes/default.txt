@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: Each product has its own tax rule. For each rule, a PHP function is assigned that returns a floating number.
+Intro: Each product names a tax rule, and each tax rule sets a rate: a number like `0.19`, or a PHP function that returns one.
 
 ----
 
@@ -19,11 +19,11 @@ The tax rule sets are defined in the [`taxRules`](/reference/options/config-opti
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
 | `name` | `string|function` | Key of the rule | |
-| `rule` | `function` | `null|float` | Function returning a **positive floating number**. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as an argument. |
+| `rate` | `float|function` | `null` | Tax rate as a decimal, e.g. `0.19` for 19 %, or a function returning one. The function gets the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object as its argument. |
 
 ## Set up default tax rate
 
-If you want to change the default tax rate (e.g. when you only sell products of the same kind), you can set up a simple default tax rate rule.
+If you only sell products of the same kind, a `default` rule with a fixed rate is all you need.
 
 <code caption="/site/config/config.php">
 ```php
@@ -32,7 +32,7 @@ If you want to change the default tax rate (e.g. when you only sell products of 
 return [
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
-			'rule' => fn (): float => 0.19,
+			'rate' => 0.19,
 		],
 	],
 ];
@@ -58,7 +58,7 @@ The `taxRule` field of the [product blueprint](/reference/blueprints/pages/produ
 
 ## Different tax rates for different countries
 
-Use the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object to return different tax rates for different conditions. For example you can use [`$kirby->languageCode()`](https://getkirby.com/docs/reference/objects/cms/app/language-code) method to return specific tax rates for each language.
+When the rate depends on something, pass a function instead of a number. It gets the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object, so you can for example use [`$kirby->languageCode()`](https://getkirby.com/docs/reference/objects/cms/app/language-code) to return a rate for each language.
 
 <code caption="/site/config/config.php">
 ```php
@@ -68,11 +68,11 @@ return [
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
 			'name' => fn (): string => t('taxRule.default', 'Standard rate'),
-			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
+			'rate' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.19 : 0.20,
 		],
 		'reduced' => [
 			'name' => fn (): string => t('taxRule.reduced', 'Reduced rate'),
-			'rule' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
+			'rate' => fn (?\Kirby\Cms\App $kirby): float => $kirby->languageCode() === 'de' ? 0.07 : 0.055,
 		],
 	],
 ];

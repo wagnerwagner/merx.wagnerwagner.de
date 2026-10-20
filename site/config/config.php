@@ -17,7 +17,7 @@ return [
 	],
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [
-			'rule' => function (App|null $kirby): float|null {
+			'rate' => function (App|null $kirby): float|null {
 				$region = $kirby->session()->get('region');
 				if (strtolower((string)$region) === 'de') {
 					return 0.19;

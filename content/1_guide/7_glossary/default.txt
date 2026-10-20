@@ -96,7 +96,7 @@ A complete example shop with commented blueprints, templates, JavaScript and CSS
 
 ## Tax rule
 
-A rule in the [`taxRules`](/reference/options/config-options/tax-rules) option that returns a tax rate as a float, for example `0.19`. Each product names the tax rule that applies to it, or gets the `default` rule. See [Taxes](/guide/configuration/taxes).
+An entry in the [`taxRules`](/reference/options/config-options/tax-rules) option that sets a tax rate, for example `0.19`. Each product names the tax rule that applies to it, or gets the `default` rule. See [Taxes](/guide/configuration/taxes).
 
 ## User
 

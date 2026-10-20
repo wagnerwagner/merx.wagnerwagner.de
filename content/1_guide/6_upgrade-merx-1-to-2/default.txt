@@ -65,7 +65,7 @@ Taxrule: default
 ```
 </code>
 
-The rule itself goes into [`taxRules`](/reference/options/config-options/tax-rules). See [Taxes](/guide/configuration/taxes).
+The rule itself goes into [`taxRules`](/reference/options/config-options/tax-rules), with the rate as a decimal: `Tax: 19` becomes `'rate' => 0.19`. See [Taxes](/guide/configuration/taxes).
 
 ## Hooks
 
