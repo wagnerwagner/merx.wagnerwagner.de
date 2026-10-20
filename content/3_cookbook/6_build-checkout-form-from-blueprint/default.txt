@@ -1,0 +1,127 @@
+Title: Build the checkout form from the blueprint
+
+----
+
+Headline:
+
+----
+
+Intro: Build the checkout form from the order blueprint, so the form and its validation cannot drift apart.
+
+----
+
+Text:
+
+The checkout form describes your customer fields twice: once as HTML inputs, and once as blueprint fields, which is what [`initializeOrder()`](/reference/classes/merx/initialize-order) validates the submission against. Add a field to one and forget the other, and you get either a field nobody validates or a validation error for an input the customer was never shown.
+
+You can read the blueprint fields at render time instead and build the form from them, so there is only one list of fields.
+
+## Read the fields
+
+Merx shows the customer fields of an order in a tab called `personalData`. Your own `/site/blueprints/pages/order.yml` is what is actually loaded here, so this works as long as that blueprint extends [`layouts/order`](/reference/blueprints/layouts/order) or has a tab of the same name.
+
+<code caption="/site/controllers/checkout.php">
+```php
+<?php
+
+use Kirby\Cms\Page;
+use Kirby\Form\Fields;
+
+return function () {
+  $order = Page::factory(['slug' => 'checkout', 'template' => 'order']);
+  $names = $order->blueprint()->tab('personalData')->fieldNames();
+
+  return [
+    'fields' => Fields::for($order)
+      ->filter(fn ($field) => in_array($field->name(), $names, true))
+      ->toProps(defaults: true),
+  ];
+};
+```
+</code>
+
+The order page only exists for this request and is never saved. Kirby needs a page to build fields for, and in return you get the fields as the Panel sees them: labels translated, the options of a select field resolved.
+
+The result is keyed by field name, and every entry carries what an input needs: `name`, `type`, `label`, `required`, `default`, plus the props of its field type, such as `placeholder`, `autocomplete` or `minlength`.
+
+## Render the fields
+
+<code caption="/site/templates/checkout.php">
+```php
+<form action="<?= url('api/shop/checkout') ?>" method="post">
+  <?php foreach ($fields as $field): ?>
+    <?= snippet(['fields/' . $field['type'], 'fields/text'], compact('field')) ?>
+  <?php endforeach ?>
+
+  <input type="hidden" name="payment_gateway" value="invoice">
+  <button>Submit order</button>
+</form>
+```
+</code>
+
+[`snippet()`](https://getkirby.com/docs/reference/templates/helpers/snippet) takes a list of names and renders the first one that exists, so `fields/text` catches every field type you haven’t written a snippet for yet.
+
+## A field snippet
+
+<code caption="/site/snippets/fields/text.php">
+```php
+<?php use Kirby\Toolkit\Html ?>
+
+<div>
+  <label for="<?= $field['name'] ?>">
+    <?= $field['label'] ?>
+    <?php if ($field['required'] ?? false): ?>
+      <abbr aria-hidden="true" title="<?= t('field.required') ?>">*</abbr>
+    <?php endif ?>
+  </label>
+  <input
+    <?= Html::attr([
+      'type' => $field['type'],
+      'name' => $field['name'],
+      'id' => $field['name'],
+      'required' => $field['required'] ?? null,
+      'placeholder' => $field['placeholder'] ?? null,
+      'value' => $field['default'] ?? null,
+      'autocomplete' => $field['autocomplete'] ?? null,
+      'max' => $field['max'] ?? null,
+      'maxlength' => $field['maxlength'] ?? null,
+      'min' => $field['min'] ?? null,
+      'minlength' => $field['minlength'] ?? null,
+    ]) ?>
+  >
+  <?php if (isset($field['help'])): ?>
+    <div><?= $field['help'] ?></div>
+  <?php endif ?>
+</div>
+```
+</code>
+
+Copy it to `fields/select`, `fields/checkbox` and so on wherever an input needs different markup.
+
+<callout theme="important">
+Entries come with `disabled` set, because the customer has no permission to edit pages in the Panel. Do not pass it on to the input. A browser does not submit a disabled input, and the order would fail validation.
+</callout>
+
+Rules under `validate` are checked on the server and are not part of the entry. If the browser should check a length as well, give the field its own `minlength` or `maxlength`, which the snippet passes on.
+
+A field with a `when` condition only has to be filled in while the condition is met, but the snippet marks it `required` either way. Show and hide such a field with JavaScript, or leave `required` off.
+
+## Choose the fields yourself
+
+To show the fields in a different order, or spread them over several steps, list their names instead of reading the tab.
+
+<code caption="/site/controllers/checkout.php">
+```php
+$names = ['email', 'given_name', 'family_name'];
+```
+</code>
+
+Write the names in lowercase. Kirby lowercases field names, so `givenName` would not match, and the field would be missing from the form without an error.
+
+----
+
+Shortdescription: Build the checkout form from the order blueprint, so the form and its validation cannot drift apart.
+
+----
+
+Uuid: 74bdzvzafvbqxndl

@@ -1,1 +1,1 @@
-Shortdescription: Blueprint fields for prices and order items.
+Shortdescription: Blueprint fields and field groups for orders, prices and the customer’s details.

@@ -101,7 +101,7 @@ See [Elements Appearance API | Stripe Documentation](https://docs.stripe.com/ele
 
 ## Submit the payment to Stripe
 
-As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data section. After that the payment data the customer entered into the elements is submitted to and validated by Stripe. 
+As described in [Validate checkout](/guide/getting-started/validate-checkout) the personal data will be validated first against the personal data fields of the order blueprint. After that the payment data the customer entered into the elements is submitted to and validated by Stripe. 
 
 ### Retrieve the client secret
 

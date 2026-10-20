@@ -1,1 +1,0 @@
-Shortdescription: Fields recording how an order was paid: gateway, status and the provider’s transaction.

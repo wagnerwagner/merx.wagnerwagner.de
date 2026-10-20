@@ -16,11 +16,11 @@ To make sure you get all the data you need from your customers, Merx uses Kirby�
 
 ## Define fields
 
-Set up the fields, that are required to fulfill orders. Therefore create a new personal data section. If you don’t create your own personal data section, the [default personal data section](/reference/blueprints/sections/personal-data) is used.
+Set up the fields that are required to fulfill orders as a field group of your own. If you don’t create one, the [default personal data fields](/reference/blueprints/fields/personal-data) are used, which only ask for an email address.
 
-<code caption="/site/blueprints/sections/personal-data.yml">
+<code caption="/site/blueprints/fields/personal-data.yml">
 ```yaml
-type: fields
+type: group
 fields:
   email:
     label: Email
@@ -45,7 +45,7 @@ fields:
 
 ## Update checkout template
 
-Add the new fields to the checkout template.
+Add the new fields to the checkout template. To build these inputs from the blueprint instead of writing them out, see [Build the checkout form from the blueprint](/cookbook/build-checkout-form-from-blueprint).
 
 
 <code caption="/site/templates/checkout.php">

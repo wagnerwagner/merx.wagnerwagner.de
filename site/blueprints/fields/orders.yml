@@ -1,4 +1,4 @@
-type: pages
+type: pagelist
 parent: site.find("orders")
 template: order
 sortBy: num desc
