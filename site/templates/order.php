@@ -8,7 +8,7 @@
 
 $total = $cart->total();
 $taxRates = $cart->taxRates();
-$isPaid = $page->paymentComplete()->toBool();
+$isPaid = $page->isPaid();
 $isTestPayment = ($page->paymentDetails()['livemode'] ?? null) === false;
 $country = option('wagnerwagner.site.countryList')[(string)$page->country()] ?? null;
 ?>

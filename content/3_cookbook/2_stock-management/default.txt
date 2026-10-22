@@ -124,13 +124,13 @@ return [
 
 ## Reduce the stock once paid
 
-The [`paymentCompleted`](/reference/options/hooks/payment-completed) hook fires exactly once, when the order flips to paid. That also covers payment methods which confirm hours later through a [Stripe webhook](/guide/configuration/stripe-webhooks), so it’s the only place you have to write.
+The [`orderPaid`](/reference/options/hooks/order-paid) hook fires exactly once, when the order becomes paid. That also covers payment methods which confirm hours later through a [Stripe webhook](/guide/configuration/stripe-webhooks), so it’s the only place you have to write.
 
 Writing to a page needs permissions the customer does not have, so wrap the update in [`impersonate()`](https://getkirby.com/docs/reference/objects/cms/app/impersonate).
 
 <code caption="/site/config/config.php">
 ```php
-'wagnerwagner.merx.paymentCompleted' => function (OrderPage $orderPage): void {
+'wagnerwagner.merx.orderPaid' => function (OrderPage $orderPage): void {
   kirby()->impersonate('kirby', function () use ($orderPage): void {
     foreach (quantitiesPerProduct($orderPage->cart()) as $uuid => $quantity) {
       $page = page($uuid);

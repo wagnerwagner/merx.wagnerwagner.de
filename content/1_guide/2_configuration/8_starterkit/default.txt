@@ -30,7 +30,7 @@ Use a [domain-specific config file](https://getkirby.com/docs/guide/configuratio
 The Starterkit also registers two hooks in `site/config/config.php`:
 
 - `wagnerwagner.merx.createOrder:after` sends an order confirmation email to the customer. See [Sending emails](/guide/getting-started/sending-emails).
-- `wagnerwagner.merx.paymentCompleted` reduces the `stock` field of the ordered products once the payment is completed (skipped in debug mode). See [Cookbook: Stock management](/cookbook/stock-management).
+- `wagnerwagner.merx.orderPaid` reduces the `stock` field of the ordered products once the order is paid (skipped in debug mode). See [Cookbook: Stock management](/cookbook/stock-management).
 
 ----
 

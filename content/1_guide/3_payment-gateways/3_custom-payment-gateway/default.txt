@@ -44,7 +44,6 @@ return [
       'completePayment' => function(OrderPage $virtualOrderPage, array $data): OrderPage
       {
         $virtualOrderPage->version()->update([
-          'paymentComplete' => true,
           'datePaid' => date('c'),
           'paymentDetails' => Yaml::encode(PaymentDetails::create([
             'provider' => 'my-payment-provider',

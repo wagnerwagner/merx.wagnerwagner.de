@@ -149,6 +149,7 @@ Cart items were arrays. They are [`ListItem`](/reference/classes/list-item) obje
 `$orderPage->invoiceNumber()` → [`$orderPage->orderNumber()`](/reference/options/config-options/order-number)
 `$orderPage->invoiceDate()` → `$orderPage->dateCreated()`
 `$orderPage->payedDate()` and `paidDate()` → `$orderPage->datePaid()`
+`$orderPage->paymentComplete()` → [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid)
 `$orderPage->formattedSum()` → [`$orderPage->total()`](/reference/classes/order-page/total)
 
 The order number is stored on the page now. Merx 1 derived it from the page’s sorting number, so it changed when the order was re-sorted. You can replace how it is built with the [`orderNumber`](/reference/options/config-options/order-number) option.
@@ -160,6 +161,8 @@ Merx does not migrate the orders you already have. Rename their fields yourself,
 `Invoicedate` → `Datecreated`
 `Paiddate` → `Datepaid`
 `Paymentmethod` → `Paymentgateway`
+
+`Paymentcomplete` is gone. An order is paid once it has a `Datepaid`.
 
 Every entry in `Items` needs a `type` — `product` for anything you sell. Merx 1 wrote `template` instead.
 
