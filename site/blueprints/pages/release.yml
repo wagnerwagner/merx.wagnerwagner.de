@@ -18,6 +18,7 @@ columns:
           # which strips the indentation of the code in `visual`.
           features:
             type: blocks
+            pretty: true
             help: Features without a visual are set side by side in a grid.
             fieldsets:
               feature:
