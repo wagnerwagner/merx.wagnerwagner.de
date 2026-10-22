@@ -67,7 +67,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 				'template' => 'reference-doc',
 				'parent'   => $this,
 				'content'  => $content,
-				'num'      => $num
+				'num'      => $num,
 			];
 		}
 
@@ -103,7 +103,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 			'desc',
 			'slug',
 			'asc',
-			SORT_NATURAL
+			SORT_NATURAL,
 		);
 	}
 
@@ -111,7 +111,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 	{
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 
@@ -136,7 +136,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 	protected function methodTitle(
 		string $name,
 		bool $isStatic = false,
-		bool $isConstructor = false
+		bool $isConstructor = false,
 	): string {
 		$className = A::last(Str::split($this->class(), '\\'));
 
@@ -160,7 +160,7 @@ class ReferenceClassPage extends ReferencePageAbstract
 	{
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 

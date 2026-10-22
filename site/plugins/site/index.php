@@ -74,7 +74,7 @@ App::plugin('wagnerwagner/site', [
 				return $this->title();
 			}
 			return $this->title() . ' – ' . $this->site()->title();
-		}
+		},
 	],
 	'siteMethods' => [
 		'prettySearch' => function ($query = ''): Kirby\Cms\Pages {
@@ -100,7 +100,7 @@ App::plugin('wagnerwagner/site', [
 				return $page;
 			});
 			return $result;
-		}
+		},
 	],
 	'hooks' => [
 		'wagnerwagner.merx.completePayment:after' => function ($orderPage) use ($licenseBase) {
@@ -218,7 +218,7 @@ App::plugin('wagnerwagner/site', [
 			preg_match_all(
 				'!<' . $headline . '.*?>(.*?)</' . $headline . '>!s',
 				$field->value($value)->kt()->value(),
-				$matches
+				$matches,
 			);
 
 			$headlines = new Collection();

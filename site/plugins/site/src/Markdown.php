@@ -35,7 +35,7 @@ class Markdown extends ParsedownExtra
 				'box' => [
 					'type' => $type,
 					'html' => null,
-					'attrs' => $this->parseAttributes($matches[2])
+					'attrs' => $this->parseAttributes($matches[2]),
 				],
 			];
 
@@ -75,7 +75,7 @@ class Markdown extends ParsedownExtra
 		return [
 			'element' => [
 				'rawHtml' => $html,
-			]
+			],
 		];
 	}
 
@@ -149,17 +149,17 @@ class Markdown extends ParsedownExtra
 			'element' => [
 				'name' => $level,
 				'attributes' => [
-					'id' => $slug
+					'id' => $slug,
 				],
 				'element' => [
 					'name' => 'a',
 					'handler' => $Block['element']['handler'],
 					'nonNestables' => ['Url', 'Link'],
 					'attributes' => [
-						'href' => '#' . $slug
-					]
-				]
-			]
+						'href' => '#' . $slug,
+					],
+				],
+			],
 		];
 	}
 
@@ -195,8 +195,8 @@ class Markdown extends ParsedownExtra
 					'handler' => [
 						'function' => 'inlineCodeHandler',
 						'argument' => $Excerpt['element']['text'],
-						'destination' => 'elements'
-					]
+						'destination' => 'elements',
+					],
 				],
 			];
 		}
@@ -206,8 +206,8 @@ class Markdown extends ParsedownExtra
 	{
 		return [
 			[
-				'rawHtml' => (new Types($text))->toHtml()
-			]
+				'rawHtml' => (new Types($text))->toHtml(),
+			],
 		];
 	}
 
@@ -220,7 +220,7 @@ class Markdown extends ParsedownExtra
 		$input = mb_encode_numericentity(
 			$input,
 			[0x80, 0x10FFFF, 0, 0x1FFFFF],
-			'UTF-8'
+			'UTF-8',
 		);
 
 		$dom = new DomDocument();

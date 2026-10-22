@@ -72,7 +72,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 
@@ -141,7 +141,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 
 		return A::find(
 			$parent->docBlock()?->getMethodTagValues() ?? [],
-			fn (MethodTagValueNode $tag) => $tag->methodName === $name
+			fn (MethodTagValueNode $tag) => $tag->methodName === $name,
 		);
 	}
 
@@ -240,7 +240,7 @@ class ReferenceClassMethodPage extends ReferencePageAbstract
 
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 

@@ -35,7 +35,7 @@ class ReferenceBlueprintsPage extends Page
 	 * inside the given root, preparing it for `Pages::factory()`.
 	 */
 	protected function childrenFactory(
-		string $root
+		string $root,
 	): array {
 		$children = [];
 
@@ -59,7 +59,7 @@ class ReferenceBlueprintsPage extends Page
 				'content'  => [
 					...$content,
 					'type' => $type,
-				]
+				],
 			];
 		}
 

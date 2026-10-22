@@ -32,7 +32,7 @@ class ReferenceApiPage extends Page
 	public function apiRequest(
 		string $path,
 		string $method = 'GET',
-		array $requestData = []
+		array $requestData = [],
 	): mixed {
 		if ($path === 'shop/success') {
 			return null;
@@ -53,7 +53,7 @@ class ReferenceApiPage extends Page
 				'code' => 200,
 				'data' => $this->resolveApiModel('ProductList'),
 				'status' => 'ok',
-				'type' => 'model'
+				'type' => 'model',
 			], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 		if ($path === 'shop/checkout') {
@@ -97,7 +97,7 @@ class ReferenceApiPage extends Page
 	 * given root, mapping each one to a `reference-api-type` child.
 	 */
 	protected function childrenFactory(
-		string $root
+		string $root,
 	): array {
 		$children = [];
 
@@ -125,7 +125,7 @@ class ReferenceApiPage extends Page
 				'content'  => [
 					...$content,
 					'type' => $type,
-				]
+				],
 			];
 		}
 

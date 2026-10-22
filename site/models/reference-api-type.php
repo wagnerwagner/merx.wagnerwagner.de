@@ -80,7 +80,7 @@ class ReferenceApiTypePage extends ReferencePageAbstract
 				'model' => $model,
 				'template' => $template,
 				'num' => 0,
-				'content' => $content
+				'content' => $content,
 			];
 		}
 

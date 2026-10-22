@@ -35,7 +35,7 @@ class ReferenceBlueprintTypePage extends ReferencePageAbstract
 	 * given root directory so `Pages::factory()` can instantiate them.
 	 */
 	protected function childrenFactory(
-		string $root
+		string $root,
 	): array {
 		$children = [];
 
@@ -60,7 +60,7 @@ class ReferenceBlueprintTypePage extends ReferencePageAbstract
 					...$content,
 					'title' => $filename,
 					'filename' => $filename,
-				]
+				],
 			];
 		}
 

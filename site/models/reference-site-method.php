@@ -21,7 +21,7 @@ class ReferenceSiteMethodPage extends ReferencePageAbstract
 	{
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 
@@ -50,7 +50,7 @@ class ReferenceSiteMethodPage extends ReferencePageAbstract
 	{
 		$nodes = array_filter(
 			$this->docBlock()->children ?? [],
-			fn (Node $node) => $node instanceof PhpDocTextNode
+			fn (Node $node) => $node instanceof PhpDocTextNode,
 		);
 		$node = $nodes[0] ?? null;
 

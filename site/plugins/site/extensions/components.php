@@ -10,7 +10,7 @@ return [
 	'markdown' => function (
 		App $kirby,
 		string|null $text = null,
-		array $options = []
+		array $options = [],
 	) {
 		static $parser;
 		static $config;

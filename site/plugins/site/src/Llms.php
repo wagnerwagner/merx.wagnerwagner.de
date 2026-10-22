@@ -99,7 +99,7 @@ class Llms
 				'## Example response',
 				static::code(
 					json_encode($model, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-					'json'
+					'json',
 				),
 			]);
 		}
@@ -129,7 +129,7 @@ class Llms
 
 		return implode(PHP_EOL, A::map(
 			$lines,
-			fn (string $line) => rtrim('> ' . $line)
+			fn (string $line) => rtrim('> ' . $line),
 		));
 	}
 
@@ -146,10 +146,10 @@ class Llms
 			function (array $matches): string {
 				$theme = static::attr($matches[1], 'theme') ?? 'note';
 				return static::blockquote(
-					'[!' . Str::upper($theme) . ']' . PHP_EOL . trim($matches[2])
+					'[!' . Str::upper($theme) . ']' . PHP_EOL . trim($matches[2]),
 				);
 			},
-			$text
+			$text,
 		);
 	}
 
@@ -182,7 +182,7 @@ class Llms
 		return preg_replace(
 			['!\x{00ad}|\x{200b}|\x{2060}|\x{feff}!u', '!\x{00a0}!u'],
 			['', ' '],
-			$string
+			$string,
 		);
 	}
 
@@ -211,7 +211,7 @@ class Llms
 				$caption = static::attr($matches[1], 'caption');
 				return static::code($matches[3], $matches[2], $caption);
 			},
-			$text
+			$text,
 		);
 
 		// Unwrap <code> boxes without a fenced block inside.
@@ -222,7 +222,7 @@ class Llms
 			'!^\(filename:\s*([^)]*)\)\s*\R+```([^\s`]*)!m',
 			fn (array $matches): string => '```' . $matches[2]
 				. ' title="' . trim($matches[1]) . '"',
-			$text
+			$text,
 		);
 	}
 
@@ -439,7 +439,7 @@ class Llms
 		return in_array(
 			A::first(Str::split($page->id(), '/')),
 			static::SECTIONS,
-			true
+			true,
 		);
 	}
 
@@ -472,7 +472,7 @@ class Llms
 		return preg_replace_callback(
 			'!\]\((/[^)\s]*)\)!',
 			fn (array $matches): string => '](' . static::resolveUrl($matches[1]) . ')',
-			$text
+			$text,
 		);
 	}
 
@@ -578,7 +578,7 @@ class Llms
 	{
 		$hasDescription = count(array_filter(
 			$params,
-			fn ($param) => !empty($param['description'])
+			fn ($param) => !empty($param['description']),
 		)) > 0;
 
 		$head = ['Name', 'Type', 'Default'];
@@ -635,7 +635,7 @@ class Llms
 			// Limit the placeholder syntax to `{{ … }}`. Kirby also
 			// accepts single braces by default, which would swallow
 			// braces in code examples.
-			['start' => '\{\{', 'end' => '\}\}']
+			['start' => '\{\{', 'end' => '\}\}'],
 		));
 
 		// llms.txt needs an H1, so never return an empty preamble.
@@ -807,7 +807,7 @@ class Llms
 		$cell = fn (mixed $cell): string => str_replace(
 			['|', PHP_EOL],
 			['\|', ' '],
-			static::clean(trim((string)$cell))
+			static::clean(trim((string)$cell)),
 		);
 
 		$line = fn (array $cells): string => '| '
@@ -834,7 +834,7 @@ class Llms
 				$text = trim($matches[2] ?? '');
 				return '[' . ($text !== '' ? $text : $url) . '](' . $url . ')';
 			},
-			$text
+			$text,
 		);
 
 		// (email: merx@wagnerwagner.de)
@@ -846,7 +846,7 @@ class Llms
 					? '[' . $text . '](mailto:' . $matches[1] . ')'
 					: '<' . $matches[1] . '>';
 			},
-			$text
+			$text,
 		);
 
 		// (file: …) and (image: …) have no meaning without the page
@@ -854,7 +854,7 @@ class Llms
 		return preg_replace_callback(
 			'!\((?:file|image):\s*([^\s)]+)[^)]*\)!',
 			fn (array $matches): string => '[' . $matches[1] . '](' . static::resolveUrl($matches[1]) . ')',
-			$text
+			$text,
 		);
 	}
 

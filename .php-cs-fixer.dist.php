@@ -1,10 +1,19 @@
 <?php
 
-return Kirby\PhpCs\Config::create()->setFinder(
-	PhpCsFixer\Finder::create()
-		->exclude('accounts')
-		->exclude('cache')
-		->exclude('sessions')
-		->in(__DIR__ . '/site')
-		->append([__DIR__ . '/index.php'])
-);
+$config = Kirby\PhpCs\Config::create();
+
+return $config
+	->setRules([
+		...$config->getRules(),
+		'trailing_comma_in_multiline' => [
+			'elements' => ['arguments', 'array_destructuring', 'arrays', 'match', 'parameters'],
+		],
+	])
+	->setFinder(
+		PhpCsFixer\Finder::create()
+			->exclude('accounts')
+			->exclude('cache')
+			->exclude('sessions')
+			->in(__DIR__ . '/site')
+			->append([__DIR__ . '/index.php']),
+	);

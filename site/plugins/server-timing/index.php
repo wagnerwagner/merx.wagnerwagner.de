@@ -53,5 +53,5 @@ App::plugin('tobiaswolf/server-timing', [
 
 			header('Server-Timing: ' . implode(', ', $strings));
 		},
-	]
+	],
 ]);

@@ -13,7 +13,7 @@ return [
 		'default' => [
 			'currency' => 'EUR',
 			'taxIncluded' => false,
-		]
+		],
 	],
 	'wagnerwagner.merx.taxRules' => [
 		'default' => [

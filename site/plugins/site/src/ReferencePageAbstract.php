@@ -178,7 +178,7 @@ abstract class ReferencePageAbstract extends Page
 			/** @var ?ParamTagValueNode */
 			$docBlockParam = A::find(
 				$this->docBlock()?->getParamTagValues() ?? [],
-				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name
+				fn (ParamTagValueNode $docBlockParam) => $docBlockParam->parameterName === '$' . $param->name,
 			);
 
 			$defaultValue = null;

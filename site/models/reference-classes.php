@@ -37,7 +37,7 @@ class ReferenceClassesPage extends Page
 	 */
 	protected function childrenFactory(
 		string $namespace,
-		string $root
+		string $root,
 	): array {
 		$children = [];
 
@@ -66,8 +66,8 @@ class ReferenceClassesPage extends Page
 				'content'  => [
 					...$content,
 					'isInternal' => $isInternal,
-					'class' => $class
-				]
+					'class' => $class,
+				],
 			];
 		}
 

@@ -47,7 +47,7 @@ App::plugin(
 				'searchresults' => [
 					'model' => 'searchresult',
 					'type' => SearchResults::class,
-					'view' => 'compact'
+					'view' => 'compact',
 				],
 			],
 			'routes' => function (App $kirby) {
@@ -105,10 +105,10 @@ App::plugin(
 							}
 
 							return $results;
-						}
+						},
 					],
 				];
-			}
+			},
 		],
 		'translations' => [
 			'en' => [
@@ -121,6 +121,6 @@ App::plugin(
 					$newPage->kirby()->cache('site.search')->flush();
 				}
 			},
-		]
-	]
+		],
+	],
 );
