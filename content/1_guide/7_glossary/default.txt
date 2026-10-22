@@ -94,6 +94,10 @@ Shipping costs are a list item with the type `shipping`, not a product page. The
 
 A complete example shop with commented blueprints, templates, JavaScript and CSS. The fastest way to see how the parts fit together. See [Installation](/guide/getting-started/installation).
 
+## Stock
+
+How many of a product are left, kept in its `stock` field. Merx refuses more in the cart and at the checkout, and lowers it with every order once the shop is in production. See [Stock](/guide/getting-started/stock).
+
 ## Tax rule
 
 An entry in the [`taxRules`](/reference/options/config-options/tax-rules) option that sets a tax rate, for example `0.19`. Each product names the tax rule that applies to it, or gets the `default` rule. See [Taxes](/guide/configuration/taxes).

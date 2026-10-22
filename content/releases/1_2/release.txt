@@ -108,7 +108,7 @@ Features:
         "content": {
             "label": "Volume-based pricing",
             "headline": "Prices that know the quantity",
-            "text": "A product’s price can depend on how many are in the cart. Override `price()` in your product model, and the cart passes the quantity for you. A `maxQuantity` field caps how many fit into one cart, with an error message ready for the customer — see (link: page://Mu3R1h2iEbZfWwCQ text: Stock management).",
+            "text": "A product’s price can depend on how many are in the cart. Override `price()` in your product model, and the cart passes the quantity for you.",
             "link": "page://0wcfjw04omnnzrg8",
             "linktext": "",
             "visual": "<code caption=\"/site/models/product.php\">\n```php\n<?php\n\nuse Wagnerwagner\\Merx\\Price;\nuse Wagnerwagner\\Merx\\PricingRule;\n\nclass ProductPage extends Wagnerwagner\\Merx\\ProductPage\n{\n  public function price(\n    null|string|PricingRule $pricingRule = null,\n    null|float $quantity = null,\n  ): ?Price {\n    $price = parent::price($pricingRule, $quantity);\n    if ($quantity >= 10) {\n      $price = $price->updatePrice($price->price * 0.95);\n    }\n    return $price;\n  }\n}\n```\n</code>"
@@ -119,9 +119,22 @@ Features:
     },
     {
         "content": {
+            "label": "Stock",
+            "headline": "Never sell what you don’t have",
+            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment is captured, and every order lowers the stock — test orders excepted.",
+            "link": "page://Mu3R1h2iEbZfWwCQ",
+            "linktext": "",
+            "visual": ""
+        },
+        "id": "f70f6c88-6614-4edb-9a45-81c5ca32da5d",
+        "isHidden": false,
+        "type": "feature"
+    },
+    {
+        "content": {
             "label": "Hooks",
             "headline": "A hook for every step",
-            "text": "Before and after every cart operation, before and after an order is initialized and created, and when an order is paid — even if that happens days later, as with SEPA Direct Debit. Send mails, update stock or talk to your ERP without touching Merx.",
+            "text": "Before and after every cart operation, before and after an order is initialized and created, and when an order is paid — even if that happens days later, as with SEPA Direct Debit. Send mails or talk to your ERP without touching Merx.",
             "link": "page://yhIQU3K8eTbdmO2Z",
             "linktext": "",
             "visual": "<code caption=\"/site/config/config.php\">\n```php\n<?php\n\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.orderPaid' => function ($orderPage) {\n      // Right away for a card, days later for SEPA Direct Debit\n    },\n  ],\n];\n```\n</code>"
@@ -177,7 +190,6 @@ More:
 
 - API responses in the visitor’s language, via the `X-Language` header
 - Your own fields in every API response, with (link: page://qez0bnp1cqofknjo text: custom models)
-- A shop settings tab for the Panel, with a shop-wide `maxQuantity`
 - Kirby 5.5 and PHP 8.2 to 8.5
 
 ----

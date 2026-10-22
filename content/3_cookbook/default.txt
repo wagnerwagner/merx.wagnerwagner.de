@@ -12,7 +12,7 @@ Intro: Recipes for the things a real shop needs and Merx does not do for you.
 
 Text:
 
-The [guide](/guide) gets a shop running. These recipes go past that, to the features every shop ends up wanting: keeping stock, selling a product in several sizes, charging for shipping, giving a discount, saving a product for later.
+The [guide](/guide) gets a shop running. These recipes go past that, to the features every shop ends up wanting: selling a product in several sizes, charging for shipping, giving a discount, saving a product for later.
 
 None of them are Merx features with an option to switch on. They are patterns built from the parts Merx does give you — [list items](/reference/classes/list-item) with a type, [hooks](/reference/options/hooks) that fire when the cart changes, and [pricing rules](/guide/configuration/currencies). Read one that is close to what you need and adapt it.
 

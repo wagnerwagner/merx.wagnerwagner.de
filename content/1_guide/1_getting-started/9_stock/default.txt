@@ -1,0 +1,80 @@
+Title: Stock
+
+----
+
+Headline:
+
+----
+
+Intro: Your granny knitted ten pairs of socks, so you can’t sell eleven. Give the product a `stock` field and Merx does the counting.
+
+----
+
+Text:
+
+## Add a stock field
+
+The [product blueprint](/reference/blueprints/pages/product) that comes with Merx already has one. If your products use a blueprint of their own, add [`fields/stock`](/reference/blueprints/fields/stock) to it.
+
+<code caption="/site/blueprints/pages/product.yml">
+```yaml
+fields:
+  stock: fields/stock
+```
+</code>
+
+An empty field means no limit, so a product you don’t count sells as before.
+
+## What Merx does with it
+
+The cart never holds more of a product than its stock. [`add()`](/reference/classes/cart/add) and [`updateItem()`](/reference/classes/cart/update-item) throw [`error.merx.cart.stock`](/reference/options/translations/error-merx-cart-stock), which reads *“Only 3 of “Knitted socks” left.”*, and [`error.merx.cart.soldOut`](/reference/options/translations/error-merx-cart-soldout) once there are none. All lines of a product count together, so a [personalized product](/cookbook/personalized-products) with one line per name can’t get past the stock one name at a time.
+
+A cart can sit in the session for days, so the checkout checks again: when the order is [initialized](/reference/classes/merx/initialize-order), and once more when the customer comes back from the payment provider, before the payment is captured.
+
+Once the order is written, Merx lowers the stock of every product in it. That includes orders which are paid later, by invoice or SEPA Direct Debit, because the goods are promised from that moment on.
+
+<callout theme="important">
+The stock only goes down while [`production`](/reference/options/config-options/production) is `true`, so test orders leave it alone. The checks run either way, so you can try a sold-out product before the shop goes live.
+</callout>
+
+## Show what’s left
+
+[`$page->stock()`](/reference/classes/product-page/stock) returns the number, or `null` for a product without a limit.
+
+<code caption="/site/templates/product.php">
+```php
+<?php if ($page->stock() !== null && $page->stock() <= 0): ?>
+  <p>Sold out</p>
+<?php else: ?>
+  <form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
+    …
+  </form>
+<?php endif ?>
+```
+</code>
+
+The cart and the checkout return their errors from the [API](/guide/api/concept) as JSON, with status 400 and a translated `message`. The checkout script in [Validate checkout](/guide/getting-started/validate-checkout) already shows any error that is not about a field above the submit button.
+
+## When the stock is off
+
+A SEPA debit that bounces or an invoice that is never paid leaves the stock lowered, because Merx counts the order, not the payment. Put it back by hand in the Panel.
+
+Changes an editor has not published yet are a copy of the whole page, stock included. Publishing them after an order came in writes the old stock back, so don’t leave changes to a product you sell lying around.
+
+Two customers who buy the last item at the same moment can both get through, because both pass the check before either order is written. The stock goes to −1 and Merx logs it, rather than refusing an order that is already paid.
+
+<callout theme="caution">
+The last check only works while the payment has not been captured yet. Merx asks Stripe to capture manually, through [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters). If you change `capture_method`, the money is taken before that check, and a product that sold out in the meantime leaves a payment without an order.
+</callout>
+
+## Your own stock source
+
+When the stock lives in an ERP or a warehouse system, override [`stock()`](/reference/classes/product-page/stock) and [`reduceStock()`](/reference/classes/product-page/reduce-stock) in your own [product model](/guide/getting-started/adding-products). Merx asks `stock()` for every check and calls `reduceStock()` once per product of a new order, in production only.
+
+----
+
+Shortdescription: Keep a product from selling more than you have.
+
+----
+
+Uuid: Mu3R1h2iEbZfWwCQ

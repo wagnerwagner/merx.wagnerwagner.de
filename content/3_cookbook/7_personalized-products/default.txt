@@ -149,10 +149,6 @@ fields:
 
 The table shows it as `{ … }`. Open the row to read the name.
 
-<callout theme="caution">
-[`maxQuantity`](/reference/classes/product-page/max-quantity) is checked per line, not per product. With ten pairs left, ten for Anna and ten for Ben both fit into the cart. Anything that counts per product, like [stock management](/cookbook/stock-management), has to add up the lines of a page first.
-</callout>
-
 ## Charge for the embroidery
 
 The price still comes from the product page; `data` never changes it. If embroidery costs extra, add it as an item of its own, the way [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts) adds shipping.

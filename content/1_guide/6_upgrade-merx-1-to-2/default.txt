@@ -67,6 +67,10 @@ Taxrule: default
 
 The rule itself goes into [`taxRules`](/reference/options/config-options/tax-rules), with the rate as a decimal: `Tax: 19` becomes `'rate' => 0.19`. See [Taxes](/guide/configuration/taxes).
 
+Merx counts the [stock](/guide/getting-started/stock) itself. A `Stock` field keeps working as it is, but delete the hooks that lowered it, or every order lowers it twice. The method returns the number now, not the field:
+
+`$page->stock()->toFloat()` → [`$page->stock()`](/reference/classes/product-page/stock)
+
 ## Hooks
 
 `initializePayment:before` → [`initializeOrder:before`](/reference/options/hooks/initialize-order-before)

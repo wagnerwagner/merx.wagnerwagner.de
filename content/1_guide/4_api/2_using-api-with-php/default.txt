@@ -121,7 +121,7 @@ cart()->updateItem($request->get('key'), [
 </code>
 
 <callout theme="caution">
-Never trust what the form sends. The API filters the request body before it reaches the cart, and your own route has to do the same. Cast `quantity` to a number, and do not pass the whole request body through — a `data` array that carries `maxQuantity` would lift the product’s own limit.
+Never trust what the form sends. The API filters the request body before it reaches the cart, and your own route has to do the same. Cast `quantity` to a number, and do not pass the whole request body through — a `price` in it would replace the product’s own.
 </callout>
 
 ## Checkout

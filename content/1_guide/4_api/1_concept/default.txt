@@ -67,8 +67,8 @@ An error uses the same envelope with `"status": "error"` and carries a `key` nex
 {
   "code": 400,
   "status": "error",
-  "message": "There are only 3 of “Shoes” left.",
-  "key": "error.merx.cart.maxQuantity",
+  "message": "Only 3 of “Shoes” left.",
+  "key": "error.merx.cart.stock",
   "details": []
 }
 ```
