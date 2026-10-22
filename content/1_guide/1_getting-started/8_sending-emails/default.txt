@@ -30,13 +30,15 @@ return [
         'fromName' => $orderPage->site()->title(),
         'to' => [(string)$orderPage->email() => $name],
         'subject' => 'Thanks for your order!',
-        'body'=> 'Dear ' . $name . ', you have paid ' . $orderPage->total(),
+        'body' => 'Dear ' . $name . ', thank you for your order of ' . $orderPage->total(),
       ]);
     },
   ],
 ];
 ```
 </code>
+
+The hook runs for every order, paid or not: an invoice or SEPA Direct Debit order is still waiting for its payment. Check [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) before the mail says the order is paid.
 
 Read [Kirby’s guide about emails](https://getkirby.com/docs/guide/emails) to learn more about sending mails.
 
@@ -63,8 +65,7 @@ return [
       kirby()->email('createOrder', [
         'to' => (string)$orderPage->email(),
         'fromName' => $orderPage->site()->title(),
-        'subject' => '
- for your order!',
+        'subject' => 'Thanks for your order!',
         'data' => [
           'orderPage' => $orderPage,
         ],
@@ -78,7 +79,7 @@ return [
 <code caption="/site/templates/emails/create-order.php">
 ```php
 <?php /** @var \Wagnerwagner\Merx\OrderPage $orderPage */ ?>
-Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, you have paid <?= $orderPage->total() ?>
+Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, thank you for your order of <?= $orderPage->total() ?>
 ```
 </code>
 
