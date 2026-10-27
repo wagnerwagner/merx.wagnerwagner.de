@@ -22,12 +22,10 @@ Text:
 `<meta name="robots" content="noindex, follow">`
 - Add a robots.txt to disallow order pages. (Your /orders/ path can be different depending on your ordersPage option)
 
-<code caption="robots.txt">
-```
+```text title="robots.txt"
 User-agent: *
 Disallow: /orders/
 ```
-</code>
 
 ## Advanced
 

@@ -17,8 +17,7 @@ Merx comes with several [hooks](/reference/options/hooks) that allow you to hook
 
 Use the [`createOrder:after`](/reference/options/hooks/create-order-after) hook to send a mail to the customer to inform about the succeeded order.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -36,7 +35,6 @@ return [
   ],
 ];
 ```
-</code>
 
 The hook runs for every order, paid or not: an invoice or SEPA Direct Debit order is still waiting for its payment. Check [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) before the mail says the order is paid.
 
@@ -48,8 +46,7 @@ Read [Kirby’s guide about emails](https://getkirby.com/docs/guide/emails) to l
 
 It’s recommended to use [mail presets](https://getkirby.com/docs/guide/emails#presets). This has the advantage that you can define the sender email address and a mail template globally in the config file.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 return [
   'email' => [
@@ -74,18 +71,14 @@ return [
   ],
 ];
 ```
-</code>
 
-<code caption="/site/templates/emails/create-order.php">
-```php
+```php title="/site/templates/emails/create-order.php"
 <?php /** @var \Wagnerwagner\Merx\OrderPage $orderPage */ ?>
 Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, thank you for your order of <?= $orderPage->total() ?>
 ```
-</code>
 
-<callout theme="caution">
-When you create [html emails](https://getkirby.com/docs/guide/emails#formats__html-plain-text), always use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for fields with user generated content to prevent [XSS attacks](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
-</callout>
+> [!CAUTION]
+> When you create [html emails](https://getkirby.com/docs/guide/emails#formats__html-plain-text), always use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for fields with user generated content to prevent [XSS attacks](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
 
 ----
 

@@ -2,7 +2,6 @@
 
 namespace Wagnerwagner\Site;
 
-use DomDocument;
 use Kirby\Toolkit\Str;
 use ParsedownExtra;
 
@@ -17,59 +16,25 @@ class Markdown extends ParsedownExtra
 	{
 		parent::__construct();
 
-		// register the new box type
-		$this->BlockTypes['<'] = ['Box'] + $this->BlockTypes['<'];
-
 		$this->setBreaksEnabled(true);
 	}
 
 	/**
-	 * Parse Kirby's text boxes
+	 * Render GitHub alerts (`> [!NOTE]`) as callout boxes
+	 *
+	 * @see https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
 	 */
-	protected function blockBox(array $Line, array|null $Block = null)
+	protected function blockQuoteComplete($Block)
 	{
-		if (preg_match('!<(callout|code)(.*?)>!', $Line['text'], $matches)) {
+		$lines = $Block['element']['handler']['argument'];
 
-			$type = strtolower($matches[1]);
-			$Block = [
-				'box' => [
-					'type' => $type,
-					'html' => null,
-					'attrs' => $this->parseAttributes($matches[2]),
-				],
-			];
-
-			// if the block is just across a single line
-			if (preg_match('!</' . $type . '>$!', $Line['text'])) {
-				$html = $Line['body'];
-				$html = preg_replace('!^<' . $type . '.*?>(.*)</' . $type . '>$!', '$1', $html);
-
-				$Block['complete'] = true;
-				$Block['box']['html'] = $html;
-			}
-
+		if (!preg_match('!^\[\!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$!', $lines[0], $matches)) {
 			return $Block;
 		}
 
-		return null;
-	}
-
-	/**
-	 * Finalize the boxes
-	 */
-	protected function blockBoxComplete($Block)
-	{
-		$html = $Block['box']['html'] ?? '';
-		$html = kt($html);
-		$theme = $Block['box']['attrs']['theme'] ?? null;
-		$caption = $Block['box']['attrs']['caption'] ?? null;
-
-		$moleculeName = 'm-' . $Block['box']['type'];
-
-		$html = snippet($moleculeName, [
-			'theme' => $theme,
-			'caption' => $caption,
-			'html' => $html,
+		$html = snippet('m-callout', [
+			'theme' => strtolower($matches[1]),
+			'html' => $this->elements($this->linesElements(array_slice($lines, 1))),
 		], true);
 
 		return [
@@ -80,42 +45,41 @@ class Markdown extends ParsedownExtra
 	}
 
 	/**
-	 * Add lines to the boxes
+	 * Read the file path from the info string: ```php title="/site/config/config.php"
 	 */
-	protected function blockBoxContinue(array $Line, array $Block)
+	protected function blockFencedCode($Line)
 	{
-		if ($Block['complete'] ?? false) {
-			return;
-		}
+		$Block = parent::blockFencedCode($Line);
 
-		if ($Line['text'] === '</' . $Block['box']['type'] . '>') {
-			$Block['complete'] = true;
-			return $Block;
+		if ($Block !== null && preg_match('!\stitle="([^"]*)"!', $Line['text'], $matches)) {
+			$Block['title'] = $matches[1];
 		}
-
-		if (isset($Block['interrupted'])) {
-			$Block['box']['html'] .= str_repeat("\n", $Block['interrupted']);
-			unset($Block['interrupted']);
-		}
-
-		$Block['box']['html'] .= "\n" . $Line['body'];
 
 		return $Block;
 	}
 
 	protected function blockFencedCodeComplete($Block)
 	{
-		$Block = [
-			'element' => [
-				'name' => 'div',
-				'attributes' => [
-					'class' => 'm-code',
-				],
-				'elements' => [$Block['element']],
+		$Element = [
+			'name' => 'div',
+			'attributes' => [
+				'class' => 'm-code',
 			],
+			'elements' => [$Block['element']],
 		];
 
-		return $Block;
+		if (isset($Block['title']) === false) {
+			return ['element' => $Element];
+		}
+
+		return [
+			'element' => [
+				'rawHtml' => snippet('m-code', [
+					'caption' => esc($Block['title']),
+					'html' => $this->element($Element),
+				], true),
+			],
+		];
 	}
 
 	protected function blockHeader($Line)
@@ -209,26 +173,5 @@ class Markdown extends ParsedownExtra
 				'rawHtml' => (new Types($text))->toHtml(),
 			],
 		];
-	}
-
-	protected function parseAttributes(string $input): array
-	{
-		// `loadHtml()` assumes ISO-8859-1 when the markup carries no encoding
-		// declaration, which would read an em dash or an umlaut in an attribute
-		// as Latin-1 and hand it back double encoded. Escaping the non-ascii
-		// characters first leaves DomDocument nothing to misread.
-		$input = mb_encode_numericentity(
-			$input,
-			[0x80, 0x10FFFF, 0, 0x1FFFFF],
-			'UTF-8',
-		);
-
-		$dom = new DomDocument();
-		$dom->loadHtml('<html ' . $input . '/>');
-		$attributes = [];
-		foreach ($dom->documentElement->attributes as $name => $attr) {
-			$attributes[$name] = $attr->value;
-		}
-		return $attributes;
 	}
 }

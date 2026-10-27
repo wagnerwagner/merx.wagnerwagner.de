@@ -14,8 +14,7 @@ Text:
 
 Use the [`orderNumber`](/reference/options/config-options/order-number) option to create your own logic for order numbers. The first argument of the function is of type [OrderPage](/reference/classes/order-page).
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 return [
 	'wagnerwagner.merx.orderNumber' => function (OrderPage $virtualOrderPage): int
 	{
@@ -24,7 +23,6 @@ return [
 	},
 ];
 ```
-</code>
 
 Merx calls the function for one order at a time, and order pages sort in the order they were created. So the last listed sibling is always the newest order, even when two customers check out at the same moment.
 

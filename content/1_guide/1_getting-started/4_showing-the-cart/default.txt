@@ -16,8 +16,7 @@ We recommend using JavaScript and the API to show the cart to the customer. This
 
 Let’s define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) for it. It has a `fetchCart()` function, which gets the cart data from the API endpoint, and a `render()` function, which renders the cart as a list.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 customElements.define('my-cart', class extends HTMLElement {
   /** @see https://merx.wagnerwagner.de/reference/api/models/cart */
   data = null;
@@ -60,7 +59,6 @@ customElements.define('my-cart', class extends HTMLElement {
   }
 });
 ```
-</code>
 
 Add the `<my-cart>` element to the header of your page.
 

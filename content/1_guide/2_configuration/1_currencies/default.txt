@@ -29,8 +29,7 @@ Currencies are defined in the [`pricingRules`](/reference/options/config-options
 
 If you want to change the default currency (e.g. for a single language website), you can set up a simple default pricing rule.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -41,14 +40,12 @@ return [
 	],
 ];
 ```
-</code>
 
 ### Currencies based on language
 
 If you want to display prices based on the [Kirby language](https://getkirby.com/docs/guide/languages), you can do so by using the [languageCode()](https://getkirby.com/docs/reference/objects/cms/app/language-code) method of the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -66,14 +63,12 @@ return [
 	],
 ];
 ```
-</code>
 
 ### Pricing rule based on weekday
 
 If you want to show a reduced price on Mondays, you can do this as follows.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -90,7 +85,6 @@ return [
 	],
 ];
 ```
-</code>
 
 When no rule function is defined, the rule is considered as `true`.
 
@@ -100,8 +94,7 @@ Merx checks the rules in the order you define them and uses the first one that r
 
 A product has one **price** per **pricing rule**. The `price` field of the [product blueprint](/reference/blueprints/pages/product) is a single number with one rule, and has a row per rule with several. Each input says whether its price includes tax, as set by the rule’s `taxIncluded`. The field stores the prices as a list.
 
-<code caption="/content/products/1_bike/product.en.txt">
-```kirby
+```kirby title="/content/products/1_bike/product.en.txt"
 Title: Bike
 
 \----
@@ -115,7 +108,6 @@ Price:
   price: 2100
   pricingrule: en
 ```
-</code>
 
 A plain number is the price of the `default` rule, so a shop with one currency can write `Price: 2000`.
 
@@ -127,23 +119,18 @@ In a product blueprint of your own, add the field with `type: prices`.
 
 The [`price()`](/reference/classes/product-page/price) method of a [product page](/reference/classes/product-page) returns the price based on the first valid pricing rule. The price is formatted automatically with the correct currency symbol (see [`$price->toString()`](/reference/classes/price/to-string)).
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?= $page->price() ?>
 ```
-</code>
 
 You can provide the key of the rule as the first argument to the price method, if you want to return the price of a specific rule.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?= $page->price('default') ?> or <?= $page->price('en') ?>
 ```
-</code>
 
-<callout>
-[`Merx::pricingRule()`](/reference/classes/merx/pricing-rule) returns the current pricing rule. You can use it to check if your rules work as expected.
-</callout>
+> [!NOTE]
+> [`Merx::pricingRule()`](/reference/classes/merx/pricing-rule) returns the current pricing rule. You can use it to check if your rules work as expected.
 
 \----
 

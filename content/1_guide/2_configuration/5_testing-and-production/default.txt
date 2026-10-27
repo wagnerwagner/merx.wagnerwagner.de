@@ -14,23 +14,20 @@ Text:
 
 Merx has one switch for the whole shop. While [`production`](/reference/options/config-options/production) is `false`, every payment runs against the test environment of your payment provider and no money moves. Setting it to `true` is what turns the shop into a real one.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
   'wagnerwagner.merx.production' => true,
 ];
 ```
-</code>
 
 ## What the switch changes
 
 `production` swaps the test keys for the live ones. Nothing else moves — blueprints, [pricing rules](/guide/configuration/currencies), [tax rules](/guide/configuration/taxes), hooks and templates behave the same either way, so a shop that works in testing works in production.
 
-<callout theme="important">
-One key is the exception. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
-</callout>
+> [!IMPORTANT]
+> One key is the exception. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
 
 ## Test before you switch
 
@@ -58,15 +55,13 @@ Then buy something from your own shop with a real card, check that it arrives in
 
 Merx is commercial software, and a shop in production needs a license. Set it with the [`license`](/reference/options/config-options/license) option and the Panel will show it under the plugin.
 
-<code caption="/site/config/env.php">
-```php
+```php title="/site/config/env.php"
 <?php
 
 return [
   'wagnerwagner.merx.license' => 'MERX2-XXXXXXX-XXXXXXX',
 ];
 ```
-</code>
 
 You can [buy a license](/buy) for each domain you run Merx on.
 

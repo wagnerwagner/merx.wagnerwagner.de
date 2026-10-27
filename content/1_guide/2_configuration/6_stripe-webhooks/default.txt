@@ -26,14 +26,12 @@ Copy the created Signing secret. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 
 Add the Signing secret as [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) option.
 
-<code caption="/site/config/env.php">
-```php
+```php title="/site/config/env.php"
 <?php
 return [
   'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
 ];
 ```
-</code>
 
 We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing sandbox keys.
 

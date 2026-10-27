@@ -16,8 +16,7 @@ Text:
 
 ## Create a list
 
-<code caption="/site/controllers/wishlist.php">
-```php
+```php title="/site/controllers/wishlist.php"
 <?php
 
 use Wagnerwagner\Merx\ProductList;
@@ -30,7 +29,6 @@ return function () {
   ];
 };
 ```
-</code>
 
 ## Add products
 
@@ -53,16 +51,14 @@ $wishlist->add([
 ]);
 ```
 
-<callout>
-The identifier is `key`, the product page is `page`, and everything else you want to store on the item belongs in `data`. When you leave out `key`, Merx uses the page’s UUID.
-</callout>
+> [!NOTE]
+> The identifier is `key`, the product page is `page`, and everything else you want to store on the item belongs in `data`. When you leave out `key`, Merx uses the page’s UUID.
 
 ## Store the list
 
 `ProductList` does not persist itself. Assuming you have no Kirby user accounts, the visitor’s session is the simplest place to keep the list. Store it the same way the cart does, with [`toSessionArray()`](/reference/classes/list-item) per item.
 
-<code caption="/site/plugins/wishlist/index.php">
-```php
+```php title="/site/plugins/wishlist/index.php"
 <?php
 
 use Wagnerwagner\Merx\ListItem;
@@ -83,14 +79,12 @@ function saveWishlist(ProductList $wishlist): void
   );
 }
 ```
-</code>
 
 Passing the stored array back into `new ProductList()` turns every entry into a `ListItem` object again. Only the page reference is stored, not the price, so prices are read from the product page again on every request. A product that got more expensive while it sat on the wishlist shows its current price.
 
 ## Show the list
 
-<code caption="/site/templates/wishlist.php">
-```php
+```php title="/site/templates/wishlist.php"
 <?php /** @var \Wagnerwagner\Merx\ProductList $wishlist */ ?>
 <ul>
   <?php foreach ($wishlist as $item): ?>
@@ -105,7 +99,6 @@ Passing the stored array back into `new ProductList()` turns every entry into a 
 </ul>
 <p>Total: <?= $wishlist->total() ?></p>
 ```
-</code>
 
 ## Move the list into the cart
 

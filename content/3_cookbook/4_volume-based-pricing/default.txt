@@ -22,8 +22,7 @@ First, use the [`price()`](/reference/classes/product-page/price) method of the 
 
 In the following example, the price is reduced by 5% when a cart line holds 10 or more items of this product.
 
-<code caption="/site/models/product.php">
-```php
+```php title="/site/models/product.php"
 <?php
 
 use Wagnerwagner\Merx\Price;
@@ -41,7 +40,6 @@ class ProductPage extends Wagnerwagner\Merx\ProductPage
   }
 }
 ```
-</code>
 
 That’s all you need to do — the cart uses this price method and passes the quantity of the line automatically. Without a price for the pricing rule, `parent::price()` returns `null`, so check for it before you change the price.
 
@@ -49,8 +47,7 @@ That’s all you need to do — the cart uses this price method and passes the q
 
 You can use the same price method, to show the reduced price on the product page.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?php /** @var ProductPage $page */ ?>
 <p class="callout">
 If you buy 10 items or more, 
@@ -58,7 +55,6 @@ the price per item is reduced to
 <?= $page->price(quantity: 10) ?>.
 </p>
 ```
-</code>
 
 ----
 

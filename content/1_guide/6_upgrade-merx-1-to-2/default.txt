@@ -17,19 +17,15 @@ Merx 2 renames a lot and moves a few things to a different place entirely. Work 
 
 The abstract model is gone. Extend the class instead.
 
-<code caption="/site/models/order.php (Merx 1)">
-```php
+```php title="/site/models/order.php (Merx 1)"
 class OrderPage extends OrderPageAbstract
 {
 ```
-</code>
 
-<code caption="/site/models/order.php (Merx 2)">
-```php
+```php title="/site/models/order.php (Merx 2)"
 class OrderPage extends \Wagnerwagner\Merx\OrderPage
 {
 ```
-</code>
 
 ## Options
 
@@ -45,25 +41,21 @@ Everything else is new, including [`license`](/reference/options/config-options/
 
 A product carried its tax rate as a percentage. It now names a tax rule, and the rate lives in the config.
 
-<code caption="/content/products/1_bike/product.txt (Merx 1)">
-```kirby
+```kirby title="/content/products/1_bike/product.txt (Merx 1)"
 Price: 2000
 
 \----
 
 Tax: 19
 ```
-</code>
 
-<code caption="/content/products/1_bike/product.txt (Merx 2)">
-```kirby
+```kirby title="/content/products/1_bike/product.txt (Merx 2)"
 Price: 2000
 
 \----
 
 Taxrule: default
 ```
-</code>
 
 The rule itself goes into [`taxRules`](/reference/options/config-options/tax-rules), with the rate as a decimal: `Tax: 19` becomes `'rate' => 0.19`. See [Taxes](/guide/configuration/taxes).
 
@@ -94,8 +86,7 @@ Apart from that, there are many more [new hooks](/reference/options/hooks).
 
 `formatCurrency` takes a currency, where `formatPrice` used the global option. You can wrap it.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 if (!function_exists('formatPrice')) {
   function formatPrice(?float $price) {
@@ -103,7 +94,6 @@ if (!function_exists('formatPrice')) {
   }
 }
 ```
-</code>
 
 ## Cart and items
 
@@ -121,24 +111,20 @@ if (!function_exists('formatPrice')) {
 
 The identifier is `key` instead of `id`, the product page is `page`, and your own attributes belong in `data`. Leaving out `key` makes Merx use the page’s UUID.
 
-<code caption="Merx 1">
-```php
+```php title="Merx 1"
 $cart->add([
   'id' => 'products/nice-shoes',
   'color' => 'red',
 ]);
 ```
-</code>
 
-<code caption="Merx 2">
-```php
+```php title="Merx 2"
 $cart->add([
   'key' => 'nice-shoes-red',
   'page' => 'products/nice-shoes',
   'data' => ['color' => 'red'],
 ]);
 ```
-</code>
 
 ### Reading cart items
 
@@ -182,9 +168,8 @@ Kirby 6 replaced sections with fields, and so did Merx.
 
 Where you extend one of them, change the name and move it from `sections:` to `fields:`. Under `sections:`, Kirby shows an error in its place.
 
-<callout theme="important">
-If you replaced one of them with a file of your own, such as `/site/blueprints/sections/orders.yml`, move it to `/site/blueprints/fields/` and turn it into a field: `type: fields` becomes `type: group`, `type: pages` becomes `type: pagelist` and `headline` becomes `label`. A file left in `sections/` is ignored without an error.
-</callout>
+> [!IMPORTANT]
+> If you replaced one of them with a file of your own, such as `/site/blueprints/sections/orders.yml`, move it to `/site/blueprints/fields/` and turn it into a field: `type: fields` becomes `type: group`, `type: pages` becomes `type: pagelist` and `headline` becomes `label`. A file left in `sections/` is ignored without an error.
 
 [`layouts/order`](/reference/blueprints/layouts/order) also has a Personal data tab now. It shows [`fields/personal-data`](/reference/blueprints/fields/personal-data), and that is where your customer fields go — see [Validate checkout](/guide/getting-started/validate-checkout). Kirby’s [Sections become fields](https://getkirby.com/releases/6/blueprints#sections-become-fields) covers your other blueprints.
 

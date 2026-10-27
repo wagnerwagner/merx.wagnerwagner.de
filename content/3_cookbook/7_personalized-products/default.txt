@@ -18,8 +18,7 @@ Every cart item has a `data` array for things like a name. Merx stores it with t
 
 The form from [Adding products](/guide/getting-started/adding-products) gets one more input. Call it `data[name]` and it arrives in the item’s `data`.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
   <input type="hidden" name="page" value="<?= $page->uuid() ?>">
   <label>
@@ -30,12 +29,10 @@ The form from [Adding products](/guide/getting-started/adding-products) gets one
   <button>Add to cart</button>
 </form>
 ```
-</code>
 
 Merx tells cart items apart by their `key`, which defaults to the page’s UUID. Adding the same key again adds up the quantities and replaces `data`, so Ben’s pair would turn Anna’s into a second pair for Ben. Give every name a key of its own.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 const productForm = document.getElementById('product-form');
 productForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -55,7 +52,6 @@ productForm.addEventListener('submit', async (event) => {
   console.log(json.data);
 });
 ```
-</code>
 
 Two pairs for Anna still share one line, with a quantity of 2.
 
@@ -63,8 +59,7 @@ Two pairs for Anna still share one line, with a quantity of 2.
 
 The name comes back in the item’s `data`. Add it to the cart element from [Showing the cart](/guide/getting-started/showing-the-cart).
 
-<code caption="script.js">
-```js
+```js title="script.js"
 ${items.map(item => `
   <li>
     <strong>${item.title}</strong><br>
@@ -73,14 +68,12 @@ ${items.map(item => `
   </li>
 `).join('')}
 ```
-</code>
 
 ## Check the name on the server
 
 `maxlength` only helps the visitor. The API stores whatever it receives, so check the name in the [`cart.add:before`](/reference/options/hooks/cart-add-before) hook, and in [`cart.updateItem:before`](/reference/options/hooks/cart-update-item-before) so a `PATCH` request can’t get around it.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 use Kirby\Exception\InvalidArgumentException;
@@ -113,7 +106,6 @@ return [
   ],
 ];
 ```
-</code>
 
 [`invalid()`](https://getkirby.com/docs/reference/templates/helpers/invalid) runs Kirby’s [validators](https://getkirby.com/docs/reference/system/validators) and skips an empty name, so pairs without one pass, and so do shipping costs and discounts. Allowing only letters, spaces and hyphens also keeps markup out of the cart, the order and the confirmation email. A rejected name comes back with status 400 and the message, ready to show next to the field.
 
@@ -121,8 +113,7 @@ return [
 
 `data` is saved with the order and comes back from [`$orderPage->cart()`](/reference/classes/order-page/cart). Add the name to the cart snippet from [Displaying order](/guide/getting-started/displaying-order).
 
-<code caption="/site/snippets/cart.php">
-```php
+```php title="/site/snippets/cart.php"
 <td>
   <?= $item->title() ?>
   <?php if ($name = $item->data['name'] ?? null): ?>
@@ -130,12 +121,10 @@ return [
   <?php endif ?>
 </td>
 ```
-</code>
 
 To see it in the Panel too, extend Merx’ [`list-items`](/reference/blueprints/fields/list-items) field. The `wagnerwagner.merx.` prefix loads Merx’ own blueprint, so yours can have the same name.
 
-<code caption="/site/blueprints/fields/list-items.yml">
-```yaml
+```yaml title="/site/blueprints/fields/list-items.yml"
 extends: wagnerwagner.merx.fields/list-items
 fields:
   data:
@@ -145,7 +134,6 @@ fields:
       name:
         type: text
 ```
-</code>
 
 The table shows it as `{ … }`. Open the row to read the name.
 

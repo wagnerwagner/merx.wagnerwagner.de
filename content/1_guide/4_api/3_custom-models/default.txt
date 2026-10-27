@@ -16,8 +16,7 @@ Text:
 
 By default a list item carries a single thumbnail. Let’s say you want two, so the cart can show a hover image. Add a `thumbs` field to the [ListItem model](/reference/api/models/list-item).
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 use Kirby\Cms\File;
@@ -54,7 +53,6 @@ return [
   ],
 ];
 ```
-</code>
 
 The field is a function that receives the object the model wraps — a [`ListItem`](/reference/classes/list-item) here — and returns whatever should end up in the JSON.
 
@@ -64,8 +62,7 @@ What you add is merged into Merx’ model rather than replacing it. `thumbs` joi
 
 Because `thumbs` is in the default view, it comes back with every cart request that does not ask for something narrower.
 
-<code caption="Response">
-```json
+```json title="Response"
 {
   "key": "shoes",
   "title": "Shoes",
@@ -78,7 +75,6 @@ Because `thumbs` is in the default view, it comes back with every cart request t
   ]
 }
 ```
-</code>
 
 Leave it out of `views` if you would rather not pay for it on every request, and ask for it explicitly instead. See [Concept](/guide/api/concept#choosing-what-comes-back) for `view` and `select`.
 

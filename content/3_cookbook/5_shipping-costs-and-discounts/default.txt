@@ -32,9 +32,8 @@ $cart->add(new ListItem(
 ));
 ```
 
-<callout theme="caution">
-Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the `Price`. The cart compares the currency of every incoming item against its own and silently drops a price that does not match, which leaves you with a shipping item that costs nothing.
-</callout>
+> [!CAUTION]
+> Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the `Price`. The cart compares the currency of every incoming item against its own and silently drops a price that does not match, which leaves you with a shipping item that costs nothing.
 
 ## Recalculate whenever the cart changes
 
@@ -42,8 +41,7 @@ Shipping and discounts depend on what is in the cart, so they have to be recalcu
 
 The function removes both items first and then adds back whatever currently applies. That keeps it idempotent, so it does not matter how often it runs. The static guard matters: the function changes the cart, which fires the very hooks that call it again.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 use Wagnerwagner\Merx\Cart;
@@ -97,7 +95,6 @@ return [
   ],
 ];
 ```
-</code>
 
 Removing the last product empties the cart completely, because `quantity('product')` is then `0` and neither item is added back.
 
@@ -105,8 +102,7 @@ Removing the last product empties the cart completely, because `quantity('produc
 
 [`filterByType()`](/reference/classes/cart/filter-by-type) returns only the items of one type, which is what you want when you render the cart.
 
-<code caption="/site/snippets/cart.php">
-```php
+```php title="/site/snippets/cart.php"
 <?php /** @var \Wagnerwagner\Merx\Cart $cart */ ?>
 <ul>
   <?php foreach ($cart->filterByType('product') as $item): ?>
@@ -124,7 +120,6 @@ Removing the last product empties the cart completely, because `quantity('produc
 
 <p>Total: <?= $cart->total() ?></p>
 ```
-</code>
 
 ## Discounts and the total
 

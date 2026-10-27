@@ -18,8 +18,7 @@ To make sure you get all the data you need from your customers, Merx uses Kirby�
 
 Set up the fields that are required to fulfill orders as a field group of your own. If you don’t create one, the [default personal data fields](/reference/blueprints/fields/personal-data) are used, which only ask for an email address.
 
-<code caption="/site/blueprints/fields/personal-data.yml">
-```yaml
+```yaml title="/site/blueprints/fields/personal-data.yml"
 type: group
 fields:
   email:
@@ -41,15 +40,13 @@ fields:
     type: text
 # …
 ```
-</code>
 
 ## Update checkout template
 
 Add the new fields to the checkout template. To build these inputs from the blueprint instead of writing them out, see [Build the checkout form from the blueprint](/cookbook/build-checkout-form-from-blueprint).
 
 
-<code caption="/site/templates/checkout.php">
-```php
+```php title="/site/templates/checkout.php"
 …
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
   <label>
@@ -73,7 +70,6 @@ Add the new fields to the checkout template. To build these inputs from the blue
 </form>
 …
 ```
-</code>
 
 ### Example response
 
@@ -81,8 +77,7 @@ When there are no validation errors, the API endpoint returns a redirect respons
 
 When the validation fails, the API returns a JSON with one or more error messages per invalid field.
 
-<code caption="POST https://shop.test/api/shop/checkout">
-```json
+```json title="POST https://shop.test/api/shop/checkout"
 {
 	"status": "error",
 	"message": "Field validation failed.",
@@ -111,14 +106,12 @@ When the validation fails, the API returns a JSON with one or more error message
 	}
 }
 ```
-</code>
 
 ## Use JavaScript to handle form submit
 
 Again we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
 
-<code caption="/assets/js/checkout.js">
-```js
+```js title="/assets/js/checkout.js"
 const checkoutForm = document.getElementById('checkout-form');
 checkoutForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -144,14 +137,12 @@ checkoutForm.addEventListener('submit', async (event) => {
   }
 });
 ```
-</code>
 
 
 ### Complete validation handling
 
 
-<code caption="/assets/js/checkout.js">
-```js
+```js title="/assets/js/checkout.js"
 const checkoutForm = document.getElementById('checkout-form');
 
 /**
@@ -228,11 +219,9 @@ checkoutForm.addEventListener('submit', async (event) => {
   }
 });
 ```
-</code>
 
-<callout>
-You should add some kind of loading indication, so that the customer knows that something is happening.
-</callout>
+> [!NOTE]
+> You should add some kind of loading indication, so that the customer knows that something is happening.
 
 ## Checkout flow
 

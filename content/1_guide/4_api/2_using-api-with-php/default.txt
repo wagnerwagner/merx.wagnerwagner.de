@@ -29,8 +29,7 @@ Both work on the same cart. `$site->cart()` and the API read from and write to t
 
 [`$site->cart()`](/reference/options/site-methods/cart) returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, so you can loop over it like any Kirby collection.
 
-<code caption="/site/snippets/cart.php">
-```php
+```php title="/site/snippets/cart.php"
 <?php $cart = $site->cart() ?>
 
 <?php if ($cart->count() === 0): ?>
@@ -48,7 +47,6 @@ Both work on the same cart. `$site->cart()` and the API read from and write to t
   <p>Total: <?= $cart->total() ?></p>
 <?php endif ?>
 ```
-</code>
 
 Because this snippet makes the page different for every visitor, the page that includes it can no longer be cached.
 
@@ -56,8 +54,7 @@ Because this snippet makes the page different for every visitor, the page that i
 
 Merx has no route that adds an item and sends the customer back to where they came from — the API answers with JSON, which is what a JavaScript client wants, but not what a browser should be shown. Let’s add a route of our own for that.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -88,12 +85,10 @@ return [
   ],
 ];
 ```
-</code>
 
 The form posts to that route instead of the API endpoint and tells it where to go afterwards.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?php /** @var \Wagnerwagner\Merx\ProductPage $page */ ?>
 
 <span class="price"><?= $page->price() ?></span>
@@ -106,23 +101,19 @@ The form posts to that route instead of the API endpoint and tells it where to g
   <button>Add to cart</button>
 </form>
 ```
-</code>
 
 [`$cart->remove()`](/reference/classes/cart/remove) and [`$cart->updateItem()`](/reference/classes/cart/update-item) work the same way. Both take the item’s `key`, which is the page id unless you set one yourself.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 cart()->remove($request->get('key'));
 
 cart()->updateItem($request->get('key'), [
   'quantity' => (float)$request->get('quantity'),
 ]);
 ```
-</code>
 
-<callout theme="caution">
-Never trust what the form sends. The API filters the request body before it reaches the cart, and your own route has to do the same. Cast `quantity` to a number, and do not pass the whole request body through — a `price` in it would replace the product’s own.
-</callout>
+> [!CAUTION]
+> Never trust what the form sends. The API filters the request body before it reaches the cart, and your own route has to do the same. Cast `quantity` to a number, and do not pass the whole request body through — a `price` in it would replace the product’s own.
 
 ## Checkout
 

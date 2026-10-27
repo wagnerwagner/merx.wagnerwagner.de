@@ -22,8 +22,7 @@ By default the page model of *product* templates is [`Wagnerwagner\Merx\ProductP
 
 You’re completely free to build your own template for your product. Most likely you’ll want to show the price and a button to add the product to the cart. [`$page->price()`](/reference/classes/product-page/price) gives you the formatted price, with currency symbol.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?php
 /** @var Wagnerwagner\Merx\ProductPage $page */
 ?>
@@ -36,14 +35,12 @@ You’re completely free to build your own template for your product. Most likel
 </form>
 …
 ```
-</code>
 
 ## Add the product to the cart
 
 Submitting the product form sends a POST request to the [Merx API endpoint](/reference/api/routes/shop-cart-post), which answers with JSON. Let’s intercept the submit event and log the response to the console for now.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 const productForm = document.getElementById('product-form');
 productForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -55,7 +52,6 @@ productForm.addEventListener('submit', async (event) => {
   console.log(json.data);
 });
 ```
-</code>
 
 Continue with [Showing the cart](/guide/getting-started/showing-the-cart) and learn how to use JavaScript to show the cart to the customer.
 

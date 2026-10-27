@@ -110,10 +110,12 @@ large, and used as the description in `llms.txt`), `Text`, and a `Uuid`.
 rewriting a page wholesale, copy the existing one across and diff before
 committing.
 
-Code blocks are fenced inside `<code caption="/site/config/config.php">`.
-Callout themes are `note`, `tip`, `important`, `warning`, `caution` — nothing
-else. An unknown theme renders unstyled and produces an invalid GitHub alert in
-the Markdown output.
+Code blocks carry their file path in the info string:
+` ```php title="/site/config/config.php" `. Always name a language before
+`title`, otherwise the title is read as the language.
+Callouts are GitHub alerts (`> [!CAUTION]`, then `> ` before every line). The
+types are `NOTE`, `TIP`, `IMPORTANT`, `WARNING`, `CAUTION` — nothing else. An
+unknown type renders as a plain blockquote.
 
 Only `h2` reaches the table of contents (`m-toc.php` calls `toToc('h2')`), so a
 section that should be navigable needs `##`.

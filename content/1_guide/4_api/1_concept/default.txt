@@ -30,21 +30,17 @@ There’s no cart id in the URL and no token to pass around. Merx stores the car
 
 A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests. 
 
-<code caption="script.js">
-```js
+```js title="script.js"
 await fetch('/api/shop/cart');
 ```
-</code>
 
 A request from another origin has to opt in.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 await fetch('https://shop.example.com/api/shop/cart', {
   credentials: 'include',
 });
 ```
-</code>
 
 ## Response format
 
@@ -79,25 +75,19 @@ Responses are built by [API models](/reference/api/models). Two query parameters
 
 `view` picks one of the predefined field sets. The cart has `default` and `compact`.
 
-<code caption="Request">
-```
+```http title="Request"
 GET /api/shop/cart?view=compact
 ```
-</code>
 
-<code caption="Response">
-```json
+```json title="Response"
 {"code":200,"data":{"quantity":2},"status":"ok","type":"model"}
 ```
-</code>
 
 `select` lets you name the fields yourself.
 
-<code caption="Request">
-```
+```http title="Request"
 GET /api/shop/cart?select=quantity,total
 ```
-</code>
 
 A cart badge in your header only needs the number of items, so `view=compact` saves building the whole cart for it. Add `?pretty=true` while you’re exploring to get readable JSON.
 
@@ -107,15 +97,13 @@ To add your own fields to a model, see [Custom models](/guide/api/custom-models)
 
 Merx sets Kirby’s translation for the request from either a `language` query parameter or an `X-Language` request header. Without one, error messages and formatted prices come back in the default language.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 await fetch('/api/shop/cart', {
   headers: {
     'X-Language': document.documentElement.lang,
   },
 });
 ```
-</code>
 
 Read more in the [localization guide](/guide/configuration/localization).
 

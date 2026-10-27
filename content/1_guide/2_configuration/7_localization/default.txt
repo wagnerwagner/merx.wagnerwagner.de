@@ -30,8 +30,7 @@ The `error.merx.*` strings are the ones your customers see: they’re the messag
 
 Register the strings under `extensions` in your config, keyed by language code. This works on any site, with or without languages, and needs no plugin of its own.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -47,12 +46,10 @@ return [
   ],
 ];
 ```
-</code>
 
 On a [multi-language site](https://getkirby.com/docs/guide/languages) you can also keep the strings in the language file, next to the language definition itself.
 
-<code caption="/site/languages/de.php">
-```php
+```php title="/site/languages/de.php"
 <?php
 
 return [
@@ -64,7 +61,6 @@ return [
   ],
 ];
 ```
-</code>
 
 Pick one of the two. A string set in both places is taken from the language file, and anything you leave alone still comes from Merx.
 
@@ -78,8 +74,7 @@ Merx falls back to English for any language it does not ship. To add one, regist
 
 The locale comes from `LC_NUMERIC`. On a multi-language site Kirby sets it per language:
 
-<code caption="/site/languages/de.php">
-```php
+```php title="/site/languages/de.php"
 <?php
 
 return [
@@ -87,27 +82,22 @@ return [
   'locale' => 'de_DE',
 ];
 ```
-</code>
 
 On a single-language site set Kirby’s [`locale`](https://getkirby.com/docs/reference/system/options/locale) option instead.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
   'locale' => 'de_DE',
 ];
 ```
-</code>
 
 Both methods also take a locale as an argument, for the cases where you need a different one than the visitor’s.
 
-<code caption="/site/templates/product.php">
-```php
+```php title="/site/templates/product.php"
 <?= Merx::formatCurrency(1045.12, 'EUR', 'de_DE') ?>
 ```
-</code>
 
 ## Currency and tax
 
@@ -117,15 +107,13 @@ Neither is taken from the language. The currency comes from the [pricing rule](/
 
 The [API](/guide/api/concept) is not a page request, so Merx cannot infer the language from the URL. Send it with the request, either as an `X-Language` header or as a `language` query parameter.
 
-<code caption="script.js">
-```js
+```js title="script.js"
 const response = await fetch('/api/shop/cart', {
   headers: {
     'X-Language': document.documentElement.lang,
   },
 });
 ```
-</code>
 
 Without it, Merx answers in Kirby’s fallback language (English) — which means a customer can end up with an error message in a language they aren’t browsing in.
 

@@ -20,8 +20,7 @@ Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Cr
 
 Add form fields for the data you need to collect from your customer. For the moment we’ll use *invoice* as the payment gateway.
 
-<code caption="/site/templates/checkout.php">
-```php
+```php title="/site/templates/checkout.php"
 …
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
   <label>
@@ -33,7 +32,6 @@ Add form fields for the data you need to collect from your customer. For the mom
 </form>
 …
 ```
-</code>
 
 As long as all data is valid, the customer is redirected directly to the order page, where they see the summary of their order.
 

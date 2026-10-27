@@ -37,8 +37,7 @@ Kirby reads three config files, each overriding the one before it:
 
 `env.php` wins over both others and is meant for exactly this. Keep it out of your repository, put it on each server by hand, and give every environment its own.
 
-<code caption="/site/config/env.php — development machine or test server">
-```php
+```php title="/site/config/env.php — development machine or test server"
 <?php
 
 return [
@@ -49,10 +48,8 @@ return [
   'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
 ];
 ```
-</code>
 
-<code caption="/site/config/env.php — live server">
-```php
+```php title="/site/config/env.php — live server"
 <?php
 
 return [
@@ -65,21 +62,17 @@ return [
   'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
 ];
 ```
-</code>
 
 [`production`](/reference/options/config-options/production) belongs in the same file, because a live server with live keys but without it reads the *test* keys — which are not there — and every payment fails. Keeping it here rather than in `config.php` is also what stops your development machine from charging real cards.
 
 The signing secret appears in both, with a different value: there is one option for it, and the webhook you create in Stripe’s test mode has a different secret from the live one.
 
-<code caption="/.gitignore">
-```
+```gitignore title="/.gitignore"
 /site/config/env.php
 ```
-</code>
 
-<callout theme="caution">
-Anyone who has your live secret key can charge cards and issue refunds on your account. Never commit it, never send it through a chat or a ticket, and if it does end up somewhere it should not, roll it in the provider’s dashboard rather than hoping nobody noticed.
-</callout>
+> [!CAUTION]
+> Anyone who has your live secret key can charge cards and issue refunds on your account. Never commit it, never send it through a chat or a ticket, and if it does end up somewhere it should not, roll it in the provider’s dashboard rather than hoping nobody noticed.
 
 [Kirby docs: multi-environment setup](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
 

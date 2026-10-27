@@ -107,18 +107,6 @@ class Llms
 		return null;
 	}
 
-	/**
-	 * Reads a single attribute out of a raw html attribute string.
-	 */
-	private static function attr(string $attributes, string $name): string|null
-	{
-		if (preg_match('!\b' . $name . '\s*=\s*"([^"]*)"!', $attributes, $matches) === 1) {
-			return $matches[1];
-		}
-
-		return null;
-	}
-
 	private static function blockquote(string|null $string): string|null
 	{
 		if (empty($string) === true) {
@@ -131,26 +119,6 @@ class Llms
 			$lines,
 			fn (string $line) => rtrim('> ' . $line),
 		));
-	}
-
-	/**
-	 * `<callout theme="caution">` becomes a GitHub alert, which is what
-	 * the callout box is modelled after.
-	 *
-	 * @see /site/snippets/m-callout.php
-	 */
-	private static function callouts(string $text): string
-	{
-		return preg_replace_callback(
-			'!<callout([^>]*)>(.*?)</callout>!s',
-			function (array $matches): string {
-				$theme = static::attr($matches[1], 'theme') ?? 'note';
-				return static::blockquote(
-					'[!' . Str::upper($theme) . ']' . PHP_EOL . trim($matches[2]),
-				);
-			},
-			$text,
-		);
 	}
 
 	/**
@@ -195,35 +163,6 @@ class Llms
 		}
 
 		return $fence . PHP_EOL . trim(static::clean($code)) . PHP_EOL . '```';
-	}
-
-	/**
-	 * `<code caption="…">` boxes and the older `(filename: …)` tag both
-	 * caption the fenced code block that follows. Both become the title
-	 * of the fence itself, so no code is touched.
-	 */
-	private static function codeBoxes(string $text): string
-	{
-		// <code caption="/site/config/config.php">```php … ```</code>
-		$text = preg_replace_callback(
-			'!<code([^>]*)>\s*\R+```([^\s`]*)(.*?)```\s*\R+</code>!s',
-			function (array $matches): string {
-				$caption = static::attr($matches[1], 'caption');
-				return static::code($matches[3], $matches[2], $caption);
-			},
-			$text,
-		);
-
-		// Unwrap <code> boxes without a fenced block inside.
-		$text = preg_replace('!</?code[^>]*>!', '', $text);
-
-		// (filename: site/config/config.php) above a fenced block
-		return preg_replace_callback(
-			'!^\(filename:\s*([^)]*)\)\s*\R+```([^\s`]*)!m',
-			fn (array $matches): string => '```' . $matches[2]
-				. ' title="' . trim($matches[1]) . '"',
-			$text,
-		);
 	}
 
 	/**
@@ -486,8 +425,7 @@ class Llms
 	 * Converts a KirbyText field value to plain Markdown.
 	 *
 	 * The documentation is authored in Markdown already, so this only
-	 * has to resolve the things that are not: KirbyTags, the
-	 * `<callout>`/`<code>` boxes of our Markdown parser and internal
+	 * has to resolve the things that are not: KirbyTags and internal
 	 * links, which are rewritten to point at `.md` pages again.
 	 *
 	 * @see /site/plugins/site/src/Markdown.php
@@ -499,8 +437,6 @@ class Llms
 		}
 
 		$text = static::clean($text);
-		$text = static::codeBoxes($text);
-		$text = static::callouts($text);
 		$text = static::tags($text);
 		$text = static::links($text);
 

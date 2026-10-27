@@ -20,15 +20,13 @@ Set up the client ID and secret as described in [Stripe/PayPal secrets](/guide/c
 
 If you followed the [validate checkout guide](/guide/getting-started/validate-checkout), the only thing to change is the hidden payment gateway field. That’s it.
 
-<code caption="/site/templates/checkout.php">
-```php
+```php title="/site/templates/checkout.php"
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post">
   <!-- other fields -->
   <input type="hidden" name="payment_gateway" value="paypal">
   <button>Submit order</button>
 </form>
 ```
-</code>
 
 Merx creates the order at PayPal, redirects the customer there to approve it, and captures the payment when PayPal sends them back to [`/api/shop/success`](/reference/api/routes/shop-success-get). Then the [order page](/reference/classes/order-page) is written, the cart is emptied and the customer lands on their order.
 
@@ -36,9 +34,8 @@ Merx creates the order at PayPal, redirects the customer there to approve it, an
 
 Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/applications/sandbox) for the sandbox keys, and pay with one of the sandbox personal accounts under **Testing Tools → Sandbox Accounts**.
 
-<callout theme="caution">
-A sandbox account only works against the sandbox API, and a live account only against the live one. If a payment fails with `error.merx.paypalError` right after you go live, check that the `paypal.live.*` keys are really live keys.
-</callout>
+> [!CAUTION]
+> A sandbox account only works against the sandbox API, and a live account only against the live one. If a payment fails with `error.merx.paypalError` right after you go live, check that the `paypal.live.*` keys are really live keys.
 
 ## When the payment does not complete
 
@@ -48,9 +45,8 @@ A sandbox account only works against the sandbox API, and a live account only ag
 
 **The capture stays pending.** With some funding sources PayPal reports the order as `COMPLETED` but leaves the capture in `PENDING`. Merx writes the order page but does **not** mark it as paid.
 
-<callout theme="caution">
-There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
-</callout>
+> [!CAUTION]
+> There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
 
 Merx also refuses a PayPal order that has been captured once already, so a customer who reloads the return URL cannot pay twice or complete somebody else’s order.
 
@@ -58,8 +54,7 @@ Merx also refuses a PayPal order that has been captured once already, so a custo
 
 Merx sends your site title as the brand name, `PAY_NOW` so the button says *Pay Now*, and `NO_SHIPPING`, because the address was already collected in your checkout. Override any of them with [`paypal.applicationContext`](/reference/options/config-options/paypal-application-context), which is merged over those defaults.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
@@ -69,7 +64,6 @@ return [
   ],
 ];
 ```
-</code>
 
 Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that carries the session token, and a payment that comes back anywhere else cannot be completed.
 
@@ -77,21 +71,18 @@ Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL t
 
 By default PayPal shows one line with your site title and the cart total. [`$cart->payPalPurchaseUnits()`](/reference/classes/cart/pay-pal-purchase-units) builds the same order with every item listed instead, which is what the [`paypal.purchaseUnits`](/reference/options/config-options/paypal-purchase-units) option expects.
 
-<code caption="/site/config/config.php">
-```php
+```php title="/site/config/config.php"
 <?php
 
 return [
   'wagnerwagner.merx.paypal.purchaseUnits' => fn (): array => site()->cart()->payPalPurchaseUnits(),
 ];
 ```
-</code>
 
 What the option returns replaces Merx’ own purchase unit rather than adding to it — PayPal charges the sum of all units, so returning a second complete one would have the customer approve the total twice. Merx only adds the `custom_id` that binds the order to the payment.
 
-<callout theme="caution">
-PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus the discount has to match the amount exactly.
-</callout>
+> [!CAUTION]
+> PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus the discount has to match the amount exactly.
 
 ----
 
