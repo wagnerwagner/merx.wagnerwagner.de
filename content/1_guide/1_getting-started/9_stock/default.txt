@@ -2,7 +2,7 @@ Title: Stock
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -33,8 +33,8 @@ A cart can sit in the session for days, so the checkout checks again: when the o
 
 Once the order is written, Merx lowers the stock of every product in it. That includes orders which are paid later, by invoice or SEPA Direct Debit, because the goods are promised from that moment on.
 
-<callout theme="important">
-The stock only goes down while [`production`](/reference/options/config-options/production) is `true`, so test orders leave it alone. The checks run either way, so you can try a sold-out product before the shop goes live.
+<callout theme="note">
+The stock only goes down while [`production`](/reference/options/config-options/production) is `true`, so test orders leave it alone.
 </callout>
 
 ## Show what’s left
