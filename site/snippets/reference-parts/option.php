@@ -4,15 +4,17 @@ use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Type;
 
 /** @var ReferenceOptionPage $page */
+$defaultValue = $page->defaultValue();
 ?>
-<?php if ($page->functionSource()): ?>
+<?php if ($defaultValue !== null): ?>
 	<h2>Default value</h2>
-	<figure class="m-code">
-		<pre class="language-php"><code><?= Str::esc($page->functionSource(), 'html') ?></code></pre>
-	</figure>
-<?php elseif ($page->defaultValue()): ?>
-	<h2>Default value</h2>
-	<?= (new Type($page->defaultValue()))->toHtml() ?>
+	<?php if ((string)$page->type() === 'function' || str_contains($defaultValue, "\n") === true): ?>
+		<figure class="m-code">
+			<pre class="language-php"><code><?= Str::esc($defaultValue, 'html') ?></code></pre>
+		</figure>
+	<?php else: ?>
+		<?= (new Type($defaultValue))->toHtml() ?>
+	<?php endif ?>
 <?php endif ?>
 
 <h2>Type</h2>
