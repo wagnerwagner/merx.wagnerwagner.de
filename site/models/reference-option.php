@@ -11,11 +11,40 @@ class ReferenceOptionPage extends ReferencePageAbstract
 	{
 		$type = (string)$this->type();
 		if ($type === 'function') {
-			$value = 'function () {}';
+			$value = $this->functionSignature() . ' {}';
 		} else {
 			$value = $this->defaultValue() ?? ($type === 'array' ? '[]' : null);
 		}
 		return "'" . $this->key() . "'" . ' => ' . $value . ',';
+	}
+
+	/**
+	 * Returns the signature of a default value that is a function,
+	 * e.g. `function (OrderPage $virtualOrderPage): int`
+	 */
+	public function functionSignature(): string
+	{
+		$reflection = $this->reflection();
+
+		if ($reflection instanceof ReflectionFunction === false) {
+			return 'function ()';
+		}
+
+		// Class names without namespace, as written in the config file
+		$typeName = fn (ReflectionType|null $type): string => preg_replace('/(?:\w+\\\\)+(\w+)/', '$1', (string)$type);
+
+		$parameters = array_map(
+			fn (ReflectionParameter $parameter) => ltrim($typeName($parameter->getType()) . ' $' . $parameter->getName()),
+			$reflection->getParameters()
+		);
+
+		$signature = 'function (' . implode(', ', $parameters) . ')';
+
+		if ($reflection->hasReturnType() === true) {
+			$signature .= ': ' . $typeName($reflection->getReturnType());
+		}
+
+		return $signature;
 	}
 
 	public function defaultValue(): string|null
