@@ -1,10 +1,21 @@
 <?php
 
 use Kirby\Content\Field;
+use Wagnerwagner\Site\ApiExamples;
 use Wagnerwagner\Site\Type;
 
 class ReferenceApiModelPage extends \Wagnerwagner\Site\ReferencePageAbstract
 {
+	/**
+	 * The model rendered from the fixture shop, for each of its views
+	 *
+	 * @return array<string, array{request: string|null, data: array}>
+	 */
+	public function exampleResponses(): array
+	{
+		return ApiExamples::model((string)$this->class(), array_keys($this->views()->yaml()));
+	}
+
 	public function referenceClass(): Type
 	{
 		return new Type('Wagnerwagner\\Merx\\' . $this->class());
