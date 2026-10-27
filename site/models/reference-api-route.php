@@ -55,6 +55,17 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		return ApiExamples::request($this->pattern(), $this->method());
 	}
 
+	/**
+	 * Failing example requests against the fixture shop, with their
+	 * error responses
+	 *
+	 * @return array<string, array{body: array, cart: bool, response: array}> By title
+	 */
+	public function exampleErrors(): array
+	{
+		return ApiExamples::errors($this->pattern(), $this->method());
+	}
+
 	public function exceptions(): array
 	{
 		return [];

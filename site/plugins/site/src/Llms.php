@@ -107,11 +107,31 @@ class Llms
 			return null;
 		}
 
-		return static::join([
+		$blocks = [
 			'## Example response',
 			'`' . $page->method() . ' /api/' . $page->pattern() . '`',
 			static::code(ApiExamples::json($response), 'json'),
-		]);
+		];
+
+		try {
+			$errors = $page->exampleErrors();
+		} catch (\Throwable) {
+			$errors = [];
+		}
+
+		if (count($errors) > 0) {
+			$blocks[] = '## Example errors';
+
+			foreach ($errors as $title => $error) {
+				$blocks[] = '### ' . $title;
+				$blocks[] = $error['cart'] === false
+					? 'The example request, sent with an empty cart.'
+					: static::code(ApiExamples::json($error['body']), 'json', 'Request body');
+				$blocks[] = static::code(ApiExamples::json($error['response']), 'json', 'Response');
+			}
+		}
+
+		return static::join($blocks);
 	}
 
 	private static function blockquote(string|null $string): string|null

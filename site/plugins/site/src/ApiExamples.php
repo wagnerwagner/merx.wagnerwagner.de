@@ -56,6 +56,38 @@ class ApiExamples
 	];
 
 	/**
+	 * Requests that fail, by method and route pattern like `REQUESTS`,
+	 * then by title. `cart: false` sends the request with an empty cart.
+	 */
+	public const ERRORS = [
+		'POST checkout' => [
+			'Invalid or missing fields' => [
+				'body' => [
+					'paymentGateway' => 'invoice',
+					'email' => 'jane@example',
+					'street' => 'Example Street 1',
+					'city' => 'Example City',
+					'country' => 'DE',
+				],
+			],
+			'No payment gateway' => [
+				'body' => [
+					'email' => 'jane@example.com',
+					'company' => 'Example Inc.',
+					'street' => 'Example Street 1',
+					'postal_code' => '12345',
+					'city' => 'Example City',
+					'country' => 'DE',
+				],
+			],
+			'Empty cart' => [
+				'body' => self::REQUESTS['POST checkout'],
+				'cart' => false,
+			],
+		],
+	];
+
+	/**
 	 * Fixture products, with page slug as key
 	 */
 	protected const PRODUCTS = [
@@ -80,14 +112,15 @@ class ApiExamples
 	/**
 	 * Runs `$callback` with the Kirby API of the fixture shop
 	 *
-	 * The fixture cart is in the session already. The original Kirby
-	 * instance is restored afterwards, also when `$callback` throws.
+	 * The fixture cart is in the session already, unless `$cart` is false.
+	 * The original Kirby instance is restored afterwards, also when
+	 * `$callback` throws.
 	 *
 	 * @template T
 	 * @param Closure(Api): T $callback
 	 * @return T
 	 */
-	public static function run(Closure $callback): mixed
+	public static function run(Closure $callback, bool $cart = true): mixed
 	{
 		$kirby = App::instance();
 		$fixture = static::app($kirby);
@@ -100,7 +133,9 @@ class ApiExamples
 			// so the session never sends a cookie.
 			$fixture->sessions()->get(['createMode' => 'manual']);
 			$fixture->session()->set('region', 'DE');
-			static::fillCart(new Cart());
+			if ($cart === true) {
+				static::fillCart(new Cart());
+			}
 
 			return $callback($fixture->api());
 		} finally {
@@ -123,18 +158,31 @@ class ApiExamples
 			return null;
 		}
 
-		return static::run(function (Api $api) use ($pattern, $method, $query, $key) {
-			$api->kirby()->visitor()->acceptedMimeType('application/json');
+		return static::call($pattern, $method, static::REQUESTS[$key] ?? [], $query);
+	}
 
-			try {
-				return $api->call($pattern, $method, [
-					'body' => static::REQUESTS[$key] ?? [],
-					'query' => $query,
-				]);
-			} catch (Throwable $e) {
-				return $api->responseForException($e);
-			}
-		});
+	/**
+	 * Failing example requests of a route, with their error responses
+	 *
+	 * @return array<string, array{body: array, cart: bool, response: array}> By title
+	 */
+	public static function errors(string $pattern, string $method = 'GET'): array
+	{
+		$key = static::requestKey($pattern, $method, static::ERRORS);
+		if ($key === null) {
+			return [];
+		}
+
+		$errors = [];
+		foreach (static::ERRORS[$key] as $title => $error) {
+			$cart = $error['cart'] ?? true;
+			$errors[$title] = [
+				'body' => $error['body'],
+				'cart' => $cart,
+				'response' => static::call($pattern, $method, $error['body'], cart: $cart),
+			];
+		}
+		return $errors;
 	}
 
 	/**
@@ -210,6 +258,8 @@ class ApiExamples
 				'session::store' => fn () => new MemorySessionStore(),
 			],
 			'options' => [
+				// Error responses as in production, without file and line
+				'debug' => false,
 				'session' => [
 					// Never find the visitor’s real session
 					'cookieName' => 'merx_api_examples',
@@ -288,6 +338,25 @@ class ApiExamples
 		));
 	}
 
+	/**
+	 * Calls a route of the fixture shop like a client that accepts JSON
+	 */
+	protected static function call(string $pattern, string $method, array $body, array $query = [], bool $cart = true): array
+	{
+		return static::run(function (Api $api) use ($pattern, $method, $body, $query) {
+			$api->kirby()->visitor()->acceptedMimeType('application/json');
+
+			try {
+				return $api->call($pattern, $method, [
+					'body' => $body,
+					'query' => $query,
+				]);
+			} catch (Throwable $e) {
+				return $api->responseForException($e);
+			}
+		}, $cart);
+	}
+
 	protected static function endpoint(): string
 	{
 		return (string)App::instance()->option('wagnerwagner.merx.api.endpoint', 'shop');
@@ -311,14 +380,14 @@ class ApiExamples
 	}
 
 	/**
-	 * Key of `REQUESTS` for a route, or null when the route has no example
+	 * Key of `REQUESTS` (or `$examples`) for a route, or null when the route has no example
 	 */
-	protected static function requestKey(string $pattern, string $method): string|null
+	protected static function requestKey(string $pattern, string $method, array $examples = self::REQUESTS): string|null
 	{
 		$endpoint = static::endpoint();
 		$path = str_starts_with($pattern, $endpoint . '/') ? substr($pattern, strlen($endpoint) + 1) : $pattern;
 		$key = strtoupper($method) . ' ' . $path;
 
-		return array_key_exists($key, static::REQUESTS) ? $key : null;
+		return array_key_exists($key, $examples) ? $key : null;
 	}
 }
