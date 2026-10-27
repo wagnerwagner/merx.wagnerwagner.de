@@ -10,6 +10,12 @@ class Markdown extends ParsedownExtra
 	protected $lastH2;
 
 	/**
+	 * Allow `key="value"` next to `#id` and `.class` in `{…}`:
+	 * [Source code](https://github.com/…){.a-button data-variant="outline"}
+	 */
+	protected $regexAttribute = '(?:(?:[#.][-\w]+|[-\w]+="[^"]*")[ ]*)';
+
+	/**
 	 * Extend Parsedown's constructor
 	 */
 	public function __construct(protected array $options = [])
@@ -143,6 +149,33 @@ class Markdown extends ParsedownExtra
 		];
 
 		return $Block;
+	}
+
+	/**
+	 * Parse `#id`, `.class` and `key="value"`
+	 *
+	 * @see $regexAttribute
+	 */
+	protected function parseAttributeData($attributeString)
+	{
+		preg_match_all('!([#.])([-\w]+)|([-\w]+)="([^"]*)"!', $attributeString, $matches, PREG_SET_ORDER);
+
+		$Data = [];
+		$classes = [];
+
+		foreach ($matches as $match) {
+			match ($match[1]) {
+				'#' => $Data['id'] = $match[2],
+				'.' => $classes[] = $match[2],
+				default => $Data[$match[3]] = $match[4],
+			};
+		}
+
+		if ($classes !== []) {
+			$Data['class'] = implode(' ', $classes);
+		}
+
+		return $Data;
 	}
 
 	/**

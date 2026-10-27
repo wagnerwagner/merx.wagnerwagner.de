@@ -405,9 +405,20 @@ class Llms
 	 * Rewrites relative Markdown links to absolute urls. Links that
 	 * point at another documentation page get `.md` appended so an
 	 * agent following them keeps receiving Markdown.
+	 *
+	 * Attributes behind a link, `{.a-button data-kind="secondary"}`,
+	 * only style the HTML and are dropped.
+	 *
+	 * @see /site/plugins/site/src/Markdown.php
 	 */
 	private static function links(string $text): string
 	{
+		$text = preg_replace(
+			'!(\]\([^)]*\))[ ]*\{(?:(?:[#.][-\w]+|[-\w]+="[^"]*")[ ]*)+\}!',
+			'$1',
+			$text,
+		);
+
 		return preg_replace_callback(
 			'!\]\((/[^)\s]*)\)!',
 			fn (array $matches): string => '](' . static::resolveUrl($matches[1]) . ')',
