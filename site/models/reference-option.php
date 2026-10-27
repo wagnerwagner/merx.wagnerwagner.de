@@ -10,13 +10,10 @@ class ReferenceOptionPage extends ReferencePageAbstract
 	public function call(): string
 	{
 		$type = (string)$this->type();
-		$value = $this->defaultValue();
-		if ($value === null) {
-			if ($type === 'function') {
-				$value = 'function () {}';
-			} elseif ($type === 'array') {
-				$value = '[]';
-			}
+		if ($type === 'function') {
+			$value = 'function () {}';
+		} else {
+			$value = $this->defaultValue() ?? ($type === 'array' ? '[]' : null);
 		}
 		return "'" . $this->key() . "'" . ' => ' . $value . ',';
 	}
@@ -26,7 +23,43 @@ class ReferenceOptionPage extends ReferencePageAbstract
 		if ($this->content()->get('defaultValue')->exists()) {
 			return $this->content()->get('defaultValue');
 		}
-		return null;
+		return $this->functionSource();
+	}
+
+	/**
+	 * Returns the source code of a default value that is a function,
+	 * as written in the config file of Merx
+	 */
+	public function functionSource(): string|null
+	{
+		$reflection = $this->reflection();
+
+		if (
+			$reflection instanceof ReflectionFunction === false ||
+			$reflection->getFileName() === false
+		) {
+			return null;
+		}
+
+		$lines = file($reflection->getFileName());
+
+		if ($lines === false) {
+			return null;
+		}
+
+		$start  = $reflection->getStartLine();
+		$lines  = array_slice($lines, $start - 1, $reflection->getEndLine() - $start + 1);
+		$source = implode('', $lines);
+
+		// Removes the indentation of the first line from all lines
+		preg_match('/^\s*/', $lines[0], $indentation);
+		$source = preg_replace('/^' . preg_quote($indentation[0], '/') . '/m', '', $source);
+
+		// Removes the option key before and the comma after the function
+		$source = preg_replace('/^([\'"]).+?\1\s*=>\s*/', '', $source);
+		$source = preg_replace('/,\s*$/', '', $source);
+
+		return $source;
 	}
 
 	public function line(): int|null

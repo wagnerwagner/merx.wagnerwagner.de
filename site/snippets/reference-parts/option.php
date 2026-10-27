@@ -1,10 +1,16 @@
 <?php
 
+use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Type;
 
 /** @var ReferenceOptionPage $page */
 ?>
-<?php if ($page->defaultValue()): ?>
+<?php if ($page->functionSource()): ?>
+	<h2>Default value</h2>
+	<figure class="m-code">
+		<pre class="language-php"><code><?= Str::esc($page->functionSource(), 'html') ?></code></pre>
+	</figure>
+<?php elseif ($page->defaultValue()): ?>
 	<h2>Default value</h2>
 	<?= (new Type($page->defaultValue()))->toHtml() ?>
 <?php endif ?>
