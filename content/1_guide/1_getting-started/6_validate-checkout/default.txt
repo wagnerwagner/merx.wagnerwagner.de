@@ -78,7 +78,7 @@ Add the new fields to the checkout template.
 
 When there are no validation errors, the API endpoint returns a redirect response, which redirects to the payment provider or directly to the order page.
 
-When the validation fails, the API returns a JSON with one or more error messages per invalid field.
+When the validation fails, the [API returns a JSON](/reference/api/routes/shop-checkout-post) with one or more error messages per invalid field.
 
 ```json title="POST https://shop.test/api/shop/checkout"
 {
@@ -112,7 +112,7 @@ When the validation fails, the API returns a JSON with one or more error message
 
 ## Use JavaScript to handle form submit
 
-Again we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
+As in _[Adding products](/guide/getting-started/adding-products#add-the-product-to-the-cart)_ we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
 
 ```js title="/assets/js/checkout.js"
 const checkoutForm = document.getElementById('checkout-form');
@@ -175,6 +175,7 @@ checkoutForm.addEventListener('submit', async (event) => {
 
   // Disables all form fields to prevent multiple submissions
   [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', true));
+  checkoutForm.setAttribute('data-state', 'loading');
 
   // Send form data to the API endpoint
   const response = await fetch(checkoutForm.action, {
@@ -182,13 +183,14 @@ checkoutForm.addEventListener('submit', async (event) => {
     body: formData,
   });
 
-  // Enables all form fields
-  [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', false));
-
-  console.log(response);
-
   /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
   const json = await response.json();
+
+  console.log(json);
+
+  // Enables all form fields
+  [...checkoutForm.elements].forEach(_ => _.toggleAttribute('disabled', false));
+  checkoutForm.removeAttribute('data-state');
 
   if (json.status === 'redirect') {
     // [1] Redirect user to payment provider or directly to order page
@@ -224,7 +226,7 @@ checkoutForm.addEventListener('submit', async (event) => {
 ```
 
 > [!NOTE]
-> You should add some kind of loading indication, so that the customer knows that something is happening.
+> You should add some CSS styles for `#checkout-form[data-state="loading"]`, so that the customer knows that something is happening.
 
 ## Checkout flow
 
@@ -242,6 +244,8 @@ For some payment gateways the payment is handled asynchronously. This means that
 4. Customer is redirected back to the shop. ([`/api/shop/success`](/reference/api/routes/shop-success-get))
 6. Order page is created with data from the session
 7. *Optional:* Order is marked as complete via [hook](/reference/options/hooks/stripe-hooks) (asynchronous payment).
+
+Next, learn [how to show the order information](/guide/getting-started/displaying-order) to the customer.
 
 ----
 

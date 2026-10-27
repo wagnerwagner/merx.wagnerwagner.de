@@ -74,7 +74,12 @@ return [
 
 ```php title="/site/templates/emails/create-order.php"
 <?php /** @var \Wagnerwagner\Merx\OrderPage $orderPage */ ?>
-Dear <?= $orderPage->given_name() ?> <?= $orderPage->family_name() ?>, thank you for your order of <?= $orderPage->total() ?>
+Dear <?= $orderPage->given_name()->escape() ?> <?= $orderPage->family_name()->escape() ?>, 
+
+Thank you for your order of <?= $orderPage->total() ?>.
+
+Find all the details of your order on
+<?= $orderPage->url() ?>
 ```
 
 > [!CAUTION]
