@@ -18,8 +18,6 @@ Merx comes with a [product blueprint](/reference/blueprints/pages/product). Crea
 
 ## Template
 
-By default the page model of *product* templates is [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page). If you want to, you can create your own page model and extend the default [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page) model.
-
 You’re completely free to build your own template for your product. Most likely you’ll want to show the price and a button to add the product to the cart. [`$page->price()`](/reference/classes/product-page/price) gives you the formatted price, with currency symbol.
 
 ```php title="/site/templates/product.php"
@@ -35,6 +33,9 @@ You’re completely free to build your own template for your product. Most likel
 </form>
 …
 ```
+
+> [!NOTE]
+> By default the page model of *product* templates is [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page). If you want to, you can create your own page model and extend the default [`Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page) model.
 
 ## Add the product to the cart
 

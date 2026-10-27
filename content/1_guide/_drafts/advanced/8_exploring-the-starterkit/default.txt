@@ -1,0 +1,34 @@
+Title: Exploring the Starterkit
+
+----
+
+Headline: 
+
+----
+
+Intro: INTERNAL NOTE: Could be a recipe in cookbook.
+
+----
+
+Text:
+
+The [Merx Starterkit](https://github.com/wagnerwagner/merx-starterkit) implements the configuration options described in this guide. This overview shows where to find each setting in the Starterkit code.
+
+| Topic | File in the Starterkit |
+| -- | -- |
+| [Currencies & pricing rules](/guide/configuration/currencies) | `site/config/config.php` → `wagnerwagner.merx.pricingRules` |
+| [Taxes](/guide/configuration/taxes) | `site/config/config.php` → `wagnerwagner.merx.taxRules` |
+| [Stripe & PayPal secrets](/guide/configuration/stripe-paypal-secrets) | `site/config/config.php` (empty placeholders) or a domain-specific config file like `site/config/config.starterkit.merx.wagnerwagner.test.php` |
+| [Order number](/guide/configuration/order-number) | Uses the plugin’s default format, no customization |
+| [Testing and production](/guide/configuration/testing-and-production) | `site/config/config.php` → `wagnerwagner.merx.production` and `wagnerwagner.merx.license` |
+| [Localization](/guide/configuration/localization) | `site/languages/de.php`, `en.php`, `us.php` → `locale` |
+
+Use a [domain-specific config file](https://getkirby.com/docs/guide/configuration#multi-environment-setup) to keep your secret keys and license out of the main `config.php`.
+
+## Hooks
+
+The Starterkit also registers a `wagnerwagner.merx.createOrder:after` hook in `site/config/config.php`, which sends an order confirmation email to the customer. See [Sending emails](/guide/getting-started/sending-emails).
+
+----
+
+Uuid: wdxqj7gxbeve6yoo

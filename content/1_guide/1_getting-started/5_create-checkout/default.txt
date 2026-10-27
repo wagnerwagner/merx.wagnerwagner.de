@@ -16,9 +16,10 @@ Text:
 
 Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Create a new page in the Panel and select *Checkout* as template. By default the status of the page is *unlisted*.
 
-### Create checkout form
+## Create checkout form
 
-Add form fields for the data you need to collect from your customer. For the moment we’ll use *invoice* as the payment gateway.
+Add form fields for the data you need to collect from your customer. In this example we just collect the email address. This would be the place to add fields for name and shipping address.
+As the payment gateway we’ll use *invoice* for the moment.
 
 ```php title="/site/templates/checkout.php"
 …
@@ -35,7 +36,7 @@ Add form fields for the data you need to collect from your customer. For the mom
 
 As long as all data is valid, the customer is redirected directly to the order page, where they see the summary of their order.
 
-When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout `](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error.
+When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout `](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error. Continue with **[Validate checkout](/guide/getting-started/validate-checkout)** to learn how to define required fields and how to use JavaScript to handle the JSON data.
 
 ----
 

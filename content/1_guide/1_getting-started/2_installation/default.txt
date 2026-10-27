@@ -6,19 +6,19 @@ Headline:
 
 ----
 
-Intro: Learn different methods to install Merx plugin
+Intro: You can start your web shop from scratch or add Merx to your existing Kirby website. Learn how to install and update Merx.
 
 ----
 
 Text:
 
-There are different options to add Merx to your existing Kirby website. If you are starting from scratch you can use the [Starterkit](#install-the-starterkit).
+If you are starting from scratch you can use the **[Merx Starterkit](#install-the-starterkit)**.
 
-[Kirby docs: Installing plugins](https://getkirby.com/docs/guide/plugins/installing-plugins)
+In general you can follow [Kirby docs: Installing plugins](https://getkirby.com/docs/guide/plugins/installing-plugins).
 
 ## Requirements
 
-Merx needs **Kirby 5.5** or later and **PHP 8.2** or later. Beyond that it has no special requirements — as long as Kirby runs fine, so does Merx.
+Merx requires **[Kirby 6](https://getkirby.com/releases/6)**. Beyond that it has no special requirements — as long as Kirby runs fine, so does Merx.
 [System requirements of Kirby](https://getkirby.com/docs/reference/system/requirements)
 
 ## Download Merx
@@ -77,13 +77,9 @@ kirby plugin:install https://github.com/wagnerwagner/merx.git
 
 The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS.
 
-It’s a good way to explore what Merx can do, and a good starting point if you want a simple store fast.
+It’s a good way to explore what Merx can do, and a good starting point if you want a simple store fast and extend it when you need it.
 
-[Preview →](https://starterkit.merx.wagnerwagner.de){.a-button} 
-
-[Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest)
-
-[Source Code on GitHub](https://github.com/wagnerwagner/merx-starterkit)
+[Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest){.a-button} [Preview →](https://starterkit.merx.wagnerwagner.de){.a-button data-kind="secondary"} [Source Code on GitHub](https://github.com/wagnerwagner/merx-starterkit){.a-button data-kind="secondary"}
 
 ----
 

@@ -43,8 +43,7 @@ fields:
 
 ## Update checkout template
 
-Add the new fields to the checkout template. To build these inputs from the blueprint instead of writing them out, see [Build the checkout form from the blueprint](/cookbook/build-checkout-form-from-blueprint).
-
+Add the new fields to the checkout template.
 
 ```php title="/site/templates/checkout.php"
 …
@@ -70,6 +69,10 @@ Add the new fields to the checkout template. To build these inputs from the blue
 </form>
 …
 ```
+
+> [!NOTE]
+> To build these inputs from the blueprint instead of writing them out, see [Build the checkout form from the blueprint](/cookbook/build-checkout-form-from-blueprint).
+
 
 ### Example response
 
