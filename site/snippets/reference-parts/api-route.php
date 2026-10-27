@@ -1,16 +1,14 @@
-<?php if ($apiRequest = $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method())): ?>
-	<h2>Example response</h2>
-	<figure class="m-code">
-		<figcaption>https://shop.test/api/<?= $page->pattern() ?></figcaption>
-		<div class="m-code">
-			<pre><code class="language-json"><?= $page->parent()->parent()->apiRequest(path: $page->pattern(), method: $page->method()) ?></code></pre>
-		</div>
-	</figure>
-<?php endif ?>
+<?php
 
-<?php if ($resolvedApiModel = $page->parent()->parent()->resolveApiModel($page->class())): ?>
+use Kirby\Toolkit\Str;
+use Wagnerwagner\Site\ApiExamples;
+
+/** @var ReferenceApiRoutePage $page */
+?>
+<?php if ($response = $page->exampleResponse()): ?>
 	<h2>Example response</h2>
 	<figure class="m-code">
-		<pre><code class="language-json"><?= json_encode($resolvedApiModel, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></code></pre>
+		<figcaption><?= $page->method() ?> <?= ApiExamples::BASE_URL ?>/api/<?= $page->pattern() ?></figcaption>
+		<pre><code class="language-json"><?= Str::esc(ApiExamples::json($response), 'html') ?></code></pre>
 	</figure>
 <?php endif ?>

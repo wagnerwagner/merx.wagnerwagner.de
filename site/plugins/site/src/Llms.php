@@ -67,44 +67,51 @@ class Llms
 			static::table(['Name', 'Fields'], $views),
 			'## Type',
 			static::inlineCode((string)$page->referenceClass()),
+			static::apiModelExamples($page),
 		]);
+	}
+
+	private static function apiModelExamples(\ReferenceApiModelPage $page): string|null
+	{
+		try {
+			$examples = $page->exampleResponses();
+		} catch (\Throwable) {
+			$examples = [];
+		}
+
+		if (count($examples) === 0) {
+			return null;
+		}
+
+		$blocks = [
+			'## Examples',
+			'The ' . static::text($page->title()) . ' model of an example cart, in each of its views.',
+		];
+
+		foreach ($examples as $view => $example) {
+			$blocks[] = static::code(ApiExamples::json($example['data']), 'json', $example['request'] ?? 'View: ' . $view);
+		}
+
+		return static::join($blocks);
 	}
 
 	private static function apiRoute(Page $page): string|null
 	{
-		$api = $page->parent()->parent();
-
 		try {
-			$response = $api->apiRequest(path: $page->pattern(), method: $page->method());
+			$response = $page->exampleResponse();
 		} catch (\Throwable) {
 			$response = null;
 		}
 
-		if ($response) {
-			return static::join([
-				'## Example response',
-				'`' . $page->method() . ' /api/' . $page->pattern() . '`',
-				static::code((string)$response, 'json'),
-			]);
+		if ($response === null) {
+			return null;
 		}
 
-		try {
-			$model = $api->resolveApiModel($page->class());
-		} catch (\Throwable) {
-			$model = null;
-		}
-
-		if ($model) {
-			return static::join([
-				'## Example response',
-				static::code(
-					json_encode($model, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-					'json',
-				),
-			]);
-		}
-
-		return null;
+		return static::join([
+			'## Example response',
+			'`' . $page->method() . ' /api/' . $page->pattern() . '`',
+			static::code(ApiExamples::json($response), 'json'),
+		]);
 	}
 
 	private static function blockquote(string|null $string): string|null
@@ -615,7 +622,7 @@ class Llms
 		$blocks[] = static::meta($page);
 
 		if (is_string($page->call())) {
-			$blocks[] = static::code($page->call(), 'php');
+			$blocks[] = static::code($page->call(), $page instanceof \ReferenceApiRoutePage ? 'js' : 'php');
 		}
 
 		if (is_array($page->params()) && count($page->params()) > 0) {

@@ -3,12 +3,27 @@
 namespace Site\Search;
 
 use Kirby\Cms\App;
-use Kirby\Cms\Collection;
 use Kirby\Cms\Page;
 use Kirby\Exception\Exception;
+use Kirby\Toolkit\Collection;
 use Kirby\Toolkit\Config;
 use Kirby\Toolkit\I18n;
 use Kirby\Toolkit\Str;
+
+/**
+ * A page found by the search
+ *
+ * The API resolves objects by type. Wrapping the page keeps the
+ * `searchresult` model to search results, so any other page the
+ * API returns still gets Kirby’s own `page` model.
+ */
+class SearchResult
+{
+	public function __construct(
+		public readonly Page $page,
+	) {
+	}
+}
 
 class SearchResults extends Collection
 {
@@ -25,14 +40,12 @@ App::plugin(
 			'models' => [
 				'searchresult' => [
 					'fields' => [
-						'url' => fn (Page $page) => $page->url(),
-						'title' => function (Page $page) {
-							return $page->metaTitle()->or($page->title())->toString();
-						},
-						'breadcrumbs' => fn (Page $page) => $page->parents()->flip()->add($page)->values(fn (Page $page) => $page->title()->toString()),
-						'type' => fn (Page $page) => $page->template()->name(),
+						'url' => fn (SearchResult $result) => $result->page->url(),
+						'title' => fn (SearchResult $result) => $result->page->metaTitle()->or($result->page->title())->toString(),
+						'breadcrumbs' => fn (SearchResult $result) => $result->page->parents()->flip()->add($result->page)->values(fn (Page $page) => $page->title()->toString()),
+						'type' => fn (SearchResult $result) => $result->page->template()->name(),
 					],
-					'type' => Page::class,
+					'type' => SearchResult::class,
 					'views' => [
 						'default' => [
 							'url',
@@ -64,7 +77,7 @@ App::plugin(
 							I18n::$locale = $this->language();
 
 							if (Str::length($query) < 3) {
-								throw new Exception(['key' => 'site.search.length']);
+								throw new Exception(key: 'site.search.length', httpCode: 400);
 							}
 
 							$searchCache = $kirby->cache('site.search');
@@ -87,7 +100,7 @@ App::plugin(
 								$searchCache->set($query, $results->pluck('id'));
 							}
 
-							$results = new SearchResults($results);
+							$results = new SearchResults($results->values(fn (Page $page) => new SearchResult($page)));
 
 							$sums = Config::get('tobiaswolf.server-timing.data.sum');
 							$strings = [];
