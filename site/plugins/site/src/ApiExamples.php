@@ -16,9 +16,9 @@ use Wagnerwagner\Merx\Price;
  *
  * The examples are not written by hand. They come from the real Merx API,
  * running against a small fixture shop: a few virtual product pages and a
- * cart. The fixture shop runs in a clone of the Kirby instance with its own
- * in-memory session, so nothing is written to disk and the visitor’s own
- * session and cart stay untouched.
+ * cart. The fixture shop runs in its own Kirby instance without the site’s
+ * config and with an in-memory session, so nothing is written to disk and
+ * the visitor’s own session and cart stay untouched.
  */
 class ApiExamples
 {
@@ -139,7 +139,7 @@ class ApiExamples
 
 			return $callback($fixture->api());
 		} finally {
-			// The clone replaced both, so pages loaded later would get its urls
+			// The fixture replaced both, so pages loaded later would get its urls
 			App::instance($kirby);
 			ModelWithContent::$kirby = $kirby;
 		}
@@ -249,17 +249,28 @@ class ApiExamples
 	}
 
 	/**
-	 * Clone of the Kirby instance which serves the fixture shop
+	 * Kirby instance which serves the fixture shop
+	 *
+	 * It shares the roots of `$kirby`, and with them its blueprints, models
+	 * and plugins, but none of its config files. So the examples are the
+	 * same on every host, whatever its config or `env.php` say.
 	 */
 	protected static function app(App $kirby): App
 	{
-		return $kirby->clone([
+		return new App([
+			'roots' => [
+				...$kirby->roots()->toArray(),
+				// Does not exist, so no config file is loaded
+				'config' => __DIR__ . '/api-examples-config',
+			],
 			'components' => [
 				'session::store' => fn () => new MemorySessionStore(),
 			],
 			'options' => [
 				// Error responses as in production, without file and line
 				'debug' => false,
+				// Same routes as the API reference documents
+				'wagnerwagner.merx.api.endpoint' => static::endpoint(),
 				'session' => [
 					// Never find the visitor’s real session
 					'cookieName' => 'merx_api_examples',
