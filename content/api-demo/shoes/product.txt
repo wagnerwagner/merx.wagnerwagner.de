@@ -1,9 +1,0 @@
-Title: Shoes
-
-----
-
-Price: 45
-
-----
-
-Uuid: cvgsvmkadje1krue

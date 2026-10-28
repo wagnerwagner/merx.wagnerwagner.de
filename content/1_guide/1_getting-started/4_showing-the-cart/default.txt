@@ -60,7 +60,7 @@ customElements.define('my-cart', class extends HTMLElement {
 });
 ```
 
-Add the `<my-cart>` element to the header of your page – or wherever you want to show the cart.
+Add the `<my-cart>` element to the header of your page — or wherever you want to show the cart.
 
 A product without a price returns `null` instead of a price object. `checkout` is `null` until a page with the checkout template exists, which is the [next step](/guide/getting-started/create-checkout), so the link is only rendered once there is one. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 

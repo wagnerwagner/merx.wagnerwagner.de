@@ -78,7 +78,7 @@ Dear <?= $orderPage->given_name()->escape() ?> <?= $orderPage->family_name()->es
 
 Thank you for your order of <?= $orderPage->total() ?>.
 
-Find all the details of your order on
+Find all the details of your order at
 <?= $orderPage->url() ?>
 ```
 

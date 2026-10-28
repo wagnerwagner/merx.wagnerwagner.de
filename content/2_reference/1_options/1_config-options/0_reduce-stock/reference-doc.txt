@@ -1,0 +1,5 @@
+Shortdescription: Whether the stock of products is reduced, when the order is created.
+
+----
+
+Guide: /guide/getting-started/stock

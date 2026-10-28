@@ -77,7 +77,7 @@ kirby plugin:install https://github.com/wagnerwagner/merx.git
 
 The Starterkit is a complete online shop with commented blueprints, templates, JavaScript and CSS.
 
-It’s a good way to explore what Merx can do, and a good starting point if you want a simple store fast and extend it when you need it.
+It’s a good way to explore what Merx can do, and a good starting point if you want a simple store fast that can grow along with your future needs.
 
 [Download ↓](https://github.com/wagnerwagner/merx-starterkit/releases/latest){.a-button} [Preview →](https://starterkit.merx.wagnerwagner.de){.a-button data-kind="secondary"} [Source Code on GitHub](https://github.com/wagnerwagner/merx-starterkit){.a-button data-kind="secondary"}
 

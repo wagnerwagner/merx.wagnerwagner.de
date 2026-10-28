@@ -1,1 +1,5 @@
 Shortdescription: Passed to Stripe when the payment intent is created, for example to limit the payment methods offered.
+
+----
+
+Guide: /guide/payment-gateways/stripe-elements#optional-show-only-specific-payment-methods

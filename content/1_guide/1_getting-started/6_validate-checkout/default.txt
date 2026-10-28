@@ -112,7 +112,7 @@ When the validation fails, the [API returns a JSON](/reference/api/routes/shop-c
 
 ## Use JavaScript to handle form submit
 
-As in _[Adding products](/guide/getting-started/adding-products#add-the-product-to-the-cart)_ we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
+As in _[Adding products](/guide/getting-started/adding-products#add-the-product-to-the-cart)_, we intercept the submit event of the checkout form, and use the validation details to show the error messages to the customer.
 
 ```js title="/assets/js/checkout.js"
 const checkoutForm = document.getElementById('checkout-form');

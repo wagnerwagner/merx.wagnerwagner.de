@@ -137,6 +137,10 @@ abstract class ReferencePageAbstract extends Page
 
 	public function guide(): Field|null
 	{
+		if ($this->content()->get('guide')->isNotEmpty()) {
+			return $this->content()->get('guide');
+		}
+
 		$see = array_values($this->docBlock()?->getTagsByName('@see') ?? [])[0]->value ?? null;
 
 		if ($see === null || !Str::startsWith($see, 'https://')) {

@@ -94,7 +94,7 @@ Kirby loads models after plugins, so yours wins without any registration.
 
 \----
 
-The order page is a confirmation to your customer, that the order was successful. Additionally you might also [send a confirmation mail](/guide/getting-started/sending-emails) to your customer.
+The order page is a confirmation to your customer that the order was successful. Additionally, you might [send a confirmation email](/guide/getting-started/sending-emails) to your customer.
 
 ----
 
