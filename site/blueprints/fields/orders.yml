@@ -1,6 +1,0 @@
-type: pagelist
-parent: site.find("orders")
-template: order
-sortBy: num desc
-text: "#{{ page.orderNumber }} – {{ page.name }} ({{ page.email }})"
-info: "{{ page.formattedSum }} – {{ page.invoiceDate.toDate('Y-m-d') }}"

@@ -27,7 +27,7 @@ Currencies are defined in the [`pricingRules`](/reference/options/config-options
 
 ### Change default currency
 
-If you want to change the default currency (e.g. for a single language website), you can set up a simple default pricing rule.
+If you want to change the default currency (e.g. for a single-language website), you can set up a simple default pricing rule.
 
 ```php title="/site/config/config.php"
 <?php
@@ -43,14 +43,14 @@ return [
 
 ### Currencies based on language
 
-If you want to display prices based on the [Kirby language](https://getkirby.com/docs/guide/languages), you can do so by using the [languageCode()](https://getkirby.com/docs/reference/objects/cms/app/language-code) method of the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object.
+If you want to display prices based on the [Kirby language](https://getkirby.com/docs/guide/languages), you can do so by using the [`$kirby->languageCode()`](https://getkirby.com/docs/reference/objects/cms/app/language-code) method.
 
 ```php title="/site/config/config.php"
 <?php
 
 return [
 	'wagnerwagner.merx.pricingRules' => [
-		'en' => [
+		'us' => [
 			'name' => 'US dollar',
 			'currency' => 'USD',
 			'rule' => fn (?\Kirby\Cms\App $kirby): bool => $kirby->languageCode() === 'en',
@@ -106,14 +106,14 @@ Price:
   pricingrule: default
 -
   price: 2100
-  pricingrule: en
+  pricingrule: us
 ```
 
 A plain number is the price of the `default` rule, so a shop with one currency can write `Price: 2000`.
 
 A product without a price for a rule has no price for the visitors that rule applies to. Merx does not fall back to the `default` price, which would show them a price in another currency.
 
-In a product blueprint of your own, add the field with `type: prices`.
+In a product blueprint of your own, add the field with [`type: prices`](/reference/classes/prices-field).
 
 ## Showing the price
 
@@ -126,7 +126,7 @@ The [`price()`](/reference/classes/product-page/price) method of a [product page
 You can provide the key of the rule as the first argument to the price method, if you want to return the price of a specific rule.
 
 ```php title="/site/templates/product.php"
-<?= $page->price('default') ?> or <?= $page->price('en') ?>
+<?= $page->price('default') ?> or <?= $page->price('us') ?>
 ```
 
 > [!NOTE]

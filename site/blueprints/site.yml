@@ -6,6 +6,7 @@ fields:
     status: listed
   orders:
     extends: fields/orders
+    parent: site.ordersPage
   pages:
     type: pagelist
     status: unlisted

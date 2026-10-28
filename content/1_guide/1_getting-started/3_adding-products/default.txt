@@ -12,11 +12,32 @@ Intro: Define a product page and add a product to the cart.
 
 Text:
 
-## Create new page
+## Create a new page page
 
-Merx comes with a [product blueprint](/reference/blueprints/pages/product). Create a new page in the Panel and select *Product* as template. Set a price for your product, and a [stock](/guide/getting-started/stock) if you count it.
+Create a new page in the Panel and select *Product* as the template. Set a price for your product, and a [stock](/guide/getting-started/stock) if the product has limited availability.
 
-## Template
+## Customize the product blueprint
+
+Merx comes with a [product blueprint](/reference/blueprints/pages/product) with some predefined fields. You can [extend](https://getkirby.com/docs/guide/blueprints/extending-blueprints) this blueprint or create your very own. Just make sure your blueprint has at least a [price field](/reference/blueprints/fields/price).
+
+```yml title="/site/blueprints/pages/product.yml"
+extends: wagnerwagner.merx.pages/product
+
+tabs:
+  content:
+    fields:
+      - price
+      - taxRule
+      - stock
+      - name: cover
+        type: filepicker
+        max: 1
+```
+
+> [!NOTE]
+> The product page blueprint is registered as `pages/product` and `wagnerwagner.merx.pages/product`. Extend the namespaced one to avoid infinite loops.
+
+## Build the template
 
 You’re completely free to build your own template for your product. Most likely you’ll want to show the price and a button to add the product to the cart. [`$page->price()`](/reference/classes/product-page/price) gives you the formatted price, with currency symbol.
 
