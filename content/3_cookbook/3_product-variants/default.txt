@@ -63,9 +63,9 @@ use Wagnerwagner\Merx\ProductPage;
 
 class ProductVariantPage extends ProductPage
 {
-  public function price(string|PricingRule|null $pricingRule = null, float|null $quantity = null): Price|null
+  public function price(string|PricingRule|null $pricingRule = null, float|null $quantity = null, array|null $data = null): Price|null
   {
-    return $this->parent()->price($pricingRule, $quantity);
+    return $this->parent()->price($pricingRule, $quantity, $data);
   }
 }
 ```
@@ -73,7 +73,7 @@ class ProductVariantPage extends ProductPage
 You could also use the price of the parent product page only, when the price field of the product variant page is empty.
 
 ```php
-return parent::price($pricingRule, $quantity) ?? $this->parent()->price($pricingRule, $quantity);
+return parent::price($pricingRule, $quantity, $data) ?? $this->parent()->price($pricingRule, $quantity, $data);
 ```
 
 ## Extending product variant model

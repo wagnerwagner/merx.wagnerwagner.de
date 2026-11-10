@@ -111,7 +111,7 @@ Features:
             "text": "A product’s price can depend on how many are in the cart. Override `price()` in your product model, and the cart passes the quantity for you.",
             "link": "page://0wcfjw04omnnzrg8",
             "linktext": "",
-            "visual": "```php title=\"/site/models/product.php\"\n<?php\n\nuse Wagnerwagner\\Merx\\Price;\nuse Wagnerwagner\\Merx\\PricingRule;\n\nclass ProductPage extends Wagnerwagner\\Merx\\ProductPage\n{\n  public function price(\n    null|string|PricingRule $pricingRule = null,\n    null|float $quantity = null,\n  ): ?Price {\n    $price = parent::price($pricingRule, $quantity);\n    if ($quantity >= 10) {\n      $price = $price->updatePrice($price->price * 0.95);\n    }\n    return $price;\n  }\n}\n```"
+            "visual": "```php title=\"/site/models/product.php\"\n<?php\n\nuse Wagnerwagner\\Merx\\Price;\nuse Wagnerwagner\\Merx\\PricingRule;\n\nclass ProductPage extends Wagnerwagner\\Merx\\ProductPage\n{\n  public function price(\n    null|string|PricingRule $pricingRule = null,\n    null|float $quantity = null,\n    null|array $data = null,\n  ): ?Price {\n    $price = parent::price($pricingRule, $quantity, $data);\n    if ($quantity >= 10) {\n      $price = $price->updatePrice($price->price * 0.95);\n    }\n    return $price;\n  }\n}\n```"
         },
         "id": "ef8ff861-4388-4683-9cfa-3346ed57ee96",
         "isHidden": false,

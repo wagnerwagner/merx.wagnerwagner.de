@@ -139,7 +139,28 @@ The table shows it as `{ … }`. Open the row to read the name.
 
 ## Charge for the embroidery
 
-The price still comes from the product page; `data` never changes it. If embroidery costs extra, add it as an item of its own, the way [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts) adds shipping.
+The price always comes from the product page, never from the request. Merx hands the `data` of a cart line to [`price()`](/reference/classes/product-page/price), so your own product model can add to the price when there is a name.
+
+```php title="/site/models/product.php"
+<?php
+
+use Wagnerwagner\Merx\Price;
+use Wagnerwagner\Merx\PricingRule;
+
+class ProductPage extends Wagnerwagner\Merx\ProductPage
+{
+  public function price(string|PricingRule|null $pricingRule = null, float|null $quantity = null, array|null $data = null): Price|null
+  {
+    $price = parent::price($pricingRule, $quantity, $data);
+    if ($price !== null && empty($data['name']) === false) {
+      $price->updatePrice($price->price + 5);
+    }
+    return $price;
+  }
+}
+```
+
+The cart works the price out again with every request, from the page and the data of the line. On the product page there is no cart line, so `$page->price()` is still the price without embroidery.
 
 ----
 
