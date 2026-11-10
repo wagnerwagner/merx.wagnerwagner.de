@@ -12,7 +12,7 @@ Intro: Define a product page and add a product to the cart.
 
 Text:
 
-## Create a new page page
+## Create a new page
 
 Create a new page in the Panel and select *Product* as the template. Set a price for your product, and a [stock](/guide/getting-started/stock) if the product has limited availability.
 

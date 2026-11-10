@@ -6,7 +6,7 @@ Headline:
 
 ----
 
-Intro: 
+Intro: Where the Merx Starterkit keeps each of the settings this guide describes.
 
 ----
 

@@ -1,1 +1,1 @@
-Shortdescription: Runs once per order, when it becomes paid — at creation for an immediate payment, later for one a webhook confirms or a Panel user marks as paid.
+Shortdescription: Runs once per order, when it becomes paid — at creation for an immediate payment, later for one a webhook confirms or a Panel user marks as paid. A hook that updates the order returns the updated page.

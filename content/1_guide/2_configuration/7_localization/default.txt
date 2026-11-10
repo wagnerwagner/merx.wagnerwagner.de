@@ -28,7 +28,7 @@ The `error.merx.*` strings are the ones your customers see: they’re the messag
 
 ### Overriding a string
 
-Register the strings under `extensions` in your config, keyed by language code. This works on any site, with or without languages, and needs no plugin of its own.
+If you are not happy with the default translation, you can override those translation strings in your config. This works on any site, with or without languages.
 
 ```php title="/site/config/config.php"
 <?php
@@ -47,22 +47,7 @@ return [
 ];
 ```
 
-On a [multi-language site](https://getkirby.com/docs/guide/languages) you can also keep the strings in the language file, next to the language definition itself.
-
-```php title="/site/languages/de.php"
-<?php
-
-return [
-  'code' => 'de',
-  'name' => 'Deutsch',
-  'locale' => 'de_DE',
-  'translations' => [
-    'error.merx.emptycart' => 'Dein Warenkorb ist leer.',
-  ],
-];
-```
-
-Pick one of the two. A string set in both places is taken from the language file, and anything you leave alone still comes from Merx.
+The messages for invalid checkout fields, such as `error.validation.required`, are Kirby’s. Override them the same way if they don’t fit your shop.
 
 ### Adding a language
 
@@ -96,6 +81,8 @@ return [
 Both methods also take a locale as an argument, for the cases where you need a different one than the visitor’s.
 
 ```php title="/site/templates/product.php"
+<?php use Wagnerwagner\Merx\Merx; ?>
+
 <?= Merx::formatCurrency(1045.12, 'EUR', 'de_DE') ?>
 ```
 

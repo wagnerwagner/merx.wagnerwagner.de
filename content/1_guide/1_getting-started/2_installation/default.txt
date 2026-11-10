@@ -33,7 +33,7 @@ Merx requires **[Kirby 6](https://getkirby.com/releases/6)**. Beyond that it has
 # navigate to the root of your kirby website
 cd your-website
 
-# install the submodule in plugins direction
+# install the submodule in the plugins directory
 git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx
 
 # commit the changes
@@ -49,7 +49,7 @@ cd ./site/plugins/merx
 
 # update to the latest version
 git checkout main   # ensure main branch is checked out
-git pull            # fetch latests changes and update code
+git pull            # fetch latest changes and update code
 ```
 
 ## Install and update via Composer

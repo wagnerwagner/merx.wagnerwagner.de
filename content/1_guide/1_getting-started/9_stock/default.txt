@@ -32,7 +32,7 @@ A cart can sit in the session for days, so the checkout checks again: when the o
 Once the order is written, Merx lowers the stock of every product in it. That includes orders which are paid later, by invoice or SEPA Direct Debit, because the goods are promised from that moment on.
 
 > [!NOTE]
-> The stock only goes down while [`production`](/reference/options/config-options/production) is `true`, so test orders leave it alone.
+> Test orders lower the stock as well. Set [`reduceStock`](/reference/options/config-options/reduce-stock) to `false` in your development config if they should leave it alone.
 
 ## Show what’s left
 
@@ -63,7 +63,7 @@ Two customers who buy the last item at the same moment can both get through, bec
 
 ## Your own stock source
 
-When the stock lives in an ERP or a warehouse system, override [`stock()`](/reference/classes/product-page/stock) and [`reduceStock()`](/reference/classes/product-page/reduce-stock) in your own [product model](/guide/getting-started/adding-products). Merx asks `stock()` for every check and calls `reduceStock()` once per product of a new order, in production only.
+When the stock lives in an ERP or a warehouse system, override [`stock()`](/reference/classes/product-page/stock) and [`reduceStock()`](/reference/classes/product-page/reduce-stock) in your own [product model](/guide/getting-started/adding-products). Merx asks `stock()` for every check and calls `reduceStock()` once per product of a new order.
 
 ----
 

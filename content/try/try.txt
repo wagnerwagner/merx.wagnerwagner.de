@@ -36,7 +36,7 @@ Faq:
 - 
   question: Which Kirby version do I need?
   answer: >
-    Merx 2 needs Kirby 5.5 and PHP 8.2 or
+    Merx 2 needs Kirby 6 and PHP 8.3 or
     later. Beyond that, if Kirby runs, Merx
     runs.
 

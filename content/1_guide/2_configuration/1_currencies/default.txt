@@ -113,7 +113,7 @@ A plain number is the price of the `default` rule, so a shop with one currency c
 
 A product without a price for a rule has no price for the visitors that rule applies to. Merx does not fall back to the `default` price, which would show them a price in another currency.
 
-In a product blueprint of your own, add the field with [`type: prices`](/reference/classes/prices-field).
+In a product blueprint of your own, add the field with [`type: prices`](/reference/blueprints/fields/price).
 
 ## Showing the price
 

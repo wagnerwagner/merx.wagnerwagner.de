@@ -137,6 +137,7 @@ checkoutForm.addEventListener('submit', async (event) => {
     // [2] Handle validation errors
     const errorDetails = json.details;
     console.log(errorDetails);
+    // errorDetails holds the messages per field
   }
 });
 ```
@@ -154,7 +155,7 @@ const checkoutForm = document.getElementById('checkout-form');
  */
 function createErrorElement(errorMessage) {
   return Object.assign(document.createElement('p'), {
-    classList: 'error',
+    className: 'error',
     innerText: errorMessage,
   });
 }
@@ -181,6 +182,9 @@ checkoutForm.addEventListener('submit', async (event) => {
   const response = await fetch(checkoutForm.action, {
     method: 'post',
     body: formData,
+    headers: {
+      'Accept': 'application/json',
+    },
   });
 
   /** @see https://merx.wagnerwagner.de/reference/api/routes/shop-checkout-post */
@@ -219,7 +223,7 @@ checkoutForm.addEventListener('submit', async (event) => {
       }
     } catch (errorMessage) {
       // Display general error message before submit button
-      checkoutForm.insertBefore(createErrorElement(errorMessage), event.submitter)
+      checkoutForm.insertBefore(createErrorElement(errorMessage), event.submitter);
     }
   }
 });
@@ -242,8 +246,8 @@ For some payment gateways the payment is handled asynchronously. This means that
 2. Personal data is validated. When valid, the data is stored together with the cart in the customer’s session on the server. ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post))
 3. *Optional:* Payment details are validated and payment process is handled on page (e.g. *credit card* via *Stripe*) **or** customer is redirected to payment provider (e.g. *PayPal*) to handle the payment process.
 4. Customer is redirected back to the shop. ([`/api/shop/success`](/reference/api/routes/shop-success-get))
-6. Order page is created with data from the session
-7. *Optional:* Order is marked as complete via [hook](/reference/options/hooks/stripe-hooks) (asynchronous payment).
+5. Order page is created with data from the session
+6. *Optional:* Order is marked as complete via [hook](/reference/options/hooks/stripe-hooks) (asynchronous payment).
 
 Next, learn [how to show the order information](/guide/getting-started/displaying-order) to the customer.
 

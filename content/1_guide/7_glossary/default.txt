@@ -96,7 +96,7 @@ A complete example shop with commented blueprints, templates, JavaScript and CSS
 
 ## Stock
 
-How many of a product are left, kept in its `stock` field. Merx refuses more in the cart and at the checkout, and lowers it with every order once the shop is in production. See [Stock](/guide/getting-started/stock).
+How many of a product are left, kept in its `stock` field. Merx refuses more in the cart and at the checkout, and lowers it with every order. See [Stock](/guide/getting-started/stock).
 
 ## Tax rule
 

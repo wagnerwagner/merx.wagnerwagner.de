@@ -1,1 +1,1 @@
-Shortdescription: Number field for a product price.
+Shortdescription: Prices field for a product price, with one price per pricing rule.

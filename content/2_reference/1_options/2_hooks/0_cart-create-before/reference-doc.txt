@@ -1,1 +1,1 @@
-Shortdescription: Runs while the cart object is being built, before it is read from the session.
+Shortdescription: Runs while the cart object is being built, after its items were read from the session and before it is saved.

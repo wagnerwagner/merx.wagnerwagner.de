@@ -15,6 +15,10 @@ Text:
 Use the [`orderNumber`](/reference/options/config-options/order-number) option to create your own logic for order numbers. The first argument of the function is of type [OrderPage](/reference/classes/order-page).
 
 ```php title="/site/config/config.php"
+<?php
+
+use Wagnerwagner\Merx\OrderPage;
+
 return [
 	'wagnerwagner.merx.orderNumber' => function (OrderPage $virtualOrderPage): int
 	{

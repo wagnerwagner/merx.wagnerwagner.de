@@ -56,11 +56,16 @@ Different t-shirt sizes normally have all the same price. Instead of adding the 
 
 ```php title="/site/models/product-variant.php"
 <?php
-class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
+
+use Wagnerwagner\Merx\Price;
+use Wagnerwagner\Merx\PricingRule;
+use Wagnerwagner\Merx\ProductPage;
+
+class ProductVariantPage extends ProductPage
 {
-  public function price(null|string|\Wagnerwagner\Merx\PricingRule $pricingRule = null): ?\Wagnerwagner\Merx\Price
+  public function price(string|PricingRule|null $pricingRule = null, float|null $quantity = null): Price|null
   {
-    return $this->parent()->price($pricingRule);
+    return $this->parent()->price($pricingRule, $quantity);
   }
 }
 ```
@@ -68,7 +73,7 @@ class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
 You could also use the price of the parent product page only, when the price field of the product variant page is empty.
 
 ```php
-return parent::price() === null ? $this->parent()->price($pricingRule) : parent::price();
+return parent::price($pricingRule, $quantity) ?? $this->parent()->price($pricingRule, $quantity);
 ```
 
 ## Extending product variant model
@@ -77,7 +82,11 @@ You can further extend the product variant page model, for example you can creat
 
 ```php title="/site/models/product-variant.php"
 <?php
-class ProductVariantPage extends \Wagnerwagner\Merx\ProductPage
+
+use Kirby\Content\Field;
+use Wagnerwagner\Merx\ProductPage;
+
+class ProductVariantPage extends ProductPage
 {
   // …
   public function title(): Field
@@ -102,9 +111,9 @@ content/
       product-variant.txt
     2_red-large/
       product-variant.txt
-    3_red-medium/
+    3_blue-medium/
       product-variant.txt
-    4_red-large/
+    4_blue-large/
       product-variant.txt
 ```
 
@@ -115,7 +124,7 @@ Color: Red
 
 \----
 
-Size: Large
+Size: Medium
 
 \----
 
@@ -126,7 +135,7 @@ Uuid: 96satwnkbxtyk4w9
 
 The customer will expect not one but two select fields. One for the color and one for the size.
 
-First create an array with all *colors* and all *sizes* using [`$pages->pluck()`](https://getkirby.com/docs/reference/objects/cms/pages/pluck) and use these arrays to create two select fields. Also add a hidden `page` input field. The value of this field will late be set using JavaScript.
+First create an array with all *colors* and all *sizes* using [`$pages->pluck()`](https://getkirby.com/docs/reference/objects/cms/pages/pluck) and use these arrays to create two select fields. Also add a hidden `page` input field. The value of this field will later be set using JavaScript.
 
 ```php title="/site/templates/product.php"
 <?php
@@ -165,8 +174,8 @@ $sizes = array_unique($variants->pluck('size'));
 $colors = array_unique($variants->pluck('color'));
 ?>
 <form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
-  <script id="variants">
-    <?= json_encode(array_values($variantsArray), JSON_UNESCAPED_SLASHES) ?>
+  <script id="variants" type="application/json">
+    <?= json_encode(array_values($variantsArray), JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?>
   </script>
 ```
 
@@ -181,7 +190,8 @@ Now you have all the things you need to update the value of the hidden `page` in
 
 ```js title="script.js"
 // [1]
-const variants = JSON.parse(document.getElementById('variants').innerText);;
+const variants = JSON.parse(document.getElementById('variants').textContent);
+const productForm = document.getElementById('product-form');
 
 function updatePageField() {
   // [3]
@@ -197,7 +207,7 @@ updatePageField();
 productForm.querySelectorAll('select').forEach((selectElement) => {
   // [2]
   selectElement.addEventListener('change', updatePageField);
-})
+});
 ```
 
 > [!NOTE]
@@ -210,10 +220,10 @@ The form posts the selected variant’s UUID as `page`, so the API route puts th
 ```php
 $cart->add([
   'page' => 'page://96satwnkbxtyk4w9',
-  'key' => 't-shirt-red-large',
+  'key' => 't-shirt-red-medium',
   'data' => [
     'color' => 'Red',
-    'size' => 'Large',
+    'size' => 'Medium',
   ],
 ]);
 ```
@@ -222,23 +232,6 @@ The `key` identifies the item inside the cart, so every variant needs its own. A
 
 > [!CAUTION]
 > [`$cart->add()`](/reference/classes/cart/add) accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else. A key like `color` or `size` at the top level fails with `Unknown named parameter` — your own attributes belong in `data`.
-
-### A one-off price
-
-Most variants should get their price from the page, as described in [Handling the price](#handling-the-price). If you do need to set a price while adding, pass a [`Price`](/reference/classes/price) object.
-
-```php
-use Wagnerwagner\Merx\Price;
-
-$cart->add([
-  'page' => 'page://96satwnkbxtyk4w9',
-  'key' => 't-shirt-gold-large',
-  'price' => new Price(price: 249.99, currency: $cart->currency()),
-]);
-```
-
-> [!CAUTION]
-> Pass the cart’s [`currency()`](/reference/classes/cart/currency) along with the price. The cart compares the currency of every incoming item against its own and silently drops a price that does not match, which would put the variant into the cart for free. A plain `'price' => 249.99` is exactly that case.
 
 ----
 
