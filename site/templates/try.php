@@ -19,7 +19,7 @@ $starterkitImage = page('home')?->heroImage()->toFile();
 		<div class="o-try__options">
 			<section class="o-try__option" aria-labelledby="starterkit">
 				<?php if ($starterkitImage): ?>
-					<a class="o-try__visual" href="https://starterkit-merx2.wagnerwagner.de" rel="noopener">
+					<a class="o-try__visual" href="https://starterkit.merx2.wagnerwagner.de" rel="noopener">
 						<img src="<?= $starterkitImage->crop(860, 478, 'top')->url() ?>" srcset="<?= $starterkitImage->crop(860 * 2, 478 * 2, 'top')->url() ?> 2x" width="860" height="478" alt="<?= $starterkitImage->alt()->escape() ?>">
 					</a>
 				<?php endif ?>
@@ -28,7 +28,7 @@ $starterkitImage = page('home')?->heroImage()->toFile();
 					<?= $page->starterkit()->kt() ?>
 				</div>
 				<div class="o-try__buttons">
-					<a class="a-button" data-size="large" data-kind="brand" href="https://starterkit-merx2.wagnerwagner.de" rel="noopener">Demo shop&ensp;→</a>
+					<a class="a-button" data-size="large" data-kind="brand" href="https://starterkit.merx2.wagnerwagner.de" rel="noopener">Demo shop&ensp;→</a>
 					<a class="a-button" data-size="large" href="https://github.com/wagnerwagner/merx-starterkit/archive/refs/heads/develop/v2.zip" rel="noopener">Download&ensp;↓</a>
 					<a class="a-button" data-kind="secondary" data-variant="text" href="https://github.com/wagnerwagner/merx-starterkit/tree/develop/v2" rel="noopener">Source code</a>
 				</div>

@@ -71,7 +71,7 @@ foreach ($page->features()->toBlocks() as $feature) {
 				</div>
 			<?php endif ?>
 			<div class="o-release__buttons">
-				<a class="a-button" data-size="large" data-kind="brand" href="https://starterkit-merx2.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</a>
+				<a class="a-button" data-size="large" data-kind="brand" href="https://starterkit.merx2.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</a>
 				<a class="a-button" data-size="large" href="<?= page('buy')?->url() ?>">Buy a license</a>
 			</div>
 		</section>
