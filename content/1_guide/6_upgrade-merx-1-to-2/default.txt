@@ -70,6 +70,8 @@ Merx counts the [stock](/guide/getting-started/stock) itself. A `Stock` field ke
 `completePayment:before` → [`createOrder:before`](/reference/options/hooks/create-order-before)
 `completePayment:after` → [`createOrder:after`](/reference/options/hooks/create-order-after)
 
+`initializeOrder:after` gets the order as `$orderPage`, not as `$virtualOrderPage`: it is saved as a draft by then. Kirby passes hook arguments by name, so rename the parameter.
+
 The single `ww.merx.cart` hook is gone. It fired whenever a cart was built; there is now one pair of hooks per operation.
 
 `cart` → [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after)

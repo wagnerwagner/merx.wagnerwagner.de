@@ -9,10 +9,7 @@
 	> * {
 		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
 		margin-inline: auto;
-		padding-block: var(--size-800);
-		padding-inline: var(--size-400);
 		border-inline: var(--border-small-tertiary);
-		border-block-end: var(--border-small-tertiary);
 
 		@media (min-width: 64em) {
 			padding-inline: calc(var(--size-500) * 3 - var(--border-size-small));
@@ -21,14 +18,10 @@
 			padding-inline: calc(var(--size-1000) - var(--border-size-small));
 		}
 	}
-
-	> :last-child {
-		border-block-end: none;
-	}
 }
 
 .o-checkout__header {
-	padding-block: var(--size-900) var(--size-800);
+	padding-block-start: var(--size-900);
 	display: grid;
 	row-gap: var(--size-500);
 
@@ -38,6 +31,8 @@
 }
 
 .o-checkout__form {
+	padding-block-start: var(--size-900);
+	padding-block-end: var(--size-900);
 	display: grid;
 	align-items: start;
 	column-gap: var(--size-800);

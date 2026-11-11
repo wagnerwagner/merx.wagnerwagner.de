@@ -71,7 +71,7 @@ ${items.map(item => `
 
 ## Check the name on the server
 
-`maxlength` only helps the visitor. The API stores whatever it receives, so check the name in the [`cart.add:before`](/reference/options/hooks/cart-add-before) hook, and in [`cart.updateItem:before`](/reference/options/hooks/cart-update-item-before) so a `PATCH` request can’t get around it.
+`maxlength` only helps the visitor. Merx limits how large `data` may be (4 KB, 8 levels deep) and refuses more with [`error.merx.cart.data`](/reference/options/translations/error-merx-cart-data), but it does not look at what is in it. So check the name in the [`cart.add:before`](/reference/options/hooks/cart-add-before) hook, and in [`cart.updateItem:before`](/reference/options/hooks/cart-update-item-before) so a `PATCH` request can’t get around it.
 
 ```php title="/site/config/config.php"
 <?php

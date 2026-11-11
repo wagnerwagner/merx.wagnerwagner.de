@@ -86,9 +86,6 @@
 }
 
 .m-cart__total {
-	margin-block-start: var(--size-200);
-	padding-block-start: var(--size-300);
-	border-block-start: var(--border-xsmall-secondary);
 	font: var(--font-heading-xsmall);
 
 	> dt {

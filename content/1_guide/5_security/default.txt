@@ -12,37 +12,53 @@ Intro: Order pages hold your customers’ personal data. These are the measures 
 
 Text:
 
-## Basic
+An order page has no login. Whoever knows its URL can read it, so everything on this page is about keeping that URL, and the files behind it, private.
 
+## What Merx does for you
+
+- **Random URLs.** An order page gets a random 16-character id, not its order number, so its URL cannot be guessed from another one.
+- **No index of orders.** [`$site->index()`](https://getkirby.com/docs/reference/objects/cms/site/index) contains no order pages unless a Panel user is logged in. A sitemap or a [`$site->search()`](https://getkirby.com/docs/reference/objects/cms/site/search) built on it leaves them out. An order has no [siblings](https://getkirby.com/docs/reference/objects/cms/page/siblings) either, so `prev()` and `next()` in an order template never lead to somebody else’s order.
+- **Security headers.** [`OrderPage::render()`](/reference/classes/order-page/render) sends `Cache-Control: private, no-store`, `Referrer-Policy: same-origin` and `X-Robots-Tag: noindex, nofollow`. Order pages are never written to Kirby’s page cache.
+- **A log of every view.** Each time an order page is rendered, Merx logs the order, the Panel user if there is one, and a hash of the visitor’s IP address. It follows the [`logging`](/reference/options/config-options/logging) option, and log files are deleted after a year.
+- **Orders that stay as they are.** In the Panel nobody can delete, duplicate or move an order, or change its URL or status. Every Panel user can read orders, though, so only give an account to somebody who may.
+- **No leftovers.** An [order draft](/guide/glossary) of a checkout that was never completed is deleted after a week.
+
+> [!WARNING]
+> Most of this lives in the order blueprint and in the `OrderPage` model. Don’t replace them, extend them: start your own `/site/blueprints/pages/order.yml` with [`extends: wagnerwagner.merx.pages/order`](/reference/blueprints/pages/order), and let your own `/site/models/order.php` extend [`OrderPage`](/reference/classes/order-page). A blueprint written from scratch has none of the `options` that keep an order from being deleted or renamed in the Panel.
+
+## What is left to you
+
+- Escape everything a customer entered with [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape). Merx stores it as it was typed.
+- Never list orders in a template. `children()` of the orders page still returns every order, with its URL: Kirby needs it to find the order of a request.
 - Do not show personal information when it is not necessary.
-- Use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for all user generated data.
-- Make sure order page links don’t appear in a **sitemap** or similar list of pages.
-- Make sure order pages are excluded from search results, when using [`$site->search()`](https://getkirby.com/docs/reference/objects/cms/site/search) or similar.
-- Add a robots meta tag to prevent search engines from crawling order pages.
-`<meta name="robots" content="noindex, follow">`
-- Add a robots.txt to disallow order pages. (Your /orders/ path can be different depending on your ordersPage option)
+- Add a robots meta tag to your order template. It tells search engines the same as the header, also when a proxy drops the header.
+`<meta name="robots" content="noindex, nofollow">`
+- Add a robots.txt to disallow order pages. Your `/orders/` path depends on the [`ordersPage`](/reference/options/config-options/orders-page) option.
 
 ```text title="robots.txt"
 User-agent: *
 Disallow: /orders/
 ```
 
-## Advanced
+- Keep the files private. Orders are text files in your content folder, and the log names every order that was looked at. Make sure neither folder can be requested from the web, and keep both out of a Git repository. Ignoring the orders folder also keeps `.merx-orders.lock` out of it, a file Merx keeps next to the orders so that two of them never get the same number.
 
-- Prevent the use of `$orderPage->siblings()` or similar.
-- If you use Git: make sure order pages are not included in your (public) Git repository.
+```gitignore title="/.gitignore"
+/content/orders
+/site/logs
+```
+
+- Treat an order link like the order itself. It is in the confirmation email, in the customer’s browser history and in your backups.
+- Keep your Stripe and PayPal keys in a file that is [not part of your repository](/guide/configuration/stripe-paypal-secrets).
 
 ## Further considerations
 
-- Only show the order page with a valid hash as [suggested by @bruno](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/128).
-- Create a log entry each time an OrderPage is rendered. You could overwrite the OrderPage::render() method.
-- Add a method to detect/prevent brute force attacks.
-- Only send one-time, hashed order page links, which are only valid for a short period of time. (self destroying link)
-- ”Deactivate“/“Unpublish” the order page after a short period of time as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131).
+- Unpublish order pages after a while, as [suggested by @Philip](https://forum.getkirby.com/t/merx-plugin-to-create-online-shops-with-kirby-3/13735/131). The link in an old email stops working then.
+- Limit how often an address may request order pages, in your web server or firewall, to stop somebody from trying URLs.
+- Send links that are valid once or only for a short time, instead of the URL of the order page.
 
 ## Further reading
 
-[Kirby Security Advices](https://getkirby.com/docs/guide/security)
+[Kirby security guide](https://getkirby.com/docs/guide/security)
 
 ----
 

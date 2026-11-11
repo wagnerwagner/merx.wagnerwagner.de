@@ -25,4 +25,5 @@
 .o-features__item {
 	display: grid;
 	row-gap: var(--size-200);
+	align-content: start;
 }

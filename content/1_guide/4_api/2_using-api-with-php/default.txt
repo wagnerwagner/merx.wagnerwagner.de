@@ -102,7 +102,7 @@ The form posts to that route instead of the API endpoint and tells it where to g
 </form>
 ```
 
-[`$cart->remove()`](/reference/classes/cart/remove) and [`$cart->updateItem()`](/reference/classes/cart/update-item) work the same way. Both take the item’s `key`, which is the page id unless you set one yourself.
+[`$cart->remove()`](/reference/classes/cart/remove) and [`$cart->updateItem()`](/reference/classes/cart/update-item) work the same way. Both take the item’s `key`, which is the page’s UUID unless you set one yourself.
 
 ```php title="/site/config/config.php"
 cart()->remove($request->get('key'));

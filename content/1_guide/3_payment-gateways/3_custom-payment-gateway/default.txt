@@ -17,7 +17,10 @@ A gateway is a pair of functions. `initializePayment` starts the payment when th
 
 In `initializePayment` you can set a `redirect` URL. The customer will be sent there. If you don’t set `redirect`, they go to [`/api/shop/success`](/reference/api/routes/shop-success-get) directly, which is what an invoice order does.
 
-Whatever return address you hand your provider has to be [`Merx::returnUrl()`](/reference/classes/merx/return-url). It carries a one-time nonce that ties the return to the checkout that started it — `/api/shop/success` completes a payment on a `GET`, and without that check a link on any page could complete a pending payment of somebody who approved it at the provider but never came back. A return that arrives without the nonce is refused with [`error.merx.invalidReturn`](/reference/options/translations/error-merx-invalidreturn).
+Whatever return address you hand your provider has to be [`Merx::returnUrl()`](/reference/classes/merx/return-url). It names the order by a random id, which is how `/api/shop/success` finds it when the customer comes back — also in another browser, or after their session has ended. A return without a known id is refused with [`error.merx.invalidReturn`](/reference/options/translations/error-merx-invalidreturn).
+
+> [!IMPORTANT]
+> The id is all it takes to call `completePayment`. Ask your provider there whether the payment went through, and throw an exception when it did not. Never trust the return alone.
 
 ```php title="/site/config/config.php"
 <?php
@@ -56,7 +59,7 @@ return [
 ];
 ```
 
-Be careful. `$virtualOrderPage` is just virtual and not yet written to the content folder, so you can’t use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
+Be careful. `$virtualOrderPage` is a copy in memory, which Merx writes to the content folder after your function returns, so you can’t use [`$page->update()`](https://getkirby.com/docs/reference/objects/page/update) (which would write a content file). Instead you can use [`$page->version()->update()`](https://getkirby.com/docs/reference/objects/content/version/update) to update the virtual page’s content.
 
 > [!CAUTION]
 > Build the payment record with [`PaymentDetails::create()`](/reference/classes/payment-details/create) instead of storing your provider’s response as it is. A raw response carries the customer’s name, email and address, and order pages are plain content files.

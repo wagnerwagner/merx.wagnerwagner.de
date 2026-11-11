@@ -1,7 +1,7 @@
 .m-field {
 	display: flex;
 	flex-direction: column;
-	row-gap: var(--size-100);
+	row-gap: var(--size-150);
 
 	> div {
 		font: var(--font-label-medium);

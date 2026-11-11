@@ -1,0 +1,116 @@
+Title: Digital products
+
+----
+
+Headline: 
+
+----
+
+Intro: A building plan as a PDF needs no parcel. The customer pays and downloads it from their order page.
+
+----
+
+Text:
+
+A digital product is a product page with files. The order page lists them once the order is paid, and a route hands them out. Nobody gets a file without an order that paid for it.
+
+## Add the files to the product
+
+Extend Merx’ [product blueprint](/reference/blueprints/pages/product) with a files field.
+
+```yaml title="/site/blueprints/pages/product.yml"
+title: Product
+extends: wagnerwagner.merx.pages/product
+
+fields:
+  downloads:
+    label: Downloads
+    type: files
+
+tabs:
+  content:
+    fields:
+      - price
+      - taxRule
+      - stock
+      - downloads
+```
+
+## Hand out the files
+
+The route looks up the order, makes sure it [is paid](/reference/classes/order-page/is-paid) and that the file belongs to one of its products. The `uid` of an order is a random string only the customer knows, so it works as the key to the download.
+
+```php title="/site/config/config.php"
+<?php
+
+use Kirby\Http\Response;
+
+return [
+  'routes' => [
+    [
+      'pattern' => 'orders/(:any)/download/(:any)',
+      'action' => function (string $uid, string $filename) {
+        $order = page('orders/' . $uid);
+
+        if ($order?->isPaid() !== true) {
+          return false;
+        }
+
+        foreach ($order->cart()->filterByType('product') as $item) {
+          $file = $item->page?->downloads()->toFiles()->findBy('filename', $filename);
+
+          if ($file !== null) {
+            return Response::download($file->root(), $file->filename());
+          }
+        }
+
+        return false;
+      },
+    ],
+  ],
+];
+```
+
+> [!CAUTION]
+> Never print `$file->url()` of a download. That is the public URL of the file, and it works for everybody who has it, with or without an order.
+
+## Link the files on the order page
+
+Add the links to the template from [Displaying order](/guide/getting-started/displaying-order).
+
+```php title="/site/templates/order.php"
+<?php if ($page->isPaid()): ?>
+  <ul>
+    <?php foreach ($page->cart()->filterByType('product') as $item): ?>
+      <?php foreach ($item->page?->downloads()->toFiles() ?? [] as $file): ?>
+        <li><a href="<?= $page->url() ?>/download/<?= $file->filename() ?>" download><?= $file->filename() ?></a></li>
+      <?php endforeach ?>
+    <?php endforeach ?>
+  </ul>
+<?php else: ?>
+  <p>Your downloads will be here as soon as we have received your payment.</p>
+<?php endif ?>
+```
+
+With [Stripe](/guide/payment-gateways/stripe-elements) or [PayPal](/guide/payment-gateways/paypal) the order is usually paid when the customer arrives on this page. With an invoice it is paid when you enter the date in *Paid on* in the Panel, so tell the customer with an email from the [`orderPaid`](/reference/options/hooks/order-paid) hook that the downloads are ready.
+
+## Skip the shipping
+
+If you charge for shipping as in [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts), leave it out when the cart holds nothing to ship. Products with downloads count as digital.
+
+```php title="/site/config/config.php"
+$needsShipping = false;
+foreach ($cart->filterByType('product') as $item) {
+  if ($item->page?->downloads()->isEmpty() !== false) {
+    $needsShipping = true;
+  }
+}
+```
+
+----
+
+Shortdescription: Learn how to sell files that customers download after they have paid.
+
+----
+
+Uuid: ZdVkXJjU2orkHLGX

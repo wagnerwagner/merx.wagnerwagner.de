@@ -121,7 +121,7 @@ Features:
         "content": {
             "label": "Stock",
             "headline": "Never sell what you don’t have",
-            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment is captured, and every order lowers the stock — test orders excepted.",
+            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock — test orders excepted.",
             "link": "page://Mu3R1h2iEbZfWwCQ",
             "linktext": "",
             "visual": ""

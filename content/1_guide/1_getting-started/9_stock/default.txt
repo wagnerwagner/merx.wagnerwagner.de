@@ -27,7 +27,9 @@ An empty field means no limit, so a product you don’t count sells as before.
 
 The cart never holds more of a product than its stock. [`add()`](/reference/classes/cart/add) and [`updateItem()`](/reference/classes/cart/update-item) throw [`error.merx.cart.stock`](/reference/options/translations/error-merx-cart-stock), which reads *“Only 3 of “Knitted socks” left.”*, and [`error.merx.cart.soldOut`](/reference/options/translations/error-merx-cart-soldout) once there are none. All lines of a product count together, so a [personalized product](/cookbook/personalized-products) with one line per name can’t get past the stock one name at a time.
 
-A cart can sit in the session for days, so the checkout checks again: when the order is [initialized](/reference/classes/merx/initialize-order), and once more when the customer comes back from the payment provider, before the payment is captured.
+A cart can sit in the session for days, so the checkout checks again when the order is [initialized](/reference/classes/merx/initialize-order).
+
+It does not check when the customer comes back from the payment provider. They may have paid by then, and an order which is paid has to exist. If somebody else bought the last item in those minutes, the order is written anyway, the stock becomes negative and Merx writes it to the log.
 
 Once the order is written, Merx lowers the stock of every product in it. That includes orders which are paid later, by invoice or SEPA Direct Debit, because the goods are promised from that moment on.
 

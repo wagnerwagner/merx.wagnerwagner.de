@@ -14,6 +14,8 @@ Text:
 
 To manage product **stock** or to define **individual prices** for each *product variant*, you need to create an own page for each *product variant*.
 
+A choice which needs neither, such as a name to embroider, needs no page of its own. Store it in the `data` of the cart item, as [Personalized products](/cookbook/personalized-products) shows.
+
 ```filesystem title="Folder structure"
 content/
   t-shirt/

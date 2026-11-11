@@ -2,7 +2,7 @@
 	margin-inline: auto;
 	max-inline-size: calc(502rem / 16);
 
-	&[data-variant="combobox"] {
+	&[data-variant="combobox"] {
 		background-color: var(--color-background-primary);
 	}
 }

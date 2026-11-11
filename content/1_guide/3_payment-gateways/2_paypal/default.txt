@@ -73,7 +73,7 @@ return [
 ];
 ```
 
-Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that carries the session token, and a payment that comes back anywhere else cannot be completed.
+Leave `return_url` and `cancel_url` alone — Merx sets both to the return URL that names the order, and a payment that comes back anywhere else cannot be completed.
 
 ## Show the cart at PayPal
 

@@ -39,6 +39,7 @@
 }
 
 .m-nav-main__steps {
+	margin-inline: var(--size-200);
 	display: flex;
 
 	li + li {

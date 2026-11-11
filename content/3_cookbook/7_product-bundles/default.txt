@@ -1,0 +1,96 @@
+Title: Product bundles
+
+----
+
+Headline: 
+
+----
+
+Intro: A desk and a lamp, sold together for less than the two cost on their own. The bundle is a product with a price of its own, made of products you also sell separately.
+
+----
+
+Text:
+
+A bundle is a product page like any other: it has a price, it goes into the cart with the form from [Adding products](/guide/getting-started/adding-products), and it shows up in the order as one line. What it doesn’t have is a stock of its own. That comes from its components.
+
+## Create a bundle blueprint
+
+Extend Merx’ [product blueprint](/reference/blueprints/pages/product) and add a field for the components. Leaving `stock` out of the tab hides it, since a bundle doesn’t count its own.
+
+```yaml title="/site/blueprints/pages/product-bundle.yml"
+title: Bundle
+extends: wagnerwagner.merx.pages/product
+
+fields:
+  products:
+    label: Products
+    type: pages
+
+tabs:
+  content:
+    fields:
+      - price
+      - taxRule
+      - products
+```
+
+## Take the stock from the components
+
+A page model for the bundle overrides [`stock()`](/reference/classes/product-page/stock) and [`reduceStock()`](/reference/classes/product-page/reduce-stock), the two methods described under [Your own stock source](/guide/getting-started/stock#your-own-stock-source). There are as many bundles as there are of the scarcest component, and an order lowers the stock of every component.
+
+```php title="/site/models/product-bundle.php"
+<?php
+
+use Kirby\Cms\Pages;
+
+class ProductBundlePage extends Wagnerwagner\Merx\ProductPage
+{
+  public function components(): Pages
+  {
+    return $this->products()->toPages();
+  }
+
+  public function stock(): float|null
+  {
+    $stocks = array_filter(
+      $this->components()->values(fn ($component) => $component->stock()),
+      fn ($stock) => $stock !== null,
+    );
+
+    return $stocks === [] ? null : min($stocks);
+  }
+
+  public function reduceStock(float $quantity): static
+  {
+    foreach ($this->components() as $component) {
+      $component->reduceStock($quantity);
+    }
+
+    return $this;
+  }
+}
+```
+
+That is all the cart and the checkout need. With three lamps left, a fourth bundle is refused with [`error.merx.cart.stock`](/reference/options/translations/error-merx-cart-stock), and components without a `stock` don’t limit the bundle.
+
+> [!CAUTION]
+> Merx checks the stock per product. A bundle and one of its components in the same cart are two products, so the last lamp can be sold twice that way: once in the bundle and once on its own. If that matters, compare the cart against the components in the [`cart.add:before`](/reference/options/hooks/cart-add-before) hook.
+
+## Show what’s in the bundle
+
+```php title="/site/templates/product-bundle.php"
+<ul>
+  <?php foreach ($page->components() as $component): ?>
+    <li><a href="<?= $component->url() ?>"><?= $component->title()->escape() ?></a></li>
+  <?php endforeach ?>
+</ul>
+```
+
+----
+
+Shortdescription: Learn how to sell several products together as one, with a stock that follows its components.
+
+----
+
+Uuid: FU3opgOpsDoXFkRU

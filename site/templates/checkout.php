@@ -22,12 +22,10 @@ $license = $cart->findBy('key', 'merx-license');
 		<form class="o-checkout__form" method="post" action="<?= url('api/shop/checkout') ?>">
 			<aside class="o-checkout__cart" aria-labelledby="cart-headline">
 				<div class="m-cart" aria-live="polite">
-					<h2 class="a-heading" data-size="xsmall" id="cart-headline">Your order</h2>
-
 					<div class="m-cart__item">
 						<div>
 							<strong>Merx License</strong>
-							<small>For one website, including all Merx 2 updates</small>
+							<small>Including security updates for 5 years</small>
 						</div>
 						<div class="m-cart__quantity">
 							<button type="button" data-action="decrease" aria-label="One license less" <?= $cart->quantity() <= 1 ? 'disabled' : '' ?>>−</button>
@@ -37,10 +35,6 @@ $license = $cart->findBy('key', 'merx-license');
 					</div>
 
 					<dl class="m-cart__totals">
-						<div>
-							<dt>Price per license</dt>
-							<dd data-cart="price"><?= $license?->price?->toString('priceNet') ?></dd>
-						</div>
 						<div>
 							<dt>Subtotal</dt>
 							<dd data-cart="subtotal"><?= $total->toString('priceNet') ?></dd>
@@ -117,11 +111,6 @@ $license = $cart->findBy('key', 'merx-license');
 
 				<input type="hidden" name="payment-gateway" value="stripe-elements">
 				<input type="hidden" name="stripePublishableKey" value="<?= $stripePublishableKey ?>">
-
-				<label class="m-field" data-type="checkbox">
-					<input type="checkbox" name="legal" required>
-					<div>I agree to the <a href="<?= page('privacy')->url() ?>" target="_blank">privacy policy</a>.</div>
-				</label>
 
 				<div class="m-form-checkout__submit">
 					<button type="submit" class="a-button" data-size="large" data-kind="brand">

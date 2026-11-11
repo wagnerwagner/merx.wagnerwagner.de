@@ -6,19 +6,27 @@ Headline:
 
 ----
 
-Intro: Some payment methods like SEPA Direct Debit can take up to 6 business days until the payment is confirmed. Learn how to use webhooks to get notified when the payment is succeeded.
+Intro: Not every payment is confirmed while the customer is in your shop. Learn how to use webhooks, so Merx hears about a payment from Stripe itself.
 
 ----
 
 Text:
 
-When you set up Stripe webhook as described, the Stripe payments with delayed payment confirmations are marked as paid, as soon as Merx receives the hook.
+With a webhook, Stripe tells your shop about a payment, whatever the customer’s browser does. Merx uses it in two cases:
+
+- **Delayed payments.** Payment methods like SEPA Direct Debit can take up to 6 business days. The order is marked as [paid](/reference/classes/order-page/is-paid) as soon as Merx receives the hook.
+- **Customers who don’t return.** Somebody who pays and closes the browser before they are back in your shop leaves an [order draft](/guide/glossary) behind. The hook completes it like their return would have: the order is created, the stock is lowered and [`createOrder:after`](/reference/options/hooks/create-order-after) runs.
+
+> [!NOTE]
+> An order completed by a webhook is created in a request from Stripe, without the customer’s session. Merx switches to the language the customer ordered in, so an email sent from a hook is written in their language.
 
 ## Create a Stripe webhook
 
 Go to [dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded](https://dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded) to create a new hook.
 
 Enter the Endpoint URL: [`https://[your-domain]/api/shop/hooks/stripe`](/reference/api/routes/shop-hooks-stripe-post).
+
+If your payment intents use `capture_method: manual`, add the `payment_intent.amount_capturable_updated` event as well. Such a payment is authorized, not succeeded, when the customer has paid.
 
 Copy the created Signing secret. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 

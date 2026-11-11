@@ -243,10 +243,10 @@ Depending on the payment provider **and** the payment gateway the checkout proce
 For some payment gateways the payment is handled asynchronously. This means that the money is received by the payment provider after hours or days. As soon as the money has been received, the payment provider notifies the Merx shop via [hook](/reference/options/hooks/stripe-hooks).
 
 1. Customer enters personal data, selects payment gateway and submits the checkout form.
-2. Personal data is validated. When valid, the data is stored together with the cart in the customer’s session on the server. ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post))
+2. Personal data is validated. When valid, the data is saved together with the cart as an [order draft](/guide/glossary). ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post))
 3. *Optional:* Payment details are validated and payment process is handled on page (e.g. *credit card* via *Stripe*) **or** customer is redirected to payment provider (e.g. *PayPal*) to handle the payment process.
 4. Customer is redirected back to the shop. ([`/api/shop/success`](/reference/api/routes/shop-success-get))
-5. Order page is created with data from the session
+5. The order draft is published as the order page.
 6. *Optional:* Order is marked as complete via [hook](/reference/options/hooks/stripe-hooks) (asynchronous payment).
 
 Next, learn [how to show the order information](/guide/getting-started/displaying-order) to the customer.

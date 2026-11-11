@@ -1,0 +1,127 @@
+Title: Coupon codes
+
+----
+
+Headline: 
+
+----
+
+Intro: WELCOME10 takes ten percent off. The customer enters a code in the cart, and the discount follows the cart from then on.
+
+----
+
+Text:
+
+A coupon is a discount with a condition: the customer knows the code. The discount itself is a [list item with a negative price](/cookbook/shipping-costs-and-discounts), recalculated whenever the cart changes. What this recipe adds is where the codes come from, how a code gets into the session, and a discount that keeps the taxes right.
+
+## Keep the codes in the Panel
+
+```yaml title="/site/blueprints/site.yml"
+fields:
+  coupons:
+    type: structure
+    fields:
+      code:
+        type: text
+      percent:
+        type: number
+```
+
+## Ask for the code
+
+```php title="/site/templates/cart.php"
+<form action="<?= url('coupon') ?>" method="post">
+  <input type="hidden" name="csrf" value="<?= csrf() ?>">
+  <label>
+    Coupon code
+    <input type="text" name="code" autocomplete="off">
+  </label>
+  <button>Redeem</button>
+</form>
+```
+
+A route stores the code in the session and sends the customer back to the cart. It doesn’t have to check the code: an unknown one simply gives no discount.
+
+```php title="/site/config/config.php"
+'routes' => [
+  [
+    'pattern' => 'coupon',
+    'method' => 'POST',
+    'action' => function () {
+      if (csrf(get('csrf')) === true) {
+        kirby()->session()->set('coupon', get('code'));
+        updateCartExtras(cart());
+      }
+
+      go('cart');
+    },
+  ],
+],
+```
+
+## Add the discount
+
+`updateCartExtras()` is the function from [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts#recalculate-whenever-the-cart-changes), with the same three hooks pointing at it. Here it adds one discount per tax rate.
+
+```php title="/site/config/config.php"
+<?php
+
+use Wagnerwagner\Merx\Cart;
+use Wagnerwagner\Merx\ListItem;
+use Wagnerwagner\Merx\Price;
+
+function updateCartExtras(Cart $cart): void
+{
+  static $isUpdating = false;
+
+  // Adding and removing items fires these hooks again.
+  if ($isUpdating === true) {
+    return;
+  }
+
+  $isUpdating = true;
+
+  foreach ($cart->filterByType('discount') as $item) {
+    $cart->remove($item->key);
+  }
+
+  $code = kirby()->session()->get('coupon');
+  $coupon = site()->coupons()->toStructure()->findBy('code', $code);
+
+  if ($coupon !== null) {
+    // What the products add up to, per tax rate
+    $totals = [];
+    foreach ($cart->filterByType('product') as $item) {
+      $rate = (string)$item->price?->tax?->rate;
+      $totals[$rate] = ($totals[$rate] ?? 0) + $item->total()->toFloat();
+    }
+
+    foreach ($totals as $rate => $total) {
+      $cart->add(new ListItem(
+        key: 'coupon-' . $rate,
+        title: 'Coupon ' . $coupon->code(),
+        price: new Price(
+          price: round($total * $coupon->percent()->toFloat() / -100, 2),
+          tax: (float)$rate,
+          currency: $cart->currency(),
+        ),
+        type: 'discount',
+      ));
+    }
+  }
+
+  $isUpdating = false;
+}
+```
+
+A discount without a tax rate would lower the total but leave the tax as it was. With a lamp at 19 % and a book at 7 % in the cart, the lamp’s share of the discount has to take 19 % tax off and the book’s share 7 %, which is why there is one discount per rate. [`$cart->taxRates()`](/reference/classes/cart/tax-rates) then adds up correctly.
+
+The discount stays in the cart until the customer redeems another code, and it ends up in the order like every other list item. A coupon of 100 % makes a cart that [cannot be ordered](/cookbook/shipping-costs-and-discounts#discounts-and-the-total).
+
+----
+
+Shortdescription: Learn how to let customers redeem a coupon code for a discount.
+
+----
+
+Uuid: cydbaoHHkp8zc6C3

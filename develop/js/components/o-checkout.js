@@ -193,31 +193,24 @@ class OCheckout {
 
 	/** @param {object} cart Cart as returned by the Merx API */
 	renderCart(cart) {
-		const set = (name, value) => {
-			this.element.querySelectorAll(`[data-cart="${name}"]`).forEach((element) => {
-				// eslint-disable-next-line no-param-reassign
-				element.textContent = value ?? '';
-			});
-		};
-
-		this.quantity = cart.quantity;
-		set('quantity', cart.quantity);
-		set('price', cart.products?.items[0]?.price?.priceNet);
-		set('subtotal', cart.total?.priceNet);
-		set('total', cart.total?.price);
 		this.cartElement.querySelector('[data-action="decrease"]').disabled = cart.quantity <= 1;
 
 		const totalsElement = this.cartElement.querySelector('.m-cart__totals');
-		totalsElement.querySelectorAll('[data-cart="tax"]').forEach((element) => element.remove());
-		(cart.taxRates ?? []).forEach((tax) => {
-			const row = document.createElement('div');
-			row.dataset.cart = 'tax';
-			row.append(
-				Object.assign(document.createElement('dt'), { textContent: `VAT ${tax.rate}` }),
-				Object.assign(document.createElement('dd'), { textContent: tax.price }),
-			);
-			totalsElement.insertBefore(row, totalsElement.querySelector('.m-cart__total'));
-		});
+		totalsElement.innerHTML = `
+			${cart.taxRates.length > 0 ? `
+				<div>
+					<dt>Subtotal</dt>
+					<dd data-cart="subtotal">${cart.total?.priceNet}</dd>
+				</div>
+				${(cart.taxRates ?? []).map((taxRate) => `
+					<div data-cart="tax"><dt>VAT ${taxRate.rate}</dt><dd>${taxRate.price}</dd></div>
+				`).join('')}
+			` : ''}
+			<div class="m-cart__total">
+				<dt>Total</dt>
+				<dd data-cart="total">${cart.total?.price}</dd>
+			</div>
+		`
 	}
 
 	/** @param {boolean} isBusy */

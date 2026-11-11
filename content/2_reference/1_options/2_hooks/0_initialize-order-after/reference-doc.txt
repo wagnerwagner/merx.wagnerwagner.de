@@ -1,1 +1,1 @@
-Shortdescription: Runs once the virtual order page is in the session and the payment has been started.
+Shortdescription: Runs once the payment has been started and the order is saved as a draft.

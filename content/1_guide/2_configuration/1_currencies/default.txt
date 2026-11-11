@@ -136,6 +136,12 @@ You can provide the key of the rule as the first argument to the price method, i
 
 Continue learning how to define and use [tax rules](/guide/configuration/taxes).
 
+## One currency per cart
+
+The prices of products follow the pricing rule of each request, so a cart switches its currency together with the visitor. An item with a price of its own, such as [shipping](/cookbook/shipping-costs-and-discounts), keeps the currency it was added with. Remove it and add it again when the currency changes.
+
+Merx never mixes currencies: [`add()`](/reference/classes/cart/add) refuses an item in another currency than the cart with [`error.merx.mixedCurrencies.add`](/reference/options/translations/error-merx-mixedcurrencies-add), and the checkout refuses a cart that holds more than one with [`error.merx.mixedCurrencies.total`](/reference/options/translations/error-merx-mixedcurrencies-total).
+
 ----
 
 Uuid: emf7bwlzrpdf8uru

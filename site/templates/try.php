@@ -57,12 +57,14 @@ git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx</co
 
 		<?php if ($casesPage): ?>
 			<section class="o-try__showcase" aria-labelledby="showcase">
-				<h2 class="a-display" id="showcase">Running online shops since April 2019</h2>
-				<?php if ($page->showcase()->isNotEmpty()): ?>
-					<div class="m-text" data-size="large">
-						<?= $page->showcase()->kt() ?>
-					</div>
-				<?php endif ?>
+				<div>
+					<h2 class="a-display" id="showcase">Running online shops since April 2019</h2>
+					<?php if ($page->showcase()->isNotEmpty()): ?>
+						<div class="m-text" data-size="large">
+							<?= $page->showcase()->kt() ?>
+						</div>
+					<?php endif ?>
+				</div>
 				<ul>
 					<?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
 						<?php snippet('m-showcase-item', ['item' => $item, 'teaser' => true]) ?>

@@ -129,7 +129,7 @@ After completing the payment the customer is redirected to the [order page](/gui
 
 Most payment methods confirm the payment right away, so the `stripe-elements` gateway sets the `datePaid` field of the [`OrderPage`](/reference/classes/order-page) to the current date in the background, and [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) returns `true`.
 
-For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you, when payments are confirmed.
+For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you, when payments are confirmed. They also complete the order of a customer who paid but never returned to your shop.
 
 ## Optional: show only specific payment methods
 
