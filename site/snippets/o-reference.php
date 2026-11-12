@@ -16,7 +16,7 @@ use Wagnerwagner\Site\Type;
 
 	<div class="m-stack" data-space="small" data-direction="inline">
 		<?php if ($targetUrl = $page->guide()?->toUrl()): ?>
-			<a class="a-button" data-kind="secondary" data-size="small" href="<?= $targetUrl ?>" title="<?= $page->guide()->title() ?>">
+			<a class="a-button" data-kind="secondary" data-size="small" href="<?= $targetUrl ?>" title="<?= $page->guide()->toPage()?->title() ?>">
 				<?php snippet('a-icon', ['name' => 'book', 'weight' => 450]) ?>
 				Read more
 			</a>

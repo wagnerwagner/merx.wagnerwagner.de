@@ -34,11 +34,21 @@
 		--_background-color: var(--color-blue-150);
 	}
 
+	&[data-size="large"] {
+		--_padding-inline: calc(var(--size-200) - var(--border-size-xsmall));
+
+		font: var(--font-code-medium);
+	}
+
 	&:where(a) {
 		text-decoration: none;
 
 		&:where(:focus-visible, :hover) {
 			background-color: hsl(from var(--_background-color) h s calc(l - 3));
 		}
+	}
+
+	@media print {
+		print-color-adjust: exact;
 	}
 }

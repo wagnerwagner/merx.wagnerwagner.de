@@ -18,7 +18,7 @@ There is nothing to set up: no keys and no provider. Select the gateway in your 
 <input type="hidden" name="payment_gateway" value="invoice">
 ```
 
-It fits everything Merx does not collect itself, such as bank transfer or cash on delivery. To give such a payment a name of its own, add a gateway that does nothing either.
+It fits everything Merx does not collect itself, such as bank transfer or cash on delivery. `invoice` is only the name Merx ships: every gateway set to `true` behaves the same. Add one to give a payment a name of its own.
 
 ```php title="/site/config/config.php"
 <?php

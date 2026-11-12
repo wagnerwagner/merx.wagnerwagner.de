@@ -109,6 +109,11 @@
 		margin-block-start: var(--size-600);
 	}
 
+
+	&[data-gap="small"] {
+		--gap-text-paragraph: var(--size-100);
+	}
+
 	&[data-variant="callout"] {
 		font-weight: 500;
 	}

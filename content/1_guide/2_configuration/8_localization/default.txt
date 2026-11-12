@@ -102,7 +102,7 @@ const response = await fetch('/api/shop/cart', {
 });
 ```
 
-Without it, Merx answers in Kirby’s fallback language (English) — which means a customer can end up with an error message in a language they aren’t browsing in.
+Without it, Merx answers in the default language of your site, and in English on a site without languages.
 
 ----
 

@@ -9,6 +9,13 @@
 		hyphens: auto;
 		hyphenate-limit-chars: calc(var(--hyphenate-limit) * 2) var(--hyphenate-limit) var(--hyphenate-limit)
 	}
+
+
+	@media print {
+		padding-block: 1cm;
+		padding-inline: 1cm;
+		font-size: 10pt;
+	}
 }
 
 :root[data-no-scroll],
@@ -28,6 +35,11 @@ body {
 
 	> * {
 		inline-size: 100%;
+	}
+
+	@media print {
+		display: block;
+		background: transparent;
 	}
 }
 
