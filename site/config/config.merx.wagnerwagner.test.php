@@ -4,4 +4,12 @@ return [
 	'wagnerwagner.merx.production' => false,
 	'nova-links' => true,
 	'cache.site.search' => false,
+	'email' => [
+		'transport' => [
+			'type' => 'smtp',
+			'host' => 'mail.test',
+			'port' => 1025,
+			'security' => false,
+		],
+	],
 ];
