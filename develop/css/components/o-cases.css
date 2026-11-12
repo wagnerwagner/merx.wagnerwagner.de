@@ -1,7 +1,7 @@
 .o-cases {
 	z-index: var(--z-index-main-wrapper);
 	inline-size: 100%;
-	padding-inline: calc(var(--gap-inline) * 2);
+	padding-inline: var(--gap-inline);
 	background: inherit;
 }
 
