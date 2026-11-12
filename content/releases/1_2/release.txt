@@ -119,19 +119,6 @@ Features:
     },
     {
         "content": {
-            "label": "Stock",
-            "headline": "Never sell what you don’t have",
-            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock.",
-            "link": "page://Mu3R1h2iEbZfWwCQ",
-            "linktext": "",
-            "visual": ""
-        },
-        "id": "f70f6c88-6614-4edb-9a45-81c5ca32da5d",
-        "isHidden": false,
-        "type": "feature"
-    },
-    {
-        "content": {
             "label": "Hooks",
             "headline": "A hook for every step",
             "text": "Before and after every cart operation, before and after an order is initialized and created, and when an order is paid — even if that happens days later, as with SEPA Direct Debit. Send mails or talk to your ERP without touching Merx.",
@@ -145,10 +132,10 @@ Features:
     },
     {
         "content": {
-            "label": "Orders in the Panel",
-            "headline": "One click from order to payment",
-            "text": "Orders arrive newest first, in a searchable table. Every order has a button that opens its transaction at Stripe or PayPal. Order numbers are stored with the order and never change — and if you need your own format, it’s one option.",
-            "link": "page://ccfrus9sz3m3sovf",
+            "label": "Stock",
+						"headline": "Never sell what you don’t have",
+						"text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock.",
+						"link": "page://Mu3R1h2iEbZfWwCQ",
             "linktext": "",
             "visual": ""
         },
@@ -183,14 +170,6 @@ Features:
         "type": "feature"
     }
 ]
-
-----
-
-More:
-
-- API responses in the visitor’s language, via the `X-Language` header
-- Your own fields in every API response, with (link: page://qez0bnp1cqofknjo text: custom models)
-- Kirby 6 and PHP 8.3 to 8.5
 
 ----
 

@@ -12,7 +12,7 @@
 		}
 
 		em {
-			font: var(--font-code-medium);
+			font: inherit;
 		}
 	}
 }

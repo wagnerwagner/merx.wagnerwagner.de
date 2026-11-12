@@ -29,8 +29,6 @@
 
 .o-try__header {
 	padding-block: var(--size-900) var(--size-800);
-	display: grid;
-	row-gap: var(--size-500);
 
 	> .m-text {
 		max-inline-size: var(--max-width-text);
@@ -120,7 +118,7 @@
 		display: grid;
 		list-style: none;
 		grid-template-columns: repeat(2, 1fr);
-		column-gap: calc(var(--gap-inline) * 3 - var(--border-size-small));
+		column-gap: calc(var(--gap-inline) * 2);
 		row-gap: var(--size-500);
 
 		@media (min-width: 64em) {

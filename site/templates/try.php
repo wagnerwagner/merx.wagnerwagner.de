@@ -67,11 +67,11 @@ git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx</co
 				</div>
 				<ul>
 					<?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
-						<?php snippet('m-showcase-item', ['item' => $item, 'teaser' => true]) ?>
+						<?php snippet('m-case-small', ['item' => $item]) ?>
 					<?php endforeach ?>
 				</ul>
 				<div>
-					<a class="a-button" data-variant="text" href="<?= $casesPage->url() ?>">Show more examples&ensp;→</a>
+				<a class="a-button" data-variant="text" data-size="large" href="<?= $casesPage->url() ?>">More examples&ensp;→</a>
 				</div>
 			</section>
 		<?php endif ?>
@@ -87,9 +87,6 @@ git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx</co
 						</div>
 					<?php endforeach ?>
 				</dl>
-				<div>
-					<a class="a-button" data-size="large" data-kind="brand" href="<?= page('buy')?->url() ?>">Buy a license&ensp;→</a>
-				</div>
 			</section>
 		<?php endif ?>
 	</main>

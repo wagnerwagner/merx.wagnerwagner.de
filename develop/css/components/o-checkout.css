@@ -22,8 +22,6 @@
 
 .o-checkout__header {
 	padding-block-start: var(--size-900);
-	display: grid;
-	row-gap: var(--size-500);
 
 	> .m-text {
 		max-inline-size: var(--max-width-text);

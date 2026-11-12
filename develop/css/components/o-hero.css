@@ -14,8 +14,6 @@
 .o-hero__copy {
 	padding-inline: var(--size-400);
 	padding-block: var(--size-900);
-	display: grid;
-	row-gap: var(--size-600);
 	align-items: start;
 	align-content: start;
 
@@ -28,7 +26,14 @@
 	}
 }
 
+.o-hero__tagline {
+	+ h1 {
+		margin-block-start: var(--size-300);
+	}
+}
+
 .o-hero__buttons {
+	margin-block-start: var(--size-600);
 	display: flex;
 	column-gap: var(--size-500);
 

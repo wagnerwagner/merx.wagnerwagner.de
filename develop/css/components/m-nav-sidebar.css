@@ -13,6 +13,9 @@ nav.m-nav-sidebar {
     }
   }
 
+	&[data-variant="cookbook"] {
+		padding-block-start: calc(var(--size-700) - var(--size-150));
+	}
 	&[data-variant="tertiary"] {
 		> ul {
 			> li + li {

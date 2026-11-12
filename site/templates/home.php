@@ -5,7 +5,12 @@
 	<main class="o-home" aria-label="<?= $page->title() ?>">
 		<div class="o-hero">
 			<div class="o-hero__copy">
-				<h1 class="a-display"><?= $page->heroCopy() ?></h1>
+				<div class="o-hero__tagline">
+					<a class="a-button" data-variant="text" data-size="large" href="<?= url('releases/2') ?>">
+						<span><strong>Merx 2:</strong> More shop. Just as simple.</span>
+					</a>
+				</div>
+				<h1 class="a-display" data-size="large"><?= $page->heroCopy() ?></h1>
 				<div class="o-hero__buttons">
 					<div>
 						<a class="a-button" data-size="large" data-kind="brand" href="https://starterkit.merx2.wagnerwagner.de" rel="noopener">Starterkit&ensp;→</</a>
@@ -37,17 +42,15 @@
 		<?php if ($casesPage): ?>
 			<aside class="o-showcase-home">
 				<h2 class="a-display">
-					<a href="<?= $casesPage->url() ?>">
-						Online shops made with Kirby, Merx and <?= snippet('a-icon', ['name' => 'heart', 'weight' => 700]) ?>
-					</a>
+					Online shops made with Kirby, Merx and <?= snippet('a-icon', ['name' => 'heart', 'weight' => 'fill']) ?>
 				</h2>
 				<ul>
 					<?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
-						<?php snippet('m-showcase-item', compact('item')) ?>
+						<?php snippet('m-case-small', compact('item')) ?>
 					<?php endforeach; ?>
 				</ul>
 				<div>
-					<a class="a-button" data-variant="text" href="<?= $casesPage->url() ?>">Show more examples →</a>
+					<a class="a-button" data-variant="text" data-size="large" href="<?= $casesPage->url() ?>">Show more examples →</a>
 				</div>
 			</aside>
 		<?php endif; ?>

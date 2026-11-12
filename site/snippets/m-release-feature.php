@@ -17,12 +17,12 @@ $linkText = $content->get('linkText')->or($link->toPage()?->title())->or('Read m
 	<div class="m-release-feature__copy">
 		<p class="m-release-feature__label"><?= $content->get('label')->escape() ?></p>
 		<h2 class="a-heading" data-size="large" id="<?= $id ?>-headline"><?= $content->get('headline')->escape() ?></h2>
-		<div class="m-text" data-size="medium">
+		<div class="m-text">
 			<?= $content->get('text')->kt() ?>
 		</div>
 		<?php if ($url): ?>
 			<div>
-				<a class="a-button" data-variant="text" href="<?= $url ?>"><?= $linkText->escape() ?>&ensp;→</a>
+				<a class="a-button" data-variant="text" data-size="large" href="<?= $url ?>"><?= $linkText->escape() ?>&ensp;→</a>
 			</div>
 		<?php endif ?>
 	</div>

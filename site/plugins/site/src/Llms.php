@@ -766,11 +766,6 @@ class Llms
 			}
 		}
 
-		if ($page->more()->isNotEmpty() === true) {
-			$blocks[] = '## And much more';
-			$blocks[] = static::markdown($page->more()->value());
-		}
-
 		$blocks[] = static::markdown($page->outro()->value());
 
 		return static::join($blocks);

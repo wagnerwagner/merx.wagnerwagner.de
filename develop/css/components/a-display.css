@@ -3,4 +3,8 @@
 	font: var(--font-heading-xlarge);
 	font-variant-alternates: var(--font-variant-alternates-display);
 	text-wrap-style: balance;
+
+	&[data-size="large"] {
+		font: var(--font-heading-xxlarge);
+	}
 }

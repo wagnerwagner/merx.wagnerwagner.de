@@ -1,5 +1,5 @@
 <?php
-$docLinks = pages(['guide', 'cookbook', 'reference', 'reference/api', 'guide/security', 'reference/releases']);
+$docLinks = pages(['guide', 'cookbook', 'reference', 'reference/api', 'guide/security', 'releases/2']);
 $merxLinks = pages(['showcase', 'buy', 'privacy', 'license', 'contact']);
 ?>
 <footer class="o-footer">

@@ -55,10 +55,6 @@ columns:
                     type: textarea
                     font: monospace
                     help: Code box or image, shown next to the text.
-          more:
-            label: And much more
-            type: textarea
-            font: monospace
           outro:
             label: Get started
             type: textarea

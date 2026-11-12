@@ -46,5 +46,8 @@
 		&::before {
 			background-color: var(--color-border-brand);
 		}
+		&:has(+ ul &)::before {
+			background-color: var(--color-border-secondary);
+		}
 	}
 }

@@ -97,6 +97,9 @@
 		--_padding-inline: 0;
 		--_border-size: 0;
 		--_background-color: transparent;
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+		text-decoration-color: var(--color-green-300);
 	}
 
 	&[data-typography="code"] {

@@ -1,6 +1,7 @@
 .m-text {
 	/* Caution: default size is large (not medium) */
 	font: var(--font-paragraph-large);
+	text-wrap-style: pretty;
 
 	/* Child elements */
 	> h1 {

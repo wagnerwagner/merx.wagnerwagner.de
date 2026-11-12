@@ -31,7 +31,8 @@ return null;
 				<?= Html::tag('a', $item->title(), [
 					'href' => $item->url(),
 					'class' => 'a-nav-item-sidebar',
-					'data-variant' => $variant === 'cookbook' ? '' : 'category',
+					'data-state' => $item->isOpen() ? 'open' : null,
+					'data-variant' => $variant === 'cookbook' ? null : 'category',
 				]) ?>
 				<?php if ($item->children()->listed()->count() > 0): ?>
 					<ul>

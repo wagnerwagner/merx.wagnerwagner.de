@@ -7,7 +7,7 @@
 	/* A feature with a visual next to it */
 	&:has(> .m-release-feature__visual) {
 		@media (min-width: 64em) {
-			grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 			column-gap: var(--size-800);
 		}
 	}
@@ -26,6 +26,7 @@
 .m-release-feature__label {
 	font: var(--font-label-medium);
 	color: var(--color-brand);
+	font-weight: 500;
 }
 
 .m-release-feature__visual {
@@ -41,5 +42,9 @@
 
 	figure:has(> img) {
 		margin: 0;
+	}
+
+	@media (min-width: 64em) {
+		grid-column-end: span 2;
 	}
 }
