@@ -7,6 +7,7 @@ Headline:
 ----
 
 Intro: What changed between Merx 1 and Merx 2, and what you have to rewrite.
+
 ----
 
 Text:
@@ -20,11 +21,13 @@ The abstract model is gone. Extend the class instead.
 ```php title="/site/models/order.php (Merx 1)"
 class OrderPage extends OrderPageAbstract
 {
+}
 ```
 
 ```php title="/site/models/order.php (Merx 2)"
 class OrderPage extends \Wagnerwagner\Merx\OrderPage
 {
+}
 ```
 
 ## Options
@@ -83,8 +86,18 @@ Apart from that, there are many more [new hooks](/reference/options/hooks).
 `Merx::initializePayment` → [`Merx::initializeOrder`](/reference/classes/merx/initialize-order)
 `Merx::completePayment` → [`Merx::createOrder`](/reference/classes/merx/create-order)
 `Merx::formatPrice` → [`Merx::formatCurrency`](/reference/classes/merx/format-currency)
+`Merx::getMessage` → [`Merx::error`](/reference/classes/merx/error)
 
-`Merx::calculateNet`, `Merx::getFieldError`, `Merx::setMessage` and `Merx::getMessage` are gone without a replacement. Net prices are part of [`Price`](/reference/classes/price) now, and field errors come back from the [checkout endpoint](/reference/api/routes/shop-checkout-post) as JSON.
+[`error()`](/reference/classes/merx/error) returns why a payment could not be completed, as an array with the translation `key` and the `message`. Merx sets it itself: the [success route](/reference/api/routes/shop-success-get) stores the error before it sends the customer back to the checkout page. To set a message of your own in place of `Merx::setMessage`, write to the same session key.
+
+```php
+kirby()->session()->set(Merx::$errorSessionKey, [
+  'key' => null,
+  'message' => 'Your message',
+]);
+```
+
+`Merx::calculateNet` and `Merx::getFieldError` are gone without a replacement. Net prices are part of [`Price`](/reference/classes/price) now, and field errors come back from the [checkout endpoint](/reference/api/routes/shop-checkout-post) as JSON.
 
 `formatCurrency` takes a currency, where `formatPrice` used the global option. You can wrap it.
 
@@ -112,6 +125,8 @@ if (!function_exists('formatPrice')) {
 `add()` took an `id` plus arbitrary keys at the top level. It now accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else, so any other key fails with `Unknown named parameter`.
 
 The identifier is `key` instead of `id`, the product page is `page`, and your own attributes belong in `data`. Leaving out `key` makes Merx use the page’s UUID.
+
+Title and price of an item with a page are read from the page with every request. A `title` or `price` passed to `add()` no longer overrides them. Override `title()` or [`price()`](/reference/classes/product-page/price) in your product model instead.
 
 ```php title="Merx 1"
 $cart->add([
@@ -180,6 +195,8 @@ Where you extend one of them, change the name and move it from `sections:` to `f
 Merx 1 created a virtual success page and sent the customer there. There is none in Merx 2.
 
 The provider returns the customer to [`/api/shop/success`](/reference/api/routes/shop-success-get), which completes the payment, writes the order page and redirects to it. Delete the `successPage` option and the template that went with it.
+
+A [custom gateway](/guide/payment-gateways/custom-payment-gateway) that handed `url(option('ww.merx.successPage'))` to its provider hands over [`Merx::returnUrl()`](/reference/classes/merx/return-url) now.
 
 ## Error messages
 

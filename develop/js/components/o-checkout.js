@@ -13,25 +13,29 @@ class OCheckout {
 			inputColorBorder: 'hsl(0, 0%, 33%)',
 			tabLogoSelectedColor: 'dark',
 			colorBackground: '#fff',
-			fontSizeSm: '1rem',
+			fontSize2Xs: '0.625rem',
+			fontSizeXs: '0.75rem',
+			fontSizeSm: '0.875rem',
 			fontSizeLg: '1.125rem',
 			fontSizeXl: '1.4375rem',
+			fontSize2Xl: '1.8125rem',
 			fontLineHeight: '1.25',
 			fontWeightMedium: '500',
-			fontSize2Xl: '1.4375rem',
-			fontSize2Xs: '0.75rem',
 			fontWeightNormal: '450',
 			colorText: 'hsl(0, 0%, 13%)',
 			colorPrimary: 'hsl(0, 0%, 13%)',
-			colorDanger: 'hsl(0, 60%, 60%)',
+			colorDanger: 'hsl(0, 64%, 40%)',
 			colorSuccess: 'hsl(103, 64%, 22%)',
-			colorWarning: 'hsl(60, 80%, 60%)',
+			colorWarning: 'hsl(60, 80%, 50%)',
 			colorTextSecondary: 'hsl(0, 0%, 40%)',
 			colorTextPlaceholder: 'hsl(0, 0%, 60%)',
 			iconColor: 'var(--colorPrimary)',
 			gridColumnSpacing: '1.25rem',
 			gridRowSpacing: '0.75rem',
 			accordionItemSpacing: '0.75rem',
+			labelFontSize: '1rem',
+			labelSpacing: '0.375rem',
+			spacingGridRow: '1rem',
 		},
 		rules: {
 			'.Input': {
@@ -200,17 +204,18 @@ class OCheckout {
 			${cart.taxRates.length > 0 ? `
 				<div>
 					<dt>Subtotal</dt>
-					<dd data-cart="subtotal">${cart.total?.priceNet}</dd>
+					<dd>${cart.total?.priceNet}</dd>
 				</div>
 				${(cart.taxRates ?? []).map((taxRate) => `
-					<div data-cart="tax"><dt>VAT ${taxRate.rate}</dt><dd>${taxRate.price}</dd></div>
+					<div><dt>VAT ${taxRate.rate}</dt><dd>${taxRate.price}</dd></div>
 				`).join('')}
 			` : ''}
 			<div class="m-cart__total">
 				<dt>Total</dt>
-				<dd data-cart="total">${cart.total?.price}</dd>
+				<dd>${cart.total?.price}</dd>
 			</div>
-		`
+		`;
+		this.formElement.querySelector('[data-cart="total"]').textContent = cart.total?.price;
 	}
 
 	/** @param {boolean} isBusy */

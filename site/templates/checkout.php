@@ -1,5 +1,6 @@
 <?php
 /** @var \Wagnerwagner\Merx\Cart $cart */
+/** @var \Kirby\Cms\Page $page */
 /** @var ?string $region */
 $stripePublishableKey = option('wagnerwagner.merx.production') === true
 	? option('wagnerwagner.merx.stripe.live.publishable_key')
@@ -13,7 +14,7 @@ $license = $cart->findBy('key', 'merx-license');
 	<?php snippet('o-header') ?>
 	<main class="o-checkout" aria-labelledby="checkout-headline">
 		<header class="o-checkout__header">
-			<h1 class="a-display" id="checkout-headline">Buy a license</h1>
+			<h1 class="a-display" id="checkout-headline"><?= $page->headline() ?></h1>
 			<div class="m-text" data-size="xlarge">
 				<?= $page->abstract()->kt() ?>
 			</div>
@@ -50,8 +51,6 @@ $license = $cart->findBy('key', 'merx-license');
 							<dd data-cart="total"><?= $total->toString('price') ?></dd>
 						</div>
 					</dl>
-
-					<p class="m-cart__note">VAT depends on your billing country.</p>
 				</div>
 			</aside>
 

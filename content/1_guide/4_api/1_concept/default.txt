@@ -26,7 +26,7 @@ The [API reference](/reference/api/routes) lists every route with its parameters
 
 ## The cart lives in the session
 
-There’s no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie.
+There’s no cart id in the URL and no token to pass around. Merx stores the cart in the visitor’s [Kirby session](https://getkirby.com/docs/guide/sessions) and identifies it by the session cookie. [Cart and order data](/guide/api/cart-and-order-data) lists what is kept there.
 
 A request therefore only finds the right cart when it sends cookies. `fetch()` does that on its own for same-origin requests. 
 

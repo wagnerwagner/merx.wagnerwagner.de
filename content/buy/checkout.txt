@@ -2,12 +2,12 @@ Title: Buy
 
 ----
 
-Abstract:
-
-Here is the deal.
-
-Test Merx for as long as you like, on your computer or on a staging server. Once your shop is public, its website needs a Merx license, and a (link: https://getkirby.com/buy text: Kirby license) as well.
+Abstract: Test Merx for as long as you like, on your computer or on a staging server. Once your shop is public, its website needs a [Merx license](/license), and a [Kirby license](https://getkirby.com/buy) as well.
 
 ----
 
-Uuid: dVix8zrCc8ooKQUH
+Headline: Here is the deal
+
+----
+
+Uuid: dfow0i459rh6vyyq

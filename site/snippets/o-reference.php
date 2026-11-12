@@ -16,7 +16,7 @@ use Wagnerwagner\Site\Type;
 
 	<div class="m-stack" data-space="small" data-direction="inline">
 		<?php if ($targetUrl = $page->guide()?->toUrl()): ?>
-			<a class="a-button" data-kind="secondary" data-size="small" href="<?= $targetUrl ?>">
+			<a class="a-button" data-kind="secondary" data-size="small" href="<?= $targetUrl ?>" title="<?= $page->guide()->title() ?>">
 				<?php snippet('a-icon', ['name' => 'book', 'weight' => 450]) ?>
 				Read more
 			</a>
@@ -55,13 +55,14 @@ use Wagnerwagner\Site\Type;
 			<?php snippet('reference-parts/exceptions', compact('exceptions')) ?>
 		<?php endif ?>
 
-		<?php if (is_string($page->description())): ?>
-			<?php snippet('reference-parts/description') ?>
-		<?php endif ?>
-
 		<?php if ($page->class() instanceof Type): ?>
 			<?php snippet('reference-parts/parent-class') ?>
 		<?php endif ?>
+
+		<?php if ($page instanceof ReferenceClassPage && count($page->properties()) > 0): ?>
+			<?php snippet('reference-parts/properties') ?>
+		<?php endif ?>
+
 
 		<?php if ($page instanceof ReferenceApiModelPage): ?>
 			<?php snippet('reference-parts/api-model') ?>
@@ -69,6 +70,14 @@ use Wagnerwagner\Site\Type;
 
 		<?php if ($page instanceof ReferenceBlueprintPage): ?>
 			<?php snippet('reference-parts/blueprint') ?>
+		<?php endif ?>
+
+		<?php if (is_string($page->description())): ?>
+			<?php snippet('reference-parts/description') ?>
+		<?php endif ?>
+
+		<?php if (is_array($page->exampleResponses())): ?>
+			<?php snippet('reference-parts/api-examples') ?>
 		<?php endif ?>
 
 		<?php if ($page->examples()->isNotEmpty()): ?>

@@ -1,0 +1,43 @@
+Title: Invoice
+
+----
+
+Headline: Invoice payment gateway
+
+----
+
+Intro: The invoice gateway takes no payment. The order is written right away and stays unpaid until you mark it as paid.
+
+----
+
+Text:
+
+There is nothing to set up: no keys and no provider. Select the gateway in your checkout form.
+
+```html title="/site/templates/checkout.php"
+<input type="hidden" name="payment_gateway" value="invoice">
+```
+
+It fits everything Merx does not collect itself, such as bank transfer or cash on delivery. To give such a payment a name of its own, add a gateway that does nothing either.
+
+```php title="/site/config/config.php"
+<?php
+
+return [
+  'wagnerwagner.merx.gateways' => [
+    'prepayment' => true,
+  ],
+];
+```
+
+## Mark an order as paid
+
+When the money has arrived, open the order in the Panel and enter the date in *Paid on*. From then on [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) is `true`, and the [`orderPaid`](/reference/options/hooks/order-paid) hook runs once, which is the place to confirm the payment to your customer.
+
+----
+
+Shortdescription: Learn how to take orders that are paid outside of your shop.
+
+----
+
+Uuid: zri5buyjcfdblgsn

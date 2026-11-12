@@ -87,6 +87,8 @@ return [
 ];
 ```
 
+Shipping is listed as an item like the products, not as PayPal’s own shipping amount. Discounts go into PayPal’s `discount` amount.
+
 What the option returns replaces Merx’ own purchase unit rather than adding to it — PayPal charges the sum of all units, so returning a second complete one would have the customer approve the total twice. Merx only adds the `custom_id` that binds the order to the payment.
 
 > [!CAUTION]

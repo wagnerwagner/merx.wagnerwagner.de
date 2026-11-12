@@ -12,6 +12,7 @@
       "@php -S localhost:8181 kirby/router.php"
     ],
     "fix": "cpx getkirby/php-cs:^0.2 fix",
+    "check-examples": "@php scripts/check-php-examples.php",
     "test": "@composer --working-dir=site/plugins/site run test"
   }
 }

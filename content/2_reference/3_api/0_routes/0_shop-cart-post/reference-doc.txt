@@ -2,4 +2,4 @@ Guide: /guide/getting-started/adding-products
 
 ----
 
-Shortdescription: Adds an item to the cart.
+Shortdescription: Adds an item to the cart. The body takes `page`, the id or UUID of a product page, and optionally `quantity`, `data` with your own values for the item, and a `key` to keep several items of one product apart. Other fields are ignored.

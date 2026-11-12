@@ -1,1 +1,1 @@
-Shortdescription: Runs when the checkout is submitted, before the data is validated. The last point at which you can refuse an order.
+Shortdescription: Runs when the checkout is submitted, before the data is validated. Throw to refuse the order before the customer is sent to the payment provider.

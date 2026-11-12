@@ -127,8 +127,8 @@ is also served as Markdown by appending `.md`, and `llms.txt` indexes them all.
 
 - Every page you touched still returns 200, and its `.md` renders
 - Every internal link resolves — extract them and check, do not trust the eye
-- PHP samples pass `php -l`, except template fragments that legitimately start
-  in HTML
+- PHP samples pass `php -l`: run `composer check-examples`, which checks every
+  PHP code block of the documentation
 - Code you documented actually runs. Samples in this repository have shipped
   with syntax errors, with Merx 1 APIs, and with calls that throw. Run it
   against the dev site rather than reasoning about it.

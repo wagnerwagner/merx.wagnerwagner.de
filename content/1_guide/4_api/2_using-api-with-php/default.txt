@@ -27,28 +27,13 @@ Both work on the same cart. `$site->cart()` and the API read from and write to t
 
 ## Showing the cart
 
-[`$site->cart()`](/reference/options/site-methods/cart) returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, so you can loop over it like any Kirby collection.
+[`$site->cart()`](/reference/options/site-methods/cart) returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, like the cart of an order, so the cart snippet from [Displaying order](/guide/getting-started/displaying-order#cart-snippet) shows it as well.
 
-```php title="/site/snippets/cart.php"
-<?php $cart = $site->cart() ?>
-
-<?php if ($cart->count() === 0): ?>
-  <p>Your cart is empty.</p>
-<?php else: ?>
-  <ul>
-    <?php foreach ($cart as $item): ?>
-      <?php /** @var \Wagnerwagner\Merx\ListItem $item */ ?>
-      <li>
-        <?= $item->quantity() ?> × <?= html($item->title()) ?>
-        <?= $item->total() ?>
-      </li>
-    <?php endforeach ?>
-  </ul>
-  <p>Total: <?= $cart->total() ?></p>
-<?php endif ?>
+```php title="/site/templates/cart.php"
+<?php snippet('cart', ['cart' => $site->cart()]) ?>
 ```
 
-Because this snippet makes the page different for every visitor, the page that includes it can no longer be cached.
+Because this makes the page different for every visitor, the page that includes it can no longer be cached.
 
 ## Changing the cart
 

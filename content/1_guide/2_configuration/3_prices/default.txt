@@ -1,0 +1,34 @@
+Title: Prices
+
+----
+
+Headline: How Merx determines a price
+
+----
+
+Intro: A price takes a few steps from the field in the Panel to the total of an order. Knowing them tells you where to step in.
+
+----
+
+Text:
+
+1. **The field.** A product’s `price` field holds one price per [pricing rule](/guide/configuration/currencies).
+2. **The pricing rule.** The first rule that applies to the request picks the price, its currency, and whether it is net or gross. A product without a price for that rule has no price.
+3. **The tax rule.** The product’s [tax rule](/guide/configuration/taxes) sets the rate. Merx works out the other amount from it, so a [`Price`](/reference/classes/price) always knows net, gross and tax.
+4. **Your model.** [`price()`](/reference/classes/product-page/price) of the product page returns that price. The cart hands it the quantity and the `data` of the item, so this is where a [volume discount](/cookbook/volume-based-pricing) or a [surcharge](/cookbook/personalized-products) belongs.
+5. **The quantifier.** An item sold by length or weight multiplies the price by its `quantifier`.
+6. **The total.** An item’s total is its price times its quantity. The cart adds up the items, and the tax per rate.
+
+## When a price is calculated
+
+The cart calculates the prices of its products with every request, so a price you change in the Panel reaches every cart right away. An item without a page, such as shipping, keeps the price it was added with.
+
+An order stores its prices. Changing a product later does not touch what a customer ordered. See [Cart and order data](/guide/api/cart-and-order-data).
+
+----
+
+Shortdescription: The steps a price takes from the Panel field to the total of an order.
+
+----
+
+Uuid: y3wr6iscpbva5ruc

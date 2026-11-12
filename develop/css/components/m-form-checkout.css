@@ -37,7 +37,6 @@
 
 .m-form-checkout__submit {
 	display: flex;
-	justify-content: end;
 }
 
 .m-form-checkout__error {

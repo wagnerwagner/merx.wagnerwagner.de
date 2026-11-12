@@ -132,15 +132,21 @@ You can provide the key of the rule as the first argument to the price method, i
 > [!NOTE]
 > [`Merx::pricingRule()`](/reference/classes/merx/pricing-rule) returns the current pricing rule. You can use it to check if your rules work as expected.
 
-\----
+Under a rule with `taxIncluded: false`, a price prints as its net amount, and [`toFloat()`](/reference/classes/price/to-float) returns it. That is what you want next to a product, but not for the total of a cart: print what the customer pays with [`toString('price')`](/reference/classes/price/to-string). Both methods take `price` for the gross and `priceNet` for the net amount.
 
-Continue learning how to define and use [tax rules](/guide/configuration/taxes).
+```php
+<?= $cart->total()->toString('price') ?>
+```
 
 ## One currency per cart
 
 The prices of products follow the pricing rule of each request, so a cart switches its currency together with the visitor. An item with a price of its own, such as [shipping](/cookbook/shipping-costs-and-discounts), keeps the currency it was added with. Remove it and add it again when the currency changes.
 
-Merx never mixes currencies: [`add()`](/reference/classes/cart/add) refuses an item in another currency than the cart with [`error.merx.mixedCurrencies.add`](/reference/options/translations/error-merx-mixedcurrencies-add), and the checkout refuses a cart that holds more than one with [`error.merx.mixedCurrencies.total`](/reference/options/translations/error-merx-mixedcurrencies-total).
+Merx never mixes currencies: [`add()`](/reference/classes/cart/add) refuses an item in another currency than the cart with [`error.merx.mixedCurrencies.add`](/reference/options/translations/error-merx-mixedcurrencies-add), and the checkout refuses a cart that holds more than one with [`error.merx.cart.notOrderable`](/reference/options/translations/error-merx-cart-notorderable).
+
+\----
+
+Continue learning how to define and use [tax rules](/guide/configuration/taxes).
 
 ----
 

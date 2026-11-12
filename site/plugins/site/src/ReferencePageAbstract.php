@@ -269,4 +269,13 @@ abstract class ReferencePageAbstract extends Page
 
 		return empty($summary) === true ? null : $summary;
 	}
+
+	public function description(): string|null
+	{
+		if ($this->content()->get('description')->isNotEmpty()) {
+			return (string)$this->content()->get('description');
+		}
+
+		return null;
+	}
 }

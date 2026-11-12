@@ -402,6 +402,12 @@ class Llms
 	 */
 	public static function isDocPage(Page $page): bool
 	{
+		// A release page describes Merx like the guide does, and is
+		// what an agent reads to learn what a version brought.
+		if ($page->intendedTemplate()->name() === 'release') {
+			return true;
+		}
+
 		return in_array(
 			A::first(Str::split($page->id(), '/')),
 			static::SECTIONS,
@@ -537,6 +543,10 @@ class Llms
 	 */
 	public static function page(Page $page): string
 	{
+		if ($page->intendedTemplate()->name() === 'release') {
+			return static::release($page) . PHP_EOL;
+		}
+
 		return static::join([
 			'# ' . static::text($page->headline()->or($page->title())),
 			// Everything reflection knows about the page.
@@ -691,6 +701,17 @@ class Llms
 			$blocks[] = static::parentClass($page);
 		}
 
+		if ($page instanceof \ReferenceClassPage && count($page->properties()) > 0) {
+			$blocks[] = static::join([
+				'## Properties',
+				static::table(['Name', 'Type', 'Description'], A::map($page->properties(), fn (array $property): array => [
+					static::inlineCode($property['name']),
+					static::inlineCode((string)$property['types']),
+					static::text($property['description'] ?? ''),
+				])),
+			]);
+		}
+
 		if ($page instanceof \ReferenceApiModelPage) {
 			$blocks[] = static::apiModel($page);
 		}
@@ -717,6 +738,45 @@ class Llms
 	}
 
 	/**
+	 * A release page: its features one after the other, in the order
+	 * of the HTML representation.
+	 *
+	 * @see /site/templates/release.php
+	 * @see /site/snippets/m-release-feature.php
+	 */
+	private static function release(Page $page): string
+	{
+		$blocks = [
+			'# ' . static::text($page->title()),
+			static::text($page->headline()),
+			static::quote(static::text($page->intro())),
+		];
+
+		foreach ($page->features()->toBlocks() as $feature) {
+			$content = $feature->content();
+			$link    = $content->get('link');
+
+			$blocks[] = '## ' . static::text($content->get('headline')->or($content->get('label')));
+			$blocks[] = static::markdown($content->get('text')->value());
+			$blocks[] = static::markdown($content->get('visual')->value());
+
+			if ($link->isNotEmpty() === true) {
+				$linkText = $content->get('linkText')->or($link->toPage()?->title())->or('Read more');
+				$blocks[] = '[' . static::text($linkText) . '](' . static::resolveUrl($link->value()) . ')';
+			}
+		}
+
+		if ($page->more()->isNotEmpty() === true) {
+			$blocks[] = '## And much more';
+			$blocks[] = static::markdown($page->more()->value());
+		}
+
+		$blocks[] = static::markdown($page->outro()->value());
+
+		return static::join($blocks);
+	}
+
+	/**
 	 * Turns a link target into an absolute url, pointing at the `.md`
 	 * representation whenever the target is a documentation page.
 	 */
@@ -725,7 +785,13 @@ class Llms
 		// Panel links are stored as permalinks.
 		if (Str::startsWith($target, 'page://') === true || Str::startsWith($target, 'file://') === true) {
 			try {
-				$target = Uuid::for($target)?->model()?->url() ?? $target;
+				$model = Uuid::from($target)?->model();
+
+				if ($model instanceof Page && static::isDocPage($model) === true) {
+					return static::url($model);
+				}
+
+				$target = $model?->url() ?? $target;
 			} catch (InvalidArgumentException) {
 				// Not a permalink after all, keep it as it is.
 			}

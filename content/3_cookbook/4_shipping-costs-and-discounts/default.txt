@@ -33,7 +33,7 @@ $cart->add(new ListItem(
 ```
 
 > [!CAUTION]
-> Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the `Price`. The cart compares the currency of every incoming item against its own and silently drops a price that does not match, which leaves you with a shipping item that costs nothing.
+> Always pass the cart’s [`currency()`](/reference/classes/cart/currency) to the `Price`. The cart refuses an item in another currency than its own with [`error.merx.mixedCurrencies.add`](/reference/options/translations/error-merx-mixedcurrencies-add).
 
 ## Recalculate whenever the cart changes
 
@@ -78,7 +78,7 @@ function updateCartExtras(Cart $cart): void
       $cart->add(new ListItem(
         key: 'discount',
         title: 'Discount',
-        price: new Price(price: -10, currency: $cart->currency()),
+        price: new Price(price: -10, tax: 0.19, currency: $cart->currency()),
         type: 'discount',
       ));
     }
@@ -98,38 +98,40 @@ return [
 
 Removing the last product empties the cart completely, because `quantity('product')` is then `0` and neither item is added back.
 
+The discount has a tax rate, like the shipping. Without one it would lower the total and leave the tax as it was. With products at more than one rate, one discount is not enough: add one per rate, as [Coupon codes](/cookbook/coupon-codes) does.
+
 ## Keep them out of the product list
 
-[`filterByType()`](/reference/classes/cart/filter-by-type) returns only the items of one type, which is what you want when you render the cart.
+[`filterByType()`](/reference/classes/cart/filter-by-type) returns only the items of one type. In the cart snippet from [Displaying order](/guide/getting-started/displaying-order#cart-snippet), loop over the products in the body of the table and give shipping and discounts a row of their own in its footer.
 
 ```php title="/site/snippets/cart.php"
-<?php /** @var \Wagnerwagner\Merx\Cart $cart */ ?>
-<ul>
-  <?php foreach ($cart->filterByType('product') as $item): ?>
-    <li><?= $item->quantity ?> × <?= $item->title ?> <?= $item->total() ?></li>
+<?php foreach ($cart->filterByType('product') as $item): ?>
+  <!-- the row of a product -->
+<?php endforeach ?>
+
+<?php foreach (['shipping', 'discount'] as $type): ?>
+  <?php foreach ($cart->filterByType($type) as $item): ?>
+    <tr>
+      <th colspan="3"><?= html($item->title()) ?></th>
+      <td><?= $item->total() ?></td>
+    </tr>
   <?php endforeach ?>
-</ul>
-
-<?php foreach ($cart->filterByType('shipping') as $item): ?>
-  <p><?= $item->title ?>: <?= $item->total() ?></p>
 <?php endforeach ?>
-
-<?php foreach ($cart->filterByType('discount') as $item): ?>
-  <p><?= $item->title ?>: <?= $item->total() ?></p>
-<?php endforeach ?>
-
-<p>Total: <?= $cart->total() ?></p>
 ```
 
 ## Discounts and the total
 
-A discount is a list item with a negative price, and Merx does not stop you from discounting more than the cart is worth. It does refuse to order such a cart: [`isOrderable()`](/reference/classes/cart/is-orderable) is `false` as soon as the total is no longer greater than zero. Check it before you send the customer to the checkout.
+A discount is a list item with a negative price, and Merx does not stop you from discounting more than the cart is worth. It does refuse to order such a cart: [`isOrderable()`](/reference/classes/cart/is-orderable) is `false` as soon as the total is below zero, and the checkout answers with [`error.merx.cart.notOrderable`](/reference/options/translations/error-merx-cart-notorderable). Check it before you send the customer to the checkout.
+
+A total of exactly zero can be ordered, for example with a coupon that covers the whole cart. Offer a gateway that takes no payment for it, such as `invoice`: Stripe and PayPal cannot charge nothing.
 
 ```php
 <?php if ($cart->isOrderable() === false): ?>
   <p>This cart cannot be ordered.</p>
 <?php endif ?>
 ```
+
+The [cart API](/reference/api/routes/shop-cart-get) lists shipping and discounts on their own, as `shippings` and `discounts` next to `products`, each with its items and their total.
 
 For how tax is applied to a price, see the [taxes](/guide/configuration/taxes) guide.
 

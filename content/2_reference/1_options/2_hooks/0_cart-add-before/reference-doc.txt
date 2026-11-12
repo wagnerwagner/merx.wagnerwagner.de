@@ -1,1 +1,1 @@
-Shortdescription: Runs before an item is added to the cart. The item is still whatever the caller passed.
+Shortdescription: Runs before an item is added to the cart. The item is still whatever the caller passed. Return an item to have that one added instead, or nothing to leave it as it is. Throw to refuse the item.

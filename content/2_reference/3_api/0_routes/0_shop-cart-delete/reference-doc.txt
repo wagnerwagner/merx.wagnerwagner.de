@@ -1,1 +1,1 @@
-Shortdescription: Removes an item from the cart.
+Shortdescription: Removes an item from the cart. The body takes the `key` of the item.

@@ -1,1 +1,15 @@
-Shortdescription: How a single cart line is rendered by the API: key, title, quantity, price and your own data.
+Shortdescription: How a single cart line is rendered by the API: key, title, quantity, price and your own data. 
+
+----
+
+Description:
+
+`thumb` is filled from a `thumb` file field of the product page, sized by the `thumb` preset and srcset of Kirby’s [`thumbs`](https://getkirby.com/docs/reference/system/options/thumbs) option.
+
+```json
+{
+	"alt": "Gray fixie bike with orange highlights leaning on black wall",
+	"src": "https://shop.test/media/pages/bike/a64c5fe617-2633954848/gray-fixie-bike-48x48-crop.jpg",
+	"srcset": "https://shop.test/media/pages/bike/a64c5fe617-2633954848/gray-fixie-bike-48x48-crop.jpg 48w, https://shop.test/media/pages/bike/a64c5fe617-2633954848/gray-fixie-bike-96x96-crop.jpg 96w"
+}
+```

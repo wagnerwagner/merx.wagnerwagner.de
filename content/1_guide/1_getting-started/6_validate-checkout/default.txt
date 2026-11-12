@@ -232,6 +232,8 @@ checkoutForm.addEventListener('submit', async (event) => {
 > [!NOTE]
 > You should add some CSS styles for `#checkout-form[data-state="loading"]`, so that the customer knows that something is happening.
 
+The messages for invalid fields are Kirby’s own, written for the Panel. [Localization](/guide/configuration/localization#messages) shows how to replace them.
+
 ## Checkout flow
 
 We’re using *invoice* as the *payment gateway* here, which means it’s up to you as the shop operator to collect the money. 

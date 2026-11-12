@@ -43,20 +43,24 @@ fields:
 A route stores the code in the session and sends the customer back to the cart. It doesn’t have to check the code: an unknown one simply gives no discount.
 
 ```php title="/site/config/config.php"
-'routes' => [
-  [
-    'pattern' => 'coupon',
-    'method' => 'POST',
-    'action' => function () {
-      if (csrf(get('csrf')) === true) {
-        kirby()->session()->set('coupon', get('code'));
-        updateCartExtras(cart());
-      }
+<?php
 
-      go('cart');
-    },
+return [
+  'routes' => [
+    [
+      'pattern' => 'coupon',
+      'method' => 'POST',
+      'action' => function () {
+        if (csrf(get('csrf')) === true) {
+          kirby()->session()->set('coupon', get('code'));
+          updateCartExtras(cart());
+        }
+
+        go('cart');
+      },
+    ],
   ],
-],
+];
 ```
 
 ## Add the discount
@@ -93,7 +97,7 @@ function updateCartExtras(Cart $cart): void
     $totals = [];
     foreach ($cart->filterByType('product') as $item) {
       $rate = (string)$item->price?->tax?->rate;
-      $totals[$rate] = ($totals[$rate] ?? 0) + $item->total()->toFloat();
+      $totals[$rate] = ($totals[$rate] ?? 0) + $item->total()->toFloat('price');
     }
 
     foreach ($totals as $rate => $total) {
@@ -116,7 +120,7 @@ function updateCartExtras(Cart $cart): void
 
 A discount without a tax rate would lower the total but leave the tax as it was. With a lamp at 19 % and a book at 7 % in the cart, the lamp’s share of the discount has to take 19 % tax off and the book’s share 7 %, which is why there is one discount per rate. [`$cart->taxRates()`](/reference/classes/cart/tax-rates) then adds up correctly.
 
-The discount stays in the cart until the customer redeems another code, and it ends up in the order like every other list item. A coupon of 100 % makes a cart that [cannot be ordered](/cookbook/shipping-costs-and-discounts#discounts-and-the-total).
+The discount stays in the cart until the customer redeems another code, and it ends up in the order like every other list item. A coupon of 100 % makes a cart with a total of zero. It [can be ordered](/cookbook/shipping-costs-and-discounts#discounts-and-the-total), with a gateway that takes no payment.
 
 ----
 

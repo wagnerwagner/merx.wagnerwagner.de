@@ -1,1 +1,1 @@
-Shortdescription: Runs before an item is removed from the cart.
+Shortdescription: Runs before an item is removed from the cart. Throw to keep it.

@@ -1,7 +1,7 @@
 .m-cart {
 	display: grid;
 	row-gap: var(--size-500);
-	padding: var(--size-500);
+	padding: var(--size-700);
 	font: var(--font-paragraph-medium);
 	font-variant-numeric: tabular-nums;
 	border-radius: var(--border-radius-small);
@@ -91,9 +91,4 @@
 	> dt {
 		color: inherit;
 	}
-}
-
-.m-cart__note {
-	font: var(--font-paragraph-small);
-	color: var(--color-content-secondary);
 }

@@ -18,7 +18,9 @@ You can read the blueprint fields at render time instead and build the form from
 
 ## Read the fields
 
-Merx shows the customer fields of an order in a tab called `personalData`. Your own `/site/blueprints/pages/order.yml` is what is actually loaded here, so this works as long as that blueprint extends [`layouts/order`](/reference/blueprints/layouts/order) or has a tab of the same name.
+Merx shows the customer fields of an order in a tab called `personalData`. It holds [`fields/personal-data`](/reference/blueprints/fields/personal-data), the field group you set up in [Validate checkout](/guide/getting-started/validate-checkout), so there is nothing else to prepare.
+
+If you have an order blueprint of your own, start it with [`extends: wagnerwagner.merx.pages/order`](/reference/blueprints/pages/order). That keeps the tab, and the options that [protect an order](/guide/security) in the Panel.
 
 ```php title="/site/controllers/checkout.php"
 <?php

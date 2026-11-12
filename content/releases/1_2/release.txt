@@ -6,7 +6,7 @@ Headline: More shop. Just as simple.
 
 ----
 
-Intro: Merx 2 is the new major version of Merx, built for Kirby 5. Prices in any currency, tax rates per product and country, a JSON API that keeps your pages cacheable, and every Stripe payment method in one integration. It’s a toolset, not a framework — if you know Kirby, you know Merx.
+Intro: Merx 2 is the new major version of Merx, built for Kirby 6. Prices in any currency, tax rates per product and country, a JSON API that keeps your pages cacheable, and every Stripe payment method in one integration. It’s a toolset, not a framework — if you know Kirby, you know Merx.
 
 ----
 
@@ -82,7 +82,7 @@ Features:
         "content": {
             "label": "In-app browsers",
             "headline": "Payments that find their way back",
-            "text": "A customer taps your link in Instagram, pays with PayPal and ends up in Safari. Merx 2 carries the checkout across browsers, so the order is completed wherever the customer lands.",
+            "text": "A customer taps your link in Instagram, pays with PayPal and ends up in Safari. Merx 2 carries the checkout across browsers, so the order is completed wherever the customer lands. And if they never come back, Stripe’s webhook completes it.",
             "link": "",
             "linktext": "",
             "visual": ""
@@ -121,7 +121,7 @@ Features:
         "content": {
             "label": "Stock",
             "headline": "Never sell what you don’t have",
-            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock — test orders excepted.",
+            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock.",
             "link": "page://Mu3R1h2iEbZfWwCQ",
             "linktext": "",
             "visual": ""
@@ -160,7 +160,7 @@ Features:
         "content": {
             "label": "Security",
             "headline": "Safe by default",
-            "text": "Merx 2 checks that a payment covers the order before it writes one, and ties every return from Stripe or PayPal to the checkout that started it. Order pages stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
+            "text": "Merx 2 checks that a payment covers the order before it writes one, and a customer cannot mark their own order as paid. Order pages get a random URL, stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
             "link": "page://GHz8OM3Cq4xMWxxT",
             "linktext": "",
             "visual": ""
@@ -190,7 +190,7 @@ More:
 
 - API responses in the visitor’s language, via the `X-Language` header
 - Your own fields in every API response, with (link: page://qez0bnp1cqofknjo text: custom models)
-- Kirby 5.5 and PHP 8.2 to 8.5
+- Kirby 6 and PHP 8.3 to 8.5
 
 ----
 

@@ -14,7 +14,7 @@ Text:
 
 Payment gateway | Provider | Keyword
 | ---- | ---- | ---- |
-Invoice | - | `invoice`
+[Invoice](/guide/payment-gateways/invoice) | - | `invoice`
 [PayPal Payments](/guide/payment-gateways/paypal) | (link: https://developer.paypal.com/api/orders/v2 text: PayPal) | `paypal`
 [Stripe Elements](/guide/payment-gateways/stripe-elements)<br>Includes **all** available Stripe Payment methods | [Stripe](https://stripe.com/de/payments/payment-methods) | `stripe-elements`
 

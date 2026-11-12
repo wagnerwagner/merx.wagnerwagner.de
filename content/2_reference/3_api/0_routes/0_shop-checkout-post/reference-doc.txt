@@ -2,4 +2,4 @@ Guide: /guide/getting-started/create-checkout
 
 ----
 
-Shortdescription: Validates the submitted data and starts the payment.
+Shortdescription: Validates the submitted data and starts the payment. The body takes `paymentGateway` and the fields of your order blueprint.

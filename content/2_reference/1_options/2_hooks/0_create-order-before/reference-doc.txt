@@ -1,1 +1,1 @@
-Shortdescription: Runs when the customer comes back from the payment provider, before the payment is captured.
+Shortdescription: Runs when the customer comes back from the payment provider, before the payment is captured. Throw to refuse the order: the customer is sent back to the checkout page, where `merx()->error()` returns your message.

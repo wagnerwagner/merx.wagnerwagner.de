@@ -1,1 +1,1 @@
-Shortdescription: Changes the quantity or data of an item in the cart.
+Shortdescription: Changes the quantity or data of an item in the cart. The body takes the `key` of the item and its new `quantity`, `data`, or both. A quantity of 0 removes the item.

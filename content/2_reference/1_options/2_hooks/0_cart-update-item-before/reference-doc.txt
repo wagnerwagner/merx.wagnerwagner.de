@@ -1,1 +1,1 @@
-Shortdescription: Runs before the quantity or data of a cart item is changed.
+Shortdescription: Runs before the quantity or data of a cart item is changed. Throw to refuse the change.

@@ -57,14 +57,14 @@ Two pairs for Anna still share one line, with a quantity of 2.
 
 ## Show it in the cart
 
-The name comes back in the item’s `data`. Add it to the cart element from [Showing the cart](/guide/getting-started/showing-the-cart).
+The name comes back in the item’s `data`. Add it to the cart element from [Showing the cart](/guide/getting-started/showing-the-cart). The customer typed it, so it has to go through `esc()` like every other value.
 
 ```js title="script.js"
 ${items.map(item => `
   <li>
-    <strong>${item.title}</strong><br>
-    ${item.data?.name ? `Name: ${item.data.name}<br>` : ''}
-    Price: ${item.price?.price ?? 'On request'}
+    <strong>${esc(item.title)}</strong><br>
+    ${item.data?.name ? `Name: ${esc(item.data.name)}<br>` : ''}
+    Price: ${esc(item.price?.price ?? 'On request')}
   </li>
 `).join('')}
 ```
@@ -115,7 +115,7 @@ return [
 
 ```php title="/site/snippets/cart.php"
 <td>
-  <?= $item->title() ?>
+  <?= html($item->title()) ?>
   <?php if ($name = $item->data['name'] ?? null): ?>
     <br>Name: <?= esc($name) ?>
   <?php endif ?>

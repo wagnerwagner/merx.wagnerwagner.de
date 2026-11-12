@@ -7,6 +7,7 @@ use Kirby\Toolkit\Str;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use Wagnerwagner\Site\ReferencePageAbstract;
+use Wagnerwagner\Site\Types;
 
 /**
  * @method static \Kirby\Content\Field class()
@@ -149,6 +150,37 @@ class ReferenceClassPage extends ReferencePageAbstract
 		}
 
 		return '$' . lcfirst($className) . '->' . $name . '()';
+	}
+
+	/**
+	 * The public properties the class declares itself, with the
+	 * description their DocBlock carries
+	 *
+	 * @return array<int, array{name: string, types: Types, description: string|null}>
+	 */
+	public function properties(): array
+	{
+		$reflection = $this->reflection();
+		$properties = [];
+
+		foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+			if ($property->getDeclaringClass()->getName() !== $reflection->getName()) {
+				continue;
+			}
+
+			// The summary: what stands before the first blank line or tag
+			$description = preg_replace('!^\s*/?\*+/?[ \t]?|\s*\*+/$!m', '', (string)$property->getDocComment());
+			$description = preg_split('!\n\s*\n|\n?@!', trim($description))[0];
+			$description = trim(preg_replace('!\s+!', ' ', $description));
+
+			$properties[] = [
+				'name' => ($property->isStatic() ? 'static ' : '') . '$' . $property->getName(),
+				'types' => new Types((string)($property->getType() ?? 'mixed'), $reflection),
+				'description' => $description === '' ? null : $description,
+			];
+		}
+
+		return $properties;
 	}
 
 	public function reflection(): ReflectionClass
