@@ -59,7 +59,7 @@ Merx is commercial software, and a shop in production needs a license. Set it wi
 <?php
 
 return [
-  'wagnerwagner.merx.license' => 'MERX2-XXXXXXX-XXXXXXX',
+  'wagnerwagner.merx.license' => 'MERX2-XXXXXXXX-XXXXXXXX',
 ];
 ```
 

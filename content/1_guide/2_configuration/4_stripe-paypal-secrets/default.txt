@@ -54,7 +54,7 @@ return [
 
 return [
   'wagnerwagner.merx.production' => true,
-  'wagnerwagner.merx.license' => 'MERX2-XXXXXXX-XXXXXXX',
+  'wagnerwagner.merx.license' => 'MERX2-XXXXXXXX-XXXXXXXX',
   'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
   'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
   'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_xxx…',

@@ -1,6 +1,13 @@
 <?php
+
+/**
+ * @var OrderPage $page
+ */
+
 $cart = $page->cart();
-$licenses = explode(', ', $page->licenses());
+$total = $cart->total();
+$taxRates = $cart->taxRates();
+$licenses = $page->licenses()->split(',');
 ?>
 Thank’s for your purchase.
 
@@ -27,15 +34,21 @@ Payment Method:
 
 Purchase
 <?php foreach ($cart as $item): ?>
-<?= $item['title'] ?> | Quantity: <?= $item['quantity'] ?> | Price: <?= formatPrice($item['price'] - $item['tax']) ?> | Sum <?= formatPrice($item['sum'] - $item['sumTax']) ?>
+<?= $item->title ?> | Quantity: <?= $item->quantity ?> | Price: <?= $item->price?->toString('priceNet') ?> | Sum <?= $item->total()?->toString('priceNet') ?>
+
 <?php endforeach; ?>
 
 
-Gross: <?= formatPrice($cart->getSum() - $cart->getTax()) ?>
+<?php if (count($taxRates) > 0): ?>
+Subtotal: <?= $total?->toString('priceNet') ?>
 
-+ Vat (19%): <?= formatPrice($cart->getTax()) ?>
+<?php foreach ($taxRates as $tax): ?>
++ VAT <?= $tax->rate() ?>: <?= $tax ?>
 
-Sum <?= formatPrice($cart->getSum()) ?>
+<?php endforeach; ?>
+<?php endif ?>
+Total: <?= $total?->toString('price') ?>
+
 
 
 

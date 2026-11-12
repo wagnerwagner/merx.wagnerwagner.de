@@ -8,11 +8,13 @@ use Kirby\Toolkit\A;
 use Kirby\Toolkit\Html;
 use Kirby\Toolkit\Obj;
 use Kirby\Toolkit\Str;
+use Wagnerwagner\Merx\Cart;
+use Wagnerwagner\Merx\Logger;
+use Wagnerwagner\Site\Licenses;
 use Wagnerwagner\Site\Llms;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
-$licenseBase = option('wagnerwagner.site.licenseBase');
 
 /**
  * Create a element with link to class documentation
@@ -103,22 +105,44 @@ App::plugin('wagnerwagner/site', [
 		},
 	],
 	'hooks' => [
-		'wagnerwagner.merx.completePayment:after' => function ($orderPage) use ($licenseBase) {
-			$quantity = $orderPage->cart()->findBy('id', 'merx-license')['quantity'];
-			$licenses = [];
-			while (count($licenses) < $quantity) {
-				$licenses[] = 'MERX2-' . strtoupper(dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')) . '-' . dechex(A::join(A::shuffle(str_split((int)$licenseBase)), '')));
+		/**
+		 * The license keys are issued once the order is paid, which is when
+		 * it is created for a card or PayPal, and later for a SEPA debit
+		 */
+		'wagnerwagner.merx.orderPaid' => function (OrderPage $orderPage): OrderPage {
+			// Paid a second time, e.g. by a Panel user who set the date again
+			if ($orderPage->licenses()->isNotEmpty()) {
+				return $orderPage;
 			}
+
 			$orderPage = $orderPage->update([
-				'licenses' => A::join($licenses),
+				'licenses' => A::join(Licenses::issue((int)$orderPage->cart()->get('merx-license')?->quantity)),
 			]);
-			sendConfirmationMail($orderPage);
+
+			// The order is paid and shows the keys as well. An email which
+			// cannot be sent must not send the customer back to the checkout.
+			try {
+				sendConfirmationMail($orderPage);
+			} catch (Throwable $ex) {
+				Logger::log('Confirmation email of order "' . $orderPage->uid() . '" was not sent: ' . $ex->getMessage(), 'error');
+			}
+
+			return $orderPage;
 		},
 		/**
 		 * VAT follows the region in the session (see `taxRules` in the config),
 		 * so the billing country has to be the one the cart was priced for.
 		 */
-		'wagnerwagner.merx.initializeOrder:before' => function (array $data) {
+		'wagnerwagner.merx.initializeOrder:before' => function (Cart $cart, array $data) {
+			// Before the customer pays: Merx would not accept a key it does not know
+			if (Licenses::available((int)$cart->get('merx-license')?->quantity) === false) {
+				throw new Kirby\Exception\Exception(
+					key: 'site.checkout.licenses',
+					fallback: 'We cannot issue license keys at the moment. Please write to ' . option('merx-email') . '.',
+					httpCode: 503,
+				);
+			}
+
 			$country = Str::upper((string)($data['country'] ?? ''));
 			$region = Str::upper((string)kirby()->session()->get('region'));
 
