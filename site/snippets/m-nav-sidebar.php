@@ -31,19 +31,21 @@ return null;
 				<?= Html::tag('a', $item->title(), [
 					'href' => $item->url(),
 					'class' => 'a-nav-item-sidebar',
-					'data-variant' => 'category',
+					'data-variant' => $variant === 'cookbook' ? '' : 'category',
 				]) ?>
-				<ul>
-					<?php foreach ($item->children()->listed() as $item): ?>
-						<li>
-							<?= Html::tag('a', $item->title(), [
-								'href' => $item->url(),
-								'class' => 'a-nav-item-sidebar',
-								'data-state' => $item->isOpen() ? 'open' : null,
-							]) ?>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+				<?php if ($item->children()->listed()->count() > 0): ?>
+					<ul>
+						<?php foreach ($item->children()->listed() as $subitem): ?>
+							<li>
+								<?= Html::tag('a', $subitem->title(), [
+									'href' => $subitem->url(),
+									'class' => 'a-nav-item-sidebar',
+									'data-state' => $subitem->isOpen() ? 'open' : null,
+								]) ?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif ?>
 			<?php endif ?>
 		</li>
 	<?php endforeach; ?>

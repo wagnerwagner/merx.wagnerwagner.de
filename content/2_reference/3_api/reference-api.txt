@@ -2,23 +2,11 @@ Title: API Reference
 
 ----
 
-Headline: 
+Redirect: true
 
 ----
 
 Shortdescription: The JSON API the cart and the checkout are driven through.
-
-----
-
-Text: 
-
-----
-
-Redirect: false
-
-----
-
-Sections: 
 
 ----
 

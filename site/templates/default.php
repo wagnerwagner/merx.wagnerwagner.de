@@ -8,6 +8,7 @@ if ($page->redirect()->isTrue()) {
 
 $headline = $page->headline()->or($page->title());
 $parentPage = $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())->first();
+$isCookbook = $page->uid() === 'cookbook' || $page->parent()->uid() === 'cookbook';
 ?>
 <?php snippet('head') ?>
 <body>
@@ -22,7 +23,7 @@ $parentPage = $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isO
 			</button>
 			<div class="m-nav-sidebars" id="sidebar-navs">
 				<div>
-					<?php snippet('m-nav-sidebar', ['parent' => $parentPage]); ?>
+					<?php snippet('m-nav-sidebar', ['parent' => $parentPage, 'variant' => $isCookbook ? 'cookbook' : '' ]); ?>
 				</div>
 			</div>
 			<main class="o-main" aria-describedby="main-heading">

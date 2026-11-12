@@ -2,7 +2,7 @@ nav.m-nav-sidebar {
 	position: sticky;
 	padding-block-start: calc(var(--size-700) - var(--size-250));
 	padding-block-end: var(--size-700);
-	padding-inline-start: calc(3rem / 16);
+	padding-inline-start: var(--border-size-small);
 	max-block-size: calc(100vh - var(--height-header));
 	border-inline-end: var(--border-size-small) solid var(--color-border-tertiary);
 	overflow: auto;
@@ -23,7 +23,6 @@ nav.m-nav-sidebar {
 	}
 
 	@media not (min-width: 64em) {
-		margin-inline-start: calc(3rem / -16);
 		max-block-size: 100%;
 
 		&:last-of-type {
@@ -32,6 +31,6 @@ nav.m-nav-sidebar {
 	}
 	@media (min-width: 64em) {
 		inset-block-start: var(--height-header);
-		margin-inline-start: calc(3rem / -16);
+		margin-inline-start: calc(var(--border-size-small) * -1);
 	}
 }
