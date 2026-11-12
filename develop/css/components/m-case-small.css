@@ -1,0 +1,18 @@
+.m-case-small {
+	text-decoration: none;
+	font: var(--font-label-medium);
+
+	figcaption {
+		margin-block-start: var(--size-300);
+
+		small {
+			margin-inline-start: 0.2em;
+			font: inherit;
+			color: var(--color-content-secondary);
+		}
+
+		em {
+			font: var(--font-code-medium);
+		}
+	}
+}

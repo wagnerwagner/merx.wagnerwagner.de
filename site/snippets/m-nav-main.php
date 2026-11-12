@@ -32,7 +32,7 @@ use Kirby\Cms\Html;
 			]) ?>
 		</li>
 		<li>
-			<?= Html::tag('a', [snippet('a-icon', ['name' => 'heart', 'weight' => 700], true)], [
+			<?= Html::tag('a', [snippet('a-icon', ['name' => 'heart', 'weight' => 'fill'], true)], [
 				'href' => page('showcase')->url(),
 				'class' => 'a-nav-item-primary',
 				'data-variant' => 'step',

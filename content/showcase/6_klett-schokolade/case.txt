@@ -14,7 +14,11 @@ Byurl: https://www.wagnerwagner.de
 
 ----
 
-Screenshot: - klett-schoko.de.jpg
+Year: 2020
+
+----
+
+Screenshot: - 'file://9a6riHQ33fwELP2L'
 
 ----
 

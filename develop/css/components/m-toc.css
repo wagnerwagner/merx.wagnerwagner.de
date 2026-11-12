@@ -1,6 +1,6 @@
 .m-toc {
 	--_padding-block: var(--size-100);
-	--_padding-inline: var(--gap-inline);
+	--_padding-inline: 0;
 
 	margin-inline-start: calc(var(--border-size-small) * -1);
 	padding-block: var(--gap-block-header);
@@ -15,6 +15,10 @@
 
 	> ol {
 		list-style: none;
+	}
+
+	@media (min-width: 64em) {
+		--_padding-inline: var(--gap-inline);
 	}
 }
 

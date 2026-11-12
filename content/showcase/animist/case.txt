@@ -14,7 +14,11 @@ Byurl: https://florianschimanski.com
 
 ----
 
-Screenshot: - file://YJAKxAIDps4xjfz3
+Year: 2023
+
+----
+
+Screenshot: - 'file://YJAKxAIDps4xjfz3'
 
 ----
 

@@ -10,11 +10,15 @@ Byname: Bruno
 
 ----
 
-Byurl: https://moev.biz
+Byurl: https://bingo.computer
 
 ----
 
-Screenshot: - newjoerg.at.jpg
+Year: 2023
+
+----
+
+Screenshot: - 'file://XKOiYByZi3eOT9pe'
 
 ----
 

@@ -2,7 +2,14 @@
 
 use Kirby\Cms\Url;
 
+/** @var \Kirby\Cms\Page $item */
+
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
+$screenshot = $item->screenshot()->toFile();
+
+if ($screenshot === null) {
+	return;
+}
 ?>
 <section class="m-case" id="<?= $item->uid() ?>">
 	<div class="m-case__copy">
@@ -16,6 +23,11 @@ $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 					</a>
 				<?php endif ?>
 			</h2>
+			<?php if ($item->year()->isNotEmpty()): ?>
+				<small>
+					Online since <?= $item->year() ?>
+				</small>
+			<?php endif; ?>
 			<?php if ($item->byName()->isNotEmpty()): ?>
 				<small>
 					By
@@ -37,44 +49,42 @@ $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 			<em>Website is no longer available online.</em>
 		<?php endif ?>
 	</div>
-	<?php if ($screenshot = $item->screenshot()->toFile()): ?>
-		<?php if ($link): ?>
-			<a href="<?= $item->link() ?>" rel="noopener">
-		<?php else: ?>
-			<div class="-figure">
-		<?php endif ?>
-			<figure>
-				<?php if ($link): ?>
-					<figcaption>
-						<?= Url::short(Url::stripPath($item->link()->toString())) ?>
-					</figcaption>
-				<?php endif ?>
+	<?php if ($link): ?>
+		<a href="<?= $item->link() ?>" rel="noopener">
+	<?php else: ?>
+		<div class="-figure">
+	<?php endif ?>
+		<figure>
+			<?php if ($link): ?>
+				<figcaption>
+					<?= Url::short(Url::stripPath($item->link()->toString())) ?>
+				</figcaption>
+			<?php endif ?>
 
-				<img
-					src="<?= $screenshot->thumb([
-						'width' => 860,
-						'height' => 860 * 0.7 * 1.5,
-						'crop' => 'top',
-					])->url() ?>"
-					srcset="<?= $screenshot->thumb([
-						'width' => 860 * 2,
-						'height' => (860 * 0.7 * 1.5) * 2,
-						'crop' => 'top',
-					])->url() ?> <?= 860 * 2 ?>w"
-					sizes="
-						(min-width: 50em) 36em,
-						calc(100vw - 2rem)
-					"
-					width="860"
-					height="<?= 860 * 0.7 * 1.5 ?>"
-					loading="lazy"
-					alt="Screenshot of “<?= $item->title() ?>”"
-				>
-			</figure>
-		<?php if ($link): ?>
-			</a>
-		<?php else: ?>
-			</div>
-		<?php endif ?>
-	<?php endif; ?>
+			<img
+				src="<?= $screenshot->thumb([
+					'width' => 740,
+					'height' => round(740 * 0.7 * 1.5),
+					'crop' => 'top',
+				])->url() ?>"
+				srcset="<?= $screenshot->thumb([
+					'width' => 740 * 2,
+					'height' => round(740 * 0.7 * 1.5 * 2),
+					'crop' => 'top',
+				])->url() ?> <?= 740 * 2 ?>w"
+				sizes="
+					(min-width: 50em) 46.25em,
+					calc(100vw - 2rem)
+				"
+				width="740"
+				height="<?= round(740 * 0.7 * 1.5) ?>"
+				loading="lazy"
+				alt="Screenshot of “<?= $item->title() ?>”"
+			>
+		</figure>
+	<?php if ($link): ?>
+		</a>
+	<?php else: ?>
+		</div>
+	<?php endif ?>
 </section>
