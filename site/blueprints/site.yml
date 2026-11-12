@@ -18,5 +18,3 @@ fields:
     type: filepicker
     multiple: false
     required: true
-  legalLinks:
-    type: pagepicker

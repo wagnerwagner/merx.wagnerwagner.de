@@ -8,7 +8,7 @@ if ($page->redirect()->isTrue()) {
 
 $headline = $page->headline()->or($page->title());
 $parentPage = $site->children()->filter(fn (\Kirby\Cms\Page $page) => $page->isOpen())->first();
-$isCookbook = $page->uid() === 'cookbook' || $page->parent()->uid() === 'cookbook';
+$isCookbook = $page->uid() === 'cookbook' || $page->parent()?->uid() === 'cookbook';
 ?>
 <?php snippet('head') ?>
 <body>

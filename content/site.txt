@@ -2,24 +2,12 @@ Title: Merx
 
 ----
 
-Metatitle: Merx – An E-Commerce Plugin for Kirby CMS
+Metatitle: Merx – An e-commerce plugin for Kirby CMS
 
 ----
 
-Metadescription: Merx is a plugin to create online shops with Kirby 4.
+Metadescription: Merx 2 is a simple but powerful plugin for creating unique online shops with Kirby 6.
 
 ----
 
 Opengraphimage: - file://0D7etsooUJoj4BXG
-
-----
-
-Legallinks:
-
-- page://qv48TZQ71iRCn89W
-- page://qYYhjVaSWEzCpkHO
-- page://V69xHbJZDQiBHpbc
-
-----
-
-Ibaninfo: By providing your IBAN and confirming this payment, you are authorizing Wagnerwagner GmbH and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.
