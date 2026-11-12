@@ -1,0 +1,150 @@
+Title: Invoice as PDF
+
+----
+
+Headline: 
+
+----
+
+Intro: The customer opens their order page and downloads the invoice. [PDFKit](https://pdfkit.org) builds the PDF in the browser, so your server needs nothing new.
+
+----
+
+Text:
+
+The order page hands the data of the invoice to the browser as JSON. A script turns it into a PDF when the customer asks for it.
+
+## Add PDFKit
+
+Download `pdfkit.standalone.js` from the [PDFKit releases](https://github.com/foliojs/pdfkit/releases) and save it as `/assets/js/pdfkit.standalone.js`. It needs no build step and brings the font Helvetica along.
+
+## Collect the invoice data
+
+The snippet reads everything from the [order](/guide/getting-started/displaying-order). PHP formats the prices, so the script only has to print them.
+
+```php title="/site/snippets/invoice.php"
+<?php
+/** @var Wagnerwagner\Merx\OrderPage $order */
+$cart = $order->cart();
+$total = $cart->total();
+
+$invoice = [
+  'number' => $order->orderNumber()->value(),
+  'date' => $order->dateCreated()->toDate('Y-m-d'),
+  'seller' => ['Lamp Shop Ltd.', '1 Main Street', 'London N1 9GU', 'VAT ID GB123456789'],
+  'customer' => [
+    $order->given_name() . ' ' . $order->family_name(),
+    $order->street()->value(),
+    $order->postal_code() . ' ' . $order->city(),
+  ],
+  'items' => [],
+  'net' => $total->toString('priceNet'),
+  'taxes' => [],
+  'total' => $total->toString('price'),
+];
+
+foreach ($cart as $item) {
+  $invoice['items'][] = [
+    'title' => (string)$item->title(),
+    'price' => (string)$item->price(),
+    'quantity' => (string)$item->quantity(),
+    'total' => (string)$item->total(),
+  ];
+}
+
+foreach ($cart->taxRates() as $tax) {
+  $invoice['taxes'][] = [
+    'rate' => $tax->rate(),
+    'amount' => (string)$tax,
+  ];
+}
+?>
+<script type="application/json" id="invoice"><?= json_encode($invoice, JSON_HEX_TAG) ?></script>
+<button type="button" id="invoice-button">Download invoice</button>
+<?= js('assets/js/pdfkit.standalone.js') ?>
+<?= js('assets/js/invoice.js') ?>
+```
+
+The customer fields are the ones of your [order blueprint](/reference/blueprints/pages/order). `JSON_HEX_TAG` keeps a `</script>` in a customer’s name from ending the block. The invoice number is the [order number](/guide/glossary#invoice-number).
+
+Add the snippet to your order template.
+
+```php title="/site/templates/order.php"
+<?php snippet('invoice', ['order' => $page]) ?>
+```
+
+## Build the PDF
+
+The script writes the addresses and the number, then one table with the items, the net amount, one line per tax rate and the total.
+
+```js title="/assets/js/invoice.js"
+const button = document.querySelector('#invoice-button');
+
+button.addEventListener('click', () => {
+  const invoice = JSON.parse(document.querySelector('#invoice').textContent);
+  const doc = new PDFDocument({ size: 'A4', margin: 60 });
+  const chunks = [];
+
+  doc.on('data', (chunk) => chunks.push(chunk));
+  doc.on('end', () => {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob(chunks, { type: 'application/pdf' }));
+    link.download = `invoice-${invoice.number}.pdf`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+
+  doc.fontSize(10);
+  doc.text(invoice.seller.join('\n'), { align: 'right' });
+  doc.moveDown(2);
+  doc.text(invoice.customer.join('\n'));
+  doc.moveDown(2);
+  doc.fontSize(18).text(`Invoice ${invoice.number}`);
+  doc.fontSize(10).text(`Date: ${invoice.date}`);
+  doc.moveDown(2);
+
+  const right = { align: 'right' };
+  const bold = { font: { src: 'Helvetica-Bold' } };
+
+  doc.table({
+    columnStyles: ['*', 80, 60, 80],
+    defaultStyle: { border: [0, 0, 0.5, 0], padding: [6, 0] },
+    data: [
+      [
+        { text: 'Item', ...bold },
+        { text: 'Price', ...bold, ...right },
+        { text: 'Quantity', ...bold, ...right },
+        { text: 'Total', ...bold, ...right },
+      ],
+      ...invoice.items.map((item) => [
+        item.title,
+        { text: item.price, ...right },
+        { text: item.quantity, ...right },
+        { text: item.total, ...right },
+      ]),
+      [{ text: 'Net', colSpan: 3 }, { text: invoice.net, ...right }],
+      ...invoice.taxes.map((tax) => [
+        { text: `VAT ${tax.rate}`, colSpan: 3 },
+        { text: tax.amount, ...right },
+      ]),
+      [
+        { text: 'Total', colSpan: 3, ...bold },
+        { text: invoice.total, ...bold, ...right },
+      ],
+    ],
+  });
+
+  doc.end();
+});
+```
+
+> [!NOTE]
+> The PDF is built from the order on every download and stored nowhere. What an invoice has to state depends on your country.
+
+----
+
+Shortdescription: Learn how to let customers download an invoice as a PDF, built in the browser with PDFKit.
+
+----
+
+Uuid: yenfck94cym17i4b
