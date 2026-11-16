@@ -49,7 +49,7 @@ To learn more, see [Including Stripe.js | Stripe JS Reference](https://docs.stri
 
 ```php title="/site/snippets/head.php"
 <?php if ($page->intendedTemplate()->name() === 'checkout'): ?>
-  <script src="https://js.stripe.com/clover/stripe.js"></script>
+  <script src="https://js.stripe.com/endive/stripe.js"></script>
 <?php endif ?>
 ```
 
@@ -133,13 +133,12 @@ For some payment methods like *SEPA Direct Debit*, it can take up to 6 business 
 
 ## Optional: show only specific payment methods
 
-By default Stripe shows the *best* payment methods. You can also define specific payment methods using the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option. 
+By default Stripe shows the payment methods you turned on in the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). To offer only some of them, list them in `allowed_payment_method_types` of the [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters) option. 
 
 ```php title="/site/config/config.php"
 return [
   'wagnerwagner.merx.stripe.paymentIntentParameters' => [
-    'payment_method_types' => ['card', 'ideal'],
-    'automatic_payment_methods' => ['enabled' => false],
+    'allowed_payment_method_types' => ['card', 'ideal'],
     'capture_method' => 'automatic_async',
     'payment_method_options' => [
       'card' => ['capture_method' => 'manual'],
@@ -154,7 +153,7 @@ Some payment methods [don’t allow manual capturing](https://docs.stripe.com/pa
 
 
 > [!NOTE]
-> The default options and the options you set in the `config.php` are merged recursively, therefore you need to overwrite/disable `automatic_payment_methods`.
+> Stripe refuses `allowed_payment_method_types` together with `automatic_payment_methods`, even with `'enabled' => false`. The older `payment_method_types` is not accepted anymore.
 
 ----
 

@@ -17,12 +17,6 @@ We recommend using JavaScript and the API to show the cart to the customer. This
 Let’s define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) for it. It has a `fetchCart()` function, which gets the cart data from the API endpoint, and a `render()` function, which renders the cart as a list.
 
 ```js title="script.js"
-/** Makes a value safe to put into HTML */
-const esc = (value) => String(value ?? '').replace(
-  /[&<>"']/g,
-  (character) => `&#${character.charCodeAt(0)};`,
-);
-
 customElements.define('my-cart', class extends HTMLElement {
   /** @see https://merx.wagnerwagner.de/reference/api/models/cart */
   data = null;
@@ -53,13 +47,13 @@ customElements.define('my-cart', class extends HTMLElement {
         <ul>
           ${items.map(item => `
             <li>
-              <strong>${esc(item.title)}</strong><br>
-              Price: ${esc(item.price?.price ?? 'On request')}
+              <strong>${item.title}</strong><br>
+              Price: ${item.price?.price ?? 'On request'}
             </li>
           `).join('')}
         </ul>
-        <p>Total: ${esc(this.data.total?.price)}</p>
-        ${this.data.checkout ? `<a href="${esc(this.data.checkout.url)}">${esc(this.data.checkout.title)}</a>` : ''}
+        <p>Total: ${this.data.total?.price}</p>
+        ${this.data.checkout ? `<a href="${this.data.checkout.url}">${this.data.checkout.title}</a>` : ''}
       `}
     `;
   }
@@ -69,7 +63,7 @@ customElements.define('my-cart', class extends HTMLElement {
 Add the `<my-cart>` element to the header of your page — or wherever you want to show the cart.
 
 > [!IMPORTANT]
-> `innerHTML` runs whatever HTML it is given. Pass every value from the API through `esc()`, also the ones that look harmless: a title is typed by an editor, and an item’s `data` by the customer.
+> `innerHTML` runs whatever HTML it is given. Titles, prices and links come from the Panel or from Merx and can go in as they are. An item’s `key` and `data` can be sent by the visitor: escape them before you render them, as [Personalized products](/cookbook/personalized-products#show-it-in-the-cart) does.
 
 A product without a price returns `null` instead of a price object. `checkout` is `null` until a page with the checkout template exists, which is the [next step](/guide/getting-started/create-checkout), so the link is only rendered once there is one. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 

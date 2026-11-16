@@ -57,14 +57,21 @@ Two pairs for Anna still share one line, with a quantity of 2.
 
 ## Show it in the cart
 
-The name comes back in the item’s `data`. Add it to the cart element from [Showing the cart](/guide/getting-started/showing-the-cart). The customer typed it, so it has to go through `esc()` like every other value.
+The name comes back in the item’s `data`. Add it to the cart element from [Showing the cart](/guide/getting-started/showing-the-cart). Unlike the title and the price, the customer typed it, so escape it before it goes into the HTML.
 
 ```js title="script.js"
+/** Makes a value safe to put into HTML */
+const esc = (value) => String(value ?? '').replace(
+  /[&<>"']/g,
+  (character) => `&#${character.charCodeAt(0)};`,
+);
+
+// In render() of the cart element
 ${items.map(item => `
   <li>
-    <strong>${esc(item.title)}</strong><br>
+    <strong>${item.title}</strong><br>
     ${item.data?.name ? `Name: ${esc(item.data.name)}<br>` : ''}
-    Price: ${esc(item.price?.price ?? 'On request')}
+    Price: ${item.price?.price ?? 'On request'}
   </li>
 `).join('')}
 ```
