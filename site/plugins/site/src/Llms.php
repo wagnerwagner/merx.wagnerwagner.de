@@ -67,6 +67,9 @@ class Llms
 			static::table(['Name', 'Fields'], $views),
 			'## Type',
 			static::inlineCode((string)$page->referenceClass()),
+			'## TypeScript',
+			'The default view as a TypeScript interface. [`merx.d.ts`](' . url('reference/api/models/merx.d.ts') . ') declares every model.',
+			static::code(TypeScript::interface((string)$page->class()), 'ts', $page->slug() . '.d.ts'),
 			static::apiModelExamples($page),
 		]);
 	}

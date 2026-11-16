@@ -12,6 +12,7 @@ use Wagnerwagner\Merx\Cart;
 use Wagnerwagner\Merx\Logger;
 use Wagnerwagner\Site\Licenses;
 use Wagnerwagner\Site\Llms;
+use Wagnerwagner\Site\TypeScript;
 
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
@@ -208,6 +209,15 @@ App::plugin('wagnerwagner/site', [
 			'pattern' => 'llms.txt',
 			'action' => function () {
 				return new Response(Llms::index(), 'text/plain');
+			},
+		],
+		[
+			/**
+			 * TypeScript interfaces of every API model
+			 */
+			'pattern' => 'reference/api/models/merx.d.ts',
+			'action' => function () {
+				return new Response(TypeScript::declarations(), 'text/plain');
 			},
 		],
 		[

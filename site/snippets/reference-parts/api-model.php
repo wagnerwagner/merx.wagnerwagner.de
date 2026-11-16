@@ -1,5 +1,7 @@
 <?php
+use Kirby\Toolkit\Str;
 use Wagnerwagner\Site\Types;
+use Wagnerwagner\Site\TypeScript;
 
 if (!function_exists('formatViewFields')) {
 	function formatViewFields($fields)
@@ -54,3 +56,10 @@ if (!function_exists('formatViewFields')) {
 
 <h2>Type</h2>
 <p><?= $page->referenceClass()->toHtml() ?></p>
+
+<h2>TypeScript</h2>
+<p>The default view as a TypeScript interface. <a href="<?= url('reference/api/models/merx.d.ts') ?>" download><code>merx.d.ts</code></a> declares every model.</p>
+<figure class="m-code">
+	<figcaption><?= $page->slug() ?>.d.ts</figcaption>
+	<pre><code class="language-ts"><?= Str::esc(TypeScript::interface((string)$page->class()), 'html') ?></code></pre>
+</figure>
