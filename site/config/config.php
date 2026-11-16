@@ -27,7 +27,6 @@ return [
 		],
 	],
 	'wagnerwagner.merx.stripe.paymentIntentParameters' => [
-		'automatic_payment_methods' => null,
 		'capture_method' => 'automatic_async',
 		'payment_method_options' => [
 			'card' => ['capture_method' => 'manual'],
