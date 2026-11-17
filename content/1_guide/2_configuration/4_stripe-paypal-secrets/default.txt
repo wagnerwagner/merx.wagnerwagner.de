@@ -18,7 +18,7 @@ Each provider gives you two sets of keys, one for testing and one for real payme
 
 ## Stripe keys
 
-- [`stripe.test.publishable_key`](/reference/options/config-options/stripe-test-publishable-key) and [`stripe.live.publishable_key`](/reference/options/config-options/stripe-live-publishable-key) identify your account in the browser. They aren’t secret — the publishable key goes into your checkout template, see [Stripe Elements](/guide/payment-gateways/stripe-elements).
+- [`stripe.test.publishable_key`](/reference/options/config-options/stripe-test-publishable-key) and [`stripe.live.publishable_key`](/reference/options/config-options/stripe-live-publishable-key) identify your account in the browser. They aren’t secret — the publishable key goes into your checkout template, see [Stripe](/guide/payment-gateways/stripe).
 - [`stripe.test.secret_key`](/reference/options/config-options/stripe-test-secret-key) and [`stripe.live.secret_key`](/reference/options/config-options/stripe-live-secret-key) are what actually charge money. Server only.
 - [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) verifies that a webhook really came from Stripe. There’s only one, so it holds the test secret while you’re testing and the live one afterwards. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
 
@@ -76,7 +76,7 @@ The signing secret appears in both, with a different value: there is one option 
 
 [Kirby docs: multi-environment setup](https://getkirby.com/docs/guide/configuration#multi-environment-setup__deployment-configuration)
 
-Next, learn how to use these keys to create [Stripe](/guide/payment-gateways/stripe-elements) or [PayPal](/guide/payment-gateways/paypal) payments.
+Next, learn how to use these keys to create [Stripe](/guide/payment-gateways/stripe) or [PayPal](/guide/payment-gateways/paypal) payments.
 
 ----
 

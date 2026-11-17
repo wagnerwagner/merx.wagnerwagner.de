@@ -12,7 +12,7 @@ Intro: Learn how to integrate PayPal as a payment service provider.
 
 Text:
 
-PayPal is a redirect gateway. Merx creates an order at PayPal, sends the customer there to approve it, and captures the money when they come back. None of that happens on your site, so unlike [Stripe Elements](/guide/payment-gateways/stripe-elements) there’s no JavaScript to load and no payment form to build.
+PayPal is a redirect gateway. Merx creates an order at PayPal, sends the customer there to approve it, and captures the money when they come back. None of that happens on your site, so unlike [Stripe](/guide/payment-gateways/stripe) there’s no JavaScript to load and no payment form to build.
 
 Set up the client ID and secret as described in [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets). Merx uses the sandbox keys while [`production`](/reference/options/config-options/production) is `false` and the live ones afterwards.
 

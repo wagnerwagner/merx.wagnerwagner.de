@@ -92,7 +92,7 @@ Add the links to the template from [Displaying order](/guide/getting-started/dis
 <?php endif ?>
 ```
 
-With [Stripe](/guide/payment-gateways/stripe-elements) or [PayPal](/guide/payment-gateways/paypal) the order is usually paid when the customer arrives on this page. With an invoice it is paid when you enter the date in *Paid on* in the Panel, so tell the customer with an email from the [`orderPaid`](/reference/options/hooks/order-paid) hook that the downloads are ready.
+With [Stripe](/guide/payment-gateways/stripe) or [PayPal](/guide/payment-gateways/paypal) the order is usually paid when the customer arrives on this page. With an invoice it is paid when you enter the date in *Paid on* in the Panel, so tell the customer with an email from the [`orderPaid`](/reference/options/hooks/order-paid) hook that the downloads are ready.
 
 ## Skip the shipping
 

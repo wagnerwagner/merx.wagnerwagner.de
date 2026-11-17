@@ -67,9 +67,9 @@ Features:
     },
     {
         "content": {
-            "label": "Stripe Elements",
+            "label": "Stripe",
             "headline": "One integration, every payment method",
-            "text": "Cards, Apple Pay, Google Pay, SEPA Direct Debit, iDEAL, Klarna: Stripe Elements shows whichever methods you activate in your Stripe dashboard, matched to the customer’s currency and location. PayPal and invoice are built in, and any other provider is a custom gateway away.",
+            "text": "Cards, Apple Pay, Google Pay, SEPA Direct Debit, iDEAL, Klarna: Stripe’s Payment Element shows whichever methods you activate in your Stripe dashboard, matched to the customer’s currency and location. PayPal and invoice are built in, and any other provider is a custom gateway away.",
             "link": "page://s57o2orbi5yw3ozr",
             "linktext": "",
             "visual": ""

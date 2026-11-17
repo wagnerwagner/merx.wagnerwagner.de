@@ -210,7 +210,7 @@ If you overrode any of them, the [translations reference](/reference/options/tra
 
 ## Payment methods and gateways
 
-Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe-elements`. You can still use all payment methods mentioned and many more with [Stripe Elements](/guide/payment-gateways/stripe-elements).
+Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe`. You can still use all payment methods mentioned and many more with [Stripe](/guide/payment-gateways/stripe).
 
 The field that selects one is `paymentGateway`, not `paymentMethod`.
 

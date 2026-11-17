@@ -21,7 +21,7 @@ what it buys the reader.
 
 Do not reason "this page has 96 words and that one has 628, so this one is
 missing something". Pages are as long as their subject. PayPal is simpler than
-Stripe Elements, so its page is shorter — that is correct, not a gap.
+Stripe, so its page is shorter — that is correct, not a gap.
 
 A page is too thin when it leaves out something a reader needs and cannot find
 elsewhere. Only that.

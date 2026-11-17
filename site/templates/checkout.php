@@ -108,7 +108,7 @@ $license = $cart->findBy('key', 'merx-license');
 					<div class="m-form-checkout__payment-fields"></div>
 				</fieldset>
 
-				<input type="hidden" name="payment-gateway" value="stripe-elements">
+				<input type="hidden" name="payment-gateway" value="stripe">
 				<input type="hidden" name="stripePublishableKey" value="<?= $stripePublishableKey ?>">
 
 				<div class="m-form-checkout__submit">

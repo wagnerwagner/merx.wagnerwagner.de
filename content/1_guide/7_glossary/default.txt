@@ -62,11 +62,11 @@ A Kirby page holding one order: the customer’s data and a copy of their cart a
 
 ## Payment gateway
 
-The connection between Merx and a payment provider: one function that starts a payment and one that completes it. Merx ships `invoice`, `paypal` and `stripe-elements`, and the checkout form picks one per order with its `paymentGateway` field. See [Payment gateways](/guide/payment-gateways).
+The connection between Merx and a payment provider: one function that starts a payment and one that completes it. Merx ships `invoice`, `paypal` and `stripe`, and the checkout form picks one per order with its `paymentGateway` field. See [Payment gateways](/guide/payment-gateways).
 
 ## Payment method
 
-What the customer actually pays with — credit card, SEPA direct debit, iDEAL, PayPal balance, invoice. One gateway can offer many: [Stripe Elements](/guide/payment-gateways/stripe-elements) shows whichever methods you enabled in your Stripe account.
+What the customer actually pays with — credit card, SEPA direct debit, iDEAL, PayPal balance, invoice. One gateway can offer many: [Stripe](/guide/payment-gateways/stripe) shows whichever methods you enabled in your Stripe account.
 
 ## Payment provider
 

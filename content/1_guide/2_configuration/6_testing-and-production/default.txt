@@ -27,7 +27,7 @@ return [
 `production` swaps the test keys for the live ones. Nothing else moves — blueprints, [pricing rules](/guide/configuration/currencies), [tax rules](/guide/configuration/taxes), hooks and templates behave the same either way, so a shop that works in testing works in production.
 
 > [!IMPORTANT]
-> One key is the exception. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe Elements guide](/guide/payment-gateways/stripe-elements) reads it from the same option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
+> One key is the exception. Merx picks the Stripe *secret* key itself, but the *publishable* key goes into your own checkout template, where Merx cannot switch it for you. The [Stripe guide](/guide/payment-gateways/stripe) reads it from the same option — if you hard-coded the test key instead, the live shop will keep talking to Stripe’s test mode.
 
 ## Test before you switch
 

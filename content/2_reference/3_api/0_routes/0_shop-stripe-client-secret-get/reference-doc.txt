@@ -1,4 +1,4 @@
-Guide: /guide/payment-gateways/stripe-elements
+Guide: /guide/payment-gateways/stripe
 
 ----
 

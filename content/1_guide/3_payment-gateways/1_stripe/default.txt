@@ -1,4 +1,4 @@
-Title: Stripe Elements
+Title: Stripe
 
 ----
 
@@ -6,29 +6,29 @@ Headline:
 
 ----
 
-Intro: With Stripe Elements you can offer multiple payment options like *credit card*, *PayPal*, *iDEAL*, *SEPA debit* and many more to your customers.
+Intro: With Stripe you can offer multiple payment options like *credit card*, *PayPal*, *iDEAL*, *SEPA debit* and many more to your customers.
 
 ----
 
 Text:
 
-Stripe Elements provides an interface component (iFrame) that shows several payment options. The payment methods shown to your customer is determined by Stripe based on the currency, the customer’s location and the payment methods you have activated for your Stripe account.
+Your checkout shows Stripe’s [Payment Element](https://docs.stripe.com/payments/payment-element), an interface component (iFrame) with several payment options. The payment methods shown to your customer are determined by Stripe based on the currency, the customer’s location and the payment methods you have activated for your Stripe account.
 
 To see which payment methods will be shown to your customers, you can use [Stripe’s Payment Review](https://dashboard.stripe.com/settings/payment_methods/review).
 
 You can also show only [selected payment methods](#optional-show-only-specific-payment-methods).
 
-For detailed information on Stripe Elements, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
+For detailed information on the Payment Element, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
 
 ## Collect payment details
 
-Learn how to create the Stripe Elements interface component, which is used to collect payment information.
+Learn how to create the Payment Element, which is used to collect payment information.
 
 ### Set up Stripe.js
 
-Add a hidden field called `payment_gateway` with the value `stripe-elements` to the checkout form. This is used by Merx to complete the order.
+Add a hidden field called `payment_gateway` with the value `stripe` to the checkout form. This is used by Merx to complete the order.
 
-Add the publishable key as a data attribute to the form element. The publishable key is required to initialize Stripe Elements.
+Add the publishable key as a data attribute to the form element. The publishable key is required to initialize Stripe.js.
 
 ```php title="/site/templates/checkout.php"
 <?php
@@ -36,7 +36,7 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true ? option
 ?>
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post" data-stripe-publishable-key="<?= $stripePublishableKey ?>">
 	<!-- Other form fields -->
-	<input type="hidden" name="payment_gateway" value="stripe-elements">
+	<input type="hidden" name="payment_gateway" value="stripe">
 	<button>Submit order</button>
 </form>
 ```
@@ -77,7 +77,7 @@ The Payment Element needs a place to live on your payment page. Create an empty 
 
 ### Retrieve the client secret
 
-Stripe Elements needs the client secret of a payment intent to know which payment methods fit the order. The [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint creates the payment intent with the currency and the total of the cart, and returns its client secret. Merx remembers the payment intent in the visitor’s session, so there is nothing to add to the checkout form.
+The Payment Element needs the client secret of a payment intent to know which payment methods fit the order. The [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint creates the payment intent with the currency and the total of the cart, and returns its client secret. Merx remembers the payment intent in the visitor’s session, so there is nothing to add to the checkout form.
 
 ```js title="/assets/js/checkout.js"
 const response = await fetch('/api/shop/stripe-client-secret');
@@ -127,7 +127,7 @@ If you followed [Validate checkout](/guide/getting-started/validate-checkout), r
 
 After completing the payment the customer is redirected to the [order page](/guide/getting-started/displaying-order).
 
-Most payment methods confirm the payment right away, so the `stripe-elements` gateway sets the `datePaid` field of the [`OrderPage`](/reference/classes/order-page) to the current date in the background, and [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) returns `true`.
+Most payment methods confirm the payment right away, so the `stripe` gateway sets the `datePaid` field of the [`OrderPage`](/reference/classes/order-page) to the current date in the background, and [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) returns `true`.
 
 For some payment methods like *SEPA Direct Debit*, it can take up to 6 business days until the payment is confirmed. To ensure you don’t fulfill an order before payment clears, it’s recommended to use [webhooks](/guide/configuration/stripe-webhooks). You can set them up to automatically notify you, when payments are confirmed. They also complete the order of a customer who paid but never returned to your shop.
 

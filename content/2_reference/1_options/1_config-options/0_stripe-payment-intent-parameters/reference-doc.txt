@@ -2,4 +2,4 @@ Shortdescription: Passed to Stripe when the payment intent is created, for examp
 
 ----
 
-Guide: /guide/payment-gateways/stripe-elements#optional-show-only-specific-payment-methods
+Guide: /guide/payment-gateways/stripe#optional-show-only-specific-payment-methods
