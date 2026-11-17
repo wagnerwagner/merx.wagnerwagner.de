@@ -41,9 +41,9 @@ Features:
     },
     {
         "content": {
-            "label": "Shop API",
+            "label": "Integrated API",
             "headline": "Personal cart, cacheable pages",
-            "text": "Your product pages look the same for every visitor; the cart doesn’t. Merx 2 serves cart and checkout from a small JSON API under `/api/shop`, so the rest of your site can stay static and sit behind a CDN. Errors come with a translation key, and responses can be trimmed to the fields you need. Rather render the cart in PHP? Every operation works there too.",
+            "text": "Merx 2 includes a powerful, built-in, extensible, REST-like API. You can serve cart and checkout from the API under `/api/shop`, so the rest of your site can stay static and sit behind a CDN. Errors come with a translation key, and responses can be trimmed to the fields you need. If you prefer PHP, you can also use the extended and well-documented PHP classes and methods.",
             "link": "page://qflialnrpsfyeazk",
             "linktext": "",
             "visual": "```js title=\"script.js\"\nawait fetch('/api/shop/cart', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ page: 'products/shoes', quantity: 2 }),\n});\n\n// The cart badge in your header only needs the quantity\nconst response = await fetch('/api/shop/cart?view=compact');\nconst { data } = await response.json();\n\nconsole.log(data.quantity); // 2\n```"
@@ -133,9 +133,9 @@ Features:
     {
         "content": {
             "label": "Stock",
-						"headline": "Never sell what you don’t have",
-						"text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock.",
-						"link": "page://Mu3R1h2iEbZfWwCQ",
+            "headline": "Never sell what you don’t have",
+            "text": "Give a product a `stock` field and Merx does the counting. The cart refuses more than there is, the checkout checks again before the payment starts, and every order lowers the stock.",
+            "link": "page://Mu3R1h2iEbZfWwCQ",
             "linktext": "",
             "visual": ""
         },
