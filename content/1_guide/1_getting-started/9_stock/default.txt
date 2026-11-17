@@ -60,9 +60,6 @@ Changes an editor has not published yet are a copy of the whole page, stock incl
 
 Two customers who buy the last item at the same moment can both get through, because both pass the check before either order is written. The stock goes to −1 and Merx logs it, rather than refusing an order that is already paid.
 
-> [!CAUTION]
-> The last check only works while the payment has not been captured yet. Merx asks Stripe to capture manually, through [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters). If you change `capture_method`, the money is taken before that check, and a product that sold out in the meantime leaves a payment without an order.
-
 ## Your own stock source
 
 When the stock lives in an ERP or a warehouse system, override [`stock()`](/reference/classes/product-page/stock) and [`reduceStock()`](/reference/classes/product-page/reduce-stock) in your own [product model](/guide/getting-started/adding-products). Merx asks `stock()` for every check and calls `reduceStock()` once per product of a new order.

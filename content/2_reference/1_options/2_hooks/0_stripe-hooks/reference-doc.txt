@@ -2,4 +2,4 @@ Guide: /guide/configuration/stripe-webhooks
 
 ----
 
-Shortdescription: Runs for every Stripe webhook event Merx does not handle itself. Throwing answers Stripe with an error, and Stripe sends the event again later.
+Shortdescription: Runs for every Stripe webhook event. Throwing answers Stripe with an error, and Stripe sends the event again later.
