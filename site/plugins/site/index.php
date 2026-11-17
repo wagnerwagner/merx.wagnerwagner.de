@@ -222,16 +222,6 @@ App::plugin('wagnerwagner/site', [
 		],
 		[
 			/**
-			 * Stock moved from the cookbook to the guide when it became
-			 * part of Merx
-			 */
-			'pattern' => 'cookbook/stock-management(\.md)?',
-			'action' => function (string $extension = '') {
-				return go('guide/getting-started/stock' . $extension, 301);
-			},
-		],
-		[
-			/**
 			 * Markdown representation of a documentation page, e.g.
 			 * /guide/getting-started/installation.md
 			 */
