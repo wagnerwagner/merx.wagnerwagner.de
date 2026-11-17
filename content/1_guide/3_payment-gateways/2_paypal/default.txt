@@ -87,12 +87,12 @@ return [
 ];
 ```
 
-Shipping is listed as an item like the products, not as PayPal’s own shipping amount. Discounts go into PayPal’s `discount` amount.
+The item list only shows products. Shipping goes into PayPal’s `shipping` amount. Discounts are not listed: whatever the products and shipping add up to beyond the total goes into PayPal’s `discount` amount. Taxes are part of the prices and not shown separately. A cart PayPal cannot list, e.g. with a quantity of 1.5, is sent as its total alone.
 
 What the option returns replaces Merx’ own purchase unit rather than adding to it — PayPal charges the sum of all units, so returning a second complete one would have the customer approve the total twice. Merx only adds the `custom_id` that binds the order to the payment.
 
 > [!CAUTION]
-> PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus the discount has to match the amount exactly.
+> PayPal adds the items up itself and rejects an order whose numbers do not add up. If you build the units by hand, the item total plus shipping minus the discount has to match the amount exactly.
 
 ----
 
