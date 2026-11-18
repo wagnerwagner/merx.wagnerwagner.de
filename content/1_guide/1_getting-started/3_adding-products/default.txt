@@ -35,7 +35,7 @@ tabs:
 ```
 
 > [!NOTE]
-> The product page blueprint is registered as `pages/product` and `wagnerwagner.merx.pages/product`. Extend the namespaced one to avoid infinite loops.
+> The product page blueprint is registered as [`pages/product`](/reference/blueprints/pages/product) and [`wagnerwagner.merx.pages/product`](/reference/blueprints/pages/product). Extend the namespaced one to avoid infinite loops.
 
 ## Build the template
 
