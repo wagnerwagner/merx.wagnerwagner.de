@@ -125,6 +125,8 @@ checkoutForm.addEventListener('submit', async (event) => {
     body: new FormData(checkoutForm),
     headers: {
       'Accept': 'application/json',
+      // Error messages in the language of the page
+      'X-Language': document.documentElement.lang,
     }
   });
   console.log(response);
@@ -186,6 +188,7 @@ checkoutForm.addEventListener('submit', async (event) => {
     body: formData,
     headers: {
       'Accept': 'application/json',
+      'X-Language': document.documentElement.lang,
     },
   });
 

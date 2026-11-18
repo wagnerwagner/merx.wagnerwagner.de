@@ -102,7 +102,7 @@ const response = await fetch('/api/shop/cart', {
 });
 ```
 
-Without it, Merx answers in the default language of your site, and in English on a site without languages.
+Without it, Merx answers in the default language of your site. A site without languages has none, so the [`locale`](https://getkirby.com/docs/reference/system/options/locale) option decides: `de_DE.utf-8` gives German messages. It is English when Kirby has no translation for the locale. Strings you override for such a site go under that language’s code, e.g. `de`.
 
 ----
 

@@ -95,7 +95,7 @@ To add your own fields to a model, see [Custom models](/guide/api/custom-models)
 
 ## Language
 
-Merx sets Kirby’s translation for the request from either a `language` query parameter or an `X-Language` request header. Without one, error messages and formatted prices come back in the default language.
+Merx sets Kirby’s translation for the request from either a `language` query parameter or an `X-Language` request header. Without one, error messages and formatted prices come back in the default language, and on a site without languages in the language of its [`locale`](https://getkirby.com/docs/reference/system/options/locale) option.
 
 ```js title="script.js"
 await fetch('/api/shop/cart', {
