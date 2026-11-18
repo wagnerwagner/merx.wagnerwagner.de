@@ -2,7 +2,7 @@ Title: Build the checkout form from the blueprint
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -64,18 +64,15 @@ The result is keyed by field name, and every entry carries what an input needs: 
 ```php title="/site/snippets/fields/text.php"
 <?php use Kirby\Toolkit\Html ?>
 
-<div>
-  <label for="<?= $field['name'] ?>">
-    <?= $field['label'] ?>
-    <?php if ($field['required'] ?? false): ?>
-      <abbr aria-hidden="true" title="<?= t('field.required') ?>">*</abbr>
-    <?php endif ?>
-  </label>
+<label>
+  <?= $field['label'] ?>
+  <?php if ($field['required'] ?? false): ?>
+    <abbr aria-hidden="true" title="<?= t('field.required') ?>">*</abbr>
+  <?php endif ?>
   <input
     <?= Html::attr([
       'type' => $field['type'],
       'name' => $field['name'],
-      'id' => $field['name'],
       'required' => $field['required'] ?? null,
       'placeholder' => $field['placeholder'] ?? null,
       'value' => $field['default'] ?? null,
@@ -87,14 +84,16 @@ The result is keyed by field name, and every entry carries what an input needs: 
     ]) ?>
   >
   <?php if (isset($field['help'])): ?>
-    <div><?= $field['help'] ?></div>
+    <small><?= $field['help'] ?></small>
   <?php endif ?>
-</div>
+</label>
 ```
+
+The input sits inside its label, as in [Validate checkout](/guide/getting-started/validate-checkout). The script from there looks for the label around an input to show its errors, so keep that markup in snippets of your own.
 
 Copy it to `fields/select`, `fields/checkbox` and so on wherever an input needs different markup.
 
-> [!IMPORTANT]
+> [!NOTE]
 > Entries come with `disabled` set, because the customer has no permission to edit pages in the Panel. Do not pass it on to the input. A browser does not submit a disabled input, and the order would fail validation.
 
 Rules under `validate` are checked on the server and are not part of the entry. If the browser should check a length as well, give the field its own `minlength` or `maxlength`, which the snippet passes on.
