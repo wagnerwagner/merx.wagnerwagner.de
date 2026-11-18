@@ -125,6 +125,11 @@ section that should be navigable needs `##`.
 The dev site is at <https://merx.wagnerwagner.test>. Every documentation page
 is also served as Markdown by appending `.md`, and `llms.txt` indexes them all.
 
+The dev site answers every request with a 500 while the plugin has its dev
+dependencies installed: `composer install` in `site/plugins/merx`, which its
+tests need, puts a second Kirby into the plugin’s `vendor/`. Run
+`composer install --no-dev` there before you check pages.
+
 - Every page you touched still returns 200, and its `.md` renders
 - Every internal link resolves — extract them and check, do not trust the eye
 - PHP samples pass `php -l`: run `composer check-examples`, which checks every
