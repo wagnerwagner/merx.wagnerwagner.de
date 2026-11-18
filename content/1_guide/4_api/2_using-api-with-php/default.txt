@@ -64,7 +64,8 @@ return [
           kirby()->session()->set('cartError', $exception->getMessage());
         }
 
-        go($request->get('redirect') ?? '/', 303);
+        // A page of this site, never a URL the form could point anywhere
+        go(page((string)$request->get('redirect'))?->url() ?? '/', 303);
       },
     ],
   ],
@@ -81,7 +82,7 @@ The form posts to that route instead of the API endpoint and tells it where to g
 <form action="<?= url('cart/add') ?>" method="post">
   <input type="hidden" name="csrf" value="<?= csrf() ?>">
   <input type="hidden" name="page" value="<?= $page->uuid() ?>">
-  <input type="hidden" name="redirect" value="<?= $page->url() ?>">
+  <input type="hidden" name="redirect" value="<?= $page->uuid() ?>">
   <input type="number" name="quantity" min="1" value="1">
   <button>Add to cart</button>
 </form>

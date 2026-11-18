@@ -1,1 +1,0 @@
-Shortdescription: Tab for shop-wide settings on the site blueprint.

@@ -14,7 +14,7 @@ Text:
 
 ## In the session
 
-The cart keeps little of each item: its `key`, the UUID of its page, the `quantity`, your `data` and the `type`. Title and price are read from the page with every request, so they follow the Panel and the visitor’s language. An item without a page, such as shipping, has nothing to read them from and keeps its own title and price.
+The cart keeps little of each item: its `key`, the UUID of its page, the `quantity`, the `quantifier`, your `data` and the `type`. Title and price are read from the page with every request, so they follow the Panel and the visitor’s language. An item without a page, such as shipping, has nothing to read them from and keeps its own title and price.
 
 Next to the cart, the session only holds what a checkout needs for a moment: the id of the order it started, the id of a Stripe payment, and the [error](/reference/classes/merx/error) of a payment that failed. No customer data is stored there.
 
@@ -27,7 +27,7 @@ When the checkout is submitted, Merx writes the order as a draft page, and publi
 - **The language** the customer ordered in, on a site with several.
 - **What Merx adds itself**: the order number, the dates it was created and paid, and a short record of the payment. A customer [cannot set these](/guide/security).
 
-A draft of a checkout that was never completed is deleted after a week.
+A draft of a checkout that was never completed is deleted by the next checkout once it is a week old.
 
 ----
 

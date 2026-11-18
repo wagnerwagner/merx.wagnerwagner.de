@@ -26,7 +26,7 @@ Go to [dashboard.stripe.com/test/webhooks/create?events=payment_intent.succeeded
 
 Enter the Endpoint URL: [`https://[your-domain]/api/shop/hooks/stripe`](/reference/api/routes/shop-hooks-stripe-post).
 
-If your payment intents use `capture_method: manual`, add the `payment_intent.amount_capturable_updated` event as well. Such a payment is authorized, not succeeded, when the customer has paid.
+Add the `payment_intent.amount_capturable_updated` event as well. Merx captures a payment itself, when the customer returns (see [`stripe.paymentIntentParameters`](/reference/options/config-options/stripe-payment-intent-parameters)). Until then it is authorized, not succeeded, so for a customer who doesn’t return this is the only event Stripe sends.
 
 Copy the created Signing secret. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 

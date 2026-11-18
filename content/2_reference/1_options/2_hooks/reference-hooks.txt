@@ -18,4 +18,4 @@ Shortdescription: The points in the cart and checkout where Merx lets you run yo
 
 ----
 
-Description: A `:before` hook may throw to refuse what is about to happen: a Kirby exception reaches the customer with its message and status code. An `:after` hook runs when the work is done, so throwing there reports an error and undoes nothing. Three hooks hand a value back: [`cart.add:before`](/reference/options/hooks/cart-add-before), [`createOrder:after`]((/reference/options/hooks/createOrder-after)) and [`orderPaid`](/reference/options/hooks/order-paid).
+Description: A `:before` hook may throw to refuse what is about to happen: a Kirby exception reaches the customer with its message and status code. An `:after` hook runs when the work is done, so throwing there reports an error and undoes nothing. Three hooks hand a value back: [`cart.add:before`](/reference/options/hooks/cart-add-before), [`createOrder:after`](/reference/options/hooks/create-order-after) and [`orderPaid`](/reference/options/hooks/order-paid).

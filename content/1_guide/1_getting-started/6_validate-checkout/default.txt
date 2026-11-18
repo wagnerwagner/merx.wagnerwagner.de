@@ -41,6 +41,8 @@ fields:
 # …
 ```
 
+Merx stores the fields of your order blueprint and drops whatever else the form sends. A field your shop fills in itself, e.g. an invoice number, is part of the blueprint too, so set it in a hook such as [`createOrder:after`](/reference/options/hooks/create-order-after) instead of keeping what the client sent.
+
 ## Update checkout template
 
 Add the new fields to the checkout template.

@@ -103,8 +103,11 @@ kirby()->session()->set(Merx::$errorSessionKey, [
 
 ```php title="/site/config/config.php"
 <?php
+
+use Wagnerwagner\Merx\Merx;
+
 if (!function_exists('formatPrice')) {
-  function formatPrice(?float $price) {
+  function formatPrice(float $price): string {
     return Merx::formatCurrency($price, 'EUR');
   }
 }
@@ -188,7 +191,7 @@ Where you extend one of them, change the name and move it from `sections:` to `f
 > [!IMPORTANT]
 > If you replaced one of them with a file of your own, such as `/site/blueprints/sections/orders.yml`, move it to `/site/blueprints/fields/` and turn it into a field: `type: fields` becomes `type: group`, `type: pages` becomes `type: pagelist` and `headline` becomes `label`. A file left in `sections/` is ignored without an error.
 
-[`layouts/order`](/reference/blueprints/layouts/order) also has a Personal data tab now. It shows [`fields/personal-data`](/reference/blueprints/fields/personal-data), and that is where your customer fields go — see [Validate checkout](/guide/getting-started/validate-checkout). Kirby’s [Sections become fields](https://getkirby.com/releases/6/blueprints#sections-become-fields) covers your other blueprints.
+[`layouts/order`](/reference/blueprints/layouts/order) also has a Personal data tab now. It shows [`fields/personal-data`](/reference/blueprints/fields/personal-data), and that is where your customer fields go — see [Validate checkout](/guide/getting-started/validate-checkout). Merx stores only the fields of the order blueprint: a field your checkout form sends that your blueprint lacks is dropped. Kirby’s [Sections become fields](https://getkirby.com/releases/6/blueprints#sections-become-fields) covers your other blueprints.
 
 ## The success page
 
@@ -213,6 +216,8 @@ If you overrode any of them, the [translations reference](/reference/options/tra
 Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe`. You can still use all payment methods mentioned and many more with [Stripe](/guide/payment-gateways/stripe).
 
 The field that selects one is `paymentGateway`, not `paymentMethod`.
+
+`invoice` is no longer on by default. Switch it on with `'invoice' => true` in the [`gateways`](/reference/options/config-options/gateways) option, see [Invoice](/guide/payment-gateways/invoice).
 
 ----
 

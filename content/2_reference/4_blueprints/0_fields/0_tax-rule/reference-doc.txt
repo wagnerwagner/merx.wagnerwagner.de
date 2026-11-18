@@ -1,0 +1,1 @@
+Shortdescription: Field to pick the tax rule of a product from the `taxRules` option. Hidden while there is only one rule.

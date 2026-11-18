@@ -19,7 +19,7 @@ Currencies are defined in the [`pricingRules`](/reference/options/config-options
 | Name | Type | Default | Description |
 | -- | -- | -- | -- |
 | `name` | `string|function` | Key of the rule | |
-| `currency` | `string` | `'EUR'` | Three-letter ISO currency code | 
+| `currency` | `string` | `'EUR'` in the `default` rule, none in others | Three-letter ISO currency code | 
 | `rule` | `function` | `true` | Function returning true or false. You can access the [`$kirby`](https://getkirby.com/docs/reference/objects/cms/app) object by loading it as an argument. | 
 | `taxIncluded` | `bool` | `true` | Whether price is including tax or not |
 

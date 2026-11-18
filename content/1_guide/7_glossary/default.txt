@@ -50,7 +50,7 @@ One line in a cart. A [`ListItem`](/reference/classes/list-item) has a `key`, a 
 
 ## Order draft
 
-An order that is not completed yet. Merx saves it as a draft page below the orders page when the checkout is submitted, and publishes it once the payment is completed. A draft that is never completed is deleted after a week.
+An order that is not completed yet. Merx saves it as a draft page below the orders page when the checkout is submitted, and publishes it once the payment is completed. A draft that is never completed is deleted by the next checkout once it is a week old.
 
 ## Order number
 
@@ -62,7 +62,7 @@ A Kirby page holding one order: the customer’s data and a copy of their cart a
 
 ## Payment gateway
 
-The connection between Merx and a payment provider: one function that starts a payment and one that completes it. Merx ships `invoice`, `paypal` and `stripe`, and the checkout form picks one per order with its `paymentGateway` field. See [Payment gateways](/guide/payment-gateways).
+The connection between Merx and a payment provider: one function that starts a payment and one that completes it. Merx ships `paypal` and `stripe`. A gateway set to `true`, such as [`invoice`](/guide/payment-gateways/invoice), takes no payment. The checkout form picks one per order with its `paymentGateway` field. See [Payment gateways](/guide/payment-gateways).
 
 ## Payment method
 

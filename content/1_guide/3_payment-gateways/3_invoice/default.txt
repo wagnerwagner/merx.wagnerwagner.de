@@ -12,22 +12,22 @@ Intro: The invoice gateway takes no payment. The order is written right away and
 
 Text:
 
-There is nothing to set up: no keys and no provider. Select the gateway in your checkout form.
-
-```html title="/site/templates/checkout.php"
-<input type="hidden" name="payment_gateway" value="invoice">
-```
-
-It fits everything Merx does not collect itself, such as bank transfer or cash on delivery. `invoice` is only the name Merx ships: every gateway set to `true` behaves the same. Add one to give a payment a name of its own.
+There are no keys and no provider, but Merx doesn’t offer it until you switch it on: anybody can order with it without paying, and such an order lowers your stock and gets your confirmation like any other.
 
 ```php title="/site/config/config.php"
 <?php
 
 return [
   'wagnerwagner.merx.gateways' => [
-    'prepayment' => true,
+    'invoice' => true,
   ],
 ];
+```
+
+Then select the gateway in your checkout form.
+
+```html title="/site/templates/checkout.php"
+<input type="hidden" name="payment_gateway" value="invoice">
 ```
 
 ## Mark an order as paid

@@ -1,1 +1,1 @@
-Shortdescription: Whether Merx writes errors to Kirby’s log directory.
+Shortdescription: Whether Merx writes errors and views of order pages to Kirby’s log directory.

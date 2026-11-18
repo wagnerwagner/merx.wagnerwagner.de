@@ -56,7 +56,7 @@ Whenever an order can’t be completed, the customer is back on your checkout pa
 <?php endif ?>
 ```
 
-Merx also refuses a PayPal order that has been captured once already, so a customer who reloads the return URL cannot pay twice or complete somebody else’s order.
+A customer who reloads the return URL gets the order they already have and pays nothing twice. A PayPal order that was captured for another order is refused.
 
 ## Change what the customer sees at PayPal
 
@@ -87,7 +87,7 @@ return [
 ];
 ```
 
-The item list only shows products. Shipping goes into PayPal’s `shipping` amount. Discounts are not listed: whatever the products and shipping add up to beyond the total goes into PayPal’s `discount` amount. Taxes are part of the prices and not shown separately. A cart PayPal cannot list, e.g. with a quantity of 1.5, is sent as its total alone.
+The item list shows every line with a price above zero, except shipping, which goes into PayPal’s `shipping` amount. Discounts are not listed: whatever the products and shipping add up to beyond the total goes into PayPal’s `discount` amount. Taxes are part of the prices and not shown separately. A cart PayPal cannot list, e.g. with a quantity of 1.5, is sent as its total alone.
 
 What the option returns replaces Merx’ own purchase unit rather than adding to it — PayPal charges the sum of all units, so returning a second complete one would have the customer approve the total twice. Merx only adds the `custom_id` that binds the order to the payment.
 

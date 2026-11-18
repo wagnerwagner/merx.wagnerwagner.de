@@ -19,7 +19,17 @@ Merx comes with a [checkout blueprint](/reference/blueprints/pages/checkout). Cr
 ## Create checkout form
 
 Add form fields for the data you need to collect from your customer. In this example we just collect the email address. This would be the place to add fields for name and shipping address.
-As the payment gateway we’ll use *invoice* for the moment.
+As the payment gateway we’ll use *invoice* for the moment. It takes no payment, so Merx only offers it once you switch it on:
+
+```php title="/site/config/config.php"
+<?php
+
+return [
+  'wagnerwagner.merx.gateways' => [
+    'invoice' => true,
+  ],
+];
+```
 
 ```php title="/site/templates/checkout.php"
 …

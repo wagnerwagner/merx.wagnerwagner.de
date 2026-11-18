@@ -97,7 +97,8 @@ function updateCartExtras(Cart $cart): void
     $totals = [];
     foreach ($cart->filterByType('product') as $item) {
       $rate = (string)$item->price?->tax?->rate;
-      $totals[$rate] = ($totals[$rate] ?? 0) + $item->total()->toFloat('price');
+      // `null` for a product without a price, which can’t be ordered anyway
+      $totals[$rate] = ($totals[$rate] ?? 0) + ($item->total()?->toFloat('price') ?? 0);
     }
 
     foreach ($totals as $rate => $total) {

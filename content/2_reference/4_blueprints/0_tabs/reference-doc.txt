@@ -1,1 +1,0 @@
-Shortdescription: Blueprint tabs for orders and shop settings.

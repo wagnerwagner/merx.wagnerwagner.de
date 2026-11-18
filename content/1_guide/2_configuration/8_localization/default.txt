@@ -17,14 +17,14 @@ Translating a shop means replacing its words. Localizing it means everything els
 Merx keeps those apart, and they’re set in three different places:
 
 - **Messages** — error messages and Panel labels, from Merx’ [translation strings](/reference/options/translations). This is the translation part.
-- **Number formatting** — how `1045.12` becomes `€ 1,045.12` or `1.045,12 €`, from the locale of the language.
+- **Number formatting** — how `1045.12` becomes `€1,045.12` or `1.045,12 €`, from the locale of the language.
 - **Currency and tax** — which currency a price is in and which rate applies, from the [pricing rules](/guide/configuration/currencies) and [tax rules](/guide/configuration/taxes). Both usually follow the country rather than the language, so they have guides of their own.
 
 ## Messages
 
 Merx ships `en` and `de`. Every string is listed in the [translations reference](/reference/options/translations), together with what it says in both languages.
 
-The `error.merx.*` strings are the ones your customers see: they’re the messages behind the errors the [API](/guide/api/concept) returns when an item can’t be added or the checkout form doesn’t validate. The `field.*`, `page.*`, `section.*` and `tab.*` strings only appear in the Panel.
+The `error.merx.*` strings are the ones your customers see: they’re the messages behind the errors the [API](/guide/api/concept) returns when an item can’t be added or the checkout form doesn’t validate.
 
 ### Overriding a string
 

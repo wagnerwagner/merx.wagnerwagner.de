@@ -44,7 +44,7 @@ await fetch('https://shop.example.com/api/shop/cart', {
 
 ## Response format
 
-Every route answers with Kirby’s API envelope. The cart is in `data`.
+The cart routes answer with Kirby’s API envelope, with the cart in `data`. The [checkout](/reference/api/routes/shop-checkout-post) answers with a redirect instead.
 
 ```json
 {

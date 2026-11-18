@@ -77,7 +77,7 @@ The Payment Element needs a place to live on your payment page. Create an empty 
 
 ### Retrieve the client secret
 
-The Payment Element needs the client secret of a payment intent to know which payment methods fit the order. The [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint creates the payment intent with the currency and the total of the cart, and returns its client secret. Merx remembers the payment intent in the visitor’s session, so there is nothing to add to the checkout form.
+The Payment Element needs the client secret of a payment intent to know which payment methods fit the order. The [`/shop/stripe-client-secret`](/reference/api/routes/shop-stripe-client-secret-get) API endpoint creates the payment intent with the currency and the total of the cart, and returns its client secret. Merx remembers the payment intent in the visitor’s session, so there is nothing to add to the checkout form. Asked again, the endpoint updates that payment intent to the current total instead of creating another one, as long as nothing was paid with it.
 
 ```js title="/assets/js/checkout.js"
 const response = await fetch('/api/shop/stripe-client-secret');
@@ -100,7 +100,7 @@ paymentElement.mount('#payment-element');
 See [Elements Appearance API | Stripe Documentation](https://docs.stripe.com/elements/appearance-api) to learn how to change the look of the elements.
 
 > [!CAUTION]
-> The payment intent holds the cart total of the moment it was created. If the cart changes afterwards, fetch a new client secret and create the elements again — reloading the checkout page does both. Merx refuses a payment that doesn’t match the cart with [`error.merx.amountMismatch`](/reference/options/translations/error-merx-amountmismatch) rather than shipping goods nobody paid for.
+> The payment intent holds the cart total of the moment the client secret was fetched. If the cart changes afterwards, fetch the client secret again and create the elements again — reloading the checkout page does both. Merx refuses a payment that doesn’t match the cart with [`error.merx.amountMismatch`](/reference/options/translations/error-merx-amountmismatch) rather than shipping goods nobody paid for.
 
 ## Submit the payment to Stripe
 

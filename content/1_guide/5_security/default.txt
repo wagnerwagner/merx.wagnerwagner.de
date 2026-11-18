@@ -32,7 +32,7 @@ options:
 ```
 
 Only add roles with Panel access. A role for customer accounts would get every order, too.
-- **No leftovers.** An [order draft](/guide/glossary) of a checkout that was never completed is deleted after a week.
+- **No leftovers.** An [order draft](/guide/glossary) of a checkout that was never completed is deleted by the next checkout once it is a week old.
 
 > [!WARNING]
 > Most of this lives in the order blueprint and in the `OrderPage` model. Don’t replace them, extend them: start your own `/site/blueprints/pages/order.yml` with [`extends: wagnerwagner.merx.pages/order`](/reference/blueprints/pages/order), and let your own `/site/models/order.php` extend [`OrderPage`](/reference/classes/order-page). A blueprint written from scratch has none of the `options` that keep an order from being deleted or renamed in the Panel.

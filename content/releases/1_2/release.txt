@@ -17,7 +17,7 @@ Features:
         "content": {
             "label": "Pricing rules",
             "headline": "Every price in the right currency",
-            "text": "A pricing rule decides which price a visitor sees — by language, by domain, by date, or by anything else you can write in PHP. Each rule brings its own currency and says whether its prices include tax. In the Panel, editors enter one price per rule.",
+            "text": "A pricing rule decides which price a visitor sees — by language, by domain, by date, or by anything else you can write in PHP. Each rule brings its own currency and says whether its prices include tax. Editors enter one price per rule via the Panel.",
             "link": "page://emf7bwlzrpdf8uru",
             "linktext": "",
             "visual": "(image: file://W6bguniihfGyMfGv)"
@@ -43,7 +43,7 @@ Features:
         "content": {
             "label": "Integrated API",
             "headline": "Personal cart, cacheable pages",
-            "text": "Merx 2 includes a powerful, built-in, extensible, REST-like API. You can serve cart and checkout from the API under `/api/shop`, so the rest of your site can stay static and sit behind a CDN. Errors come with a translation key, and responses can be trimmed to the fields you need. If you prefer PHP, you can also use the extended and well-documented PHP classes and methods.",
+            "text": "Merx 2 includes a powerful, built-in, extensible, REST-like API built on top of Kirby’s powerful and extensible API. You can serve cart and checkout from the API under `/api/shop`, so the rest of your site can stay static and sit behind a CDN. Error messages come in the user’s language, and responses can be trimmed to the fields you need. And if you need to, you can even extend the API with your own models and routes.",
             "link": "page://qflialnrpsfyeazk",
             "linktext": "",
             "visual": "```js title=\"script.js\"\nawait fetch('/api/shop/cart', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ page: 'products/shoes', quantity: 2 }),\n});\n\n// The cart badge in your header only needs the quantity\nconst response = await fetch('/api/shop/cart?view=compact');\nconst { data } = await response.json();\n\nconsole.log(data.quantity); // 2\n```"
@@ -56,7 +56,7 @@ Features:
         "content": {
             "label": "PHP API",
             "headline": "A class for every part of the shop",
-            "text": "Everything the JSON API does, PHP does too — with typed classes and a reference page for every method. [`Cart`](/reference/classes/cart), [`ProductList`](/reference/classes/product-list), [`ListItems`](/reference/classes/list-items) and [`ListItem`](/reference/classes/list-item) hold what’s in the cart. [`Price`](/reference/classes/price) and [`Tax`](/reference/classes/tax) know their net and gross amounts, [`PricingRule`](/reference/classes/pricing-rule) and [`TaxRule`](/reference/classes/tax-rule) decide which ones apply, collected in [`PricingRules`](/reference/classes/pricing-rules) and [`TaxRules`](/reference/classes/tax-rules). [`ProductPage`](/reference/classes/product-page) and [`OrderPage`](/reference/classes/order-page) are the models your pages extend, [`PaymentDetails`](/reference/classes/payment-details) keeps the record of every payment, [`Logger`](/reference/classes/logger) writes the log, and [`Merx`](/reference/classes/merx) ties it all together.",
+            "text": "Merx's strength lies in its PHP classes, which form the stable foundation for everything. What was represented as a string or array in Merx 1 now has its own class. [`Cart`](/reference/classes/cart), [`ProductList`](/reference/classes/product-list), [`ListItems`](/reference/classes/list-items) and [`ListItem`](/reference/classes/list-item) hold what’s in the cart. [`Price`](/reference/classes/price) and [`Tax`](/reference/classes/tax) know their net and gross amounts, [`PricingRule`](/reference/classes/pricing-rule) and [`TaxRule`](/reference/classes/tax-rule) decide which ones apply. [`ProductPage`](/reference/classes/product-page) and [`OrderPage`](/reference/classes/order-page) are the models your pages extend, [`PaymentDetails`](/reference/classes/payment-details) keeps the record of every payment, [`Logger`](/reference/classes/logger) writes the log, and [`Merx`](/reference/classes/merx) ties it all together.",
             "link": "page://Va98nrP5Frux3IIV",
             "linktext": "",
             "visual": "```php title=\"/site/templates/cart.php\"\n<?php\n\n$cart = cart();\n$cart->add(['page' => 'products/socks', 'quantity' => 2]);\n\nforeach ($cart as $item) {\n  echo $item->title;         // Socks\n  echo $item->price;         // €10.71\n}\n\n$total = $cart->total();\necho $total->priceNet;       // 18\necho $total->tax->rate();    // 19%\necho $total;                 // €21.42\n```"
@@ -69,7 +69,7 @@ Features:
         "content": {
             "label": "Stripe",
             "headline": "One integration, every payment method",
-            "text": "Cards, Apple Pay, Google Pay, SEPA Direct Debit, iDEAL, Klarna: Stripe’s Payment Element shows whichever methods you activate in your Stripe dashboard, matched to the customer’s currency and location. PayPal and invoice are built in, and any other provider is a custom gateway away.",
+            "text": "Cards, Apple Pay, Google Pay, SEPA Direct Debit, iDEAL, Klarna: Stripe’s Payment Element shows whichever methods you activate in your Stripe dashboard, matched to the customer’s currency and location. PayPal is built in, invoice is one line of config, and any other provider is a custom gateway away.",
             "link": "page://s57o2orbi5yw3ozr",
             "linktext": "",
             "visual": ""
@@ -82,8 +82,8 @@ Features:
         "content": {
             "label": "In-app browsers",
             "headline": "Payments that find their way back",
-            "text": "A customer taps your link in Instagram, pays with PayPal and ends up in Safari. Merx 2 carries the checkout across browsers, so the order is completed wherever the customer lands. And if they never come back, Stripe’s webhook completes it.",
-            "link": "",
+            "text": "A customer taps your link in Instagram, pays with PayPal and ends up in Safari. Merx 2 carries the checkout across browsers, so the order is completed wherever the customer lands. And if they never come back, Stripe’s webhook can complete it.",
+            "link": "page://atpnza3rd0njcubi",
             "linktext": "",
             "visual": ""
         },
@@ -146,8 +146,8 @@ Features:
     {
         "content": {
             "label": "Security",
-            "headline": "Safe by default",
-            "text": "Merx 2 checks that a payment covers the order before it writes one, and a customer cannot mark their own order as paid. Order pages get a random URL, stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
+            "headline": "Improved guardrails",
+            "text": "Merx 2 checks that a payment covers the order before it writes one. Order pages get a random URL, stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
             "link": "page://GHz8OM3Cq4xMWxxT",
             "linktext": "",
             "visual": ""
@@ -160,7 +160,7 @@ Features:
         "content": {
             "label": "Documentation",
             "headline": "Docs for you and your coding agent",
-            "text": "The reference is generated from the source code, so it lists everything and never falls behind a release. Every page is also available as Markdown, and (link: llms.txt text: llms.txt) hands coding agents exactly the pages they need.",
+            "text": "The reference is generated from the source code, so it lists everything and never falls behind a release. Every page is also available as Markdown, and [llms.txt](/llms.txt) hands coding agents exactly the pages they need.",
             "link": "page://c9glwjquasrcsq4n",
             "linktext": "",
             "visual": ""
