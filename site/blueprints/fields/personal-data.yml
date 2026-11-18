@@ -10,6 +10,10 @@ fields:
     required: true
     translate: false
     disabled: true
+  name:
+    type: text
+    translate: false
+    disabled: true
   street:
     type: text
     required: true
@@ -24,6 +28,10 @@ fields:
   city:
     type: text
     required: true
+    translate: false
+    disabled: true
+  state:
+    type: text
     translate: false
     disabled: true
   country:
