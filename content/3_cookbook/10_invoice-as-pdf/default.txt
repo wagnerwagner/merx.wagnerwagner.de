@@ -20,7 +20,7 @@ Download `pdfkit.standalone.js` from the [PDFKit releases](https://github.com/fo
 
 ## Collect the invoice data
 
-The snippet reads everything from the [order](/guide/getting-started/displaying-order). PHP formats the prices, so the script only has to print them.
+The snippet reads everything from the [order](/guide/getting-started/displaying-order). PHP formats the prices, so the script only has to print them. Fill `customer` from the fields of your checkout.
 
 ```php title="/site/snippets/invoice.php"
 <?php

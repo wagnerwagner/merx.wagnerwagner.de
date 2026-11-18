@@ -56,7 +56,7 @@ $wishlist->add([
 
 ## Store the list
 
-`ProductList` does not persist itself. Assuming you have no Kirby user accounts, the visitor’s session is the simplest place to keep the list. Store it the same way the cart does, with [`toSessionArray()`](/reference/classes/list-item) per item.
+`ProductList` does not persist itself. Assuming you have no Kirby user accounts, the visitor’s session is the simplest place to keep the list. Store it the same way the cart does, with [`toSessionArray()`](/reference/classes/list-item/to-session-array) per item.
 
 ```php title="/site/plugins/wishlist/index.php"
 <?php

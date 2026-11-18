@@ -65,7 +65,7 @@ return [
 
 ## Add the discount
 
-`updateCartExtras()` is the function from [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts#recalculate-whenever-the-cart-changes), with the same three hooks pointing at it. Here it adds one discount per tax rate.
+Add the coupon to `updateCartExtras()` from [Shipping costs and discounts](/cookbook/shipping-costs-and-discounts#recalculate-whenever-the-cart-changes), next to the shipping, or use the function below on its own with the same three hooks. It removes only its own lines and adds one discount per tax rate.
 
 ```php title="/site/config/config.php"
 <?php
@@ -86,7 +86,9 @@ function updateCartExtras(Cart $cart): void
   $isUpdating = true;
 
   foreach ($cart->filterByType('discount') as $item) {
-    $cart->remove($item->key);
+    if (str_starts_with($item->key, 'coupon-')) {
+      $cart->remove($item->key);
+    }
   }
 
   $code = kirby()->session()->get('coupon');

@@ -2,7 +2,7 @@ Title: Personalized products
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -114,7 +114,7 @@ return [
 ];
 ```
 
-[`invalid()`](https://getkirby.com/docs/reference/templates/helpers/invalid) runs Kirby’s [validators](https://getkirby.com/docs/reference/system/validators) and skips an empty name, so pairs without one pass, and so do shipping costs and discounts. Allowing only letters, spaces and hyphens also keeps markup out of the cart, the order and the confirmation email. A rejected name comes back with status 400 and the message, ready to show next to the field. To translate the message, add it as `error.embroidery.name` — Kirby looks a key up with the `error.` prefix.
+[`invalid()`](https://getkirby.com/docs/reference/templates/helpers/invalid) runs Kirby’s [validators](https://getkirby.com/docs/reference/system/validators) and skips an empty name, so pairs without one pass, and so do shipping costs and discounts. Allowing only letters, spaces and hyphens also keeps markup out of the cart, the order and the confirmation email. A rejected name comes back with status 400 and the message, ready to show next to the field. To translate the message, [add it](/guide/configuration/localization#messages__overriding-a-string) as `error.embroidery.name` — Kirby looks a key up with the `error.` prefix.
 
 ## Show it on the order
 

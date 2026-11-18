@@ -37,7 +37,7 @@ tabs:
 
 ## Hand out the files
 
-The route looks up the order, makes sure it [is paid](/reference/classes/order-page/is-paid) and that the file belongs to one of its products. The `uid` of an order is a random string only the customer knows, so it works as the key to the download.
+The route looks up the order, makes sure it [is paid](/reference/classes/order-page/is-paid) and that the file belongs to one of its products. The `uid` of an order is a random string only the customer knows, so it works as the key to the download. `orders` in the pattern is the path of your [`ordersPage`](/reference/options/config-options/orders-page).
 
 ```php title="/site/config/config.php"
 <?php
@@ -49,7 +49,7 @@ return [
     [
       'pattern' => 'orders/(:any)/download/(:any)',
       'action' => function (string $uid, string $filename) {
-        $order = page('orders/' . $uid);
+        $order = site()->ordersPage()?->find($uid);
 
         if ($order?->isPaid() !== true) {
           return false;
