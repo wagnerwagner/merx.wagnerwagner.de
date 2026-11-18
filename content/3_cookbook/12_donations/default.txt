@@ -1,0 +1,127 @@
+Title: Donations
+
+----
+
+Headline:
+
+----
+
+Intro: Let visitors give what they like. The donor picks the amount, and Merx treats the donation as one more line in the cart.
+
+----
+
+Text:
+
+The price of a cart line always comes from its page, never from the request. So the amount the donor enters travels in the line’s `data`, and the donation page turns it into the price.
+
+## Create the donation page
+
+Create a page with the template `donation`. It needs no price field. Its own page model reads the amount from the `data` that Merx hands to [`price()`](/reference/classes/product-page/price).
+
+```php title="/site/models/donation.php"
+<?php
+
+use Wagnerwagner\Merx\Merx;
+use Wagnerwagner\Merx\Price;
+use Wagnerwagner\Merx\PricingRule;
+use Wagnerwagner\Merx\ProductPage;
+
+class DonationPage extends ProductPage
+{
+  public function price(string|PricingRule|null $pricingRule = null, float|null $quantity = null, array|null $data = null): Price|null
+  {
+    $amount = $data['amount'] ?? null;
+    if (is_numeric($amount) === false) {
+      return null;
+    }
+
+    return new Price(
+      price: (float)$amount,
+      pricingRule: $pricingRule ?? Merx::pricingRule(),
+    );
+  }
+}
+```
+
+The pricing rule gives the donation the currency of the rest of the cart. The price carries no tax. If your donations are taxable, pass the rate as `tax`.
+
+## Ask for the amount
+
+The form from [Adding products](/guide/getting-started/adding-products#add-the-product-to-the-cart) gets an input called `data[amount]` instead of a quantity.
+
+```php title="/site/templates/donation.php"
+<form id="product-form" action="<?= url('api/shop/cart') ?>" method="post">
+  <input type="hidden" name="page" value="<?= $page->uuid() ?>">
+  <label>
+    Amount
+    <input type="number" name="data[amount]" min="1" max="10000" step="0.01" required>
+  </label>
+  <button>Donate</button>
+</form>
+```
+
+## Check the amount on the server
+
+`min` and `max` only help the donor. Check the amount in the [`cart.add:before`](/reference/options/hooks/cart-add-before) hook, and in [`cart.updateItem:before`](/reference/options/hooks/cart-update-item-before) so a `PATCH` request can’t get around it.
+
+The add hook does one more thing. Merx tells cart lines apart by their `key`, and adding the same key again adds up the quantities and replaces `data`. A second donation of 10 € would turn a 25 € donation into two of 10 €. So the hook gives every amount a key of its own and returns the item: two donations of 25 € become one line with the quantity 2, and a 10 € donation gets a line of its own.
+
+```php title="/site/config/config.php"
+<?php
+
+use Kirby\Exception\InvalidArgumentException;
+use Wagnerwagner\Merx\Cart;
+use Wagnerwagner\Merx\ListItem;
+
+function checkDonation(?array $data): void
+{
+  $errors = invalid($data ?? [], [
+    'amount' => ['required', 'num', 'min' => 1, 'max' => 10000],
+  ]);
+
+  if ($errors !== []) {
+    throw new InvalidArgumentException(
+      key: 'donation.amount',
+      httpCode: 400,
+      fallback: 'Enter an amount between 1 and 10,000.',
+    );
+  }
+}
+
+return [
+  'hooks' => [
+    'wagnerwagner.merx.cart.add:before' => function (Cart $cart, string|array|ListItem $data): ListItem|null {
+      $item = ListItem::factory($data);
+      if ($item->page?->intendedTemplate()->name() !== 'donation') {
+        return null;
+      }
+
+      checkDonation($item->data);
+
+      $amount = round((float)$item->data['amount'], 2);
+      $item->data['amount'] = $amount;
+      $item->key = $item->page->uuid() . ':' . $amount;
+      $item->refreshPrice();
+
+      return $item;
+    },
+    'wagnerwagner.merx.cart.updateItem:before' => function (Cart $cart, string $key, array $data): void {
+      if (array_key_exists('data', $data)) {
+        checkDonation($data['data']);
+      }
+    },
+  ],
+];
+```
+
+For anything but a donation the hook returns `null`, which leaves the item as it is. A rejected amount comes back with status 400 and the message. To translate it, add it as `error.donation.amount`.
+
+The donation reaches the order like any product: the page’s title, the amount as the price, and the amount in `data`. A `price` field in the request does not change any of it.
+
+----
+
+Shortdescription: Learn how to take donations of an amount the donor chooses.
+
+----
+
+Uuid: fufx1e450mzk2dv0
