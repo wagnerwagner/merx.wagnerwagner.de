@@ -155,7 +155,7 @@ const checkoutForm = document.getElementById('checkout-form');
 
 /**
  * Creates a p element with class “error”.
- * @param {String} error e.g. “Please enter a valid email address”
+ * @param {String} errorMessage e.g. “Please enter a valid email address”
  */
 function createErrorElement(errorMessage) {
   return Object.assign(document.createElement('p'), {
