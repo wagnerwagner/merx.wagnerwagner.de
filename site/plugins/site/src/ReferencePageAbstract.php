@@ -121,7 +121,7 @@ abstract class ReferencePageAbstract extends Page
 				if ($projectPath = option('project.path')) {
 					$absoluteFilePath = Str::replace($absoluteFilePath, '/var/www/html/', $projectPath);
 				}
-				return 'nova://open?path=' . $absoluteFilePath . '&line=' . $line ?? 1;
+				return 'nova://open?path=' . $absoluteFilePath . '&line=' . ($line ?? 1);
 			}
 		}
 
