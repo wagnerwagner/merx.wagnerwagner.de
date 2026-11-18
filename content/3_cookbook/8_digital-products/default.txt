@@ -19,7 +19,6 @@ A digital product is a product page with files. The order page lists them once t
 Extend Merx’ [product blueprint](/reference/blueprints/pages/product) with a files field.
 
 ```yaml title="/site/blueprints/pages/product.yml"
-title: Product
 extends: wagnerwagner.merx.pages/product
 
 fields:
