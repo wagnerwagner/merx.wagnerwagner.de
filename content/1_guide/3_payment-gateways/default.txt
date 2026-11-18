@@ -20,6 +20,18 @@ Payment gateway | Provider | Keyword
 
 If you want to use another payment provider read the (link: /guide/payment-gateways/custom-payment-gateway text: Custom Payment Gateways) guide to learn how to create your own custom payment gateway.
 
+A shop that doesn’t sell on invoice switches that gateway off with the [`gateways`](/reference/options/config-options/gateways) option. A checkout that still sends `invoice` is refused, the same as one that sends an unknown gateway.
+
+```php title="/site/config/config.php"
+<?php
+
+return [
+  'wagnerwagner.merx.gateways' => [
+    'invoice' => false,
+  ],
+];
+```
+
 Learn how to connect your online shop with Stripe and/or PayPal by [setting up the secret keys](/guide/configuration/stripe-paypal-secrets). If you aren’t sure which payment gateway to use, we recommend Stripe. Learn how to **[set up Stripe](/guide/payment-gateways/stripe)**.
 
 ----
