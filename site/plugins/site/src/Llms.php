@@ -32,7 +32,7 @@ class Llms
 	 * (shop, showcase, legal pages) is not documentation and therefore
 	 * neither indexed nor available as Markdown.
 	 */
-	public const SECTIONS = ['guide', 'reference', 'cookbook'];
+	public const SECTIONS = ['guide', 'reference', 'cookbook', 'releases'];
 
 	private static function apiModel(Page $page): string
 	{
@@ -405,12 +405,6 @@ class Llms
 	 */
 	public static function isDocPage(Page $page): bool
 	{
-		// A release page describes Merx like the guide does, and is
-		// what an agent reads to learn what a version brought.
-		if ($page->intendedTemplate()->name() === 'release') {
-			return true;
-		}
-
 		return in_array(
 			A::first(Str::split($page->id(), '/')),
 			static::SECTIONS,
@@ -891,7 +885,11 @@ class Llms
 		// context, so link the file instead of embedding it.
 		return preg_replace_callback(
 			'!\((?:file|image):\s*([^\s)]+)[^)]*\)!',
-			fn (array $matches): string => '[' . $matches[1] . '](' . static::resolveUrl($matches[1]) . ')',
+			function (array $matches): string {
+				// Named by its filename: a `file://` UUID tells a reader nothing
+				$url = static::resolveUrl($matches[1]);
+				return '[' . basename($url) . '](' . $url . ')';
+			},
 			$text,
 		);
 	}
