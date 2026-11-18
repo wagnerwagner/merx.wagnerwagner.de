@@ -344,8 +344,8 @@ class Llms
 				$links = [];
 			}
 
-			// Redirecting pages have no content of their own.
-			$link    = $child->redirect()->toBool() ? null : static::indexLink($child);
+			// Also a page which only redirects: its Markdown lists its children
+			$link    = static::indexLink($child);
 			$subTree = static::indexChildren($child, $level + 1);
 
 			// Keep a page’s own link in the same list as its children
@@ -389,6 +389,7 @@ class Llms
 	{
 		return static::join([
 			'## ' . $section->title(),
+			static::indexLink($section),
 			static::indexChildren($section, 3),
 		]);
 	}
