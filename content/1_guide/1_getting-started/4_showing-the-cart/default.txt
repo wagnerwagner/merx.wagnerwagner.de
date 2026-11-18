@@ -14,7 +14,7 @@ Text:
 
 We recommend using JavaScript and the API to show the cart to the customer. This makes it possible to cache all pages server-side and load the cart asynchronously.
 
-Let’s define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) for it. It has a `fetchCart()` function, which gets the cart data from the API endpoint, and a `render()` function, which renders the cart as a list.
+Let’s define a [custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) for it. It has a `fetchCart()` function, which gets the cart data from the API endpoint, a `removeItem()` function, which removes an item by its `key`, and a `render()` function, which renders the cart as a list.
 
 ```js title="script.js"
 customElements.define('my-cart', class extends HTMLElement {
@@ -33,7 +33,27 @@ customElements.define('my-cart', class extends HTMLElement {
     this.data = json.data;
   }
 
+  async removeItem(key) {
+    const response = await fetch(this.endpoint, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Language': document.documentElement.lang,
+      },
+      body: JSON.stringify({ key }),
+    });
+    const json = await response.json();
+    this.data = json.data;
+    this.render();
+  }
+
   async connectedCallback() {
+    this.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-index]');
+      if (button) {
+        this.removeItem(this.data.products.items[button.dataset.index].key);
+      }
+    });
     await this.fetchCart();
     this.render();
   }
@@ -45,10 +65,11 @@ customElements.define('my-cart', class extends HTMLElement {
       <h2>Cart</h2>
       ${items.length === 0 ? '<p>Empty cart</p>' : `
         <ul>
-          ${items.map(item => `
+          ${items.map((item, index) => `
             <li>
               <strong>${item.title}</strong><br>
               Price: ${item.price?.price ?? 'On request'}
+              <button type="button" data-index="${index}">Remove</button>
             </li>
           `).join('')}
         </ul>
@@ -64,6 +85,8 @@ Add the `<my-cart>` element to the header of your page — or wherever you want 
 
 > [!IMPORTANT]
 > `innerHTML` runs whatever HTML it is given. Titles, prices and links come from the Panel or from Merx and can go in as they are. An item’s `key` and `data` can be sent by the visitor: escape them before you render them, as [Personalized products](/cookbook/personalized-products#show-it-in-the-cart) does.
+
+The button refers to the item by its position, so the `key` does not need to go into the HTML. The [`DELETE` endpoint](/reference/api/routes/shop-cart-delete) returns the cart without the item, which is rendered right away.
 
 A product without a price returns `null` instead of a price object. `checkout` is `null` until a page with the checkout template exists, which is the [next step](/guide/getting-started/create-checkout), so the link is only rendered once there is one. To check which other fields are available, see the [Cart model reference](/reference/api/models/cart).
 
