@@ -46,7 +46,7 @@ return [
 
 As long as all data is valid, the customer is redirected directly to the order page, where they see the summary of their order.
 
-When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout `](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error. Continue with **[Validate checkout](/guide/getting-started/validate-checkout)** to learn how to define required fields and how to use JavaScript to handle the JSON data.
+When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error. Continue with **[Validate checkout](/guide/getting-started/validate-checkout)** to learn how to define required fields and how to use JavaScript to handle the JSON data.
 
 ## Show why an order failed
 
