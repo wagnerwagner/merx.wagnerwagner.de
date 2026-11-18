@@ -22,6 +22,17 @@ class ReferenceOptionPage extends ReferencePageAbstract
 	}
 
 	/**
+	 * Returns the default value as written in the config file of Merx
+	 */
+	public function defaultValue(): string|null
+	{
+		if ($this->content()->get('defaultValue')->exists()) {
+			return $this->content()->get('defaultValue');
+		}
+		return null;
+	}
+
+	/**
 	 * Returns the signature of a default value that is a function,
 	 * e.g. `function (OrderPage $virtualOrderPage): int`
 	 */
@@ -38,7 +49,7 @@ class ReferenceOptionPage extends ReferencePageAbstract
 
 		$parameters = array_map(
 			fn (ReflectionParameter $parameter) => ltrim($typeName($parameter->getType()) . ' $' . $parameter->getName()),
-			$reflection->getParameters()
+			$reflection->getParameters(),
 		);
 
 		$signature = 'function (' . implode(', ', $parameters) . ')';
@@ -48,17 +59,6 @@ class ReferenceOptionPage extends ReferencePageAbstract
 		}
 
 		return $signature;
-	}
-
-	/**
-	 * Returns the default value as written in the config file of Merx
-	 */
-	public function defaultValue(): string|null
-	{
-		if ($this->content()->get('defaultValue')->exists()) {
-			return $this->content()->get('defaultValue');
-		}
-		return null;
 	}
 
 	public function line(): int|null

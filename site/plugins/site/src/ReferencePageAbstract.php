@@ -36,6 +36,15 @@ abstract class ReferencePageAbstract extends Page
 		return $this->kirby()->plugin('wagnerwagner/merx')->root() . '/' . $relativeFilePath;
 	}
 
+	public function description(): string|null
+	{
+		if ($this->content()->get('description')->isNotEmpty()) {
+			return (string)$this->content()->get('description');
+		}
+
+		return null;
+	}
+
 	/**
 	 * Detects the namespace (Kirby\\ or Wagnerwagner\\) from reflection when possible.
 	 * Returns the namespace prefix or empty string if detection is not possible.
@@ -268,14 +277,5 @@ abstract class ReferencePageAbstract extends Page
 		$summary = $this->content()->get('shortdescription')->value();
 
 		return empty($summary) === true ? null : $summary;
-	}
-
-	public function description(): string|null
-	{
-		if ($this->content()->get('description')->isNotEmpty()) {
-			return (string)$this->content()->get('description');
-		}
-
-		return null;
 	}
 }

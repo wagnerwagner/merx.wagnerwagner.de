@@ -26,31 +26,6 @@ class Markdown extends ParsedownExtra
 	}
 
 	/**
-	 * Render GitHub alerts (`> [!NOTE]`) as callout boxes
-	 *
-	 * @see https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
-	 */
-	protected function blockQuoteComplete($Block)
-	{
-		$lines = $Block['element']['handler']['argument'];
-
-		if (!preg_match('!^\[\!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$!', $lines[0], $matches)) {
-			return $Block;
-		}
-
-		$html = snippet('m-callout', [
-			'theme' => strtolower($matches[1]),
-			'html' => $this->elements($this->linesElements(array_slice($lines, 1))),
-		], true);
-
-		return [
-			'element' => [
-				'rawHtml' => $html,
-			],
-		];
-	}
-
-	/**
 	 * Read the file path from the info string: ```php title="/site/config/config.php"
 	 */
 	protected function blockFencedCode($Line)
@@ -134,6 +109,31 @@ class Markdown extends ParsedownExtra
 	}
 
 	/**
+	 * Render GitHub alerts (`> [!NOTE]`) as callout boxes
+	 *
+	 * @see https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
+	 */
+	protected function blockQuoteComplete($Block)
+	{
+		$lines = $Block['element']['handler']['argument'];
+
+		if (!preg_match('!^\[\!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$!', $lines[0], $matches)) {
+			return $Block;
+		}
+
+		$html = snippet('m-callout', [
+			'theme' => strtolower($matches[1]),
+			'html' => $this->elements($this->linesElements(array_slice($lines, 1))),
+		], true);
+
+		return [
+			'element' => [
+				'rawHtml' => $html,
+			],
+		];
+	}
+
+	/**
 	 * Wrap tables in a div
 	 */
 	protected function blockTableComplete($Block)
@@ -149,33 +149,6 @@ class Markdown extends ParsedownExtra
 		];
 
 		return $Block;
-	}
-
-	/**
-	 * Parse `#id`, `.class` and `key="value"`
-	 *
-	 * @see $regexAttribute
-	 */
-	protected function parseAttributeData($attributeString)
-	{
-		preg_match_all('!([#.])([-\w]+)|([-\w]+)="([^"]*)"!', $attributeString, $matches, PREG_SET_ORDER);
-
-		$Data = [];
-		$classes = [];
-
-		foreach ($matches as $match) {
-			match ($match[1]) {
-				'#' => $Data['id'] = $match[2],
-				'.' => $classes[] = $match[2],
-				default => $Data[$match[3]] = $match[4],
-			};
-		}
-
-		if ($classes !== []) {
-			$Data['class'] = implode(' ', $classes);
-		}
-
-		return $Data;
 	}
 
 	/**
@@ -206,5 +179,32 @@ class Markdown extends ParsedownExtra
 				'rawHtml' => (new Types($text))->toHtml(),
 			],
 		];
+	}
+
+	/**
+	 * Parse `#id`, `.class` and `key="value"`
+	 *
+	 * @see $regexAttribute
+	 */
+	protected function parseAttributeData($attributeString)
+	{
+		preg_match_all('!([#.])([-\w]+)|([-\w]+)="([^"]*)"!', $attributeString, $matches, PREG_SET_ORDER);
+
+		$Data = [];
+		$classes = [];
+
+		foreach ($matches as $match) {
+			match ($match[1]) {
+				'#' => $Data['id'] = $match[2],
+				'.' => $classes[] = $match[2],
+				default => $Data[$match[3]] = $match[4],
+			};
+		}
+
+		if ($classes !== []) {
+			$Data['class'] = implode(' ', $classes);
+		}
+
+		return $Data;
 	}
 }

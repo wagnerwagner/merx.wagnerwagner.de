@@ -41,7 +41,6 @@ class TypeScript
 			'uuid' => 'string|null',
 		],
 	];
-
 	private const SCALARS = [
 		'bool' => 'boolean',
 		'false' => 'false',
@@ -52,51 +51,6 @@ class TypeScript
 		'string' => 'string',
 		'true' => 'true',
 	];
-
-	/**
-	 * All models in one declaration file
-	 */
-	public static function declarations(): string
-	{
-		$version = kirby()->plugin('wagnerwagner/merx')->version();
-		$blocks = [
-			'/**' . PHP_EOL
-			. ' * The models of the Merx API in their default view' . PHP_EOL
-			. ' * Merx ' . $version . ', ' . url('reference/api/models') . PHP_EOL
-			. ' */',
-		];
-
-		foreach (array_keys(static::models()) as $name) {
-			$blocks[] = '/** @see ' . url('reference/api/models/' . Str::kebab($name)) . ' */'
-				. PHP_EOL . static::interface($name);
-		}
-
-		return implode(PHP_EOL . PHP_EOL, $blocks) . PHP_EOL;
-	}
-
-	/**
-	 * The interface of one model, e.g. `Cart`
-	 */
-	public static function interface(string $name): string
-	{
-		$model = static::models()[$name];
-		$lines = [];
-
-		foreach ($model['views']['default'] ?? array_keys($model['fields']) as $key => $value) {
-			[$field, $select] = is_array($value) ? [$key, $value] : [$value, null];
-			$lines[] = "\t" . $field . ': ' . static::field($model['fields'][$field], $select) . ';';
-		}
-
-		return 'export interface ' . $name . ' {' . PHP_EOL . implode(PHP_EOL, $lines) . PHP_EOL . '}';
-	}
-
-	private static function field(Closure $closure, array|null $select): string
-	{
-		$reflection = new ReflectionFunction($closure);
-		$type = static::returnTag($reflection) ?? static::parse((string)($reflection->getReturnType() ?? 'mixed'));
-
-		return static::convert($type, $select, static::uses($reflection->getFileName()));
-	}
 
 	/**
 	 * Translates a PHP type into TypeScript. `$select` is the selection of
@@ -133,6 +87,51 @@ class TypeScript
 		}
 
 		return 'unknown';
+	}
+
+	/**
+	 * All models in one declaration file
+	 */
+	public static function declarations(): string
+	{
+		$version = kirby()->plugin('wagnerwagner/merx')->version();
+		$blocks = [
+			'/**' . PHP_EOL
+			. ' * The models of the Merx API in their default view' . PHP_EOL
+			. ' * Merx ' . $version . ', ' . url('reference/api/models') . PHP_EOL
+			. ' */',
+		];
+
+		foreach (array_keys(static::models()) as $name) {
+			$blocks[] = '/** @see ' . url('reference/api/models/' . Str::kebab($name)) . ' */'
+				. PHP_EOL . static::interface($name);
+		}
+
+		return implode(PHP_EOL . PHP_EOL, $blocks) . PHP_EOL;
+	}
+
+	private static function field(Closure $closure, array|null $select): string
+	{
+		$reflection = new ReflectionFunction($closure);
+		$type = static::returnTag($reflection) ?? static::parse((string)($reflection->getReturnType() ?? 'mixed'));
+
+		return static::convert($type, $select, static::uses($reflection->getFileName()));
+	}
+
+	/**
+	 * The interface of one model, e.g. `Cart`
+	 */
+	public static function interface(string $name): string
+	{
+		$model = static::models()[$name];
+		$lines = [];
+
+		foreach ($model['views']['default'] ?? array_keys($model['fields']) as $key => $value) {
+			[$field, $select] = is_array($value) ? [$key, $value] : [$value, null];
+			$lines[] = "\t" . $field . ': ' . static::field($model['fields'][$field], $select) . ';';
+		}
+
+		return 'export interface ' . $name . ' {' . PHP_EOL . implode(PHP_EOL, $lines) . PHP_EOL . '}';
 	}
 
 	/**
@@ -182,7 +181,7 @@ class TypeScript
 	}
 
 	/**
-	 * @return array<string, array{fields: array<string, \Closure>, type: string, views: array}>
+	 * @return array<string, array{fields: array<string, Closure>, type: string, views: array}>
 	 */
 	private static function models(): array
 	{

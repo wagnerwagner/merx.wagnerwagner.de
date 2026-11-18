@@ -3,7 +3,6 @@
 use Kirby\Cms\Url;
 
 /** @var \Kirby\Cms\Page $item */
-
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
 $screenshot = $item->screenshot()->toFile();
 

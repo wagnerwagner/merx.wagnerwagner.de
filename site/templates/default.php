@@ -23,7 +23,7 @@ $isCookbook = $page->uid() === 'cookbook' || $page->parent()?->uid() === 'cookbo
 			</button>
 			<div class="m-nav-sidebars" id="sidebar-navs">
 				<div>
-					<?php snippet('m-nav-sidebar', ['parent' => $parentPage, 'variant' => $isCookbook ? 'cookbook' : '' ]); ?>
+					<?php snippet('m-nav-sidebar', ['parent' => $parentPage, 'variant' => $isCookbook ? 'cookbook' : '']); ?>
 				</div>
 			</div>
 			<main class="o-main" aria-describedby="main-heading">

@@ -25,37 +25,6 @@ class ApiExamples
 	public const BASE_URL = 'https://shop.test';
 
 	/**
-	 * Request bodies for routes that have an example, by method and route
-	 * pattern (without the endpoint). Routes missing here have no example,
-	 * because they talk to a payment provider or redirect the visitor.
-	 *
-	 * The checkout body holds the fields this site’s order blueprint requires.
-	 */
-	public const REQUESTS = [
-		'GET cart' => null,
-		'POST cart' => [
-			'page' => 'products/canvas-bag',
-			'quantity' => 1,
-		],
-		'PATCH cart' => [
-			'key' => 'products/cozy-socks',
-			'quantity' => 3,
-		],
-		'DELETE cart' => [
-			'key' => 'products/cozy-socks',
-		],
-		'POST checkout' => [
-			'paymentGateway' => 'invoice',
-			'email' => 'jane@example.com',
-			'company' => 'Example Inc.',
-			'street' => 'Example Street 1',
-			'postal_code' => '12345',
-			'city' => 'Example City',
-			'country' => 'DE',
-		],
-	];
-
-	/**
 	 * Requests that fail, by method and route pattern like `REQUESTS`,
 	 * then by title. `cart: false` sends the request with an empty cart.
 	 */
@@ -110,143 +79,35 @@ class ApiExamples
 	];
 
 	/**
-	 * Runs `$callback` with the Kirby API of the fixture shop
+	 * Request bodies for routes that have an example, by method and route
+	 * pattern (without the endpoint). Routes missing here have no example,
+	 * because they talk to a payment provider or redirect the visitor.
 	 *
-	 * The fixture cart is in the session already, unless `$cart` is false.
-	 * The original Kirby instance is restored afterwards, also when
-	 * `$callback` throws.
-	 *
-	 * @template T
-	 * @param Closure(Api): T $callback
-	 * @return T
+	 * The checkout body holds the fields this site’s order blueprint requires.
 	 */
-	public static function run(Closure $callback, bool $cart = true): mixed
-	{
-		$kirby = App::instance();
-		$fixture = static::app($kirby);
-
-		try {
-			// Sets the locale for prices, as an API request would
-			$fixture->setCurrentLanguage();
-
-			// Created in manual mode before anything else asks for a session,
-			// so the session never sends a cookie.
-			$fixture->sessions()->get(['createMode' => 'manual']);
-			$fixture->session()->set('region', 'DE');
-			if ($cart === true) {
-				static::fillCart(new Cart());
-			}
-
-			return $callback($fixture->api());
-		} finally {
-			// The fixture replaced both, so pages loaded later would get its urls
-			App::instance($kirby);
-			ModelWithContent::$kirby = $kirby;
-		}
-	}
-
-	/**
-	 * Example response of a route, or null when the route has no example
-	 *
-	 * @param $pattern Route pattern including the endpoint, e.g. `shop/cart`
-	 * @param $query Query parameters, e.g. `['view' => 'compact']`
-	 */
-	public static function request(string $pattern, string $method = 'GET', array $query = []): array|null
-	{
-		$key = static::requestKey($pattern, $method);
-		if ($key === null) {
-			return null;
-		}
-
-		return static::call($pattern, $method, static::REQUESTS[$key] ?? [], $query);
-	}
-
-	/**
-	 * Failing example requests of a route, with their error responses
-	 *
-	 * @return array<string, array{body: array, cart: bool, response: array}> By title
-	 */
-	public static function errors(string $pattern, string $method = 'GET'): array
-	{
-		$key = static::requestKey($pattern, $method, static::ERRORS);
-		if ($key === null) {
-			return [];
-		}
-
-		$errors = [];
-		foreach (static::ERRORS[$key] as $title => $error) {
-			$cart = $error['cart'] ?? true;
-			$errors[$title] = [
-				'body' => $error['body'],
-				'cart' => $cart,
-				'response' => static::call($pattern, $method, $error['body'], cart: $cart),
-			];
-		}
-		return $errors;
-	}
-
-	/**
-	 * Request body of a route’s example, or null when it has none
-	 */
-	public static function requestBody(string $pattern, string $method = 'GET'): array|null
-	{
-		$key = static::requestKey($pattern, $method);
-		return $key === null ? null : static::REQUESTS[$key];
-	}
-
-	/**
-	 * Example of an API model in each of its views
-	 *
-	 * The cart is fetched through its route, with the view as query parameter.
-	 * Models without a route of their own are resolved directly from an
-	 * object of the fixture cart.
-	 *
-	 * @return array<string, array{request: string|null, data: array}> By view name, `default` first
-	 */
-	public static function model(string $name, array $views): array
-	{
-		$views = array_unique(['default', ...$views]);
-
-		if ($name === 'Cart') {
-			$pattern = static::endpoint() . '/cart';
-			$examples = [];
-			foreach ($views as $view) {
-				$query = $view === 'default' ? [] : ['view' => $view];
-				$data = static::request($pattern, 'GET', $query)['data'] ?? null;
-				if ($data !== null) {
-					$examples[$view] = [
-						'request' => 'GET /api/' . $pattern . ($query ? '?' . http_build_query($query) : ''),
-						'data' => $data,
-					];
-				}
-			}
-			return $examples;
-		}
-
-		return static::run(function (Api $api) use ($name, $views) {
-			$object = static::object($name);
-			if ($object === null) {
-				return [];
-			}
-
-			$examples = [];
-			foreach ($views as $view) {
-				$examples[$view] = [
-					'request' => null,
-					'data' => $api->model(strtolower($name), $object)->view($view)->toArray(),
-				];
-			}
-			return $examples;
-		});
-	}
-
-	/**
-	 * Encodes an example the way the API does with `?pretty=true`
-	 */
-	public static function json(array $data): string
-	{
-		return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-	}
+	public const REQUESTS = [
+		'GET cart' => null,
+		'POST cart' => [
+			'page' => 'products/canvas-bag',
+			'quantity' => 1,
+		],
+		'PATCH cart' => [
+			'key' => 'products/cozy-socks',
+			'quantity' => 3,
+		],
+		'DELETE cart' => [
+			'key' => 'products/cozy-socks',
+		],
+		'POST checkout' => [
+			'paymentGateway' => 'invoice',
+			'email' => 'jane@example.com',
+			'company' => 'Example Inc.',
+			'street' => 'Example Street 1',
+			'postal_code' => '12345',
+			'city' => 'Example City',
+			'country' => 'DE',
+		],
+	];
 
 	/**
 	 * Kirby instance which serves the fixture shop
@@ -325,6 +186,54 @@ class ApiExamples
 	}
 
 	/**
+	 * Calls a route of the fixture shop like a client that accepts JSON
+	 */
+	protected static function call(string $pattern, string $method, array $body, array $query = [], bool $cart = true): array
+	{
+		return static::run(function (Api $api) use ($pattern, $method, $body, $query) {
+			$api->kirby()->visitor()->acceptedMimeType('application/json');
+
+			try {
+				return $api->call($pattern, $method, [
+					'body' => $body,
+					'query' => $query,
+				]);
+			} catch (Throwable $e) {
+				return $api->responseForException($e);
+			}
+		}, $cart);
+	}
+
+	protected static function endpoint(): string
+	{
+		return (string)App::instance()->option('wagnerwagner.merx.api.endpoint', 'shop');
+	}
+
+	/**
+	 * Failing example requests of a route, with their error responses
+	 *
+	 * @return array<string, array{body: array, cart: bool, response: array}> By title
+	 */
+	public static function errors(string $pattern, string $method = 'GET'): array
+	{
+		$key = static::requestKey($pattern, $method, static::ERRORS);
+		if ($key === null) {
+			return [];
+		}
+
+		$errors = [];
+		foreach (static::ERRORS[$key] as $title => $error) {
+			$cart = $error['cart'] ?? true;
+			$errors[$title] = [
+				'body' => $error['body'],
+				'cart' => $cart,
+				'response' => static::call($pattern, $method, $error['body'], cart: $cart),
+			];
+		}
+		return $errors;
+	}
+
+	/**
 	 * Adds the items every example starts with
 	 *
 	 * Item by item rather than through the constructor, which would key the
@@ -350,27 +259,57 @@ class ApiExamples
 	}
 
 	/**
-	 * Calls a route of the fixture shop like a client that accepts JSON
+	 * Encodes an example the way the API does with `?pretty=true`
 	 */
-	protected static function call(string $pattern, string $method, array $body, array $query = [], bool $cart = true): array
+	public static function json(array $data): string
 	{
-		return static::run(function (Api $api) use ($pattern, $method, $body, $query) {
-			$api->kirby()->visitor()->acceptedMimeType('application/json');
-
-			try {
-				return $api->call($pattern, $method, [
-					'body' => $body,
-					'query' => $query,
-				]);
-			} catch (Throwable $e) {
-				return $api->responseForException($e);
-			}
-		}, $cart);
+		return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 	}
 
-	protected static function endpoint(): string
+	/**
+	 * Example of an API model in each of its views
+	 *
+	 * The cart is fetched through its route, with the view as query parameter.
+	 * Models without a route of their own are resolved directly from an
+	 * object of the fixture cart.
+	 *
+	 * @return array<string, array{request: string|null, data: array}> By view name, `default` first
+	 */
+	public static function model(string $name, array $views): array
 	{
-		return (string)App::instance()->option('wagnerwagner.merx.api.endpoint', 'shop');
+		$views = array_unique(['default', ...$views]);
+
+		if ($name === 'Cart') {
+			$pattern = static::endpoint() . '/cart';
+			$examples = [];
+			foreach ($views as $view) {
+				$query = $view === 'default' ? [] : ['view' => $view];
+				$data = static::request($pattern, 'GET', $query)['data'] ?? null;
+				if ($data !== null) {
+					$examples[$view] = [
+						'request' => 'GET /api/' . $pattern . ($query ? '?' . http_build_query($query) : ''),
+						'data' => $data,
+					];
+				}
+			}
+			return $examples;
+		}
+
+		return static::run(function (Api $api) use ($name, $views) {
+			$object = static::object($name);
+			if ($object === null) {
+				return [];
+			}
+
+			$examples = [];
+			foreach ($views as $view) {
+				$examples[$view] = [
+					'request' => null,
+					'data' => $api->model(strtolower($name), $object)->view($view)->toArray(),
+				];
+			}
+			return $examples;
+		});
 	}
 
 	/**
@@ -391,6 +330,31 @@ class ApiExamples
 	}
 
 	/**
+	 * Example response of a route, or null when the route has no example
+	 *
+	 * @param $pattern Route pattern including the endpoint, e.g. `shop/cart`
+	 * @param $query Query parameters, e.g. `['view' => 'compact']`
+	 */
+	public static function request(string $pattern, string $method = 'GET', array $query = []): array|null
+	{
+		$key = static::requestKey($pattern, $method);
+		if ($key === null) {
+			return null;
+		}
+
+		return static::call($pattern, $method, static::REQUESTS[$key] ?? [], $query);
+	}
+
+	/**
+	 * Request body of a route’s example, or null when it has none
+	 */
+	public static function requestBody(string $pattern, string $method = 'GET'): array|null
+	{
+		$key = static::requestKey($pattern, $method);
+		return $key === null ? null : static::REQUESTS[$key];
+	}
+
+	/**
 	 * Key of `REQUESTS` (or `$examples`) for a route, or null when the route has no example
 	 */
 	protected static function requestKey(string $pattern, string $method, array $examples = self::REQUESTS): string|null
@@ -400,5 +364,41 @@ class ApiExamples
 		$key = strtoupper($method) . ' ' . $path;
 
 		return array_key_exists($key, $examples) ? $key : null;
+	}
+
+	/**
+	 * Runs `$callback` with the Kirby API of the fixture shop
+	 *
+	 * The fixture cart is in the session already, unless `$cart` is false.
+	 * The original Kirby instance is restored afterwards, also when
+	 * `$callback` throws.
+	 *
+	 * @template T
+	 * @param Closure(Api): T $callback
+	 * @return T
+	 */
+	public static function run(Closure $callback, bool $cart = true): mixed
+	{
+		$kirby = App::instance();
+		$fixture = static::app($kirby);
+
+		try {
+			// Sets the locale for prices, as an API request would
+			$fixture->setCurrentLanguage();
+
+			// Created in manual mode before anything else asks for a session,
+			// so the session never sends a cookie.
+			$fixture->sessions()->get(['createMode' => 'manual']);
+			$fixture->session()->set('region', 'DE');
+			if ($cart === true) {
+				static::fillCart(new Cart());
+			}
+
+			return $callback($fixture->api());
+		} finally {
+			// The fixture replaced both, so pages loaded later would get its urls
+			App::instance($kirby);
+			ModelWithContent::$kirby = $kirby;
+		}
 	}
 }

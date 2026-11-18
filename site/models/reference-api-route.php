@@ -39,6 +39,17 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 	}
 
 	/**
+	 * Failing example requests against the fixture shop, with their
+	 * error responses
+	 *
+	 * @return array<string, array{body: array, cart: bool, response: array}> By title
+	 */
+	public function exampleErrors(): array
+	{
+		return ApiExamples::errors($this->pattern(), $this->method());
+	}
+
+	/**
 	 * Request body of the example, or null when the route takes none
 	 */
 	public function exampleRequestBody(): array|null
@@ -53,17 +64,6 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 	public function exampleResponse(): array|null
 	{
 		return ApiExamples::request($this->pattern(), $this->method());
-	}
-
-	/**
-	 * Failing example requests against the fixture shop, with their
-	 * error responses
-	 *
-	 * @return array<string, array{body: array, cart: bool, response: array}> By title
-	 */
-	public function exampleErrors(): array
-	{
-		return ApiExamples::errors($this->pattern(), $this->method());
 	}
 
 	public function exceptions(): array
