@@ -2,4 +2,4 @@ Guide: /guide/payment-gateways/custom-payment-gateway
 
 ----
 
-Shortdescription: Payment gateways of your own, each a pair of functions that start and complete a payment.
+Shortdescription: Payment gateways of your own, each a pair of functions that start and complete a payment. Set a built-in gateway to `false` to switch it off.
