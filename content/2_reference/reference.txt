@@ -2,4 +2,8 @@ Title: Reference
 
 ----
 
+Intro: Every option, hook, class, API route and blueprint of Merx, generated from the plugin’s source code.
+
+----
+
 Uuid: c9glwjquasrcsq4n

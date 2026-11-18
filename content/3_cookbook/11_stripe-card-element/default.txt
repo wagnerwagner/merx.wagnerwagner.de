@@ -40,9 +40,9 @@ $stripePublishableKey = option('wagnerwagner.merx.production') === true
 
 <form id="checkout-form" action="<?= url('api/shop/checkout') ?>" method="post" data-stripe-publishable-key="<?= $stripePublishableKey ?>">
   <!-- Other form fields -->
-  <label><input type="radio" name="paymentGateway" value="stripe" checked> Card</label>
+  <label><input type="radio" name="payment_gateway" value="stripe" checked> Card</label>
   <div id="card-element"></div>
-  <label><input type="radio" name="paymentGateway" value="invoice"> Invoice</label>
+  <label><input type="radio" name="payment_gateway" value="invoice"> Invoice</label>
   <button>Submit order</button>
 </form>
 ```
@@ -71,7 +71,7 @@ card.mount('#card-element');
 checkoutForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData(checkoutForm);
-  const payByCard = formData.get('paymentGateway') === 'stripe';
+  const payByCard = formData.get('payment_gateway') === 'stripe';
 
   let clientSecret;
   if (payByCard) {

@@ -215,7 +215,7 @@ If you overrode any of them, the [translations reference](/reference/options/tra
 
 Payment methods `credit-card-sca`, `credit-card`, `sepa-debit`, `klarna` and `ideal` are removed in favor of `stripe`. You can still use all payment methods mentioned and many more with [Stripe](/guide/payment-gateways/stripe).
 
-The field that selects one is `paymentGateway`, not `paymentMethod`.
+The checkout form field that selects one is `payment_gateway`, not `paymentMethod`.
 
 `invoice` is no longer on by default. Switch it on with `'invoice' => true` in the [`gateways`](/reference/options/config-options/gateways) option, see [Invoice](/guide/payment-gateways/invoice).
 
