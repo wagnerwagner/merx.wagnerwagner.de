@@ -94,7 +94,7 @@ $cart->total()->tax;       // €19.70
 $cart->total()->tax->rate; // null, because the items do not share a rate
 ```
 
-So anything that prints the rate of a total has to cope with `null`. Use [`$cart->taxRates()`](/reference/classes/cart/tax-rates) for the breakdown instead. It returns one [`Tax`](/reference/classes/tax) per rate, lowest first, each carrying the total tax at that rate — which is what an invoice has to show anyway.
+So anything that prints the rate of a total has to cope with `null`, in the API as well: there `tax.rate` and `tax.rateRaw` of the total are `null`, and the breakdown is in `taxRates`. Use [`$cart->taxRates()`](/reference/classes/cart/tax-rates) for the breakdown instead. It returns one [`Tax`](/reference/classes/tax) per rate, lowest first, each carrying the total tax at that rate — which is what an invoice has to show anyway.
 
 ```php title="/site/snippets/cart.php"
 <?php foreach ($cart->taxRates() as $tax): ?>
