@@ -48,13 +48,7 @@ Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.c
 > [!CAUTION]
 > There is no PayPal webhook. A pending capture that settles later is not reported back to your shop the way a delayed [Stripe payment](/guide/configuration/stripe-webhooks) is, so those orders need a look in the PayPal dashboard and a manual change of the order.
 
-Whenever an order can’t be completed, the customer is back on your checkout page. [`merx()->error()`](/reference/classes/merx/error) returns what went wrong, once, so you can tell them.
-
-```php title="/site/templates/checkout.php"
-<?php if ($error = merx()->error()): ?>
-  <p role="alert"><?= esc($error['message']) ?></p>
-<?php endif ?>
-```
+Whenever an order can’t be completed, e.g. because the customer canceled at PayPal, they are back on your checkout page, which [shows them why](/guide/getting-started/create-checkout#show-why-an-order-failed).
 
 A customer who reloads the return URL gets the order they already have and pays nothing twice. A PayPal order that was captured for another order is refused.
 
