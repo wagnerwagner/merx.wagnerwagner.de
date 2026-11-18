@@ -53,7 +53,7 @@ Then buy something from your own shop with a real card, check that it arrives in
 
 ## License
 
-Merx is commercial software, and a shop in production needs a license. Set it with the [`license`](/reference/options/config-options/license) option and the Panel will show it under the plugin.
+Merx is commercial software. It runs without a license key and restricts nothing, so you can develop and test without one. Every shop that takes real orders needs a [license](/license). Set its key with the [`license`](/reference/options/config-options/license) option and the Panel will show it under the plugin.
 
 ```php title="/site/config/env.php"
 <?php

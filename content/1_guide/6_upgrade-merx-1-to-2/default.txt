@@ -38,7 +38,7 @@ Every option moved namespace.
 
 Three are gone. `currency` and `currencySymbol` are replaced by [pricing rules](/guide/configuration/currencies), which set the currency per rule instead of once for the whole shop. `successPage` is replaced by the [API](/guide/api/concept) — see *The success page* below.
 
-Everything else is new, including [`license`](/reference/options/config-options/license), which a production shop needs. The [config options reference](/reference/options/config-options) lists them all.
+Everything else is new, including [`license`](/reference/options/config-options/license), which every shop that takes real orders needs. The [config options reference](/reference/options/config-options) lists them all.
 
 ## Products
 

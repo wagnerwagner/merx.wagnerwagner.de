@@ -1,1 +1,1 @@
-Shortdescription: Your Merx license key. The Panel shows it under the plugin.
+Shortdescription: Your Merx license key. The Panel shows it under the plugin. Merx runs without one and restricts nothing, but every shop that takes real orders needs a license.

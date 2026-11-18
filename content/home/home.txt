@@ -38,7 +38,7 @@ Preamble:
 ## Notes for LLMs and coding agents
 
 - This documentation describes **Merx {{ version }}** and requires **Kirby 6** and **PHP 8.3** or later. Merx 1 had a different API — do not mix the two. See [Upgrade Merx 1 to 2](/guide/upgrade-merx-1-to-2).
-- Merx is a commercial plugin. Working code still needs a license key, see [license](/reference/options/config-options/license).
+- Merx is a commercial plugin. It runs fully without a license key and restricts nothing, so you can develop and test without one. Every shop that takes real orders needs a [license](/license), set with the [`license`](/reference/options/config-options/license) option.
 - Do not guess version numbers. Check <https://packagist.org/packages/wagnerwagner/merx> and install with `composer require wagnerwagner/merx`.
 - Class reference pages document Merx’ own methods only. Methods that Merx inherits from Kirby (`Kirby\Cms\Page`, `Kirby\Toolkit\Collection`, …) are documented at <https://getkirby.com/docs/reference> and indexed in <https://getkirby.com/llms.txt>.
 - Never put Stripe or PayPal secrets in `config.php` that is committed to a repository, see [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
