@@ -1,1 +1,1 @@
-Shortdescription: Runs once the order page has been written. A written order is not necessarily a paid one. Return the order if your hook updated it, or nothing.
+Shortdescription: Runs once the order page has been written. A written order is not necessarily a paid one. Return the order if your hook updated it, or nothing. Merx logs what the hook throws, e.g. a mail which could not be sent, and still sends the customer to their order.

@@ -24,23 +24,19 @@ return [
   'hooks' => [
     'wagnerwagner.merx.createOrder:after' => function (\Wagnerwagner\Merx\OrderPage $orderPage) {
       $name = $orderPage->given_name() . ' ' . $orderPage->family_name();
-      try {
-        kirby()->email([
-          'from' => 'info@shop.test',
-          'fromName' => $orderPage->site()->title(),
-          'to' => [(string)$orderPage->email() => $name],
-          'subject' => 'Thanks for your order!',
-          'body' => 'Dear ' . $name . ', thank you for your order of ' . $orderPage->total(),
-        ]);
-      } catch (Throwable $exception) {
-        \Wagnerwagner\Merx\Logger::log('Mail for order ' . $orderPage->orderNumber() . ' not sent: ' . $exception->getMessage(), 'error');
-      }
+      kirby()->email([
+        'from' => 'info@shop.test',
+        'fromName' => $orderPage->site()->title(),
+        'to' => [(string)$orderPage->email() => $name],
+        'subject' => 'Thanks for your order!',
+        'body' => 'Dear ' . $name . ', thank you for your order of ' . $orderPage->total(),
+      ]);
     },
   ],
 ];
 ```
 
-When the hook runs, the order is written and the cart is empty. A mail that fails, e.g. because the mail server is down, must not end the hook with an exception: the customer would be sent back to the checkout page with an error, although their order exists and may be paid. So catch it and log it instead.
+When the hook runs, the order is written. A mail that fails, e.g. because the mail server is down, does not undo it: Merx writes the error to its [log](/reference/options/config-options/logging) and sends the customer to their order.
 
 The hook runs for every order, paid or not: an invoice or SEPA Direct Debit order is still waiting for its payment. Check [`$orderPage->isPaid()`](/reference/classes/order-page/is-paid) before the mail says the order is paid.
 
