@@ -233,7 +233,7 @@ $cart->add([
 The `key` identifies the item inside the cart, so every variant needs its own. Adding the same `key` twice adds up the quantities instead of creating a second line. Title, price and tax are read from the variant page, `data` is yours to fill.
 
 > [!CAUTION]
-> [`$cart->add()`](/reference/classes/cart/add) accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else. A key like `color` or `size` at the top level fails with `Unknown named parameter` — your own attributes belong in `data`.
+> [`$cart->add()`](/reference/classes/cart/add) accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else. A key like `color` or `size` at the top level fails with `Unknown named parameter $color`. Your own attributes belong in `data`.
 
 ----
 
