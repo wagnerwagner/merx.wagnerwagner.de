@@ -40,7 +40,7 @@ class ReferenceHookPage extends ReferencePageAbstract
 		if (!$this->reflection()->hasReturnType()) {
 			return null;
 		}
-		return new Types([$this->reflection()->getReturnType()]);
+		return new Types((string)$this->reflection()->getReturnType());
 	}
 
 	public function title(): Field

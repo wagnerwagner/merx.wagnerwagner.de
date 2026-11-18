@@ -91,7 +91,7 @@ class ReferenceApiRoutePage extends \Wagnerwagner\Site\ReferencePageAbstract
 		if (!$this->reflection()->hasReturnType()) {
 			return new Types(['void']);
 		}
-		return new Types([$this->reflection()->getReturnType()]);
+		return new Types((string)$this->reflection()->getReturnType());
 	}
 
 	public function title(): Field
