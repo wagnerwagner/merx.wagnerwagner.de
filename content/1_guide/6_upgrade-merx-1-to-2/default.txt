@@ -181,7 +181,7 @@ Kirby 6 replaced sections with fields, and so did Merx.
 
 `sections/order` → [`fields/order`](/reference/blueprints/fields/order), a field group
 `sections/orders` → [`fields/orders`](/reference/blueprints/fields/orders), a `pagelist` field
-`sections/payment` → [`fields/payment`](/reference/blueprints/fields/payment), a field group
+`sections/payment` → its fields are part of [`fields/order`](/reference/blueprints/fields/order) now
 
 Where you extend one of them, change the name and move it from `sections:` to `fields:`. Under `sections:`, Kirby shows an error in its place.
 
