@@ -18,7 +18,7 @@ return null;
 			<?php if ($variant === 'tertiary'): ?>
 				<?php
 					$title = (string)$item->title();
-					$summary = (string)$item->summary();
+					$summary = kti((string)$item->summary());
 					$html = "<span>$title</span>" . (empty($summary) ? '' : "<small>$summary</small>");
 				?>
 				<?= Html::tag('a', [$html], [

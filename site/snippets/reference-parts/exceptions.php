@@ -8,7 +8,7 @@
 		<?php foreach ($exceptions as $exception): ?>
 			<tr>
 				<td><?= $exception['type']->toHtml() ?></td>
-				<td><?= $exception['description'] ?></td>
+				<td><?= kti($exception['description']) ?></td>
 			</tr>
 		<?php endforeach ?>
 	</table>

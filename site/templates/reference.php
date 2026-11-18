@@ -63,7 +63,7 @@ foreach ($page->children()->listed() as $item) {
 										<li>
 											<a href="<?= $subitem->url() ?>">
 												<strong><?= $subitem->title() ?></strong>
-												<small><?= $subitem->summary() ?></small>
+												<small><?= kti($subitem->summary()) ?></small>
 											</a>
 										</li>
 									<?php endforeach ?>

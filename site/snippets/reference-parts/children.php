@@ -13,7 +13,7 @@ $page ??= page();
 				<a href="<?= $item->url() ?>">
 					<span><?= $item->title() ?></span>
 					<?php if (!empty($item->summary())): ?>
-						<small><?= $item->summary() ?></small>
+						<small><?= kti($item->summary()) ?></small>
 					<?php endif ?>
 				</a>
 			</li>
