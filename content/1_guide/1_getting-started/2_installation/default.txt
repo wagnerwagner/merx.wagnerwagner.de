@@ -21,6 +21,8 @@ In general you can follow [Kirby docs: Installing plugins](https://getkirby.com/
 Merx requires **[Kirby 6](https://getkirby.com/releases/6)**. Beyond that it has no special requirements — as long as Kirby runs fine, so does Merx.
 [System requirements of Kirby](https://getkirby.com/docs/reference/system/requirements)
 
+This guide adds a shop to a Kirby site. If you don’t have one yet and don’t want the Starterkit, set up an empty site as in Kirby’s [Quickstart](https://getkirby.com/docs/guide/quickstart), e.g. with the Plainkit. Then install Merx in one of the ways below.
+
 ## Download Merx
 
 [Download Merx](https://github.com/wagnerwagner/merx/archive/main.zip) and unzip. Then put the unzipped folder into the `/site/plugins/` folder of your Kirby project.
