@@ -48,6 +48,9 @@ As long as all data is valid, the customer is redirected directly to the order p
 
 When there are validation errors (e.g. no email provided) the API endpoint ([`/api/shop/checkout`](/reference/api/routes/shop-checkout-post)) returns a JSON with details of the validation error. Continue with **[Validate checkout](/guide/getting-started/validate-checkout)** to learn how to define required fields and how to use JavaScript to handle the JSON data.
 
+> [!NOTE]
+> Test orders count like any other order: each one lowers the [stock](/guide/getting-started/stock) of the products it contains. Set [`reduceStock`](/reference/options/config-options/reduce-stock) to `false` in your development config if they should leave it alone.
+
 ## Show why an order failed
 
 When an order can’t be completed, e.g. because the customer canceled the payment, Merx sends them back to the checkout page. [`merx()->error()`](/reference/classes/merx/error) returns what went wrong, once: an array with the translation `key` and the `message`, or `null`.
