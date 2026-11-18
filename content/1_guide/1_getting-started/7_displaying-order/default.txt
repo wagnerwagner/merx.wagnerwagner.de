@@ -31,6 +31,9 @@ The order number is created automatically. By default it’s an incrementing num
 > [!CAUTION]
 > Always use [`$field->escape()`](https://getkirby.com/docs/reference/templates/field-methods/escape) for fields with user generated content to prevent [XSS attacks](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS).
 
+> [!IMPORTANT]
+> An order page holds your customer’s personal data and has no login: whoever knows its URL can read it. Show only what the customer needs, and read [Securing order pages](/guide/security) before your shop goes live.
+
 ## Cart snippet
 
 To display the summary of the items ordered, you can create a new cart [snippet](https://getkirby.com/docs/guide/templates/snippets).
