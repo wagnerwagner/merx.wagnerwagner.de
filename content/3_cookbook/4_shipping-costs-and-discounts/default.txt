@@ -14,7 +14,7 @@ Text:
 
 Every entry in the cart is a [`ListItem`](/reference/classes/list-item) with a `type`. Products use the default type `product`, and shipping costs and discounts use a type of their own. The allowed types are `credit`, `custom`, `discount`, `product`, `promotion` and `shipping`.
 
-Because shipping is just another list item, it needs no content page and no blueprint of its own. It’s part of [`$cart->total()`](/reference/classes/cart/total) like everything else, and [`filterByType()`](/reference/classes/cart/filter-by-type) keeps it out of your product listing.
+Because shipping is just another list item, it needs no content page and no blueprint of its own — though it can have one, see [Shipping costs from a page](#shipping-costs-from-a-page). It’s part of [`$cart->total()`](/reference/classes/cart/total) like everything else, and [`filterByType()`](/reference/classes/cart/filter-by-type) keeps it out of your product listing.
 
 ## Add shipping as a list item
 
@@ -134,6 +134,47 @@ A total of exactly zero can be ordered, for example with a coupon that covers th
 The [cart API](/reference/api/routes/shop-cart-get) lists shipping and discounts on their own, as `shippings` and `discounts` next to `products`, each with its items and their total.
 
 For how tax is applied to a price, see the [taxes](/guide/configuration/taxes) guide.
+
+## Shipping costs from a page
+
+A list item with a price of its own is set in code. If editors should change the shipping costs in the Panel, or the shop has more than one currency, give shipping a page instead. Its price then comes from the page like a product’s: one per [pricing rule](/guide/configuration/currencies), with a [tax rule](/guide/configuration/taxes), and it follows the visitor’s currency without being added again.
+
+The page needs the model of a product and a blueprint with a price:
+
+```php title="/site/models/shipping.php"
+<?php
+
+class ShippingPage extends Wagnerwagner\Merx\ProductPage
+{
+}
+```
+
+```yaml title="/site/blueprints/pages/shipping.yml"
+title: Shipping
+extends: wagnerwagner.merx.pages/product
+
+tabs:
+  content:
+    fields:
+      - price
+      - taxRule
+```
+
+In `updateCartExtras()`, add the page instead of the `ListItem`. Its key is the page’s UUID, so remove it by that key:
+
+```php title="/site/config/config.php"
+$shippingPage = page('shipping');
+$cart->remove($shippingPage->uuid()->toString());
+
+// …
+
+$cart->add([
+  'page' => $shippingPage,
+  'type' => 'shipping',
+]);
+```
+
+The [Starterkit](https://github.com/wagnerwagner/merx-starterkit) works this way, with an extra field for the amount from which shipping is free.
 
 ----
 

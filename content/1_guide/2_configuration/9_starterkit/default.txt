@@ -18,16 +18,18 @@ The [Merx Starterkit](https://github.com/wagnerwagner/merx-starterkit) implement
 | -- | -- |
 | [Currencies & pricing rules](/guide/configuration/currencies) | `site/config/config.php` → `wagnerwagner.merx.pricingRules` |
 | [Taxes](/guide/configuration/taxes) | `site/config/config.php` → `wagnerwagner.merx.taxRules` |
-| [Stripe & PayPal secrets](/guide/configuration/stripe-paypal-secrets) | `site/config/config.php` (empty placeholders) or a domain-specific config file like `site/config/config.starterkit.merx.wagnerwagner.test.php` |
+| [Stripe & PayPal secrets](/guide/configuration/stripe-paypal-secrets) | `site/config/env.php`, which is not part of the repository. `site/config/config.php` only holds empty placeholders |
 | [Order number](/guide/configuration/order-number) | Uses the plugin’s default format, no customization |
-| [Testing and production](/guide/configuration/testing-and-production) | `site/config/config.php` → `wagnerwagner.merx.production` and `wagnerwagner.merx.license` |
+| [Testing and production](/guide/configuration/testing-and-production) | `site/config/config.php` → `wagnerwagner.merx.production`, the license in `site/config/env.php` |
 | [Localization](/guide/configuration/localization) | `site/languages/de.php`, `en.php`, `us.php` → `locale` |
+| [Invoice](/guide/payment-gateways/invoice) | `site/config/config.php` → `wagnerwagner.merx.gateways`, used by the payment method *Prepayment* |
+| [Shipping costs](/cookbook/shipping-costs-and-discounts#shipping-costs-from-a-page) | A `shipping` page and a cart hook in `site/config/config.php` |
 
-Use a [domain-specific config file](https://getkirby.com/docs/guide/configuration#multi-environment-setup) to keep your secret keys and license out of the main `config.php`.
+Keep your secret keys and license in `env.php`, as [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets) describes. Settings that only apply to one machine, such as `reduceStock` for test orders, go into a [domain-specific config file](https://getkirby.com/docs/guide/configuration#multi-environment-setup) like `site/config/config.starterkit.merx.wagnerwagner.test.php`.
 
 ## Hooks
 
-The Starterkit also registers a `wagnerwagner.merx.createOrder:after` hook in `site/config/config.php`, which sends an order confirmation email to the customer. See [Sending emails](/guide/getting-started/sending-emails).
+The Starterkit also registers a `wagnerwagner.merx.createOrder:after` hook in `site/config/config.php`, which sends an order confirmation email to the customer. See [Sending emails](/guide/getting-started/sending-emails). A `wagnerwagner.merx.cart.*:after` hook keeps the shipping costs up to date.
 
 ----
 
