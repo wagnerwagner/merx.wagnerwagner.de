@@ -77,7 +77,7 @@ By default PayPal shows one line with your site title and the cart total. [`$car
 <?php
 
 return [
-  'wagnerwagner.merx.paypal.purchaseUnits' => fn (): array => site()->cart()->payPalPurchaseUnits(),
+  'wagnerwagner.merx.paypal.purchaseUnits' => fn (): array => cart()->payPalPurchaseUnits(),
 ];
 ```
 

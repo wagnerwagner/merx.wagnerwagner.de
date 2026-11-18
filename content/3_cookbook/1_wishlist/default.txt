@@ -106,7 +106,7 @@ Because both classes hold the same items, moving a wishlist into the [cart](/ref
 
 ```php
 foreach (wishlist() as $item) {
-  $site->cart()->add($item);
+  cart()->add($item);
 }
 ```
 

@@ -14,7 +14,7 @@ Text:
 
 ## Cart
 
-The list of what a visitor intends to buy. A [`Cart`](/reference/classes/cart) is a collection of list items, kept in the visitor’s session and identified by the session cookie. Each visitor has exactly one, reachable as [`$site->cart()`](/reference/options/site-methods/cart).
+The list of what a visitor intends to buy. A [`Cart`](/reference/classes/cart) is a collection of list items, kept in the visitor’s session and identified by the session cookie. Each visitor has exactly one, reachable as `cart()`.
 
 ## Checkout page
 

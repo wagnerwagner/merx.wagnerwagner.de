@@ -14,11 +14,11 @@ Text:
 
 The [API](/guide/api/concept) exists so your pages can stay cacheable. When that does not matter — a small catalog, no page cache, or a shop that has to work without JavaScript — you can do the same things in a template, a controller or a [route](https://getkirby.com/docs/guide/routing).
 
-Both work on the same cart. `$site->cart()` and the API read from and write to the same session, so we can mix them freely.
+Both work on the same cart. `cart()` and the API read from and write to the same session, so we can mix them freely.
 
 | API route | PHP |
 | ---- | ---- |
-| `GET shop/cart` | [`$site->cart()`](/reference/options/site-methods/cart) |
+| `GET shop/cart` | [`cart()`](/reference/classes/cart) |
 | `POST shop/cart` | [`$cart->add()`](/reference/classes/cart/add) |
 | `PATCH shop/cart` | [`$cart->updateItem()`](/reference/classes/cart/update-item) |
 | `DELETE shop/cart` | [`$cart->remove()`](/reference/classes/cart/remove) |
@@ -27,10 +27,10 @@ Both work on the same cart. `$site->cart()` and the API read from and write to t
 
 ## Showing the cart
 
-[`$site->cart()`](/reference/options/site-methods/cart) returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, like the cart of an order, so the cart snippet from [Displaying order](/guide/getting-started/displaying-order#cart-snippet) shows it as well.
+`cart()` returns the visitor’s [`Cart`](/reference/classes/cart). It is a collection of [`ListItem`](/reference/classes/list-item) objects, like the cart of an order, so the cart snippet from [Displaying order](/guide/getting-started/displaying-order#cart-snippet) shows it as well.
 
 ```php title="/site/templates/cart.php"
-<?php snippet('cart', ['cart' => $site->cart()]) ?>
+<?php snippet('cart', ['cart' => cart()]) ?>
 ```
 
 Because this makes the page different for every visitor, the page that includes it can no longer be cached.
