@@ -6,7 +6,7 @@ Headline: More shop. Just as simple.
 
 ----
 
-Intro: Merx 2 is the new major version of Merx, built for Kirby 6. Prices in any currency, tax rates per product and country, a JSON API that keeps your pages cacheable, and every Stripe payment method in one integration. It’s a toolset, not a framework — if you know Kirby, you know Merx.
+Intro: Merx 2 is the next major version, built for Kirby 6. Prices in any currency, tax rates per product and country, a built-in JSON API that keeps every page fast and cacheable, and every Stripe payment method in one integration. It’s a toolset, not a framework — if you know Kirby, you’ll feel right at home.
 
 ----
 
@@ -17,7 +17,7 @@ Features:
         "content": {
             "label": "Pricing rules",
             "headline": "Every price in the right currency",
-            "text": "A pricing rule decides which price a visitor sees — by language, by domain, by date, or by anything else you can write in PHP. Each rule brings its own currency and says whether its prices include tax. Editors enter one price per rule via the Panel.",
+            "text": "A pricing rule decides which price a visitor sees — by language, by domain, by date, or by anything else you can write in PHP. Each rule brings its own currency and says whether its prices include tax. Editors enter one price per rule in the Panel.",
             "link": "page://emf7bwlzrpdf8uru",
             "linktext": "",
             "visual": "(image: file://W6bguniihfGyMfGv)"
@@ -30,7 +30,7 @@ Features:
         "content": {
             "label": "Tax rules",
             "headline": "The right rate for every product",
-            "text": "Every product names a tax rule, and the rule sets the rate: reduced for books, standard for everything else, different per country. A cart with several rates adds up each of them on its own, ready for the invoice.",
+            "text": "Every product names a tax rule, and the rule sets the rate: reduced for books, standard for everything else, different per country. A cart with mixed rates totals each one separately, ready for the invoice.",
             "link": "page://gsaaq236wrxhtg1y",
             "linktext": "",
             "visual": "```php title=\"/site/config/config.php\"\n<?php\n\nreturn [\n  'wagnerwagner.merx.taxRules' => [\n    'default' => [\n      'name' => 'Standard rate',\n      'rate' => 0.19,\n    ],\n    'reduced' => [\n      'name' => 'Reduced rate',\n      'rate' => 0.07,\n    ],\n  ],\n];\n```"
@@ -43,7 +43,7 @@ Features:
         "content": {
             "label": "Integrated API",
             "headline": "Personal cart, cacheable pages",
-            "text": "Merx 2 includes a powerful, built-in, extensible, REST-like API built on top of Kirby’s powerful and extensible API. You can serve cart and checkout from the API under `/api/shop`, so the rest of your site can stay static and sit behind a CDN. Error messages come in the user’s language, and responses can be trimmed to the fields you need. And if you need to, you can even extend the API with your own models and routes.",
+            "text": "Merx 2 includes a powerful, REST-like API, built on top of Kirby’s API. Serve cart and checkout from the API under `/api/shop`, and the rest of your site can stay static and sit behind a CDN. Error messages come in the customer’s language, and responses can be trimmed to the fields you need. And if you need to, you can even extend the API with your own models and routes.",
             "link": "page://qflialnrpsfyeazk",
             "linktext": "",
             "visual": "```js title=\"script.js\"\nawait fetch('/api/shop/cart', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ page: 'products/shoes', quantity: 2 }),\n});\n\n// The cart badge in your header only needs the quantity\nconst response = await fetch('/api/shop/cart?view=compact');\nconst { data } = await response.json();\n\nconsole.log(data.quantity); // 2\n```"
@@ -56,7 +56,7 @@ Features:
         "content": {
             "label": "PHP API",
             "headline": "A class for every part of the shop",
-            "text": "Merx's strength lies in its PHP classes, which form the stable foundation for everything. What was represented as a string or array in Merx 1 now has its own class. [`Cart`](/reference/classes/cart), [`ProductList`](/reference/classes/product-list), [`ListItems`](/reference/classes/list-items) and [`ListItem`](/reference/classes/list-item) hold what’s in the cart. [`Price`](/reference/classes/price) and [`Tax`](/reference/classes/tax) know their net and gross amounts, [`PricingRule`](/reference/classes/pricing-rule) and [`TaxRule`](/reference/classes/tax-rule) decide which ones apply. [`ProductPage`](/reference/classes/product-page) and [`OrderPage`](/reference/classes/order-page) are the models your pages extend, [`PaymentDetails`](/reference/classes/payment-details) keeps the record of every payment, [`Logger`](/reference/classes/logger) writes the log, and [`Merx`](/reference/classes/merx) ties it all together.",
+            "text": "Merx’s strength lies in its PHP classes, the stable foundation for everything else. What was a string or an array in Merx 1 now has its own class. [`Cart`](/reference/classes/cart), [`ProductList`](/reference/classes/product-list), [`ListItems`](/reference/classes/list-items) and [`ListItem`](/reference/classes/list-item) hold what’s in the cart. [`Price`](/reference/classes/price) and [`Tax`](/reference/classes/tax) know their net and gross amounts; [`PricingRule`](/reference/classes/pricing-rule) and [`TaxRule`](/reference/classes/tax-rule) decide which ones apply. [`ProductPage`](/reference/classes/product-page) and [`OrderPage`](/reference/classes/order-page) are the models your pages extend, [`PaymentDetails`](/reference/classes/payment-details) keeps the record of every payment, [`Logger`](/reference/classes/logger) writes the log, and [`Merx`](/reference/classes/merx) ties it all together.",
             "link": "page://Va98nrP5Frux3IIV",
             "linktext": "",
             "visual": "```php title=\"/site/templates/cart.php\"\n<?php\n\n$cart = cart();\n$cart->add(['page' => 'products/socks', 'quantity' => 2]);\n\nforeach ($cart as $item) {\n  echo $item->title;         // Socks\n  echo $item->price;         // €10.71\n}\n\n$total = $cart->total();\necho $total->priceNet;       // 18\necho $total->tax->rate();    // 19%\necho $total;                 // €21.42\n```"
@@ -108,7 +108,7 @@ Features:
         "content": {
             "label": "Volume-based pricing",
             "headline": "Prices that know the quantity",
-            "text": "A product’s price can depend on how many are in the cart. Override `price()` in your product model, and the cart passes the quantity for you.",
+            "text": "A product’s price can depend on how many are in the cart. Override `price()` in your product model, and the cart passes in the quantity.",
             "link": "page://0wcfjw04omnnzrg8",
             "linktext": "",
             "visual": "```php title=\"/site/models/product.php\"\n<?php\n\nuse Wagnerwagner\\Merx\\Price;\nuse Wagnerwagner\\Merx\\PricingRule;\n\nclass ProductPage extends Wagnerwagner\\Merx\\ProductPage\n{\n  public function price(\n    null|string|PricingRule $pricingRule = null,\n    null|float $quantity = null,\n    null|array $data = null,\n  ): ?Price {\n    $price = parent::price($pricingRule, $quantity, $data);\n    if ($quantity >= 10) {\n      $price = $price->updatePrice($price->price * 0.95);\n    }\n    return $price;\n  }\n}\n```"
@@ -121,7 +121,7 @@ Features:
         "content": {
             "label": "Hooks",
             "headline": "A hook for every step",
-            "text": "Before and after every cart operation, before and after an order is initialized and created, and when an order is paid — even if that happens days later, as with SEPA Direct Debit. Send mails or talk to your ERP without touching Merx.",
+            "text": "Merx runs hooks before and after every cart operation, before and after an order is initialized and created, and when an order is paid — even if that happens days later, as with SEPA Direct Debit. Send emails or talk to your ERP without touching Merx.",
             "link": "page://yhIQU3K8eTbdmO2Z",
             "linktext": "",
             "visual": "```php title=\"/site/config/config.php\"\n<?php\n\nreturn [\n  'hooks' => [\n    'wagnerwagner.merx.orderPaid' => function ($orderPage) {\n      // Right away for a card, days later for SEPA Direct Debit\n    },\n  ],\n];\n```"
@@ -146,8 +146,8 @@ Features:
     {
         "content": {
             "label": "Security",
-            "headline": "Improved guardrails",
-            "text": "Merx 2 checks that a payment covers the order before it writes one. Order pages get a random URL, stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
+            "headline": "Guardrails built in",
+            "text": "Merx 2 checks that a payment covers the order before creating it. Order pages get a random URL, stay out of caches and search engines, every view is logged, and an order keeps just enough to find its transaction again — never the provider’s full response.",
             "link": "page://GHz8OM3Cq4xMWxxT",
             "linktext": "",
             "visual": ""
