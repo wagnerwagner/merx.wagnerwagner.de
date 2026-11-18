@@ -26,6 +26,60 @@ content/
       product-variant.txt
 ```
 
+## Manage the variants in the Panel
+
+Customers order the variants, never the product itself. So the product lists its variants in its content tab, where the stock was, and has no orders tab. Extend Merx’ [product blueprint](/reference/blueprints/pages/product) for it.
+
+```yaml title="/site/blueprints/pages/product.yml"
+extends: wagnerwagner.merx.pages/product
+
+tabs:
+  content:
+    fields:
+      - price
+      - taxRule
+      - name: variants
+        type: pagelist
+        label: Variants
+        blueprints: product-variant
+        layout: table
+        image: false
+        columns:
+          color: true
+          size: true
+          stock:
+            value: '{{ page.stock ?? "∞" }}'
+  orders: false
+```
+
+If you also sell products without variants, give the products with variants a template of their own.
+
+A variant is a product of its own, so its blueprint extends the product blueprint as well. It asks for the attributes when it is created and builds title and slug from them. It is created as listed, because the product template only offers listed variants.
+
+```yaml title="/site/blueprints/pages/product-variant.yml"
+title: Variant
+extends: wagnerwagner.merx.pages/product
+
+create:
+  title: '{{ page.color }} {{ page.size }}'
+  slug: '{{ page.color.slug }}-{{ page.size.slug }}'
+  fields:
+    - color
+    - size
+  status: listed
+
+tabs:
+  content:
+    fields:
+      - name: color
+        type: text
+        width: 1/3
+      - name: size
+        type: text
+        width: 1/3
+      - stock
+```
+
 ## Product template
 
 On the product page, the customer should be able to select the desired variant. Instead of the hidden input field from the [Adding products](/guide/getting-started/adding-products) there will be a `select` input field with all available variants. The value of each option is the `uuid` of the *product variant* page.
@@ -232,7 +286,7 @@ $cart->add([
 
 The `key` identifies the item inside the cart, so every variant needs its own. Adding the same `key` twice adds up the quantities instead of creating a second line. Title, price and tax are read from the variant page, `data` is yours to fill.
 
-> [!CAUTION]
+> [!NOTE]
 > [`$cart->add()`](/reference/classes/cart/add) accepts the parameters of [`new ListItem()`](/reference/classes/list-item/__construct) and nothing else. A key like `color` or `size` at the top level fails with `Unknown named parameter $color`. Your own attributes belong in `data`.
 
 ----
