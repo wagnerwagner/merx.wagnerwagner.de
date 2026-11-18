@@ -52,6 +52,11 @@ class OrderPage extends Wagnerwagner\Merx\OrderPage
 
 	public function title(): Field
 	{
+		// A draft has no order number yet. Merx titles it “Incomplete”.
+		if ($this->isDraft()) {
+			return parent::title();
+		}
+
 		return new Field($this, 'title', 'Invoice ' . $this->orderNumber());
 	}
 }
