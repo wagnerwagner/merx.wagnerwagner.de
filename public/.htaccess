@@ -25,6 +25,12 @@ RewriteRule (.*) https://merx.wagnerwagner.de/$1 [R=301,L]
 
 RewriteBase /
 
+RewriteCond %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI}/index.html -f
+RewriteRule ^(.*) %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI}/index.html [END]
+
+RewriteCond %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI} -f
+RewriteRule ^(.*) %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI} [END]
+
 # Enable hashed urls
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.+)\.([\d\w]{8})\.(\w+)$ $1.$3 [L]

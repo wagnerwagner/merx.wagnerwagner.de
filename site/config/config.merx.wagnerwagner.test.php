@@ -4,6 +4,7 @@ return [
 	'wagnerwagner.merx.production' => false,
 	'nova-links' => true,
 	'cache.site.search' => false,
+	'cache.pages' => false,
 	'email' => [
 		'transport' => [
 			'type' => 'smtp',

@@ -33,4 +33,14 @@ return [
 		],
 	],
 	'cache.site.search' => true,
+	'cache' => [
+		'pages' => [
+			'active' => true,
+			'type' => 'static',
+			'root' => __DIR__ . '/../../public/pages-cache',
+			'ignore' => function ($page) {
+				return $page->template()->name() === 'checkout';
+			}
+		],
+	],
 ];

@@ -4,3 +4,6 @@
 [submodule "kirby"]
 	path = kirby
 	url = https://github.com/getkirby/kirby.git
+[submodule "site/plugins/staticache"]
+	path = site/plugins/staticache
+	url = https://github.com/getkirby/staticache.git
