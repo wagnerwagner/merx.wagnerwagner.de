@@ -59,6 +59,10 @@
 	border: var(--border-size-medium) solid var(--color-green-500);
 	background-color: var(--color-green-50);
 
+	> .m-text {
+		text-wrap-style: balance;
+	}
+
 	> * + .m-text {
 		margin-block-start: var(--size-200);
 	}
