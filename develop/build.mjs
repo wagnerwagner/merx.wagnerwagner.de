@@ -19,6 +19,10 @@ const options = {
 		"/assets/images/*",
 		"./polyfills/*.js",
 	],
+	// The logo of the invoice PDF is drawn from the paths of its SVG
+	loader: {
+		".svg": "text",
+	},
 };
 
 

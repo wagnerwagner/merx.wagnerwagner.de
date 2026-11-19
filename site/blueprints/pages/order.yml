@@ -1,1 +1,4 @@
 extends: wagnerwagner.merx.pages/order
+
+buttons:
+  eInvoice: true

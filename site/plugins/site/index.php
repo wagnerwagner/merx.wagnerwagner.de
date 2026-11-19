@@ -34,6 +34,17 @@ function sendConfirmationMail(OrderPage $orderPage)
 App::plugin('wagnerwagner/site', [
 	'options' => [
 		'countryList' => $countryList,
+		// Seller on every invoice: the order page, its PDF and its XML
+		'seller' => [
+			'name' => 'Wagnerwagner GmbH',
+			'street' => 'Burkhardt+Weber-Straße 59',
+			'postalCode' => '72760',
+			'city' => 'Reutlingen',
+			'country' => 'DE',
+			'register' => 'HRB Stuttgart 354262',
+			'taxNumber' => '78092 / 68991',
+			'vatId' => 'DE231029364',
+		],
 	],
 	'pageMethods' => [
 		'seoTitle' => function (): string {
@@ -66,6 +77,14 @@ App::plugin('wagnerwagner/site', [
 				Logger::log('Confirmation email of order "' . $orderPage->uid() . '" was not sent: ' . $ex->getMessage(), 'error');
 			}
 
+			return $orderPage;
+		},
+		/**
+		 * The invoice is issued with the order, so its e-invoice XML is written
+		 * now and stays as it is
+		 */
+		'wagnerwagner.merx.createOrder:after' => function (OrderPage $orderPage): OrderPage {
+			$orderPage->eInvoiceXml();
 			return $orderPage;
 		},
 		/**
@@ -122,6 +141,27 @@ App::plugin('wagnerwagner/site', [
 					$this->kirby()->session()->set('region', $country);
 
 					return $this->cart();
+				},
+			],
+		],
+	],
+	'areas' => [
+		// Kirby merges the buttons of every area, like those of Merx in `site`
+		'site' => fn (): array => [
+			'buttons' => [
+				/**
+				 * Downloads the e-invoice XML of an order which has one
+				 */
+				'eInvoice' => function (Page $page): array|null {
+					if ($page instanceof OrderPage === false || $page->isDraft() === true || $page->hasEInvoice() === false) {
+						return null;
+					}
+
+					return [
+						'icon' => 'code',
+						'text' => 'E-invoice (XML)',
+						'link' => $page->url() . '.xml',
+					];
 				},
 			],
 		],

@@ -26,8 +26,7 @@ Icon
 # Merx Orders
 # ---------------------------
 
-/content/**/order.txt
-/content/**/order.*.txt
+/content/orders/**/*
 
 # Cache Files
 # ---------------

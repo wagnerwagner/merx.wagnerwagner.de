@@ -23,18 +23,6 @@
 	}
 }
 
-.o-order__logo {
-	display: none;
-
-	@media print {
-		display: block;
-		margin-block-end: var(--size-500);
-		margin-inline: auto;
-		width: auto;
-		height: 0.5cm;
-	}
-}
-
 .o-order__licenses {
 	display: grid;
 	row-gap: var(--size-300);
@@ -172,21 +160,4 @@
 .o-order__actions {
 	display: flex;
 	justify-content: center;
-}
-
-@media print {
-	.o-header,
-	.o-footer,
-	.o-order__status,
-	.o-order__actions {
-		display: none;
-	}
-
-	.o-order,
-	.o-order__box,
-	.o-order__invoice {
-		padding: 0;
-		border: none;
-		background: none;
-	}
 }

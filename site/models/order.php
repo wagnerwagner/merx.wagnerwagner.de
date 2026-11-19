@@ -1,10 +1,14 @@
 <?php
 
 use Kirby\Content\Field;
+use Kirby\Filesystem\F;
 use Kirby\Toolkit\Str;
 
 class OrderPage extends Wagnerwagner\Merx\OrderPage
 {
+	/** Member states of the EU */
+	private const EU_COUNTRIES = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
+
 	/**
 	 * Name of the payment method the customer paid with, e.g. `Apple Pay (Visa)`
 	 *
@@ -47,6 +51,64 @@ class OrderPage extends Wagnerwagner\Merx\OrderPage
 			'sepa_debit' => 'SEPA Direct Debit',
 			'ideal' => 'iDEAL',
 			default => Str::ucwords(Str::replace($method, '_', ' ')),
+		};
+	}
+
+	/**
+	 * E-invoice as Factur-X/ZUGFeRD XML, profile EN 16931, see `hasEInvoice()`
+	 *
+	 * Written on the first call, which is when the order is created, and
+	 * unchanged afterwards.
+	 */
+	public function eInvoiceXml(): string|null
+	{
+		if ($this->hasEInvoice() === false) {
+			return null;
+		}
+
+		$file = $this->root() . '/factur-x.xml';
+		if ($xml = F::read($file)) {
+			return $xml;
+		}
+
+		$xml = trim(snippet('factur-x', ['order' => $this], true)) . "\n";
+		F::write($file, $xml);
+		return $xml;
+	}
+
+	/**
+	 * Whether the order gets an e-invoice: only a customer in Germany has to
+	 */
+	public function hasEInvoice(): bool
+	{
+		return Str::upper((string)$this->country()) === 'DE';
+	}
+
+	/**
+	 * VAT category of the order, as EN 16931 names it
+	 *
+	 * - `S`: VAT is charged, for a customer in Germany
+	 * - `AE`: reverse charge, the customer in another EU country owes the VAT
+	 * - `O`: not taxable in Germany, the customer is outside the EU
+	 */
+	public function vatCategory(): string
+	{
+		return match (true) {
+			$this->cart()->taxRates() !== [] => 'S',
+			in_array(Str::upper((string)$this->country()), self::EU_COUNTRIES, true) => 'AE',
+			default => 'O',
+		};
+	}
+
+	/**
+	 * Why the invoice charges no VAT, or null when it does
+	 */
+	public function vatNotice(): string|null
+	{
+		return match ($this->vatCategory()) {
+			'AE' => 'This invoice is issued under the reverse charge procedure. Therefore, no VAT is charged. The recipient of the supply is liable for the VAT and has to declare and pay it in accordance with the reverse charge mechanism (Art. 196 VAT Directive).',
+			'O' => 'Not subject to German VAT: the place of supply is outside the EU (Section 3a German VAT Act).',
+			default => null,
 		};
 	}
 

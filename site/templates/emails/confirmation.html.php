@@ -10,8 +10,7 @@
  * @var \Wagnerwagner\Merx\OrderPage $page
  */
 
- use Kirby\Cms\Url;
-use Kirby\Toolkit\Str;
+use Kirby\Cms\Url;
 
 $cart = $page->cart();
 $total = $cart->total();
@@ -120,12 +119,12 @@ $cell = 'padding: 8px 0; font-size: 15px; line-height: 20px; text-align: right; 
 								</tr>
 							</table>
 
-							<?php if (count($taxRates) === 0 && Str::lower($page->country()->toString()) !== 'de'): ?>
-								<p style="margin: 24px 0 0; font-size: 14px; line-height: 20px;">This invoice is issued under the reverse charge procedure. Therefore, no VAT is charged. The recipient of the supply is liable for the VAT and has to declare and pay it in accordance with the reverse charge mechanism (Art. 196 VAT Directive).</p>
+							<?php if ($notice = $page->vatNotice()): ?>
+								<p style="margin: 24px 0 0; font-size: 14px; line-height: 20px;"><?= $notice ?></p>
 							<?php endif ?>
 
 							<p style="margin: 24px 0 0; font-size: 15px; line-height: 22px; text-align: center;">
-								View or print your invoice:<br>
+								View or download your invoice:<br>
 								<strong><a href="<?= $page->url() ?>" style="color: #285a14;"><?= Url::short($page->url()) ?></a></strong>
 							</p>
 						</td>
