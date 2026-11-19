@@ -3,7 +3,7 @@
 /**
  * @var \Wagnerwagner\Merx\ProductList $cart
  * @var \Wagnerwagner\Merx\OrderPage|OrderPage $page
- * @var float $licenseCount
+ * @var int $licenseCount
  * @var string[] $licenses
  */
 
