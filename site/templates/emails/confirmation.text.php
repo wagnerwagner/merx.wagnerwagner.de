@@ -9,7 +9,7 @@ $total = $cart->total();
 $taxRates = $cart->taxRates();
 $licenses = $page->licenses()->split(',');
 ?>
-Thank’s for your purchase.
+Thank you for your order.
 
 
 Billing Address:
