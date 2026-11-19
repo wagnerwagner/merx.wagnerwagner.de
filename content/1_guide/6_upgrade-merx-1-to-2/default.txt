@@ -197,11 +197,13 @@ Merx does not migrate the orders you already have, and Merx 2 cannot read them a
 - `Invoicedate` → `Datecreated`, `Paymentmethod` → `Paymentgateway`
 - `Paymentcomplete` is gone. An order is paid once it has a `Datepaid`, which was `Paiddate` (or `Payeddate` before Merx 1.7).
 - The order number is a field now, `Ordernumber`. Without it an order stays untitled. Merx 1 showed the sorting number with five digits, `00042`.
-- Every entry in `Items` needs a `type` — `product` for anything you sell, where Merx 1 wrote `template`. Its tax rate is `taxrate` as a decimal (`0.19`), not `taxRate` in percent (`19`), and it needs a `currency`.
+- Every entry in `Items` needs a `type` — `product` for anything you sell, where Merx 1 wrote `template`. Its tax rate is `taxrate` as a decimal (`0.19`), not `taxRate` (or `taxrate`) in percent (`19`), and it needs a `currency`.
 - `Paymentdetails` held the provider’s whole response, including the customer’s personal data. Merx 2 keeps a short [record](/reference/classes/payment-details/create). Its `provider` is what the Panel links to the payment with.
 - Merx 2 keeps an order in the default language only.
 
-The script below does all of it. It writes the content files directly: an update through Kirby would run the hooks, and every paid order would send its “paid” email again. Back up `/content` first, set your currency, and run it once with `php migrate-orders.php`.
+The script below does all of it. It writes the content files directly: an update through Kirby would run the hooks, and every paid order would send its “paid” email again.
+
+Back up `/content` first and set your currency. If your `index.php` sets its own roots, for example with a `public` folder, pass the same roots to `new App()`. Then try it with `php migrate-orders.php --dry-run`: it prints the folder it found and every file it would change, and changes nothing. Run it without `--dry-run` once that looks right.
 
 ```php title="/migrate-orders.php"
 <?php
@@ -214,15 +216,22 @@ use Wagnerwagner\Merx\PaymentDetails;
 
 require __DIR__ . '/kirby/bootstrap.php';
 
+// Pass the roots of your index.php, if it sets any
 $kirby = new App();
 $currency = 'EUR';
+$dryRun = in_array('--dry-run', $argv, true);
+
+$root = $kirby->site()->ordersPage()?->root() ?? throw new Exception('No orders page found');
+echo 'Orders in ' . $root . ($dryRun ? ' (dry run)' : '') . PHP_EOL;
+
 $language = $kirby->defaultLanguage()?->code();
 $suffix = $language === null ? '.txt' : '.' . $language . '.txt';
 
-foreach (glob($kirby->site()->ordersPage()->root() . '/*_*/order*.txt') as $file) {
+foreach (glob($root . '/*_*/order*.txt') as $file) {
 	// Merx keeps an order in the default language only
 	if (str_ends_with($file, $suffix) === false) {
-		F::remove($file);
+		echo 'Delete ' . $file . PHP_EOL;
+		$dryRun || F::remove($file);
 		continue;
 	}
 
@@ -242,33 +251,43 @@ foreach (glob($kirby->site()->ordersPage()->root() . '/*_*/order*.txt') as $file
 
 	$data['items'] = Yaml::encode(array_map(fn (array $item): array => [
 		// Long values were written as folded strings, which end with a line break
-		'key' => trim($item['key']),
-		'title' => $item['title'],
-		'quantity' => (float)$item['quantity'],
-		'type' => $item['template'] === 'shipping' ? 'shipping' : 'product',
+		'key' => trim($item['key'] ?? $item['id']),
+		'title' => $item['title'] ?? null,
+		'quantity' => (float)($item['quantity'] ?? 1),
+		'type' => ($item['template'] ?? null) === 'shipping' ? 'shipping' : 'product',
 		'price' => (float)$item['price'],
-		'taxrate' => (float)$item['taxRate'] / 100,
+		'taxrate' => (float)($item['taxRate'] ?? $item['taxrate'] ?? 0) / 100,
 		'currency' => $currency,
 	], Yaml::decode($data['items'] ?? '')));
 
-	// Merx 1 kept the provider’s whole response, with the customer’s personal data
+	// Merx 1 kept the provider’s whole response, with the customer’s personal
+	// data. Only the keys of `PaymentDetails::$keys` are kept.
 	$details = Yaml::decode($data['paymentdetails'] ?? '');
-	if (str_starts_with($details['id'] ?? '', 'pi_') === true) {
-		$data['paymentdetails'] = Yaml::encode(PaymentDetails::create([
-			'provider' => 'stripe',
-			'id' => $details['id'],
+	if (isset($details['purchase_units']) === true) {
+		$details = PaymentDetails::fromPayPalOrder($details);
+	} elseif ($details !== []) {
+		$isStripe = str_starts_with($details['id'] ?? '', 'pi_') || str_starts_with($details['id'] ?? '', 'src_');
+		$details = PaymentDetails::create([
+			// The Panel links a PaymentIntent and a PayPal capture, not a Stripe source
+			'provider' => match (true) {
+				str_starts_with($details['id'] ?? '', 'pi_') => 'stripe',
+				$data['paymentgateway'] === 'paypal' => 'paypal',
+				default => null,
+			},
+			'id' => $details['id'] ?? null,
 			'status' => $details['status'] ?? null,
-			'amount' => $details['amount'] / 100,
-			'currency' => strtoupper($details['currency']),
-			'created' => date('c', $details['created']),
-			'livemode' => $details['livemode'] === true,
-		]));
-	} elseif (isset($details['purchase_units']) === true) {
-		$data['paymentdetails'] = Yaml::encode(PaymentDetails::fromPayPalOrder($details));
+			'amount' => $isStripe && isset($details['amount']) ? $details['amount'] / 100 : null,
+			'currency' => $isStripe && isset($details['currency']) ? strtoupper($details['currency']) : null,
+			'created' => $isStripe && isset($details['created']) ? date('c', $details['created']) : null,
+			'payment_method' => $details['type'] ?? null,
+			'livemode' => $details['livemode'] ?? null,
+		]);
 	}
+	$data['paymentdetails'] = $details === [] ? '' : Yaml::encode($details);
 
 	unset($data['invoicedate'], $data['paiddate'], $data['payeddate'], $data['paymentcomplete'], $data['paymentmethod']);
-	F::write($file, Txt::encode($data));
+	echo 'Migrate ' . $file . PHP_EOL;
+	$dryRun || F::write($file, Txt::encode($data));
 }
 ```
 
