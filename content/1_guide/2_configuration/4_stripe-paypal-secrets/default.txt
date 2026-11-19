@@ -20,7 +20,7 @@ Each provider gives you two sets of keys, one for testing and one for real payme
 
 - [`stripe.test.publishable_key`](/reference/options/config-options/stripe-test-publishable-key) and [`stripe.live.publishable_key`](/reference/options/config-options/stripe-live-publishable-key) identify your account in the browser. They aren’t secret — the publishable key goes into your checkout template, see [Stripe](/guide/payment-gateways/stripe).
 - [`stripe.test.secret_key`](/reference/options/config-options/stripe-test-secret-key) and [`stripe.live.secret_key`](/reference/options/config-options/stripe-live-secret-key) are what actually charge money. Server only.
-- [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) verifies that a webhook really came from Stripe. There’s only one, so it holds the test secret while you’re testing and the live one afterwards. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
+- [`stripe.test.webhook_signing_secret`](/reference/options/config-options/stripe-test-webhook-signing-secret) and [`stripe.live.webhook_signing_secret`](/reference/options/config-options/stripe-live-webhook-signing-secret) verify that a webhook really came from Stripe. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
 
 ## PayPal keys
 
@@ -43,7 +43,7 @@ Kirby reads three config files, each overriding the one before it:
 return [
   'wagnerwagner.merx.stripe.test.publishable_key' => 'pk_test_xxx…',
   'wagnerwagner.merx.stripe.test.secret_key' => 'sk_test_xxx…',
-  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_xxx…',
+  'wagnerwagner.merx.stripe.test.webhook_signing_secret' => 'whsec_xxx…',
   'wagnerwagner.merx.paypal.sandbox.clientID' => 'xxx…',
   'wagnerwagner.merx.paypal.sandbox.secret' => 'xxx…',
 ];
@@ -57,15 +57,13 @@ return [
   'wagnerwagner.merx.license' => 'MERX2-XXXXXXXX-XXXXXXXX',
   'wagnerwagner.merx.stripe.live.publishable_key' => 'pk_live_xxx…',
   'wagnerwagner.merx.stripe.live.secret_key' => 'sk_live_xxx…',
-  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_xxx…',
+  'wagnerwagner.merx.stripe.live.webhook_signing_secret' => 'whsec_xxx…',
   'wagnerwagner.merx.paypal.live.clientID' => 'xxx…',
   'wagnerwagner.merx.paypal.live.secret' => 'xxx…',
 ];
 ```
 
 [`production`](/reference/options/config-options/production) belongs in the same file, because a live server with live keys but without it reads the *test* keys — which are not there — and every payment fails. Keeping it here rather than in `config.php` is also what stops your development machine from charging real cards.
-
-The signing secret appears in both, with a different value: there is one option for it, and the webhook you create in Stripe’s test mode has a different secret from the live one.
 
 ```gitignore title="/.gitignore"
 /site/config/env.php

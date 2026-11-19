@@ -1,0 +1,5 @@
+Guide: /guide/configuration/stripe-webhooks
+
+----
+
+Shortdescription: Verifies that a webhook in test mode really came from Stripe.

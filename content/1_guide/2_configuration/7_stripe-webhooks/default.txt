@@ -30,18 +30,18 @@ Add the `payment_intent.amount_capturable_updated` event as well. Merx captures 
 
 Copy the created Signing secret. `whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 
-## Set the stripe.webhook_signing_secret option
+## Set the signing secret
 
-Add the Signing secret as [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) option.
+Add the Signing secret as [`stripe.test.webhook_signing_secret`](/reference/options/config-options/stripe-test-webhook-signing-secret) option.
 
 ```php title="/site/config/env.php"
 <?php
 return [
-  'wagnerwagner.merx.stripe.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  'wagnerwagner.merx.stripe.test.webhook_signing_secret' => 'whsec_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
 ];
 ```
 
-We recommend to set these keys in `/site/config/env.php` on your server only. For your development environment you can use a separate env file containing sandbox keys.
+For production, create the webhook again in live mode and set its secret as [`stripe.live.webhook_signing_secret`](/reference/options/config-options/stripe-live-webhook-signing-secret). Merx picks one of the two with the [`production`](/reference/options/config-options/production) option, like the keys. See [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
 
 ## Use other Stripe hooks
 

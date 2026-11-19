@@ -45,7 +45,7 @@ Check that the order page is written, the order number is what you expect, and y
 
 1. Put the live keys on the server, in `/site/config/env.php` — the live Stripe secret and publishable key, the live PayPal client ID and secret. See [Stripe/PayPal secrets](/guide/configuration/stripe-paypal-secrets).
 2. Set `production` to `true` **on the server only**, so your local install keeps using the test keys.
-3. Create the Stripe webhook again on the live side and replace [`stripe.webhook_signing_secret`](/reference/options/config-options/stripe-webhook-signing-secret) with the live one. There’s only one of those options, and a test secret rejects every live webhook. See [Stripe webhooks](/guide/configuration/stripe-webhooks).
+3. Create the Stripe webhook again in live mode and set its secret as [`stripe.live.webhook_signing_secret`](/reference/options/config-options/stripe-live-webhook-signing-secret). See [Stripe webhooks](/guide/configuration/stripe-webhooks).
 4. Set your [`license`](/reference/options/config-options/license) key.
 5. Make sure order pages are not reachable by search engines or listed anywhere. See [Security](/guide/security).
 

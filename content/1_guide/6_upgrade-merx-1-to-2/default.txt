@@ -38,6 +38,8 @@ Every option moved namespace.
 
 Three are gone. `currency` and `currencySymbol` are replaced by [pricing rules](/guide/configuration/currencies), which set the currency per rule instead of once for the whole shop. `successPage` is replaced by the [API](/guide/api/concept) — see *The success page* below.
 
+`stripe.webhook_signing_secret` is split into [`stripe.test.webhook_signing_secret`](/reference/options/config-options/stripe-test-webhook-signing-secret) and [`stripe.live.webhook_signing_secret`](/reference/options/config-options/stripe-live-webhook-signing-secret), like the keys.
+
 Everything else is new, including [`license`](/reference/options/config-options/license), which every shop that takes real orders needs. The [config options reference](/reference/options/config-options) lists them all.
 
 ## Products

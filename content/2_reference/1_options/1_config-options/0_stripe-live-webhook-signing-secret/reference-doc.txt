@@ -1,0 +1,5 @@
+Guide: /guide/configuration/stripe-webhooks
+
+----
+
+Shortdescription: Verifies that a webhook in production really came from Stripe.
