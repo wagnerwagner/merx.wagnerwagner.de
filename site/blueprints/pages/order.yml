@@ -1,4 +1,16 @@
 extends: wagnerwagner.merx.pages/order
 
+image:
+  icon: '{{ page.isCancelled ? "cancel" : (page.isPaid ? "check" : "clock") }}'
+  color: '{{ page.isCancelled ? "red-700" : (page.isPaid ? "green-700" : "orange-700") }}'
+
 buttons:
   eInvoice: true
+
+tabs:
+  overview:
+    fields:
+      cancelled:
+        label: Cancelled
+        type: toggle
+        help: The order page then shows the invoice as cancelled and masks the license keys. Refund the payment at the provider yourself.

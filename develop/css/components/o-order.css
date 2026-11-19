@@ -37,6 +37,12 @@
 	code {
 		user-select: all;
 	}
+
+	/* The masked keys of a cancelled order are no keys to copy */
+	del code {
+		user-select: none;
+		text-decoration: line-through;
+	}
 }
 
 .o-order__status {
@@ -53,6 +59,11 @@
 
 	> * + .m-text {
 		margin-block-start: var(--size-200);
+	}
+
+	&[data-status="cancelled"] {
+		border-color: var(--color-red-500);
+		background-color: var(--color-red-50);
 	}
 
 	@media (min-width: 38em) {

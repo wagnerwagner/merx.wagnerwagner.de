@@ -12,6 +12,19 @@
 	<?php snippet('o-header') ?>
 	<main class="o-order" aria-labelledby="invoice-headline">
 		<div class="o-order__box">
+			<?php if ($page->isCancelled()): ?>
+				<div class="o-order__status" data-status="cancelled">
+					<h1 class="a-heading" data-size="small">Your order has been cancelled</h1>
+					<div class="m-text">
+						<p>
+							This invoice has been cancelled. The original license <?= $licenseCount === 1 ? 'key is' : 'keys are' ?> no longer valid.
+							<?php if ($page->isPaid()): ?>
+								Your payment has been refunded to your original payment method: <?= esc($page->paymentMethodName()) ?>.
+							<?php endif ?>
+						</p>
+					</div>
+				</div>
+			<?php else: ?>
 			<div class="o-order__status">
 				<h1 class="a-heading" data-size="small">Thank you for your order</h1>
 				<div class="m-text">
@@ -24,6 +37,7 @@
 					</p>
 				</div>
 			</div>
+			<?php endif ?>
 
 			<div class="o-order__invoice">
 				<h1 class="a-display" id="invoice-headline">Invoice</h1>
@@ -48,7 +62,11 @@
 						<h2 class="a-heading" data-size="xsmall" id="licenses"><?= count($licenses) === 1 ? 'Your license key' : 'Your license keys' ?></h2>
 						<ul>
 							<?php foreach ($licenses as $license): ?>
-								<li><code class="a-type" data-size="large"><?= Kirby\Toolkit\Html::encode($license) ?></code></li>
+								<?php if ($page->isCancelled()): ?>
+									<li><del><code class="a-type" data-size="large"><?= Kirby\Toolkit\Html::encode($license) ?></code></del></li>
+								<?php else: ?>
+									<li><code class="a-type" data-size="large"><?= Kirby\Toolkit\Html::encode($license) ?></code></li>
+								<?php endif ?>
 							<?php endforeach ?>
 						</ul>
 					</section>

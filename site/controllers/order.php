@@ -30,7 +30,7 @@ return function (OrderPage $page) {
 
 	return [
 		'licenseCount' => (int)$cart->quantity(),
-		'licenses' => $page->licenses()->split(','),
+		'licenses' => $page->licenseKeys(),
 		'invoice' => [
 			'number' => $page->orderNumber()->value(),
 			'filename' => 'merx-invoice-' . $page->orderNumber() . '.pdf',
@@ -47,6 +47,7 @@ return function (OrderPage $page) {
 				['Invoice number', $page->orderNumber()->value()],
 				['Date', $page->dateCreated()->toDate('F j, Y')],
 				['Payment method', $page->paymentMethodName()],
+				...($page->isCancelled() ? [['Status', 'Cancelled']] : []),
 			],
 			'items' => $items,
 			'totals' => $totals,

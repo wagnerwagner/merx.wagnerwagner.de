@@ -10,6 +10,40 @@ class OrderPage extends Wagnerwagner\Merx\OrderPage
 	private const EU_COUNTRIES = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'];
 
 	/**
+	 * Whether the order was cancelled in the Panel
+	 */
+	public function isCancelled(): bool
+	{
+		return $this->cancelled()->toBool();
+	}
+
+	/**
+	 * License keys of the order. Those of a cancelled order are masked,
+	 * e.g. `MERX2-RXXXXXXP-DXXXXXXE`.
+	 *
+	 * @return string[]
+	 */
+	public function licenseKeys(): array
+	{
+		$keys = $this->licenses()->split(',');
+
+		if ($this->isCancelled() === false) {
+			return $keys;
+		}
+
+		return array_map(function (string $key): string {
+			$segments = explode('-', $key);
+			foreach ($segments as $index => $segment) {
+				// The prefix says which Merx the key is for
+				if ($index > 0 && strlen($segment) > 2) {
+					$segments[$index] = $segment[0] . str_repeat('X', strlen($segment) - 2) . $segment[-1];
+				}
+			}
+			return implode('-', $segments);
+		}, $keys);
+	}
+
+	/**
 	 * Name of the payment method the customer paid with, e.g. `Apple Pay (Visa)`
 	 *
 	 * Read from the payment details Merx stores for the order. An order without
