@@ -1,70 +1,7 @@
 /** @typedef {import('@stripe/stripe-js').Stripe} Stripe */
 /** @typedef {import('@stripe/stripe-js').StripeElements} StripeElements */
-/** @typedef {import('@stripe/stripe-js').StripePaymentElement} StripePaymentElement */
 
 class OCheckout {
-	stripeElementsAppearance = {
-		theme: 'flat',
-		labels: 'above',
-		disableAnimations: true,
-		variables: {
-			fontFamily: "'TT Norms M', 'TT Norms', Avenir, sans-serif",
-			borderRadius: '2px',
-			inputColorBorder: 'hsl(0, 0%, 33%)',
-			tabLogoSelectedColor: 'dark',
-			colorBackground: '#fff',
-			fontSize2Xs: '0.625rem',
-			fontSizeXs: '0.75rem',
-			fontSizeSm: '0.875rem',
-			fontSizeLg: '1.125rem',
-			fontSizeXl: '1.4375rem',
-			fontSize2Xl: '1.8125rem',
-			fontLineHeight: '1.25',
-			fontWeightMedium: '500',
-			fontWeightNormal: '450',
-			colorText: 'hsl(0, 0%, 13%)',
-			colorPrimary: 'hsl(0, 0%, 13%)',
-			colorDanger: 'hsl(0, 64%, 40%)',
-			colorSuccess: 'hsl(103, 64%, 22%)',
-			colorWarning: 'hsl(60, 80%, 50%)',
-			colorTextSecondary: 'hsl(0, 0%, 40%)',
-			colorTextPlaceholder: 'hsl(0, 0%, 60%)',
-			iconColor: 'var(--colorPrimary)',
-			gridColumnSpacing: '1.25rem',
-			gridRowSpacing: '0.75rem',
-			accordionItemSpacing: '0.75rem',
-			labelFontSize: '1rem',
-			labelSpacing: '0.375rem',
-			spacingGridRow: '1rem',
-		},
-		rules: {
-			'.Input': {
-				border: '1px solid hsl(0, 0%, 60%)',
-				padding: '0.5rem 0.4375rem',
-			},
-			'.Tab--selected, .Tab--selected:focus': {
-				border: 'none',
-				boxShadow: 'none',
-			},
-			'.Tab:focus': {
-				boxShadow: 'none',
-				outline: '2px solid Highlight',
-				outlineOffset: '2px',
-			},
-			'.Input:focus': {
-				boxShadow: 'none',
-				outline: '2px solid Highlight',
-				outlineOffset: '2px',
-			},
-			'.Tab': {
-				padding: '0.5rem 0.75rem',
-			},
-			'.TabLabel': {
-				paddingTop: '0.5rem',
-			},
-		},
-	};
-
 	/** Delay before a change of the quantity is sent, so fast clicks are sent once */
 	updateDelay = 400;
 
@@ -78,8 +15,11 @@ class OCheckout {
 		/** @type {number} */
 		this.quantity = Number(this.cartElement.querySelector('[data-cart="quantity"]').textContent);
 
-		/** @type {Stripe} */
-		this.stripe = window.Stripe(this.formElement.elements.stripePublishableKey.value);
+		/** @type {Promise<void>|undefined} Stripe.js and its fields, loaded once */
+		this.stripeLoaded = undefined;
+
+		/** @type {StripeElements[]} Elements of the Apple Pay and Google Pay buttons */
+		this.walletElements = [];
 
 		/** @type {Promise|null} Cart update in progress */
 		this.cartUpdate = null;
@@ -97,9 +37,22 @@ class OCheckout {
 			this.queueCartUpdate({ country: this.formElement.elements.country.value }, 0);
 		});
 
+		this.formElement.querySelectorAll('[name="paymentMethod"]').forEach((input) => {
+			input.addEventListener('change', () => this.choosePaymentMethod(input));
+			// A browser restores the choice on reload or back navigation
+			if (input.checked) {
+				this.choosePaymentMethod(input);
+			}
+		});
+
 		this.formElement.addEventListener('submit', (event) => this.submit(event));
 
-		this.mountPaymentElement().catch((error) => this.showError(error.message ?? error));
+		// Right away, because only Stripe knows whether to offer Apple Pay and Google Pay
+		this.loadStripe().then(
+			// Without them, the other payment methods still work
+			() => this.mountWallets().catch((error) => console.error(error)),
+			(error) => this.showError(error.message ?? error),
+		);
 	}
 
 	/**
@@ -157,10 +110,7 @@ class OCheckout {
 					cart = await this.request('/api/shop/cart', 'PATCH', { key: 'merx-license', quantity });
 				}
 				this.renderCart(cart);
-
-				// A payment intent is created for the total of one cart. A changed
-				// total needs a new one, or Merx refuses the payment.
-				await this.mountPaymentElement();
+				await this.updateWallets();
 			} catch (error) {
 				this.showError(error.message ?? error);
 			} finally {
@@ -225,8 +175,28 @@ class OCheckout {
 	}
 
 	/** @param {SubmitEvent} event */
-	async submit(event) {
+	submit(event) {
 		event.preventDefault();
+
+		const paymentMethod = this.formElement.querySelector('[name="paymentMethod"]:checked');
+		// Apple Pay and Google Pay are paid with their own button
+		if (paymentMethod.dataset.wallet !== undefined) {
+			return;
+		}
+
+		this.placeOrder(paymentMethod, (clientSecret, redirectUrl, formData) => (
+			this.confirmStripePayment(paymentMethod.value, clientSecret, redirectUrl, formData)
+		));
+	}
+
+	/**
+	 * Sends the order to Merx, and to Stripe for a payment method of Stripe
+	 *
+	 * @param {HTMLInputElement} paymentMethod Radio button of the payment method
+	 * @param {(clientSecret: string, redirectUrl: string, formData: FormData) => Promise<void>} confirmStripePayment Pays at Stripe once Merx has accepted the order
+	 * @returns {Promise<boolean>} Whether the customer is on the way to the order page or to pay
+	 */
+	async placeOrder(paymentMethod, confirmStripePayment) {
 		this.clearErrors();
 
 		// The payment has to be for the cart the customer sees
@@ -239,6 +209,16 @@ class OCheckout {
 
 		try {
 			const formData = new FormData(this.formElement);
+			formData.set('paymentGateway', paymentMethod.dataset.gateway);
+
+			// Only Stripe needs a payment intent. Merx adds the one of the session
+			// to the order, so it is fetched before the checkout, and fetched now
+			// it holds the total of the cart that is submitted.
+			let clientSecret;
+			if (paymentMethod.dataset.gateway === 'stripe') {
+				await this.loadStripe();
+				clientSecret = await this.getClientSecret();
+			}
 
 			const response = await fetch(this.formElement.action, {
 				method: 'post',
@@ -250,9 +230,15 @@ class OCheckout {
 			const json = await response.json();
 
 			if (json.status === 'redirect') {
-				// Stripe redirects to the order page once the payment is confirmed
-				await this.completeStripePayment(json.redirectUrl, formData);
-			} else if (json.key === 'error.merx.fieldsvalidation') {
+				if (clientSecret !== undefined) {
+					await confirmStripePayment(clientSecret, json.redirectUrl, formData);
+				}
+				// The order page, or PayPal
+				window.location.href = json.redirectUrl;
+				return true;
+			}
+
+			if (json.key === 'error.merx.fieldsvalidation') {
 				this.showFieldErrors(json.details);
 			} else {
 				throw json.message ?? 'Fatal error';
@@ -262,6 +248,8 @@ class OCheckout {
 		} finally {
 			this.setBusy(false);
 		}
+
+		return false;
 	}
 
 	/** @param {object} details */
@@ -297,75 +285,264 @@ class OCheckout {
 		this.formElement.querySelectorAll('.m-form-checkout__error').forEach((element) => element.remove());
 	}
 
-	async completeStripePayment(redirectUrl, formData) {
-		const { error } = await this.stripe.confirmPayment({
-			// `Elements` instance that was used to create the Payment Element
-			elements: this.stripeElements,
-			confirmParams: {
-				return_url: redirectUrl,
-				payment_method_data: {
-					billing_details: {
-						// Some payment methods, like SEPA Direct Debit, require a name
-						name: formData.get('name') || formData.get('company'),
-						email: formData.get('email'),
-						address: {
-							country: formData.get('country'),
-							city: formData.get('city'),
-							line1: formData.get('street'),
-							postal_code: formData.get('postal_code'),
-							state: formData.get('state'),
-						},
-					},
-				},
-			},
+	/**
+	 * Shows the fields of a payment method and hides those of the others
+	 *
+	 * @param {HTMLInputElement} input Radio button of the payment method
+	 */
+	choosePaymentMethod(input) {
+		this.formElement.querySelectorAll('[data-payment-method]').forEach((element) => {
+			element.hidden = element.dataset.paymentMethod !== input.value;
 		});
 
-		if (error) {
-			throw error.message;
-		}
+		// E.g. “Continue to PayPal” instead of the total
+		const { submitText } = input.dataset;
+		this.submitElement.querySelector('[data-submit="pay"]').hidden = submitText !== undefined;
+		Object.assign(this.submitElement.querySelector('[data-submit="method"]'), {
+			hidden: submitText === undefined,
+			textContent: submitText ?? '',
+		});
+
+		// Apple Pay and Google Pay bring their own button
+		this.submitElement.hidden = input.dataset.wallet !== undefined;
 	}
 
 	/**
-	 * Creates the Payment Element for a new payment intent of the current cart
+	 * Loads Stripe.js and mounts the card and IBAN fields, once
 	 *
-	 * @see https://docs.stripe.com/js/element/payment_element
+	 * @returns {Promise<void>}
 	 */
-	async mountPaymentElement() {
+	loadStripe() {
+		this.stripeLoaded ??= new Promise((resolve, reject) => {
+			const script = document.createElement('script');
+			// The Stripe.js release of the Stripe API version Merx uses
+			// https://docs.stripe.com/sdks/stripejs-versioning
+			script.src = 'https://js.stripe.com/endive/stripe.js';
+			script.addEventListener('load', resolve);
+			script.addEventListener('error', () => reject(new Error('Stripe could not be loaded. Please reload the page.')));
+			document.head.append(script);
+		}).then(() => {
+			/** @type {Stripe} */
+			this.stripe = window.Stripe(this.formElement.elements.stripePublishableKey.value);
+
+			/** @type {StripeElements} */
+			this.stripeElements = this.stripe.elements({
+				locale: document.documentElement.lang,
+				fonts: [
+					{
+						cssSrc: '/assets/css/fonts.css',
+					},
+				],
+			});
+
+			// The fields live in an iframe, so they take the look of the other
+			// fields from them. Their box is styled by `.m-field__stripe`.
+			const inputStyle = getComputedStyle(this.formElement.elements.email);
+			const style = {
+				base: {
+					fontFamily: inputStyle.fontFamily,
+					fontSize: inputStyle.fontSize,
+					fontWeight: inputStyle.fontWeight,
+					color: inputStyle.color,
+					'::placeholder': {
+						color: getComputedStyle(this.formElement.elements.email, '::placeholder').color,
+					},
+				},
+				// `.m-field__stripe` turns the border red instead
+				invalid: {
+					color: inputStyle.color,
+				},
+			};
+
+			// https://docs.stripe.com/js/elements_object/create_element
+			this.stripeElements.create('card', {
+				style,
+				// The billing address is part of the form
+				hidePostalCode: true,
+				disableLink: true,
+			}).mount('#stripe-card');
+			this.stripeElements.create('iban', {
+				style,
+				supportedCountries: ['SEPA'],
+			}).mount('#stripe-iban');
+		});
+
+		return this.stripeLoaded;
+	}
+
+	/**
+	 * Creates the payment intent of the cart at Stripe, or updates it to the
+	 * cart’s total, and returns its client secret
+	 *
+	 * @returns {Promise<string>}
+	 */
+	async getClientSecret() {
 		const response = await fetch('/api/shop/stripe-client-secret');
 		const json = await response.json();
 		if (json.clientSecret === undefined) {
 			throw json.message ?? 'Fatal error';
 		}
+		return json.clientSecret;
+	}
 
-		this.paymentElement?.destroy();
+	/**
+	 * Offers Apple Pay and Google Pay where Stripe says the browser can pay
+	 * with them. Stripe shows neither before the domain is registered:
+	 * https://docs.stripe.com/payments/payment-methods/pmd-registration
+	 *
+	 * Their buttons stand in for the submit button, because only a click on
+	 * them may open the wallet. The wallet pays the payment intent of the
+	 * session, so it is created now, and it is the one Merx adds to the order.
+	 *
+	 * @see https://docs.stripe.com/elements/express-checkout-element
+	 */
+	async mountWallets() {
+		const inputs = [...this.formElement.querySelectorAll('[name="paymentMethod"][data-wallet]')];
+		if (inputs.length === 0) {
+			return;
+		}
 
-		/** @type {StripeElements} */
-		this.stripeElements = this.stripe.elements({
-			locale: document.querySelector('html').lang,
-			loader: 'never',
-			clientSecret: json.clientSecret,
-			fonts: [
-				{
-					cssSrc: '/assets/css/fonts.css',
+		const clientSecret = await this.getClientSecret();
+
+		this.walletElements = inputs.map((input) => {
+			const { wallet } = input.dataset;
+
+			// One element for each wallet, so it shows the button of this wallet
+			// only. An element without any button never reports one available.
+			/** @type {StripeElements} */
+			const elements = this.stripe.elements({
+				clientSecret,
+				locale: document.documentElement.lang,
+			});
+			const expressCheckout = elements.create('expressCheckout', {
+				paymentMethods: {
+					amazonPay: 'never',
+					applePay: 'never',
+					googlePay: 'never',
+					klarna: 'never',
+					link: 'never',
+					paypal: 'never',
+					// Also when the wallet holds no card yet
+					[wallet]: 'always',
 				},
-			],
-			appearance: this.stripeElementsAppearance,
-		});
-
-		/** @type {StripePaymentElement} */
-		this.paymentElement = this.stripeElements.create('payment', {
-			layout: {
-				type: 'tabs',
-			},
-			fields: {
-				billingDetails: {
-					name: 'never',
-					email: 'never',
-					address: 'never',
+				buttonType: {
+					applePay: 'buy',
+					googlePay: 'buy',
 				},
-			},
+				// As high as the submit button, within the 40 to 55 pixels Stripe allows
+				buttonHeight: Math.min(55, Math.max(40, Math.round(this.submitElement.getBoundingClientRect().height))),
+			});
+
+			expressCheckout.on('ready', ({ availablePaymentMethods }) => {
+				input.closest('label').hidden = availablePaymentMethods?.[wallet] !== true;
+			});
+
+			expressCheckout.on('click', (event) => {
+				// The wallet only pays: email and billing address come from the
+				// form, which has to be complete. Stripe waits 1 second at most.
+				if (this.submitElement.disabled || this.formElement.reportValidity() === false) {
+					event.reject();
+					return;
+				}
+				event.resolve();
+			});
+
+			expressCheckout.on('confirm', async (event) => {
+				const placed = await this.placeOrder(input, async (_, redirectUrl) => {
+					// https://docs.stripe.com/js/payment_intents/confirm_payment
+					const { error } = await this.stripe.confirmPayment({
+						elements,
+						confirmParams: {
+							return_url: redirectUrl,
+						},
+						// A card of the wallet is paid without leaving the page
+						redirect: 'if_required',
+					});
+					if (error) {
+						throw error.message;
+					}
+				});
+				if (placed === false) {
+					event.paymentFailed();
+				}
+			});
+
+			expressCheckout.mount(`#express-checkout-${input.value}`);
+
+			return elements;
 		});
-		this.paymentElement.mount('.m-form-checkout__payment-fields');
+	}
+
+	/** The wallets show the amount of the payment intent, which follows the cart */
+	async updateWallets() {
+		if (this.walletElements.length === 0) {
+			return;
+		}
+		await this.getClientSecret();
+		await Promise.all(this.walletElements.map((elements) => elements.fetchUpdates()));
+	}
+
+	/**
+	 * Pays with the payment method of Stripe the customer chose. Stripe asks
+	 * for 3-D Secure in a dialog of its own when the bank requires it.
+	 *
+	 * @param {string} paymentMethod Type of the payment method at Stripe, e.g. `card`
+	 * @param {string} clientSecret
+	 * @param {string} redirectUrl Where Merx completes the order
+	 * @param {FormData} formData
+	 */
+	async confirmStripePayment(paymentMethod, clientSecret, redirectUrl, formData) {
+		const billingDetails = {
+			// SEPA Direct Debit and Klarna require a name
+			name: formData.get('name') || formData.get('company'),
+			email: formData.get('email'),
+			// Stripe refuses an empty string, e.g. of the optional state
+			address: Object.fromEntries(Object.entries({
+				line1: formData.get('street'),
+				postal_code: formData.get('postal_code'),
+				city: formData.get('city'),
+				state: formData.get('state'),
+				country: formData.get('country'),
+			}).filter(([, value]) => value)),
+		};
+
+		let result;
+		if (paymentMethod === 'card') {
+			// https://docs.stripe.com/js/payment_intents/confirm_card_payment
+			result = await this.stripe.confirmCardPayment(clientSecret, {
+				payment_method: {
+					card: this.stripeElements.getElement('card'),
+					billing_details: billingDetails,
+				},
+			});
+		} else if (paymentMethod === 'sepa_debit') {
+			// https://docs.stripe.com/js/payment_intents/confirm_sepa_debit_payment
+			result = await this.stripe.confirmSepaDebitPayment(clientSecret, {
+				payment_method: {
+					sepa_debit: this.stripeElements.getElement('iban'),
+					billing_details: billingDetails,
+				},
+			});
+		} else {
+			// The others send the customer to pay elsewhere, e.g. to Klarna,
+			// and from there to the order page
+			// https://docs.stripe.com/js/payment_intents/confirm_payment
+			result = await this.stripe.confirmPayment({
+				clientSecret,
+				confirmParams: {
+					payment_method_data: {
+						type: paymentMethod,
+						billing_details: billingDetails,
+					},
+					return_url: redirectUrl,
+				},
+			});
+		}
+
+		if (result.error) {
+			// E.g. a declined card, which the customer can correct
+			throw result.error.message;
+		}
 	}
 }
 

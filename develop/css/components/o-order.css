@@ -151,8 +151,7 @@
 }
 
 .o-order__notice {
-	font: var(--font-paragraph-small);
-	color: var(--color-content-secondary);
+	font: var(--font-paragraph-medium);
 }
 
 .o-order__seller {

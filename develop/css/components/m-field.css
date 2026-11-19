@@ -8,7 +8,8 @@
 	}
 
 	> input,
-	> select {
+	> select,
+	> .m-field__stripe {
 		inline-size: 100%;
 		font: var(--font-label-medium);
 		padding-inline: var(--size-200);
@@ -30,11 +31,26 @@
 		background-position: right var(--size-200) top 50%;
 	}
 
+	/* The container Stripe mounts its field into. Stripe sets the classes. */
+	> .m-field__stripe {
+		/* As high as an input, also before Stripe has mounted its slightly lower field */
+		min-block-size: calc(1lh + 2 * var(--size-200) - var(--border-size-small) + 2 * var(--border-size-xsmall));
+
+		&.StripeElement--focus {
+			outline: 2px solid Highlight;
+			outline-offset: 2px;
+		}
+
+		&.StripeElement--invalid {
+			border-color: var(--color-red-600);
+		}
+	}
+
 	> small {
 		font: var(--font-paragraph-small);
 	}
 
-	&[data-type="checkbox"] {
+	&:is([data-type="checkbox"], [data-type="radio"]) {
 		flex-direction: row;
 		align-items: baseline;
 		column-gap: var(--size-300);
@@ -48,6 +64,8 @@
 			background: none;
 			appearance: auto;
 			accent-color: var(--color-brand);
+			/* The site has no dark colors yet, see colors.css */
+			color-scheme: light;
 		}
 		> div {
 			font: var(--font-paragraph-medium);

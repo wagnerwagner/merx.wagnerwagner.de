@@ -20,7 +20,13 @@ $country = option('wagnerwagner.site.countryList')[(string)$page->country()] ?? 
 			<div class="o-order__status">
 				<h1 class="a-heading" data-size="small">Thank you for your order</h1>
 				<div class="m-text">
-					<p>We’ll send your license <?= count($licenses) === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.</p>
+					<p>
+						<?php if ($page->isPaid()): ?>
+							We have send your license <?= count($licenses) === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.
+						<?php else: ?>
+							We will send your license <?= count($licenses) === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong> as soon as we received the payment.
+						<?php endif ?>
+					</p>
 				</div>
 			</div>
 

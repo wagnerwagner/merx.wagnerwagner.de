@@ -31,15 +31,22 @@
 	}
 }
 
-.m-form-checkout__payment-fields {
-	min-block-size: calc(120rem / 16);
+.m-form-checkout__payment-methods {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-300) var(--size-600);
 }
 
 .m-form-checkout__submit {
 	display: flex;
 }
 
+/* Apple Pay or Google Pay, whose button Stripe sizes to this box */
+.m-form-checkout__wallet {
+	inline-size: min(100%, calc(320rem / 16));
+}
+
 .m-form-checkout__error {
-	font: var(--font-paragraph-small);
 	color: var(--color-red-600);
+	font-weight: 700;
 }

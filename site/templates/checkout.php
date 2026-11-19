@@ -5,6 +5,9 @@
 $stripePublishableKey = option('wagnerwagner.merx.production') === true
 	? option('wagnerwagner.merx.stripe.live.publishable_key')
 	: option('wagnerwagner.merx.stripe.test.publishable_key');
+$paypalClientId = option('wagnerwagner.merx.production') === true
+	? option('wagnerwagner.merx.paypal.live.clientID')
+	: option('wagnerwagner.merx.paypal.sandbox.clientID');
 
 $total = $cart->total();
 $license = $cart->findBy('key', 'merx-license');
@@ -105,16 +108,74 @@ $license = $cart->findBy('key', 'merx-license');
 
 				<fieldset>
 					<legend class="a-heading" data-size="small">Payment</legend>
-					<div class="m-form-checkout__payment-fields"></div>
+
+					<?php /*
+						The value of a payment method of Stripe is its type at Stripe.
+						Apple Pay and Google Pay show up where Stripe says the browser
+						can pay with them, see /develop/js/components/o-checkout.js
+					*/ ?>
+					<div class="m-form-checkout__payment-methods">
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="card" data-gateway="stripe" required>
+							<div>Credit card</div>
+						</label>
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="paypal" data-gateway="paypal" data-submit-text="Continue to PayPal" required>
+							<div>PayPal</div>
+						</label>
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="ideal" data-gateway="stripe" data-submit-text="Continue to iDEAL" required>
+							<div>iDEAL | Wero</div>
+						</label>
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="sepa_debit" data-gateway="stripe" required>
+							<div>SEPA Direct Debit</div>
+						</label>
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="amazon_pay" data-gateway="stripe" data-submit-text="Continue to Amazon Pay" required>
+							<div>Amazon Pay</div>
+						</label>
+						<label class="m-field" data-type="radio">
+							<input type="radio" name="paymentMethod" value="klarna" data-gateway="stripe" data-submit-text="Continue to Klarna" required>
+							<div>Klarna</div>
+						</label>
+						<label class="m-field" data-type="radio" hidden>
+							<input type="radio" name="paymentMethod" value="apple_pay" data-gateway="stripe" data-wallet="applePay" autocomplete="off" required>
+							<div>Apple Pay</div>
+						</label>
+						<label class="m-field" data-type="radio" hidden>
+							<input type="radio" name="paymentMethod" value="google_pay" data-gateway="stripe" data-wallet="googlePay" autocomplete="off" required>
+							<div>Google Pay</div>
+						</label>
+					</div>
+
+					<div class="m-field" data-payment-method="card" hidden>
+						<div>Card details</div>
+						<div class="m-field__stripe" id="stripe-card"></div>
+					</div>
+
+					<div class="m-field" data-payment-method="sepa_debit" hidden>
+						<div>IBAN</div>
+						<div class="m-field__stripe" id="stripe-iban"></div>
+						<small>By providing your IBAN and confirming this payment, you authorize Wagnerwagner GmbH and Stripe, our payment service provider, to send instructions to your bank to debit your account, and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.</small>
+					</div>
 				</fieldset>
 
-				<input type="hidden" name="payment-gateway" value="stripe">
 				<input type="hidden" name="stripePublishableKey" value="<?= $stripePublishableKey ?>">
+
+				<?php if ($error = merx()->error()): ?>
+					<?php /* E.g. the customer canceled at PayPal, which sends them back here */ ?>
+					<p class="m-form-checkout__error" role="alert"><?= esc($error['message']) ?></p>
+				<?php endif ?>
 
 				<div class="m-form-checkout__submit">
 					<button type="submit" class="a-button" data-size="large" data-kind="brand">
-						Pay <span data-cart="total"><?= $total->toString('price') ?></span>
+						<span data-submit="pay">Pay <span data-cart="total"><?= $total->toString('price') ?></span></span>
+						<span data-submit="method" hidden></span>
 					</button>
+					<?php /* Only a click on its own button may open the wallet */ ?>
+					<div class="m-form-checkout__wallet" id="express-checkout-apple_pay" data-payment-method="apple_pay" hidden></div>
+					<div class="m-form-checkout__wallet" id="express-checkout-google_pay" data-payment-method="google_pay" hidden></div>
 				</div>
 			</div>
 		</form>
