@@ -25,8 +25,7 @@ $country = option('wagnerwagner.site.countryList')[(string)$page->country()] ?? 
 						<?php if ($page->isPaid()): ?>
 							We have send your license <?= $licenseCount === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.
 						<?php else: ?>
-							As soon as we received the payment, we will send your
-							We will send your license <?= $licenseCount === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong> as soon as we received the payment.
+							As soon as we received the payment, we will send your license <?= $licenseCount === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.
 						<?php endif ?>
 					</p>
 				</div>
