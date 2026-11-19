@@ -17,42 +17,6 @@ use Wagnerwagner\Site\TypeScript;
 @include_once __DIR__ . '/vendor/autoload.php';
 require_once 'country-list.php';
 
-/**
- * Create a element with link to class documentation
- */
-function classLink(string $class, bool $codeBlock = true): string
-{
-	$link = '';
-	$slugs = array_map(fn ($item) => Str::kebab($item), Str::split($class, '\\'));
-	$slug = implode('/', $slugs);
-	if (Str::startsWith($class, 'Kirby\\')) {
-		$slug = Str::replace($slug, 'kirby/', '');
-		$link = 'https://getkirby.com/docs/reference/objects/' . $slug;
-	} else {
-		$slug = Str::replace($slug, 'wagnerwagner/merx/', '');
-		$link = url('/reference/classes/' . $slug);
-	}
-	$content = $codeBlock ? ['<code>' . $class . '</code>'] : $class;
-	return Html::tag('a', $content, [
-		'href' => $link,
-	]);
-}
-
-function niceExcerpt($string, $query)
-{
-	$start = stripos($string, $query) - 100;
-	$start = $start < 0 ? 0 : $start;
-	if ($start > 0) {
-		$string = Str::substr($string, $start);
-		$string = '… ' . Str::after($string, ' ');
-	} else {
-		$string = Str::substr($string, 0);
-	}
-	$excerpt = Str::excerpt($string, 200 + Str::length($query));
-	return $excerpt;
-}
-
-
 function sendConfirmationMail(OrderPage $orderPage)
 {
 	kirby()->email([
@@ -77,32 +41,6 @@ App::plugin('wagnerwagner/site', [
 				return $this->title();
 			}
 			return $this->title() . ' – ' . $this->site()->title();
-		},
-	],
-	'siteMethods' => [
-		'prettySearch' => function ($query = ''): Kirby\Cms\Pages {
-			$sitesToSearch = $this->find('docs', 'cookbooks')->index()->listed()->filterBy('intendedTemplate', '!=', 'order');
-			$result = $sitesToSearch->search($query);
-			$result->map(function ($page) use ($query) {
-				$contentCollection = new Kirby\Toolkit\Collection($page->content()->data());
-				$pageResults = $contentCollection->filter(function ($page) use ($query) {
-					return Str::contains(strtolower($page), strtolower($query));
-				});
-				$excerpt = $pageResults->first();
-				if ($pageResults->findByKey('excerpt')) {
-					$excerpt = $pageResults->findByKey('excerpt');
-				} elseif ($pageResults->findByKey('text')) {
-					$excerpt = $pageResults->findByKey('text');
-				}
-				$excerpt = niceExcerpt(HTML::decode(kirbytext($excerpt)), $query);
-				if ($excerpt !== (string)$page->title()) {
-					$page->content()->update([
-						'excerpt' => preg_replace('/' . $query . '/i', '<b>${0}</b>', $excerpt),
-					]);
-				}
-				return $page;
-			});
-			return $result;
 		},
 	],
 	'hooks' => [
