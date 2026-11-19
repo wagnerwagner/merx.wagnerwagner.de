@@ -1,8 +1,8 @@
-Title: Stripe card element
+Title: Stripe Card Element
 
 ----
 
-Headline:
+Headline: 
 
 ----
 
@@ -12,7 +12,10 @@ Intro: Use a plain card field from Stripe instead of the Payment Element, next t
 
 Text:
 
-The [Stripe guide](/guide/payment-gateways/stripe) uses the Payment Element, which shows the payment methods of your Stripe account in one frame. The card element is only the card number, expiry date and CVC. Your checkout decides which payment methods it offers and how they look.
+The [Stripe guide](/guide/payment-gateways/stripe) uses the Payment Element, which shows the payment methods of your Stripe account in one frame. Stripe’s [Card Element](https://docs.stripe.com/payments/card-element) is only the card number, expiry date and CVC. Your checkout decides which payment methods it offers and how they look.
+
+> [!NOTE]
+> Stripe recommends the Payment Element and treats the Card Element as legacy. Use it when you want to have more control over the style of the payment methods.
 
 This recipe offers card and [invoice](/guide/payment-gateways/invoice), so invoice has to be switched on:
 
@@ -28,7 +31,7 @@ return [
 
 ## The checkout form
 
-Each radio button sends the name of a gateway. The card element mounts into the empty `div`.
+Each radio button sends the name of a gateway. The Card Element mounts into the empty `div`.
 
 ```php title="/site/templates/checkout.php"
 <?php
@@ -111,7 +114,31 @@ Stripe asks for 3-D Secure in a dialog of its own when the bank requires it, so 
 
 ## Loading Stripe.js only when needed
 
-Invoice customers don’t need Stripe.js. To keep it off their page, add the `script` element from JavaScript once card is chosen, and create the card element after it has loaded. The [starter kit](https://github.com/wagnerwagner/merx-starterkit/blob/main/assets/js/templates/checkout.js) does it this way.
+Invoice customers don’t need Stripe.js. To keep it off their page, add the `script` element from JavaScript once card is chosen, and create the Card Element after it has loaded. The [Starterkit](https://github.com/wagnerwagner/merx-starterkit/blob/main/assets/js/templates/checkout.js) does it this way.
+
+## More payment methods
+
+The Card Element has siblings for other payment methods, e.g. the IBAN Element for SEPA Direct Debit. Activate the method in your Stripe dashboard and add a second radio with the value `stripe`, and the IBAN Element next to it. Both pay through the Stripe gateway, so tell them apart by an attribute of your own, e.g. `data-method="sepa"`, and confirm a SEPA payment with `confirmSepaDebitPayment()`. SEPA needs the customer’s name and email, and the mandate text next to the field.
+
+```js title="/assets/js/checkout.js"
+const iban = stripe.elements({ locale: document.documentElement.lang }).create('iban', {
+  supportedCountries: ['SEPA'],
+});
+iban.mount('#iban-element');
+
+// On submit, instead of confirmCardPayment()
+const { error } = await stripe.confirmSepaDebitPayment(clientSecret, {
+  payment_method: {
+    sepa_debit: iban,
+    billing_details: {
+      name: `${checkoutForm.elements.given_name.value} ${checkoutForm.elements.family_name.value}`,
+      email: checkoutForm.elements.email.value,
+    },
+  },
+});
+```
+
+A SEPA payment takes a few days to clear, so set up [webhooks](/guide/configuration/stripe-webhooks). The [Starterkit](https://github.com/wagnerwagner/merx-starterkit/blob/main/assets/js/templates/checkout.js) offer card and SEPA side by side.
 
 ----
 

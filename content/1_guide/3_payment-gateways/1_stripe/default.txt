@@ -16,7 +16,7 @@ Your checkout shows Stripe’s [Payment Element](https://docs.stripe.com/payment
 
 To see which payment methods will be shown to your customers, you can use [Stripe’s Payment Review](https://dashboard.stripe.com/settings/payment_methods/review).
 
-You can also show only [selected payment methods](#optional-show-only-specific-payment-methods), or a plain card field next to payment methods of your own, see [Stripe card element recipe](/cookbook/stripe-card-element).
+You can also show only [selected payment methods](#optional-show-only-specific-payment-methods), or a plain card field next to payment methods of your own, see [Stripe Card Element recipe](/cookbook/stripe-card-element).
 
 For detailed information on the Payment Element, please read the **[Stripe Documentation *Accept a payment*](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=paymentintents)**.
 
