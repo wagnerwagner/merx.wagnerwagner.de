@@ -57,6 +57,13 @@ Icon
 
 /site/config/.license
 
+# Fonts
+# Licensed, must not be published in this public repository.
+# Copy them to the server by hand.
+# ---------------
+
+/public/assets/fonts/tt-norms/
+
 # Other
 # ---------------
 
