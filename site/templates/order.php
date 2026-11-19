@@ -3,6 +3,7 @@
 /**
  * @var \Wagnerwagner\Merx\ProductList $cart
  * @var \Wagnerwagner\Merx\OrderPage|OrderPage $page
+ * @var float $licenseCount
  * @var string[] $licenses
  */
 
@@ -22,9 +23,10 @@ $country = option('wagnerwagner.site.countryList')[(string)$page->country()] ?? 
 				<div class="m-text">
 					<p>
 						<?php if ($page->isPaid()): ?>
-							We have send your license <?= count($licenses) === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.
+							We have send your license <?= $licenseCount === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong>.
 						<?php else: ?>
-							We will send your license <?= count($licenses) === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong> as soon as we received the payment.
+							As soon as we received the payment, we will send your
+							We will send your license <?= $licenseCount === 1 ? 'key' : 'keys' ?> to <strong><?= $page->email()->escape() ?></strong> as soon as we received the payment.
 						<?php endif ?>
 					</p>
 				</div>

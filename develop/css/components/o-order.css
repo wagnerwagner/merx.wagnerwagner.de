@@ -43,6 +43,7 @@
 		display: flex;
 		gap: var(--size-200);
 		list-style: none;
+		flex-wrap: wrap;
 	}
 
 	code {
