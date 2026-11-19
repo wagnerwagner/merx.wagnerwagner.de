@@ -1,7 +1,4 @@
 <?php
-// Through Kirby’s response: a `header()` call would be overwritten with text/html
-$kirby->response()->type('application/xml');
-
 $ignoreTemplates = ['sitemap', 'error', 'merx-license', 'orders', 'order', 'section', 'section--class-method'];
 $ignoreSlug = ['error', 'merx-license', 'success', 'privacy', 'license', 'releases'];
 

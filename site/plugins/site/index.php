@@ -31,6 +31,19 @@ function sendConfirmationMail(OrderPage $orderPage)
 }
 
 
+/**
+ * Renders a virtual page as content representation, so the pages cache
+ * stores it as e.g. sitemap.xml. Its template is named like its slug.
+ */
+$representation = function (string $slug, string $contentType, string $mime): Response {
+	$page = new Page([
+		'slug' => $slug,
+		'template' => $slug,
+	]);
+
+	return new Response($page->render([], $contentType), $mime);
+};
+
 App::plugin('wagnerwagner/site', [
 	'options' => [
 		'countryList' => $countryList,
@@ -169,16 +182,17 @@ App::plugin('wagnerwagner/site', [
 			],
 		],
 	],
+	// The virtual pages of `$representation` have no HTML. Kirby looks up a
+	// representation through the template of the same name, so it points there.
+	'templates' => [
+		'llms' => __DIR__ . '/../../templates/llms.txt.php',
+		'sitemap' => __DIR__ . '/../../templates/sitemap.xml.php',
+	],
 	'components'	 => include __DIR__ . '/extensions/components.php',
 	'routes' => [
 		[
 			'pattern' => 'sitemap.xml',
-			'action' => function () {
-				return new Page([
-					'slug' => 'sitemap',
-					'template' => 'sitemap',
-				]);
-			},
+			'action' => fn () => $representation('sitemap', 'xml', 'application/xml'),
 		],
 		[
 			/**
@@ -188,9 +202,7 @@ App::plugin('wagnerwagner/site', [
 			 * @see https://llmstxt.org
 			 */
 			'pattern' => 'llms.txt',
-			'action' => function () {
-				return new Response(Llms::index(), 'text/plain');
-			},
+			'action' => fn () => $representation('llms', 'txt', 'text/plain'),
 		],
 		[
 			/**
@@ -199,24 +211,6 @@ App::plugin('wagnerwagner/site', [
 			'pattern' => 'reference/api/models/merx.d.ts',
 			'action' => function () {
 				return new Response(TypeScript::declarations(), 'text/plain');
-			},
-		],
-		[
-			/**
-			 * Markdown representation of a documentation page, e.g.
-			 * /guide/getting-started/installation.md
-			 */
-			'pattern' => '(:all).md',
-			'action' => function (string $id) {
-				$page = Llms::find($id);
-
-				// Not a documentation page: let Kirby handle the
-				// request, which ends in the error page.
-				if ($page === null) {
-					return null;
-				}
-
-				return new Response(Llms::page($page), 'text/markdown');
 			},
 		],
 	],
