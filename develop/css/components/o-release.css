@@ -31,19 +31,25 @@
 	padding-block: var(--size-900);
 	display: grid;
 	justify-items: start;
-	grid-template-columns: repeat(3, 1fr);
 	grid-auto-flow: dense;
 	row-gap: var(--size-600);
 	column-gap: var(--size-800);
-	align-items: end;
 
-	> div {
-		grid-column-start: 2;
-		grid-column-end: span 2;
-	}
 	> .o-release__title {
 		grid-column-start: 1;
 		justify-self: start;
+	}
+
+	@media (min-width: 28em) {
+		grid-template-columns: repeat(3, 1fr);
+
+		> div {
+			grid-column-start: 2;
+			grid-column-end: span 2;
+		}
+	}
+	@media (min-width: 48em) {
+		align-items: end;
 	}
 }
 
@@ -51,15 +57,11 @@
 	text-box: trim-both cap alphabetic;
 	margin-inline-start: -0.04em;
 	font-weight: 700;
-	font-size: calc(180rem / 16);
+	font-size: min(max(calc(180rem / 16), 40vw), calc(390rem / 16));
 	line-height: 1;
 	letter-spacing: -0.02em;
 	font-variant-alternates: var(--font-variant-alternates-display);
 	color: var(--color-brand);
-
-	@media (min-width: 64em) {
-		font-size: calc(390rem / 16);
-	}
 }
 
 .o-release__buttons {
