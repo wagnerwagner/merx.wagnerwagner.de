@@ -14,7 +14,7 @@ Text:
 
 Merx 2 renames a lot and moves a few things to a different place entirely. Work through the sections below in order; each one is independent.
 
-## Order page model
+## Page models
 
 The abstract model is gone. Extend the class instead.
 
@@ -30,17 +30,28 @@ class OrderPage extends \Wagnerwagner\Merx\OrderPage
 }
 ```
 
+Merx 2 brings a model for products as well. If you have a `/site/models/product.php`, let it extend [`\Wagnerwagner\Merx\ProductPage`](/reference/classes/product-page) instead of `Page`, or `price()`, `stock()` and `tax()` are missing.
+
+Delete a `/site/models/orders.php` of your own. It replaces the model Merx registers for the orders page, which keeps the list of all orders, and with it their secret URLs, out of `$site->index()`.
+
 ## Options
 
 Every option moved namespace.
 
 `ww.merx.[name]` → [`wagnerwagner.merx.[name]`](/reference/options)
 
-Three are gone. `currency` and `currencySymbol` are replaced by [pricing rules](/guide/configuration/currencies), which set the currency per rule instead of once for the whole shop. `successPage` is replaced by the [API](/guide/api/concept) — see *The success page* below.
+Some are gone.
+
+- `currency` is replaced by [pricing rules](/guide/configuration/currencies), which set the currency per rule instead of once for the whole shop.
+- `currencySymbol`, `currencyPositionPrecedes`, `currencySeparateBySpace`, `currencyDecimalPoint` and `currencyThousandsSeparator` are replaced by the locale, which formats every price, see [Number formatting](/guide/configuration/localization#number-formatting).
+- `cart.fields` is gone: every item keeps its page, so read the fields from `$item->page`.
+- `successPage` is replaced by the [API](/guide/api/concept) — see *The success page* below.
 
 `stripe.webhook_signing_secret` is split into [`stripe.test.webhook_signing_secret`](/reference/options/config-options/stripe-test-webhook-signing-secret) and [`stripe.live.webhook_signing_secret`](/reference/options/config-options/stripe-live-webhook-signing-secret), like the keys.
 
-Everything else is new, including [`license`](/reference/options/config-options/license), which every shop that takes real orders needs. The [config options reference](/reference/options/config-options) lists them all.
+Everything else is new. The [config options reference](/reference/options/config-options) lists them all.
+
+[`license`](/reference/options/config-options/license) keeps its name, but a Merx 1 license key is not valid for Merx 2: the Panel shows it as invalid. A shop that takes real orders needs a Merx 2 [license](/license).
 
 ## Products
 
@@ -68,6 +79,8 @@ Merx counts the [stock](/guide/getting-started/stock) itself. A `Stock` field ke
 
 `$page->stock()->toFloat()` → [`$page->stock()`](/reference/classes/product-page/stock)
 
+`price()` and `tax()` return objects, too. `$page->price()` is a [`Price`](/reference/classes/price). `$page->tax()` is the tax **amount** as a [`Tax`](/reference/classes/tax), not the rate any more: for “incl. 19 % VAT”, use `$page->tax()?->rate()`.
+
 ## Hooks
 
 `initializePayment:before` → [`initializeOrder:before`](/reference/options/hooks/initialize-order-before)
@@ -80,6 +93,8 @@ Merx counts the [stock](/guide/getting-started/stock) itself. A `Stock` field ke
 The single `ww.merx.cart` hook is gone. It fired whenever a cart was built; there is now one pair of hooks per operation.
 
 `cart` → [`cart.add:after`](/reference/options/hooks/cart-add-after), [`cart.remove:after`](/reference/options/hooks/cart-remove-after) and [`cart.updateItem:after`](/reference/options/hooks/cart-update-item-after)
+
+These run when the cart changes. Code that has to run whenever a cart is built, like the old hook, goes into [`cart.create:after`](/reference/options/hooks/cart-create-after).
 
 Apart from that, there are many more [new hooks](/reference/options/hooks).
 
@@ -100,6 +115,13 @@ kirby()->session()->set(Merx::$errorSessionKey, [
 ```
 
 `Merx::calculateNet` and `Merx::getFieldError` are gone without a replacement. Net prices are part of [`Price`](/reference/classes/price) now, and field errors come back from the [checkout endpoint](/reference/api/routes/shop-checkout-post) as JSON.
+
+The global functions are gone, apart from `merx()` and `cart()`.
+
+`formatPrice()` → [`Merx::formatCurrency()`](/reference/classes/merx/format-currency)
+`formatIBAN()` → [`Merx::formatIBAN()`](/reference/classes/merx/format-i-b-a-n)
+`calculateTax()` → [`Merx::calculateTax()`](/reference/classes/merx/calculate-tax), with the rate as a decimal
+`productList()` → [`new ProductList()`](/reference/classes/product-list)
 
 `formatCurrency` takes a currency, where `formatPrice` used the global option. You can wrap it.
 
@@ -124,6 +146,8 @@ if (!function_exists('formatPrice')) {
 `$cart->getTaxRates()` → [`$cart->taxRates()`](/reference/classes/cart/tax-rates)
 
 `getFormattedItems()` is gone. Items format themselves — see *Reading cart items* below.
+
+The cart is stored under a different session key, so carts that visitors filled before the upgrade are empty afterwards.
 
 ### Adding to the cart
 
@@ -166,19 +190,104 @@ Cart items were arrays. They are [`ListItem`](/reference/classes/list-item) obje
 
 The order number is stored on the page now. Merx 1 derived it from the page’s sorting number, so it changed when the order was re-sorted. You can replace how it is built with the [`orderNumber`](/reference/options/config-options/order-number) option.
 
-### Existing orders
+## Existing orders
 
-Merx does not migrate the orders you already have. Rename their fields yourself, or leave them as they are if you only keep them for the record.
+Merx does not migrate the orders you already have, and Merx 2 cannot read them as Merx 1 wrote them. This is what changed:
 
-`Invoicedate` → `Datecreated`
-`Paiddate` → `Datepaid`
-`Paymentmethod` → `Paymentgateway`
+- `Invoicedate` → `Datecreated`, `Paymentmethod` → `Paymentgateway`
+- `Paymentcomplete` is gone. An order is paid once it has a `Datepaid`, which was `Paiddate` (or `Payeddate` before Merx 1.7).
+- The order number is a field now, `Ordernumber`. Without it an order stays untitled. Merx 1 showed the sorting number with five digits, `00042`.
+- Every entry in `Items` needs a `type` — `product` for anything you sell, where Merx 1 wrote `template`. Its tax rate is `taxrate` as a decimal (`0.19`), not `taxRate` in percent (`19`), and it needs a `currency`.
+- `Paymentdetails` held the provider’s whole response, including the customer’s personal data. Merx 2 keeps a short [record](/reference/classes/payment-details/create). Its `provider` is what the Panel links to the payment with.
+- Merx 2 keeps an order in the default language only.
 
-`Paymentcomplete` is gone. An order is paid once it has a `Datepaid`.
+The script below does all of it. It writes the content files directly: an update through Kirby would run the hooks, and every paid order would send its “paid” email again. Back up `/content` first, set your currency, and run it once with `php migrate-orders.php`.
 
-Every entry in `Items` needs a `type` — `product` for anything you sell. Merx 1 wrote `template` instead.
+```php title="/migrate-orders.php"
+<?php
 
-And because the order number is a field now, an order without `Ordernumber` stays untitled.
+use Kirby\Cms\App;
+use Kirby\Data\Txt;
+use Kirby\Data\Yaml;
+use Kirby\Filesystem\F;
+use Wagnerwagner\Merx\PaymentDetails;
+
+require __DIR__ . '/kirby/bootstrap.php';
+
+$kirby = new App();
+$currency = 'EUR';
+$language = $kirby->defaultLanguage()?->code();
+$suffix = $language === null ? '.txt' : '.' . $language . '.txt';
+
+foreach (glob($kirby->site()->ordersPage()->root() . '/*_*/order*.txt') as $file) {
+	// Merx keeps an order in the default language only
+	if (str_ends_with($file, $suffix) === false) {
+		F::remove($file);
+		continue;
+	}
+
+	$data = Txt::decode(F::read($file));
+	if (isset($data['datecreated']) === true) {
+		continue;
+	}
+
+	$isPaid = ($data['paymentcomplete'] ?? '') === 'true';
+	$data['datecreated'] = $data['invoicedate'] ?? '';
+	// Merx 1 wrote `Payeddate` up to version 1.6
+	$datePaid = ($data['paiddate'] ?? '') ?: ($data['payeddate'] ?? '') ?: $data['datecreated'];
+	$data['datepaid'] = $isPaid ? $datePaid : '';
+	$data['paymentgateway'] = $data['paymentmethod'] ?? '';
+	// What `invoiceNumber()` returned: the sorting number with five digits
+	$data['ordernumber'] = str_pad(strtok(basename(dirname($file)), '_'), 5, '0', STR_PAD_LEFT);
+
+	$data['items'] = Yaml::encode(array_map(fn (array $item): array => [
+		// Long values were written as folded strings, which end with a line break
+		'key' => trim($item['key']),
+		'title' => $item['title'],
+		'quantity' => (float)$item['quantity'],
+		'type' => $item['template'] === 'shipping' ? 'shipping' : 'product',
+		'price' => (float)$item['price'],
+		'taxrate' => (float)$item['taxRate'] / 100,
+		'currency' => $currency,
+	], Yaml::decode($data['items'] ?? '')));
+
+	// Merx 1 kept the provider’s whole response, with the customer’s personal data
+	$details = Yaml::decode($data['paymentdetails'] ?? '');
+	if (str_starts_with($details['id'] ?? '', 'pi_') === true) {
+		$data['paymentdetails'] = Yaml::encode(PaymentDetails::create([
+			'provider' => 'stripe',
+			'id' => $details['id'],
+			'status' => $details['status'] ?? null,
+			'amount' => $details['amount'] / 100,
+			'currency' => strtoupper($details['currency']),
+			'created' => date('c', $details['created']),
+			'livemode' => $details['livemode'] === true,
+		]));
+	} elseif (isset($details['purchase_units']) === true) {
+		$data['paymentdetails'] = Yaml::encode(PaymentDetails::fromPayPalOrder($details));
+	}
+
+	unset($data['invoicedate'], $data['paiddate'], $data['payeddate'], $data['paymentcomplete'], $data['paymentmethod']);
+	F::write($file, Txt::encode($data));
+}
+```
+
+Merx 1’s payment method names, such as `credit-card-sca`, stay in `Paymentgateway` as a record. Merx 2 doesn’t look them up.
+
+New orders count on from the last one. To keep the five digits, pad them in the [`orderNumber`](/reference/options/config-options/order-number) option, or `00042` is followed by `43`.
+
+```php title="/site/config/config.php"
+<?php
+
+use Wagnerwagner\Merx\OrderPage;
+
+return [
+	'wagnerwagner.merx.orderNumber' => function (OrderPage $virtualOrderPage): string {
+		$lastOrder = $virtualOrderPage->siblings()->listed()->last();
+		return str_pad((string)(($lastOrder?->orderNumber()->toInt() ?? 0) + 1), 5, '0', STR_PAD_LEFT);
+	},
+];
+```
 
 ## Blueprints
 
@@ -192,6 +301,8 @@ Where you extend one of them, change the name and move it from `sections:` to `f
 
 > [!IMPORTANT]
 > If you replaced one of them with a file of your own, such as `/site/blueprints/sections/orders.yml`, move it to `/site/blueprints/fields/` and turn it into a field: `type: fields` becomes `type: group`, `type: pages` becomes `type: pagelist` and `headline` becomes `label`. A file left in `sections/` is ignored without an error.
+
+[`fields/price`](/reference/blueprints/fields/price) is a `prices` field now, with one price per [pricing rule](/guide/configuration/prices). Delete a `/site/blueprints/fields/price.yml` of your own: it replaces the one of Merx without a warning. Prices stored as a plain number keep working.
 
 [`layouts/order`](/reference/blueprints/layouts/order) also has a Personal data tab now. It shows [`fields/personal-data`](/reference/blueprints/fields/personal-data), and that is where your customer fields go — see [Validate checkout](/guide/getting-started/validate-checkout). Merx stores only the fields of the order blueprint: a field your checkout form sends that your blueprint lacks is dropped. Kirby’s [Sections become fields](https://getkirby.com/releases/6/blueprints#sections-become-fields) covers your other blueprints.
 

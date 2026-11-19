@@ -6,9 +6,11 @@ use Closure;
 use Kirby\Api\Api;
 use Kirby\Cms\App;
 use Kirby\Cms\ModelWithContent;
+use Kirby\Filesystem\Dir;
 use Throwable;
 use Wagnerwagner\Merx\Cart;
 use Wagnerwagner\Merx\ListItem;
+use Wagnerwagner\Merx\Merx;
 use Wagnerwagner\Merx\Price;
 
 /**
@@ -92,11 +94,11 @@ class ApiExamples
 			'quantity' => 1,
 		],
 		'PATCH cart' => [
-			'key' => 'products/cozy-socks',
+			'key' => 'page://bP3wZs8HdE6uJa1Q',
 			'quantity' => 3,
 		],
 		'DELETE cart' => [
-			'key' => 'products/cozy-socks',
+			'key' => 'page://bP3wZs8HdE6uJa1Q',
 		],
 		'POST checkout' => [
 			'paymentGateway' => 'invoice',
@@ -115,14 +117,18 @@ class ApiExamples
 	 * It shares the roots of `$kirby`, and with them its blueprints, models
 	 * and plugins, but none of its config files. So the examples are the
 	 * same on every host, whatever its config or `env.php` say.
+	 *
+	 * A successful checkout writes an order draft. It goes to `$contentRoot`,
+	 * a temporary folder, rather than into the site’s content.
 	 */
-	protected static function app(App $kirby): App
+	protected static function app(App $kirby, string $contentRoot): App
 	{
 		return new App([
 			'roots' => [
 				...$kirby->roots()->toArray(),
 				// Does not exist, so no config file is loaded
 				'config' => __DIR__ . '/api-examples-config',
+				'content' => $contentRoot,
 			],
 			'components' => [
 				'session::store' => fn () => new MemorySessionStore(),
@@ -142,6 +148,10 @@ class ApiExamples
 						'currency' => 'EUR',
 						'taxIncluded' => true,
 					],
+				],
+				// The checkout examples pay by invoice
+				'wagnerwagner.merx.gateways' => [
+					'invoice' => true,
 				],
 				'wagnerwagner.merx.taxRules' => [
 					'default' => [
@@ -253,7 +263,7 @@ class ApiExamples
 		$cart->add(new ListItem(
 			key: 'shipping',
 			title: 'Shipping',
-			price: new Price(price: 4.9, tax: 0.19, currency: $cart->currency()),
+			price: new Price(price: 4.9, tax: 0.19, pricingRule: Merx::pricingRule()),
 			type: 'shipping',
 		));
 	}
@@ -380,7 +390,8 @@ class ApiExamples
 	public static function run(Closure $callback, bool $cart = true): mixed
 	{
 		$kirby = App::instance();
-		$fixture = static::app($kirby);
+		$contentRoot = sys_get_temp_dir() . '/merx-api-examples-' . bin2hex(random_bytes(8));
+		$fixture = static::app($kirby, $contentRoot);
 
 		try {
 			// Sets the locale for prices, as an API request would
@@ -399,6 +410,7 @@ class ApiExamples
 			// The fixture replaced both, so pages loaded later would get its urls
 			App::instance($kirby);
 			ModelWithContent::$kirby = $kirby;
+			Dir::remove($contentRoot);
 		}
 	}
 }

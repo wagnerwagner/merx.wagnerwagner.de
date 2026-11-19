@@ -110,7 +110,7 @@ checkoutForm.addEventListener('submit', async (event) => {
 
 [Validate checkout](/guide/getting-started/validate-checkout) shows how to display the validation errors next to their fields.
 
-Stripe asks for 3-D Secure in a dialog of its own when the bank requires it, so `confirmCardPayment()` returns only once the payment is settled. The customer then goes to the order page, which completes the order as described in the [Stripe guide](/guide/payment-gateways/stripe#submit-the-payment-to-stripe).
+Stripe asks for 3-D Secure in a dialog of its own when the bank requires it, so `confirmCardPayment()` returns only once the payment is settled. The customer then goes to `redirectUrl`, which completes the order and leads on to the order page, as described in the [Stripe guide](/guide/payment-gateways/stripe#submit-the-payment-to-stripe).
 
 ## Loading Stripe.js only when needed
 

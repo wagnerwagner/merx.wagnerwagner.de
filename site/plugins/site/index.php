@@ -92,8 +92,11 @@ App::plugin('wagnerwagner/site', [
 		 * so the billing country has to be the one the cart was priced for.
 		 */
 		'wagnerwagner.merx.initializeOrder:before' => function (Cart $cart, array $data) {
-			// Before the customer pays: Merx would not accept a key it does not know
-			if (Licenses::available((int)$cart->get('merx-license')?->quantity) === false) {
+			// Before the customer pays: Merx would not accept a key it does not know.
+			// A cart without a license, such as the one of the API reference
+			// examples, needs no key.
+			$quantity = (int)$cart->get('merx-license')?->quantity;
+			if ($quantity > 0 && Licenses::available($quantity) === false) {
 				throw new Kirby\Exception\Exception(
 					key: 'site.checkout.licenses',
 					fallback: 'We cannot issue license keys at the moment. Please write to ' . option('merx-email') . '.',

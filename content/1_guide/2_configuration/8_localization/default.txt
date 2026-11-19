@@ -47,6 +47,8 @@ return [
 ];
 ```
 
+Use `extensions` for this, not the `translations` of a language file in `/site/languages/`: Kirby doesn’t apply those to the strings of API responses, so your customers wouldn’t see them.
+
 The messages for invalid checkout fields, such as `error.validation.required`, are Kirby’s. Override them the same way if they don’t fit your shop.
 
 ### Adding a language
