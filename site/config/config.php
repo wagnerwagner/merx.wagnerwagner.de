@@ -40,7 +40,8 @@ return [
 			'root' => __DIR__ . '/../../public/pages-cache',
 			// Kirby neither writes the cache for a logged-in user
 			'ignore' => function ($page) {
-				return $page->template()->name() === 'checkout' || $page->kirby()->user() !== null;
+				// The search reads the query, which the static cache does not see
+				return in_array($page->template()->name(), ['checkout', 'search'], true) || $page->kirby()->user() !== null;
 			}
 		],
 	],
