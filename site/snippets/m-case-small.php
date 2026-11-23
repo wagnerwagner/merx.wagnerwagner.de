@@ -4,6 +4,7 @@
 use Kirby\Cms\Url;
 
 $link = $item->link()->isNotEmpty() ? $item->link()->toString() : null;
+/** @var \Kirby\Cms\File */
 $screenshot = $item->screenshot()->toFile();
 
 if ($screenshot === null) {
@@ -22,18 +23,33 @@ if ($screenshot === null) {
 				'height' => round(740 * 0.7 * 1.5),
 				'crop' => 'top',
 			])->url() ?>"
-			srcset="<?= $screenshot->thumb([
-				'width' => 740 * 2,
-				'height' => round(740 * 0.7 * 1.5 * 2),
-				'crop' => 'top',
-			])->url() ?> <?= 740 * 2 ?>w"
-			sizes="
-				(min-width: 50em) 46.25em,
-				calc(100vw - 2rem)
-			"
+			srcset="<?= $screenshot->srcset([
+				'172w' => [
+					'width' => 172,
+					'height' => round(172 * 0.7 * 1.5),
+					'crop' => 'top',
+				],
+				'480w' => [
+					'width' => 480,
+					'height' => round(480 * 0.7 * 1.5),
+					'crop' => 'top',
+				],
+				'740w' => [
+					'width' => 740,
+					'height' => round(740 * 0.7 * 1.5 * 2),
+					'crop' => 'top',
+				],
+				'1480w' => [
+					'width' => 740 * 2,
+					'height' => round(740 * 2 * 0.7 * 1.5 * 2),
+					'quality' => 70,
+					'crop' => 'top',
+				],
+			]) ?>"
 			width="740"
 			height="<?= round(740 * 0.7 * 1.5) ?>"
 			loading="lazy"
+			sizes="auto"
 			alt="Screenshot of “<?= $item->title() ?>”"
 		>
 		<figcaption>
