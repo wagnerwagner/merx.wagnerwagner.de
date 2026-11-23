@@ -32,6 +32,11 @@
 							'height' => round(480 * (404 / 740)),
 							'crop' => 'top',
 						],
+						'540w' => [
+							'width' => 540,
+							'height' => round(540 * (404 / 740)),
+							'crop' => 'top',
+						],
 						'740w' => [
 							'width' => 740,
 							'height' => 404,
