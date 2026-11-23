@@ -24,14 +24,14 @@ if ($screenshot === null) {
 				'crop' => 'top',
 			])->url() ?>"
 			srcset="<?= $screenshot->srcset([
-				'172w' => [
-					'width' => 172,
-					'height' => round(172 * 0.7 * 1.5),
+				'320w' => [
+					'width' => 320,
+					'height' => round(320 * 0.7 * 1.5),
 					'crop' => 'top',
 				],
-				'480w' => [
-					'width' => 480,
-					'height' => round(480 * 0.7 * 1.5),
+				'540w' => [
+					'width' => 540,
+					'height' => round(540 * 0.7 * 1.5),
 					'crop' => 'top',
 				],
 				'740w' => [

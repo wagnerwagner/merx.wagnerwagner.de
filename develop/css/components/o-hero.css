@@ -45,6 +45,7 @@
 }
 
 .o-hero__image {
+	align-self: center;
 	> a {
 		display: block;
 	}

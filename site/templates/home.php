@@ -1,4 +1,4 @@
-
+<?php /** @var \Kirby\Cms\Page $page */ ?>
 <?php snippet('head') ?>
 <body>
 	<?php snippet('o-header') ?>
@@ -26,7 +26,24 @@
 			<?php /** @var \Kirby\Cms\File $heroImage */ ?>
 			<div class="o-hero__image">
 				<a href="https://starterkit.merx.wagnerwagner.de" rel="noopener">
-					<img src="<?= $heroImage->crop(860, 478, 'top')->url() ?>" srcset="<?= $heroImage->crop(860 * 2, 478 * 2, ['quality' => 70, 'crop' => 'top'])->url() ?> 2x" alt="<?= $heroImage->alt() ?>" width="860" height="478" fetchpriority="high">
+					<img src="<?= $heroImage->crop(740, 404, 'top')->url() ?>" srcset="<?= $heroImage->srcset([
+						'480w' => [
+							'width' => 480,
+							'height' => round(480 * (404 / 740)),
+							'crop' => 'top',
+						],
+						'740w' => [
+							'width' => 740,
+							'height' => 404,
+							'crop' => 'top',
+						],
+						'1720w' => [
+							'width' => 740 * 2,
+							'height' => 404 * 2,
+							'quality' => 70,
+							'crop' => 'top',
+						],
+					]) ?>" alt="<?= $heroImage->alt() ?>" sizes="(min-width: 1024px) 740px, calc(100vw - 40px)" width="860" height="478" fetchpriority="high">
 				</a>
 				</div>
 			<?php endif; ?>
