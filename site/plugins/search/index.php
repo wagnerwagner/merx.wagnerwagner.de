@@ -88,7 +88,6 @@ App::plugin(
 								$results = pages($cachedPages);
 								serverTimingEnd('search.cache');
 							} else {
-								/** @var Pages $results */
 								serverTimingStart('search.index');
 								$results = $kirby->site()->index()->listed();
 								serverTimingEnd('search.index');
