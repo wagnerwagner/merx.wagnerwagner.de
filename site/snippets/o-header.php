@@ -14,6 +14,7 @@ use Kirby\Cms\Html;
 			'class' => 'a-button-search',
 			'data-state' => page('search')->isOpen() ? 'open' : null,
 			'popovertarget' => 'dialog-search',
+			'title' => 'Open search',
 		]) ?>
 		<div class="m-search-dialog" id="dialog-search" popover="auto">
 			<div>

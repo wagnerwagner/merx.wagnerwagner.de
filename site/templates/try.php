@@ -67,7 +67,9 @@ git submodule add https://github.com/wagnerwagner/merx.git site/plugins/merx</co
 				</div>
 				<ul>
 					<?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
-						<?php snippet('m-case-small', ['item' => $item]) ?>
+						<li>
+							<?php snippet('m-case-small', ['item' => $item]) ?>
+						</li>
 					<?php endforeach ?>
 				</ul>
 				<div>

@@ -23,9 +23,10 @@
 				</div>
 			</div>
 			<?php if ($heroImage = $page->heroImage()->toFile()): ?>
+			<?php /** @var \Kirby\Cms\File $heroImage */ ?>
 			<div class="o-hero__image">
 				<a href="https://starterkit.merx.wagnerwagner.de" rel="noopener">
-					<img src="<?= $heroImage->crop(860, 478, 'top')->url() ?>" srcset="<?= $heroImage->crop(860 * 2, 478 * 2, 'top')->url() ?> 2x" alt="<?= $heroImage->alt() ?>">
+					<img src="<?= $heroImage->crop(860, 478, 'top')->url() ?>" srcset="<?= $heroImage->crop(860 * 2, 478 * 2, ['quality' => 70, 'crop' => 'top'])->url() ?> 2x" alt="<?= $heroImage->alt() ?>" width="860" height="478" fetchpriority="high">
 				</a>
 				</div>
 			<?php endif; ?>
@@ -46,7 +47,9 @@
 				</h2>
 				<ul>
 					<?php foreach ($casesPage->children()->listed()->shuffle()->limit(4) as $item): ?>
-						<?php snippet('m-case-small', compact('item')) ?>
+						<li>
+							<?php snippet('m-case-small', compact('item')) ?>
+						</li>
 					<?php endforeach; ?>
 				</ul>
 				<div>
