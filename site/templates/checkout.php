@@ -58,6 +58,11 @@ $license = $cart->findBy('key', 'merx-license');
 			</aside>
 
 			<div class="m-form-checkout">
+				<?php snippet('m-callout', [
+					'theme' => 'warning',
+					'html' => '<p>The shop isn’t live yet. You can try the checkout with test payments, but no real order will be placed. The price may still change.</p>',
+				]) ?>
+
 				<fieldset>
 					<legend class="a-heading" data-size="small">Contact information</legend>
 					<label class="m-field">

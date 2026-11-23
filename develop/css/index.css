@@ -12,6 +12,7 @@
 @import 'foundation/DEBUG.css';
 
 /* Atoms */
+@import 'components/a-banner.css';
 @import 'components/a-button-hamburger.css';
 @import 'components/a-button-search.css';
 @import 'components/a-button.css';

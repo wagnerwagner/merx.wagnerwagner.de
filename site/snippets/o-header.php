@@ -5,6 +5,7 @@ use Kirby\Cms\Html;
 /** @var \Kirby\Cms\Site $site */
 ?>
 <header class="o-header">
+	<p class="a-banner">This is a public preview of Merx 2.</p>
 	<div class="o-header__center">
 		<a href="<?= $site->url() ?>" class="a-logo-header">
 			<img src="<?= url('assets/images/logo.svg') ?>" width="64" height="19" alt="<?= $site->title() ?>">

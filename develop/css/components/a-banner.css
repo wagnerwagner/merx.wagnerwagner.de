@@ -1,0 +1,19 @@
+/* Single line on top of the header, see --height-banner */
+.a-banner {
+	block-size: var(--height-banner);
+	margin-inline: calc(var(--gap-inline) * -1);
+	padding-inline: var(--gap-inline);
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	font: var(--font-label-medium);
+	text-align: center;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: var(--color-content-primary-inverse);
+	background-color: var(--color-background-brand-inverse);
+
+	@media print {
+		display: none;
+	}
+}

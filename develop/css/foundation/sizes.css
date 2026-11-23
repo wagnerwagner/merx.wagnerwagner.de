@@ -31,7 +31,9 @@
 	--max-width-content: calc(1380rem / 16);
 	--max-width-text: calc(660rem / 16);
 
-	--height-header: calc(60rem / 16);
+	/* The preview banner is part of the sticky header. Set to 0 to remove it. */
+	--height-banner: calc(32rem / 16);
+	--height-header: calc(60rem / 16 + var(--height-banner));
 
 	/* Z-index */
 	--z-index-main-wrapper: 20;

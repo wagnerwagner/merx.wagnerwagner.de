@@ -5,11 +5,14 @@
 	block-size: var(--height-header);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
 	padding-inline: var(--gap-inline);
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
 	background: inherit;
 }
 
 .o-header__center {
 	block-size: 100%;
+	inline-size: 100%;
 	max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
 	margin-inline: auto;
 	border-inline: var(--border-size-small) solid var(--color-border-tertiary);
