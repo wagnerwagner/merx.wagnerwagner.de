@@ -38,8 +38,9 @@ return [
 			'active' => true,
 			'type' => 'static',
 			'root' => __DIR__ . '/../../public/pages-cache',
+			// Kirby neither writes the cache for a logged-in user
 			'ignore' => function ($page) {
-				return $page->template()->name() === 'checkout';
+				return $page->template()->name() === 'checkout' || $page->kirby()->user() !== null;
 			}
 		],
 	],
