@@ -47,6 +47,13 @@ class OCheckout {
 
 		this.formElement.addEventListener('submit', (event) => this.submit(event));
 
+		// Back from PayPal, the browser may restore the page with the spinner
+		window.addEventListener('pageshow', (event) => {
+			if (event.persisted) {
+				this.setBusy(false);
+			}
+		});
+
 		// Right away, because only Stripe knows whether to offer Apple Pay and Google Pay
 		this.loadStripe().then(
 			// Without them, the other payment methods still work
@@ -168,9 +175,14 @@ class OCheckout {
 		this.formElement.querySelector('[data-cart="total"]').textContent = cart.total?.price;
 	}
 
-	/** @param {boolean} isBusy */
+	/**
+	 * While a request runs, the submit button is a spinner
+	 *
+	 * @param {boolean} isBusy
+	 */
 	setBusy(isBusy) {
 		this.submitElement.disabled = isBusy;
+		this.submitElement.setAttribute('aria-busy', String(isBusy));
 		this.cartElement.toggleAttribute('data-busy', isBusy);
 	}
 
@@ -206,6 +218,7 @@ class OCheckout {
 		await this.cartUpdate;
 
 		this.setBusy(true);
+		let isLeaving = false;
 
 		try {
 			const formData = new FormData(this.formElement);
@@ -233,8 +246,9 @@ class OCheckout {
 				if (clientSecret !== undefined) {
 					await confirmStripePayment(clientSecret, json.redirectUrl, formData);
 				}
-				// The order page, or PayPal
+				// The order page, or PayPal. The spinner stays until it has loaded.
 				window.location.href = json.redirectUrl;
+				isLeaving = true;
 				return true;
 			}
 
@@ -246,7 +260,9 @@ class OCheckout {
 		} catch (error) {
 			this.showError(error.message ?? error);
 		} finally {
-			this.setBusy(false);
+			if (isLeaving === false) {
+				this.setBusy(false);
+			}
 		}
 
 		return false;

@@ -109,4 +109,23 @@
 	&:where(:focus-visible, :hover) {
 		background-color: hsl(from var(--_background-color) h s calc(l - 3));
 	}
+
+	/* A spinner in place of the label, while the button waits for the server */
+	&[aria-busy="true"] {
+		position: relative;
+		color: transparent;
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			margin: auto;
+			inline-size: 1.25em;
+			block-size: 1.25em;
+			border: 0.15em solid var(--_color);
+			border-inline-end-color: transparent;
+			border-radius: 50%;
+			animation: rotate var(--duration-rotate-loader) linear infinite;
+		}
+	}
 }
