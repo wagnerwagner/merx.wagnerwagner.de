@@ -2,12 +2,13 @@
 .a-type {
 	--_background-color: var(--color-background-tertiary);
 	--_border-color: hsl(from var(--_background-color) h calc(s - 5) calc(l - 7));
-	--_padding-inline: calc(var(--size-150) - var(--border-size-xsmall));
+	--_padding-inline: calc(var(--size-100) - var(--border-size-xsmall));
 
 	display: inline-flex;
 	gap: var(--_padding-inline);
 	padding-inline: var(--_padding-inline);
 	font: var(--font-code-small);
+	font-size: 0.81em;
 	border: var(--border-size-xsmall) solid var(--_border-color);
 	border-radius: var(--border-radius-xsmall);
 	background-color: var(--_background-color);
