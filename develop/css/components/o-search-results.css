@@ -1,12 +1,14 @@
 .o-search-results {
 	z-index: var(--z-index-main-wrapper);
 	background: inherit;
+	padding-inline: var(--gap-inline);
 	border-block-end: var(--border-size-small) solid var(--color-border-tertiary);
 
 	> div {
 		max-inline-size: calc(var(--max-width-content) + var(--border-size-small));
 		min-block-size: calc(100vh - var(--height-header));
 		margin-inline: auto;
+		padding-inline: var(--gap-inline);
 		border-inline: var(--border-size-small) solid var(--color-border-tertiary);
 		padding-block-end: max(var(--gap-block-header), 50vh);
 	}

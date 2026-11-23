@@ -25,9 +25,15 @@ RewriteRule (.*) https://merx.wagnerwagner.de/$1 [R=301,L]
 
 RewriteBase /
 
+# Not with a Kirby session, which a Panel user has, and not for a preview
+# link, which may be opened without one
+RewriteCond %{HTTP_COOKIE} !kirby_session
+RewriteCond %{QUERY_STRING} !(^|&)_preview=
 RewriteCond %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI}/index.html -f
 RewriteRule ^(.*) %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI}/index.html [END]
 
+RewriteCond %{HTTP_COOKIE} !kirby_session
+RewriteCond %{QUERY_STRING} !(^|&)_preview=
 RewriteCond %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI} -f
 RewriteRule ^(.*) %{DOCUMENT_ROOT}/pages-cache/%{SERVER_NAME}/pages/%{REQUEST_URI} [END]
 
