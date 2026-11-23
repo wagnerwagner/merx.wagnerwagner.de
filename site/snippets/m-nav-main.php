@@ -37,6 +37,7 @@ use Kirby\Cms\Html;
 				'class' => 'a-nav-item-primary',
 				'data-variant' => 'step',
 				'data-state' => page('showcase')->isOpen() ? 'open' : null,
+				'title' => page('showcase')->title(),
 			]) ?>
 		</li>
 		<li>
